@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float shootDist;
     private bool isShooting;
     [SerializeField] private LayerMask ignoreMask;
-    public bool slowTime;
     private void Awake()
     {
 
@@ -54,15 +53,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (slowTime)
-        {
-            Time.timeScale = 0.1f;
-
-        }
-        else
-        {
-            Time.timeScale = 1;
-        }
+   
         Movement();
         Sprint();
     }
@@ -111,21 +102,26 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Shoot()
     {
         isShooting = true;
-
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreMask))
         {
-            IDamage damageRef;
-            if (hit.collider.TryGetComponent<IDamage>(out damageRef))
-            {
-                damageRef.TakeDamage(shootDamage);
-            }
-            
 
+            IHealth damageRef;
+            if (hit.collider.TryGetComponent<IHealth>(out damageRef))
+            {
+                damageRef.UpdateHealth(-shootDamage);
+            }
+            DrawSceneBulletTracer(true);
+
+
+        }
+        else
+        {
+
+        DrawSceneBulletTracer(false);
         }
 
 
-        DrawSceneBulletTracer(false);
         yield return new WaitForSeconds(shootRate);
         isShooting = false;
     }
