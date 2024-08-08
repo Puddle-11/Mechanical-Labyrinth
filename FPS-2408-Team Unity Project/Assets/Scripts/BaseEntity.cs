@@ -8,16 +8,19 @@ public class BaseEntity : MonoBehaviour, IHealth
 
     [SerializeField] private int maxHealth;
     private int currentHealth;
-    protected Renderer rendRef;
+   [SerializeField] protected Renderer rendRef;
     private Color originalCol;
     [Range(0.1f, 10f)]
     [SerializeField] private float damageFlashTime;
     // Start is called before Start (used to initialize variables inside an object, DO NOT use awake to interact with other objects or components, this will crash your unity project
     public virtual void Awake()
     {
-        if(!TryGetComponent<Renderer>(out rendRef))
+        if( rendRef == null)
         {
-            Debug.LogWarning("Failed to find renderer on " + gameObject.name);
+            if (!TryGetComponent<Renderer>(out rendRef))
+            {
+                Debug.LogWarning("Failed to find renderer on " + gameObject.name);
+            }
         }
         ResetHealth();
     }
@@ -71,6 +74,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void Death()
     {
         //default death case
+
         Destroy(gameObject);
     }
 

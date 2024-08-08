@@ -8,7 +8,7 @@ public class GlobalMethods : MonoBehaviour
     public static RaycastHit RaycastFromCam(LayerMask _ignoreMask, float _dist)
     {
         RaycastHit res;
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out res, _dist, ~_ignoreMask);
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out res, _dist, _ignoreMask);
 
         return res;
     }

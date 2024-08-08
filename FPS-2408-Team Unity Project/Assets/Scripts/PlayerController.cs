@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseEntity
 {
     private Vector3 move;
 
-
+    
     private CharacterController controllerRef;
     [Header("Walk Variables")]
     [Space]
@@ -23,11 +23,19 @@ public class PlayerController : MonoBehaviour
     [Space]
     [SerializeField] private float gravityStrength;
     private Vector3 playerVel;
-
-
-    private void Awake()
+    //for testing purposes only \/
+    [Header("Gun Variables")]
+    [Space]
+    [SerializeField] private bool isShooting;
+    [SerializeField] private float shootDist;
+    [SerializeField] private float shootSpeed;
+    [SerializeField] private int shootDamage;
+    [SerializeField] private LayerMask ignoreMask;
+   
+    
+   
+    public override void Awake()
     {
-
 
         if (!TryGetComponent<CharacterController>(out controllerRef))
         {
@@ -35,27 +43,22 @@ public class PlayerController : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
 
-
+        base.Start();
 
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
 
-        updateAimPoint();
+        base.Update();
         Movement();
         Sprint();
     }
-    private void updateAimPoint()
-    {
-
-
-
-    }
+  
     private void Movement()
     {
         //move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -78,12 +81,12 @@ public class PlayerController : MonoBehaviour
             playerVel.y = jumpHeight;
         }
         controllerRef.Move(playerVel * Time.deltaTime);
-        /*
+        
         if (Input.GetButton("Shoot") && !isShooting)
         {
             StartCoroutine(Shoot());
         }
-        */
+        
     }
     void Sprint()
     {
@@ -99,7 +102,7 @@ public class PlayerController : MonoBehaviour
             isSprinting = false;
         }
     }
-    /*
+    
 public IEnumerator Shoot()
 {
 
@@ -117,9 +120,12 @@ public IEnumerator Shoot()
 
 
 
-    yield return new WaitForSeconds(shootRate);
+    yield return new WaitForSeconds(shootSpeed);
     isShooting = false;
 }
-    */
 
+    public override void Death()
+    {
+        GameManager.instance.YouLose();
+    }
 }

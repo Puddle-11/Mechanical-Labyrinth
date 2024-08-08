@@ -27,25 +27,30 @@ public class CameraController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState  = CursorLockMode.Locked;
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        test.transform.position = AimPoint;
-        float yaw = Input.GetAxis("Mouse X") * sens;
-        float pitch = Input.GetAxis("Mouse Y") * sens;
-        rotX = invert ? rotX + pitch : rotX - pitch;
-        rotX = Mathf.Clamp(rotX, miny, maxy);
+        if (!GameManager.instance.GetStatePaused())
+        {
+            test.transform.position = AimPoint;
+            float yaw = Input.GetAxis("Mouse X") * sens;
+            float pitch = Input.GetAxis("Mouse Y") * sens;
+            rotX = invert ? rotX + pitch : rotX - pitch;
+            rotX = Mathf.Clamp(rotX, miny, maxy);
 
-        transform.localRotation = Quaternion.Euler(rotX, 0,0);
-        transform.parent.Rotate(Vector3.up * yaw);
-        UpdateAimPoint();
+            transform.localRotation = Quaternion.Euler(rotX, 0, 0);
+            transform.parent.Rotate(Vector3.up * yaw);
+            UpdateAimPoint();
+        }
     }
+    
     private void UpdateAimPoint()
     {
-        RaycastHit hit = GlobalMethods.RaycastFromCam(ignoreMask, aimDist);
+        RaycastHit hit = GlobalMethods.RaycastFromCam(~ignoreMask, aimDist);
+
+
         if (hit.collider != null)
         {
             AimPoint = hit.point;
@@ -55,4 +60,5 @@ public class CameraController : MonoBehaviour
             AimPoint = transform.position + Camera.main.transform.forward * aimDist;
         }
     }
+    
 }
