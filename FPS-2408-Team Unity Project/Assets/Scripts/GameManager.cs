@@ -24,10 +24,9 @@ public class GameManager : MonoBehaviour
     }
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
-
-        instance = this; 
+            instance = this;
         }
         else
         {
@@ -58,8 +57,8 @@ public class GameManager : MonoBehaviour
                 
             }
         }
-    
     }
+
     public void statePause()
     {
         isPause = !isPause;

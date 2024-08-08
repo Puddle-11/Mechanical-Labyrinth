@@ -41,6 +41,7 @@ public class PlayerController : BaseEntity
         {
             Debug.LogWarning("No character controller found, please assign a character controller to " + gameObject.name);
         }
+        base.Awake();
     }
     // Start is called before the first frame update
     public override void Start()
