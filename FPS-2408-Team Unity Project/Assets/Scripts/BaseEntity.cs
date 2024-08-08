@@ -56,13 +56,11 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void UpdateHealth(int _amount)
     {
         SetHealth(currentHealth + _amount);
-
     }
     #endregion
 
     private IEnumerator changeIndicator(Color _flashCol)
     {
-        Debug.Log("ran");
         //THIS METHOD WILL BREAK UNDER CERTAIN EDGE CASES, AND SHOULD NOT BE SHIPPED IN THE FINAL VERSION OF THE GAME
         originalCol = rendRef.material.color;
         rendRef.material.color = _flashCol;
