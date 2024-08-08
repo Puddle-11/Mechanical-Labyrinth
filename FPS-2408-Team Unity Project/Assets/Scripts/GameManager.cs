@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuActive;
     private bool isPause = false;
 
-    public GameObject playerRef;
-    public PlayerController playerControllerRef;
+    [HideInInspector] public GameObject playerRef;
+    [HideInInspector] public PlayerController playerControllerRef;
     [SerializeField] private TMP_Text enemyCountField;
     private int enemyCount;
     

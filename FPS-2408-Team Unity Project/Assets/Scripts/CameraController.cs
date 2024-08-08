@@ -12,7 +12,6 @@ public class CameraController : MonoBehaviour
     [Space]
     [SerializeField] private float aimDist;
     [SerializeField] private LayerMask ignoreMask;
-    public GameObject test;
 
     [Space]
     [Header("Camera variables")]
@@ -34,7 +33,6 @@ public class CameraController : MonoBehaviour
     {
         if (!GameManager.instance.GetStatePaused())
         {
-            test.transform.position = AimPoint;
             float yaw = Input.GetAxis("Mouse X") * sens;
             float pitch = Input.GetAxis("Mouse Y") * sens;
             rotX = invert ? rotX + pitch : rotX - pitch;
