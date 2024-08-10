@@ -122,17 +122,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef86f00bacb5cf740b14d187f9163672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 0
+  rendRef: {fileID: 0}
+  damageFlashTime: 0.1
+  damageMaterial: {fileID: 0}
   speed: 10
   sprintMod: 1.5
   jumpHeight: 10
   jumpMax: 1
   gravityStrength: 10
-  shootDamage: 1
-  shootRate: 0.2
-  shootDist: 100
-  ignoreMask:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!143 &6697057252526182692
 CharacterController:
   m_ObjectHideFlags: 0
@@ -264,6 +262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d417e92f24e99144899e2d68ae0de5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aimDist: 0
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 0
   sens: 4
   miny: -90
   maxy: 90
