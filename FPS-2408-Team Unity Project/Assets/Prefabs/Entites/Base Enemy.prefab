@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8332476692187792470}
   - component: {fileID: 1068871397348830645}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 0.1
+  coolDown: 0.5
   shootDamage: 1
   shootDist: 50
   shootPos: {fileID: 383249294428053187}

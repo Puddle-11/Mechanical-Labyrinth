@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 0.2
+  coolDown: 0.5
   shootDamage: 1
   shootDist: 50
   shootPos: {fileID: 8608076197571922819}
