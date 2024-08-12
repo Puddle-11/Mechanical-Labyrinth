@@ -50,7 +50,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3378003279343189044, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
       propertyPath: m_Name
-      value: SCAR Variant
+      value: W-SCAR
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713158538826080905, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713158538826080905, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6713158538826080905, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -83,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDown: 0.1
+  shotType: 0
   shootDamage: 1
   shootDist: 50
   shootPos: {fileID: 615494024158614979}
@@ -90,3 +103,5 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
+  burstDelay: 0
+  burstSize: 0
