@@ -31,31 +31,28 @@ public class LockOnDisplay : MonoBehaviour
         RaycastHit checkLineOfSight;
         if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,out checkLineOfSight ,Mathf.Infinity, ~GameManager.instance.projectileIgnore))
         {
-            if(checkLineOfSight.collider.GetComponent<IHealth>() != null || checkLineOfSight.collider.GetComponent<Pickup>() != null)
+            if (checkLineOfSight.collider.GetComponent<IHealth>() != null || checkLineOfSight.collider.GetComponent<Pickup>() != null)
             {
                 LockOnGUI.SetActive(true);
                 float distanceScale = relativeScale / Vector3.Distance(checkLineOfSight.collider.transform.position, Camera.main.transform.position);
                 Vector3 screenPos = Camera.main.WorldToScreenPoint(checkLineOfSight.collider.transform.position);
                 Renderer rendRef = checkLineOfSight.collider.GetComponent<Renderer>();
-                if(rendRef == null)
+
+
+
+                ssBounds objectScreenBounds = new ssBounds();
+                if (rendRef != null)
                 {
-                    rendRef = checkLineOfSight.collider.GetComponentInChildren<Renderer>();
+                    objectScreenBounds = worldToScreenBounds(rendRef.bounds);
                 }
-                if(rendRef != null)
+                else
                 {
-                    ssBounds objectScreenBounds = worldToScreenBounds(rendRef.bounds);
-
-                    Vector2 WH = new Vector2(objectScreenBounds.max.x - objectScreenBounds.min.x, objectScreenBounds.max.y - objectScreenBounds.min.y);
-                    RectTransform rectRef = LockOnGUI.GetComponent<RectTransform>();
-                    rectRef.sizeDelta = WH / distanceScale * boundSize;
-                  
+                    objectScreenBounds = worldToScreenBounds(checkLineOfSight.collider.bounds);
                 }
-
-
-                LockOnGUI.transform.position = screenPos;
-
-
-
+                Vector2 WH = new Vector2(objectScreenBounds.max.x - objectScreenBounds.min.x, objectScreenBounds.max.y - objectScreenBounds.min.y);
+                RectTransform rectRef = LockOnGUI.GetComponent<RectTransform>();
+                rectRef.sizeDelta = WH / distanceScale * boundSize;
+                LockOnGUI.transform.position = (objectScreenBounds.min + objectScreenBounds.max) / 2;
                 LockOnGUI.transform.localScale = Vector3.one * distanceScale;
 
                 return;
