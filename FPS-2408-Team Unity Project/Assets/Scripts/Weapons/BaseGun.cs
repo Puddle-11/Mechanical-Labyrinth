@@ -74,6 +74,10 @@ public class BaseGun : Weapon
         }
         RaycastHit hit;
         GameObject trailRef = Instantiate(bulletTrail, shootPos.transform.position, Quaternion.identity);
+        if (PlayerGun)
+        {
+            CameraController.instance.StartCamShake(coolDown, 0);
+        }
         if(Physics.Raycast(PlayerGun ? Camera.main.transform.position : shootPos.position, PlayerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
         {
             IHealth healthRef;

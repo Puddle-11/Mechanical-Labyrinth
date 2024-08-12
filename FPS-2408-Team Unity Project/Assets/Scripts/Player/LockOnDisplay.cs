@@ -9,9 +9,6 @@ public class LockOnDisplay : MonoBehaviour
 
     [SerializeField] private Vector2 minSize;
     [SerializeField] private float boundSize;
-
- 
-
     struct ssBounds
     {
        public Vector3 min;

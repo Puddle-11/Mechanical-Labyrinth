@@ -68,7 +68,6 @@ public class PlayerHand : MonoBehaviour
     }
     private bool AttemptPickup()
     {
-        
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDist, ~GameManager.instance.projectileIgnore))
         {
