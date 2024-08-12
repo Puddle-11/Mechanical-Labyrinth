@@ -13,6 +13,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     [SerializeField] private float damageFlashTime;
     [SerializeField] private Material damageMaterial;
     private Material originalMaterial;
+    private bool takingDamage;
     // Start is called before Start (used to initialize variables inside an object, DO NOT use awake to interact with other objects or components, this will crash your unity project
     public virtual void Awake()
     {
@@ -48,7 +49,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
 
         _amount = _amount < 0 ? 0 : _amount;
-       StartCoroutine(changeIndicator(_amount > currentHealth ? Color.green : Color.red));
+        StartCoroutine(changeIndicator(damageMaterial));
         //clamps the _amount to a min of 0
 
         currentHealth = _amount;
@@ -63,22 +64,26 @@ public class BaseEntity : MonoBehaviour, IHealth
     }
     #endregion
 
-    private IEnumerator changeIndicator(Color _flashCol)
+    private IEnumerator changeIndicator(Material _flashMat)
     {
-        if(rendRef != null)
+        if (rendRef != null)
         {
+            if (takingDamage) yield break;
 
-        
-        originalMaterial = rendRef.material;
-        rendRef.material = damageMaterial;
-        yield return new WaitForSeconds(damageFlashTime);
+            takingDamage = true;
+            originalMaterial = rendRef.material;
+            rendRef.material = _flashMat;
+            yield return new WaitForSeconds(damageFlashTime);
             rendRef.material = originalMaterial;
+            takingDamage = false;
+
         }
         else
         {
             Debug.LogWarning("Renderer unassigned on " + gameObject.name);
             yield break;
         }
+
     }
 
     public virtual void Death()

@@ -51,9 +51,7 @@ public class PlayerController : BaseEntity
     // Start is called before the first frame update
     public override void Start()
     {
-
         base.Start();
-
     }
 
     // Update is called once per frame
@@ -63,11 +61,15 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
-        if (Input.GetButton("Shoot"))
+        if (Input.GetButtonDown("Shoot"))
         {
-
-            playerHandRef.UseItem();
+            playerHandRef.SetUseItem(true);
         }
+        if (Input.GetButtonUp("Shoot"))
+        {
+            playerHandRef.SetUseItem(false);
+        }
+
     }
   
     private void Movement()
@@ -92,11 +94,7 @@ public class PlayerController : BaseEntity
             playerVel.y = jumpHeight;
         }
         controllerRef.Move(playerVel * Time.deltaTime);
-        
-        //if (Input.GetButton("Shoot") && !isShooting)
-        //{
-        //    StartCoroutine(Shoot());
-        //}
+       
         
     }
     void Sprint()
@@ -114,26 +112,7 @@ public class PlayerController : BaseEntity
         }
     }
 
-    //public IEnumerator Shoot()
-    //{
 
-    //    isShooting = true;
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreMask))
-    //    {
-
-    //        IHealth damageRef;
-    //        if (hit.collider.TryGetComponent<IHealth>(out damageRef))
-    //        {
-    //            damageRef.UpdateHealth(-shootDamage);
-    //        }
-    //    }
-
-
-
-    //    yield return new WaitForSeconds(shootSpeed);
-    //    isShooting = false;
-    //}
 
     public override void Death()
     {

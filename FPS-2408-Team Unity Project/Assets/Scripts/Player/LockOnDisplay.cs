@@ -35,15 +35,13 @@ public class LockOnDisplay : MonoBehaviour
             {
                 LockOnGUI.SetActive(true);
                 float distanceScale = relativeScale / Vector3.Distance(checkLineOfSight.collider.transform.position, Camera.main.transform.position);
-                Vector3 screenPos = Camera.main.WorldToScreenPoint(checkLineOfSight.collider.transform.position);
                 Renderer rendRef = checkLineOfSight.collider.GetComponent<Renderer>();
 
 
 
-                ssBounds objectScreenBounds = new ssBounds();
-            
-                    objectScreenBounds = worldToScreenBounds(rendRef != null ? rendRef.bounds : checkLineOfSight.collider.bounds);
-           
+
+                ssBounds objectScreenBounds = worldToScreenBounds(rendRef != null ? rendRef.bounds : checkLineOfSight.collider.bounds);
+
 
 
                 RectTransform rectRef = LockOnGUI.GetComponent<RectTransform>();

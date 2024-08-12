@@ -7,13 +7,56 @@ using UnityEngine;
 
 public class BaseGun : Weapon
 {
-
+    [SerializeField] private GunType shotType;
     [SerializeField] private int shootDamage;
-    [SerializeField] private float shootDist; 
+    [SerializeField] private float shootDist;
     [SerializeField] private Transform shootPos;
     [SerializeField] private GameObject bulletTrail;
     [SerializeField] private LayerMask ignoreMask;
+    [SerializeField] private float burstDelay;
+    [SerializeField] private int burstSize;
     private bool PlayerGun = false;
+    private bool offTrigger;
+    private int burstCounter;
+    public enum GunType
+    {
+        Automatic,
+        Burst,
+        Manual,
+    }
+    private void Update()
+    {
+       
+        if (usingItem)
+        {
+            switch (shotType)
+            {
+                case GunType.Automatic:
+                    Attack();
+                    break;
+                case GunType.Burst:
+                    if (burstCounter < burstSize)
+                    {
+                        Attack();
+                    }
+                    break;
+                case GunType.Manual:
+                    if (offTrigger)
+                    {
+                        Attack();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            offTrigger = false;
+        }
+        else
+        {
+            burstCounter = 0;
+            offTrigger = true;
+        }
+    }
     public void SetShootPos(Transform _pos)
     {
         shootPos = _pos;
@@ -25,7 +68,10 @@ public class BaseGun : Weapon
     public override IEnumerator AttackDelay()
     {
         isAttacking = true;
-  
+        if (shotType ==  GunType.Burst)
+        {
+            burstCounter++;
+        }
         RaycastHit hit;
         GameObject trailRef = Instantiate(bulletTrail, shootPos.transform.position, Quaternion.identity);
         if(Physics.Raycast(PlayerGun ? Camera.main.transform.position : shootPos.position, PlayerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
@@ -36,7 +82,6 @@ public class BaseGun : Weapon
                 healthRef.UpdateHealth(-shootDamage);
             }
         }
-       
             BulletTracer BT;
         if (trailRef.TryGetComponent<BulletTracer>(out BT))
         {
@@ -50,20 +95,7 @@ public class BaseGun : Weapon
                 BT.SetPositions(shootPos.transform.position, PlayerGun ? Camera.main.transform.position + Camera.main.transform.forward * shootDist : shootPos.forward * shootDist);
             }
         }
-
-
-
-
-
-        //RaycastHit hit = GlobalMethods.globalMethodsRef.RaycastFromCam();
-        // IHealth healthRef;
-        // if (hit.collider != null && hit.collider.TryGetComponent<IHealth>(out healthRef))
-        // {
-        //     healthRef.UpdateHealth(-shootDamage);
-        // }
-
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
-
     }
 }

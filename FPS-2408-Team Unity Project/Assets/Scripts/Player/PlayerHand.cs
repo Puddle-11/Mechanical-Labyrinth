@@ -11,6 +11,23 @@ public class PlayerHand : MonoBehaviour
     private Pickup CurrentPickup;
     [SerializeField] private Vector2 throwSpeed;
     [SerializeField] private Vector2 throwOffset;
+    public void SetUseItem(bool _val)
+    {
+        IUsable itemRef;
+        if (CurrentEquiped != null && CurrentEquiped.TryGetComponent<IUsable>(out itemRef))
+        {
+            itemRef.SetUsingItem(_val);
+        }
+    }
+    public bool GetUseItem()
+    {
+        IUsable itemRef;
+        if (CurrentEquiped != null && CurrentEquiped.TryGetComponent<IUsable>(out itemRef))
+        {
+            return itemRef.GetUsingItem();
+        }
+        return false;
+    }
     public GameObject GetCurrentHand()
     {
 
@@ -18,8 +35,9 @@ public class PlayerHand : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Pick Up") && !AttemptDrop())
+        if (Input.GetButtonDown("Pick Up"))
         {
+            AttemptDrop();
             AttemptPickup();
         }
        

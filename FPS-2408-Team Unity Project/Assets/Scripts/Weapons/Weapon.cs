@@ -4,12 +4,23 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour, IUsable
 {
+    protected bool usingItem;
+    [SerializeField] protected float coolDown;
+    protected bool isAttacking;
+
+    public bool GetUsingItem()
+    {
+        return usingItem;
+    }
+    public void SetUsingItem(bool _val)
+    {
+        usingItem = _val;
+    }
     public void UseItem()
     {
         Attack();
     }
-    [SerializeField] protected float coolDown;
-    protected bool isAttacking;
+  
     public bool GetIsAttacking()
     {
         return isAttacking;
