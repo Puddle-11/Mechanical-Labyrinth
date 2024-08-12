@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
   m_Name: Scar
   m_EditorClassIdentifier: 
-  Object: {fileID: 0}
+  Object: {fileID: 8881756555357752190, guid: 69d9db3dcce34094f96d8cb3f48d8773, type: 3}

@@ -35,10 +35,9 @@ public class PlayerHand : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Pick Up"))
+        if (Input.GetButtonDown("Pick Up") && !AttemptPickup())
         {
             AttemptDrop();
-            AttemptPickup();
         }
        
     }
@@ -74,6 +73,7 @@ public class PlayerHand : MonoBehaviour
             Pickup objectPickupRef;
             if (hit.transform.TryGetComponent<Pickup>(out objectPickupRef) && objectPickupRef.GetItem() != null)
             {
+                AttemptDrop(); //attempt a drop before picking up a new item
                 CurrentEquiped = Instantiate(objectPickupRef.PickupItem().Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
                 BaseGun BGref;
                 if(CurrentEquiped.TryGetComponent<BaseGun>(out BGref))
