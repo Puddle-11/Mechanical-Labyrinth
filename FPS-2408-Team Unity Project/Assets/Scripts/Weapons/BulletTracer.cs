@@ -10,27 +10,33 @@ public class BulletTracer : MonoBehaviour
     //private float timer;
     [SerializeField] private float hangTime;
     [SerializeField] private float speed;
-    private Vector3 target;
-
+    private Vector3 dir;
+    private bool useEnd = false;
 
     public void SetPositions(Vector3 _start, Vector3 _end)
     {
-
+       
         transform.position = _start;
-        target = _end;
-            Destroy(gameObject, hangTime);
+        dir = _end;
+        Destroy(gameObject, hangTime);
     }
-
+    public void SetDirection(Vector3 _start, Vector3 _direction)
+    {
+        useEnd = true;
+        SetPositions(_start, _direction);
+    }
     public void Update()
     {
-
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-        if (Vector3.Distance(transform.position, target) < 0.01f)
+        if (useEnd)
         {
-            Destroy(gameObject);
+            transform.position += dir * Time.deltaTime * speed;
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, dir, speed * Time.deltaTime);
 
         }
+
         //if (trRef != null)
         //{
         //    if (timer >= hangTime || Vector3.Distance(bulletPos, endPos) < 0.01f)

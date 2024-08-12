@@ -18,6 +18,7 @@ public class BaseGun : Weapon
     private bool PlayerGun = false;
     private bool offTrigger;
     private int burstCounter;
+   
     public enum GunType
     {
         Automatic,
@@ -91,15 +92,26 @@ public class BaseGun : Weapon
         {
             if (hit.collider != null)
             {
-                BT.SetPositions(shootPos.position, hit.point);
+                BT.SetPositions(shootPos.position, PlayerGun ? hit.point : shootPos.forward * Mathf.Infinity);
             }
             else
             {
+                if (PlayerGun)
+                {
+                    BT.SetPositions(shootPos.transform.position, Camera.main.transform.position + Camera.main.transform.forward * shootDist);
+                }
+                else
+                {
+                    BT.SetDirection(shootPos.transform.position, shootPos.forward);
 
-                BT.SetPositions(shootPos.transform.position, PlayerGun ? Camera.main.transform.position + Camera.main.transform.forward * shootDist : shootPos.forward * shootDist);
+                }
             }
         }
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
+    }
+    private void OnDrawGizmos()
+    {
+        Debug.DrawRay(shootPos.position,shootPos.forward * 10,Color.red);
     }
 }

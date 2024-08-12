@@ -8,6 +8,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2974939037602482653, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974939037602482653, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974939037602482653, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974939037602482653, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974939037602482653, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974939037602482653, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 3178302259699123502, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
       propertyPath: m_Name
       value: W-M16
@@ -99,6 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDown: 0.1
+  shotType: 0
   shootDamage: 1
   shootDist: 50
   shootPos: {fileID: 5251786042946030810}
@@ -106,3 +131,5 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
+  burstDelay: 0
+  burstSize: 0
