@@ -41,17 +41,16 @@ public class LockOnDisplay : MonoBehaviour
 
 
                 ssBounds objectScreenBounds = new ssBounds();
-                if (rendRef != null)
-                {
-                    objectScreenBounds = worldToScreenBounds(rendRef.bounds);
-                }
-                else
-                {
-                    objectScreenBounds = worldToScreenBounds(checkLineOfSight.collider.bounds);
-                }
-                Vector2 WH = new Vector2(objectScreenBounds.max.x - objectScreenBounds.min.x, objectScreenBounds.max.y - objectScreenBounds.min.y);
+            
+                    objectScreenBounds = worldToScreenBounds(rendRef != null ? rendRef.bounds : checkLineOfSight.collider.bounds);
+           
+
+
                 RectTransform rectRef = LockOnGUI.GetComponent<RectTransform>();
-                rectRef.sizeDelta = WH / distanceScale * boundSize;
+                Vector2 WH = new Vector2(objectScreenBounds.max.x - objectScreenBounds.min.x, objectScreenBounds.max.y - objectScreenBounds.min.y);
+                WH = WH / distanceScale * boundSize;
+                WH = new Vector2(Mathf.Clamp(WH.x, minSize.x, Mathf.Infinity), Mathf.Clamp(WH.y, minSize.y, Mathf.Infinity));
+                rectRef.sizeDelta = WH;
                 LockOnGUI.transform.position = (objectScreenBounds.min + objectScreenBounds.max) / 2;
                 LockOnGUI.transform.localScale = Vector3.one * distanceScale;
 
