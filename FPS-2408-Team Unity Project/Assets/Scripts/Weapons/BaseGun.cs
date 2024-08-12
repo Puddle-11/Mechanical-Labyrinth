@@ -13,12 +13,11 @@ public class BaseGun : Weapon
     [SerializeField] private Transform shootPos;
     [SerializeField] private GameObject bulletTrail;
     [SerializeField] private LayerMask ignoreMask;
-    [SerializeField] private float burstDelay;
     [SerializeField] private int burstSize;
     private bool PlayerGun = false;
     private bool offTrigger;
     private int burstCounter;
-   
+     
     public enum GunType
     {
         Automatic,
@@ -27,7 +26,6 @@ public class BaseGun : Weapon
     }
     private void Update()
     {
-       
         if (usingItem)
         {
             switch (shotType)
@@ -90,22 +88,26 @@ public class BaseGun : Weapon
             BulletTracer BT;
         if (trailRef.TryGetComponent<BulletTracer>(out BT))
         {
-            if (hit.collider != null)
+            if (PlayerGun)
             {
-                BT.SetPositions(shootPos.position, PlayerGun ? hit.point : shootPos.forward * Mathf.Infinity);
-            }
-            else
-            {
-                if (PlayerGun)
+                if (hit.collider != null)
                 {
-                    BT.SetPositions(shootPos.transform.position, Camera.main.transform.position + Camera.main.transform.forward * shootDist);
+                    BT.SetPositions(shootPos.transform.position, hit.point);
                 }
                 else
                 {
-                    BT.SetDirection(shootPos.transform.position, shootPos.forward);
-
+                    BT.SetPositions(shootPos.transform.position, Camera.main.transform.position + Camera.main.transform.forward * shootDist);
                 }
             }
+            else
+            {
+                BT.SetDirection(shootPos.transform.position, shootPos.forward);
+
+            }
+
+
+
+        
         }
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;

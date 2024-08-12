@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDown: 0.1
-  shotType: 0
+  shotType: 2
   shootDamage: 1
   shootDist: 50
   shootPos: {fileID: 5251786042946030810}
@@ -131,5 +131,4 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
-  burstDelay: 0
   burstSize: 0

@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 0.15
+  coolDown: 0.2
   shotType: 2
   shootDamage: 1
   shootDist: 50
@@ -107,3 +107,5 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
+  burstDelay: 0
+  burstSize: 0
