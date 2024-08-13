@@ -103,6 +103,7 @@ public class PlayerController : BaseEntity
 
         if (Input.GetButtonDown("Jump") && jumpCurr < jumpMax)
         {
+            
             jumpCurr++;
             playerVel.y = jumpHeight;
         }

@@ -94,18 +94,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDown: 0.05
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 8
   shotType: 1
   shootDamage: 1
   shootDist: 50
   shootPos: {fileID: 7179430413975253999}
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
-  ignoreMask:
-    serializedVersion: 2
-    m_Bits: 8
   burstSize: 3
   clipSizeMax: 15
-  currAmmo: 15
   reloadSpeed: 1.5
+  barrelDelay: 0
+  FSAccuracy: 0.2
+  FSATimerMax: 5
+  FSAOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &7179430413975253999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8894966728604882772, guid: b440b0e4530b7994ca41833a626f7639, type: 3}

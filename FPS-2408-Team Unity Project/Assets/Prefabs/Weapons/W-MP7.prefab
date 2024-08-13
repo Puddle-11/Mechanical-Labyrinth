@@ -118,6 +118,32 @@ MonoBehaviour:
   clipSizeMax: 15
   reloadSpeed: 1.5
   barrelDelay: 0.05
+  FSAccuracy: 0.2
+  FSATimerMax: 5
+  FSAOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &7940028811183308023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6602412205035012990, guid: 9f8c9e6fa705b5445b2b17450c2a7b89, type: 3}
