@@ -13,7 +13,6 @@ public class BaseGun : Weapon
     [SerializeField] private float shootDist;
     [SerializeField] private Transform shootPos;
     [SerializeField] private GameObject bulletTrail;
-    [SerializeField] private LayerMask ignoreMask;
     [SerializeField] private int burstSize;
     [SerializeField] private int clipSizeMax;
     [SerializeField] private int currAmmo;
@@ -90,12 +89,13 @@ public class BaseGun : Weapon
         
         RaycastHit hit;
         if(Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, playerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
-
         {
+
+
             IHealth healthRef;
             if(hit.collider.TryGetComponent<IHealth>(out healthRef))    healthRef.UpdateHealth(-shootDamage);
         }
-
+        Debug.DrawRay(playerGun ? Camera.main.transform.position : shootPos.position, (playerGun ? Camera.main.transform.forward : shootPos.forward) * shootDist);
         SummonBulletTracer(hit);
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;

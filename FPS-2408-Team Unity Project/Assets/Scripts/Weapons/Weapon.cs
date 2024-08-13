@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour, IUsable
     protected bool usingItem;
     [SerializeField] protected float coolDown;
     protected bool isAttacking;
+    public LayerMask ignoreMask;
 
     public bool GetUsingItem()
     {

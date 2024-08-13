@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class BaseEnemy : BaseEntity
 {
@@ -14,7 +15,8 @@ public class BaseEnemy : BaseEntity
     private bool inRange;
     [SerializeField] private GameObject target;
     [SerializeField] private float sightRadiusRad;
-    public float angleRad;
+    [SerializeField] private float detectionRange;
+    [SerializeField] private float rotationSpeed;
     public enum DetectionType
     {
         InRange,
@@ -36,6 +38,7 @@ public class BaseEnemy : BaseEntity
     {
         if (GetEnemyAlertStatus())
         {
+            SetNavmeshTarget();
             weaponScr.Attack();
         }
         base.Update();
@@ -69,16 +72,19 @@ public class BaseEnemy : BaseEntity
     private bool GetLineOfSight()
     {
         Vector3 targetDir = (GetTarget().transform.position - transform.position).normalized;
-        Vector3 selfDir = transform.forward;
+        float angle = Vector3.Angle(targetDir, transform.forward);
+        
 
-        float dotProduct = targetDir.x * selfDir.x + targetDir.z * selfDir.z;
-        float mag = targetDir.magnitude * selfDir.magnitude;
-
-
-        angleRad = Mathf.Acos(dotProduct / mag);
-        if (angleRad < sightRadiusRad)
+        if (angle < sightRadiusRad)
         {
-            return true;
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, targetDir, out hit, detectionRange, ~weaponScr.ignoreMask))
+            {
+                if (hit.collider.gameObject == GetTarget())
+                {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -87,8 +93,15 @@ public class BaseEnemy : BaseEntity
     {
         if (agent != null)
         {
-            //agent.SetDestination(target.transform.position);
+            agent.SetDestination(GetTarget().transform.position);
         }
+    }
+    public void FacePlayer()
+    {
+        Quaternion rot = Quaternion.LookRotation(GetTarget().transform.position);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotationSpeed);
+
+
     }
     public GameObject GetTarget()
     {

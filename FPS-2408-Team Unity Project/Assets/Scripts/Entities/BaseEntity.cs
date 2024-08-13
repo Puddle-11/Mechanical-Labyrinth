@@ -6,8 +6,8 @@ using UnityEngine;
 public class BaseEntity : MonoBehaviour, IHealth
 {
 
-    [SerializeField] private int maxHealth;
-    private int currentHealth;
+    [SerializeField] protected int maxHealth;
+    protected int currentHealth;
     [SerializeField] protected Renderer rendRef;
     [Range(0.1f, 10f)]
     [SerializeField] private float damageFlashTime;
