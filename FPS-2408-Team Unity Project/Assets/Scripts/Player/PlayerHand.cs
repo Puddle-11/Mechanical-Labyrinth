@@ -68,7 +68,7 @@ public class PlayerHand : MonoBehaviour
     {
         if(CurrentEquiped != null)
         {
-
+            UIManager.instance.ammoDisplay(0,0);
             Destroy(CurrentEquiped);
             CurrentEquiped = null;
             CurrentPickup.DropItem(transform.position + transform.forward * throwOffset.x + new Vector3(0,throwOffset.y,0), Camera.main.transform.forward *throwSpeed.x+ Vector3.up * throwSpeed.y, 1);

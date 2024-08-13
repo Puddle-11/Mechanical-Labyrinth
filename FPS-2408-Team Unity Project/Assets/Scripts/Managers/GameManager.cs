@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public GameObject playerRef;
     [HideInInspector] public PlayerController playerControllerRef;
-    [SerializeField] private TMP_Text enemyCountField;
     private int enemyCount;
     
   
@@ -36,8 +35,7 @@ public class GameManager : MonoBehaviour
     public void updateGameGoal(int _amount)
     {
         enemyCount += _amount;
-        enemyCountField.text = enemyCount.ToString();
-
+        UIManager.instance.SetEnemyCount(enemyCount);
         if (enemyCount <= 0)
         {
             UIManager.instance.openWinMenu();

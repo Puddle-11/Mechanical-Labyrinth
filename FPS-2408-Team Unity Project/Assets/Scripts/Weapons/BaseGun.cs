@@ -15,12 +15,12 @@ public class BaseGun : Weapon
     [SerializeField] private GameObject bulletTrail;
     [SerializeField] private int burstSize;
     [SerializeField] private int clipSizeMax;
-    [SerializeField] private int currAmmo;
     [SerializeField] private float reloadSpeed;
+    [SerializeField] private float barrelDelay;
+    private int currAmmo;
     private bool isReloading = false;
     private bool playerGun = false;
     private bool offTrigger;
-    private int burstCounter;
      
     public enum GunType
     {
@@ -30,10 +30,7 @@ public class BaseGun : Weapon
     }
     public void Start()
     {
-        if (playerGun == true)
-        {
-            UIManager.instance.ammoDisplay(currAmmo, clipSizeMax);
-        }
+        SetAmmo(clipSizeMax);
     }
     private void Update()
     {
@@ -51,22 +48,20 @@ public class BaseGun : Weapon
     #endregion
     private bool ShootConditional()
     {
-        if (usingItem)
+        bool res = false;
+        if (!isReloading && usingItem)
         {
+            
             switch (shotType)
             {
                 case GunType.Automatic:
-                    return true;
-                case GunType.Burst:
-                    if (burstCounter < burstSize)
-                    {
-                        return true;
-                    }
+                    res = true;
                     break;
+                case GunType.Burst:
                 case GunType.Manual:
                     if (offTrigger)
                     {
-                        return true;
+                        res = true;
                     }
                     break;
 
@@ -75,10 +70,9 @@ public class BaseGun : Weapon
         }
         else
         {
-            burstCounter = 0;
             offTrigger = true;
         }
-            return false;
+        return res;
     }
 
     private void OnEnable()
@@ -89,28 +83,40 @@ public class BaseGun : Weapon
     public override IEnumerator AttackDelay()
     {
         isAttacking = true;
-        currAmmo--;
+        UpdateAmmo(-1);
 
-        if (playerGun == true) { 
-            UIManager.instance.ammoDisplay(currAmmo, clipSizeMax); 
-        }
-        
+        int size = shotType == GunType.Burst ? burstSize : 1;
+        WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
 
-        if (playerGun)      CameraController.instance.StartCamShake(coolDown, 0);
-        if (shotType ==  GunType.Burst)     burstCounter++;
-        
-        RaycastHit hit;
-        if(Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, playerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
+        for (int i = 0; i < size; i++)
         {
-
-
-            IHealth healthRef;
-            if(hit.collider.TryGetComponent<IHealth>(out healthRef))    healthRef.UpdateHealth(-shootDamage);
+            if (playerGun) CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
+            RaycastHit hit;
+            if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, playerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
+            {
+                IHealth healthRef;
+                if (hit.collider.TryGetComponent<IHealth>(out healthRef)) healthRef.UpdateHealth(-shootDamage);
+            }
+            Debug.DrawRay(playerGun ? Camera.main.transform.position : shootPos.position, (playerGun ? Camera.main.transform.forward : shootPos.forward) * shootDist);
+            SummonBulletTracer(hit);
+            yield return wfs;
         }
-        Debug.DrawRay(playerGun ? Camera.main.transform.position : shootPos.position, (playerGun ? Camera.main.transform.forward : shootPos.forward) * shootDist);
-        SummonBulletTracer(hit);
+
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
+    }
+
+    public void UpdateAmmo(int _val)
+    {
+        SetAmmo(currAmmo + _val);
+    }
+    public void SetAmmo(int _val)
+    {
+        if(_val > clipSizeMax) _val = clipSizeMax;
+        if(_val < 0) _val = 0;
+        
+        currAmmo = _val;
+        if (playerGun == true) UIManager.instance.ammoDisplay(currAmmo, clipSizeMax);
     }
     private void SummonBulletTracer(RaycastHit _path)
     {
@@ -151,7 +157,7 @@ public class BaseGun : Weapon
         if (isReloading) yield break;
         isReloading = true;
         yield return new WaitForSeconds(reloadSpeed);
-        currAmmo = clipSizeMax;
+        SetAmmo(clipSizeMax);
         isReloading = false;
     }
 }

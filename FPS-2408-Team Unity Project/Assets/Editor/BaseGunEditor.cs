@@ -20,7 +20,6 @@ public class BaseGunEditor : Editor
     static void DrawFields(BaseGun _managerCast)
     {
         EditorGUILayout.Space();
-
         EditorGUILayout.LabelField("GENERAL", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 

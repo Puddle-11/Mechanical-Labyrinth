@@ -15,12 +15,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float flashDamageTime;
     [SerializeField] private GameObject flashDamageRef;
     [SerializeField] private TMP_Text currAmmoField;
+    [SerializeField] private TMP_Text enemyCountField;
 
     public Image playerHealth;
     private bool isPause = false;
     public bool GetStatePaused()
     {
         return isPause;
+    }
+    public void SetEnemyCount(int _val)
+    {
+        enemyCountField.text = _val.ToString();
+
     }
     public void UpdateHealthBar(float _val) //Takes a NORMALIZED value
     {
