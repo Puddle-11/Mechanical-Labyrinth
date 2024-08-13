@@ -17,11 +17,11 @@ public class BaseEnemy : BaseEntity
     public float angleRad;
     public enum DetectionType
     {
-        Continuous,
         InRange,
         Vision,
         Sound,
         Vision_Sound,
+        Continuous,
     }
     // Start is called before the first frame update
     
@@ -34,31 +34,9 @@ public class BaseEnemy : BaseEntity
     }
     public override void Update()
     {
-        GetLineOfSight();
-        switch (DetectPlayerType)
+        if (GetEnemyAlertStatus())
         {
-            case DetectionType.Continuous:
-                SetTarget();
-                break;
-            case DetectionType.InRange:
-                if (inRange)
-                {
-                    SetTarget();
-                }
-                break;
-            case DetectionType.Vision:
-                if(inRange && GetLineOfSight())
-                {
-                    SetTarget();
-                    weaponScr.Attack();
-                }
-                break;
-            case DetectionType.Sound:
-                break;
-            case DetectionType.Vision_Sound:
-                break;
-            default:
-                break;
+            weaponScr.Attack();
         }
 
 
@@ -67,6 +45,32 @@ public class BaseEnemy : BaseEntity
         {
             //weaponScr.Attack();
         }
+    }
+    public bool GetEnemyAlertStatus()
+    {
+        switch (DetectPlayerType)
+        {
+            case DetectionType.Continuous:
+                return true;
+            case DetectionType.InRange:
+                if (inRange)
+                {
+                    return true;
+                }
+                break;
+            case DetectionType.Vision:
+                if (inRange && GetLineOfSight())
+                {
+                    return true;
+                }
+                break;
+            case DetectionType.Sound:
+                break;
+            case DetectionType.Vision_Sound:
+                break;
+
+        }
+        return false;
     }
     private bool GetLineOfSight()
     {
@@ -91,7 +95,6 @@ public class BaseEnemy : BaseEntity
     {
         if (agent != null)
         {
-
             //agent.SetDestination(target.transform.position);
         }
     }

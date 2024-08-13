@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Security.Cryptography;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -30,36 +31,9 @@ public class BaseGun : Weapon
     }
     private void Update()
     {
-        if (usingItem)
-        {
-            switch (shotType)
-            {
-                case GunType.Automatic:
-                    Attack();
-                    break;
-                case GunType.Burst:
-                    if (burstCounter < burstSize)
-                    {
-                        Attack();
-                    }
-                    break;
-                case GunType.Manual:
-                    if (offTrigger)
-                    {
-                        Attack();
-                    }
-                    break;
-                default:
-                    break;
-            }
-            offTrigger = false;
-        }
-        else
-        {
-            burstCounter = 0;
-            offTrigger = true;
-        }
+        if (ShootConditional()) Attack();
     }
+    #region Getters Setters
     public void SetShootPos(Transform _pos)
     {
         shootPos = _pos;
@@ -68,53 +42,79 @@ public class BaseGun : Weapon
     {
         playerGun = _val;
     }
+    #endregion
+    private bool ShootConditional()
+    {
+        if (usingItem)
+        {
+            switch (shotType)
+            {
+                case GunType.Automatic:
+                    return true;
+                case GunType.Burst:
+                    if (burstCounter < burstSize)
+                    {
+                        return true;
+                    }
+                    break;
+                case GunType.Manual:
+                    if (offTrigger)
+                    {
+                        return true;
+                    }
+                    break;
+
+            }
+            offTrigger = false;
+        }
+        else
+        {
+            burstCounter = 0;
+            offTrigger = true;
+        }
+            return false;
+    }
+
+    private void OnEnable()
+    {
+        if (isAttacking) isAttacking = false; //safegaurding against edgecases with the AttackDelay Ienumerator
+    }
+
     public override IEnumerator AttackDelay()
     {
         isAttacking = true;
-        if (shotType ==  GunType.Burst)
-        {
-            burstCounter++;
-        }
+
+
+        if (playerGun)      CameraController.instance.StartCamShake(coolDown, 0);
+        if (shotType ==  GunType.Burst)     burstCounter++;
+        
         RaycastHit hit;
-        GameObject trailRef = Instantiate(bulletTrail, shootPos.transform.position, Quaternion.identity);
-        if (playerGun)
-        {
-            CameraController.instance.StartCamShake(coolDown, 0);
-        }
         if(Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, playerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
+
         {
             IHealth healthRef;
-            if(hit.collider.TryGetComponent<IHealth>(out healthRef))
-            {
-                healthRef.UpdateHealth(-shootDamage);
-            }
+            if(hit.collider.TryGetComponent<IHealth>(out healthRef))    healthRef.UpdateHealth(-shootDamage);
         }
-            BulletTracer BT;
+
+        SummonBulletTracer(hit);
+        yield return new WaitForSeconds(coolDown);
+        isAttacking = false;
+    }
+    private void SummonBulletTracer(RaycastHit _path)
+    {
+        GameObject trailRef = Instantiate(bulletTrail, shootPos.transform.position, Quaternion.identity);
+        BulletTracer BT;
         if (trailRef.TryGetComponent<BulletTracer>(out BT))
         {
             if (playerGun)
             {
-                if (hit.collider != null)
-                {
-                    BT.SetPositions(shootPos.transform.position, hit.point);
-                }
-                else
-                {
-                    BT.SetPositions(shootPos.transform.position, Camera.main.transform.position + Camera.main.transform.forward * shootDist);
-                }
+                BT.SetPositions(shootPos.transform.position, _path.collider != null ? _path.point : Camera.main.transform.position + Camera.main.transform.forward * shootDist);
             }
             else
             {
                 BT.SetDirection(shootPos.transform.position, shootPos.forward);
-
             }
-
-
-
-        
         }
-        yield return new WaitForSeconds(coolDown);
-        isAttacking = false;
     }
     private void OnDrawGizmos()
     {
