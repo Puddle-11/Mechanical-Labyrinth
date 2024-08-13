@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public GameObject playerRef;
     [HideInInspector] public PlayerController playerControllerRef;
+    [SerializeField] private TMP_Text enemyCountField;
+    [SerializeField] GameObject nextLevelText;
+    [SerializeField] GameObject enemyCountObject;
     private int enemyCount;
     
   
@@ -34,13 +37,14 @@ public class GameManager : MonoBehaviour
 
     public void updateGameGoal(int _amount)
     {
+        enemyCountObject.SetActive(true);
         enemyCount += _amount;
-        UIManager.instance.SetEnemyCount(enemyCount);
+        enemyCountField.text = enemyCount.ToString("F0");
+
         if (enemyCount <= 0)
         {
-            UIManager.instance.openWinMenu();
-
+            enemyCountObject.SetActive(false);
+            nextLevelText.SetActive(true);
         }
     }
-    
 }
