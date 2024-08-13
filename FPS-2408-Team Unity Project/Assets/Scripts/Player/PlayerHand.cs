@@ -11,6 +11,10 @@ public class PlayerHand : MonoBehaviour
     private Pickup CurrentPickup;
     [SerializeField] private Vector2 throwSpeed;
     [SerializeField] private Vector2 throwOffset;
+
+
+    //========================================================
+    //THESE METHODS NEED OPTIMIZING TOT
     public void SetUseItem(bool _val)
     {
         IUsable itemRef;
@@ -28,29 +32,36 @@ public class PlayerHand : MonoBehaviour
         }
         return false;
     }
+    //========================================================
+    //I really hate the "chain" of methods from the player controller
+    //all the way to the currently equiped item, there are to many points of failure
+    // - Rowan
+    //========================================================
+
+
+
+
+
+
     public GameObject GetCurrentHand()
     {
-
         return CurrentEquiped;
     }
-    private void Update()
+
+
+    public void ClickPickUp()
     {
-        if (Input.GetButtonDown("Pick Up") && !AttemptPickup())
+        if (!AttemptPickup())
         {
             AttemptDrop();
         }
-       
     }
     public void UseItem()
     {
         IUsable useRef;
-        if (CurrentEquiped != null)
+        if (CurrentEquiped != null && CurrentEquiped.TryGetComponent<IUsable>(out useRef))
         {
-            if (CurrentEquiped.TryGetComponent<IUsable>(out useRef))
-            {
-
-                useRef.UseItem();
-            }
+            useRef.UseItem();
         }
     }
     private bool AttemptDrop()

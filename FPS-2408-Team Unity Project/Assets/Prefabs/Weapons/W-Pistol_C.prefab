@@ -107,5 +107,7 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
-  burstDelay: 0
   burstSize: 0
+  clipSizeMax: 15
+  currAmmo: 15
+  reloadSpeed: 1.5

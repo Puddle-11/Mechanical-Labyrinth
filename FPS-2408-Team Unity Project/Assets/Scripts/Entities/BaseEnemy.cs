@@ -38,13 +38,7 @@ public class BaseEnemy : BaseEntity
         {
             weaponScr.Attack();
         }
-
-
         base.Update();
-        if (weaponScr != null && inRange) //automatically fires gun when enemy is in range 
-        {
-            //weaponScr.Attack();
-        }
     }
     public bool GetEnemyAlertStatus()
     {
@@ -74,41 +68,46 @@ public class BaseEnemy : BaseEntity
     }
     private bool GetLineOfSight()
     {
-        if (target != null)
+        Vector3 targetDir = (GetTarget().transform.position - transform.position).normalized;
+        Vector3 selfDir = transform.forward;
+
+        float dotProduct = targetDir.x * selfDir.x + targetDir.z * selfDir.z;
+        float mag = targetDir.magnitude * selfDir.magnitude;
+
+
+        angleRad = Mathf.Acos(dotProduct / mag);
+        if (angleRad < sightRadiusRad)
         {
-            Vector3 targetDir = (target.transform.position - transform.position).normalized;
-            Vector3 selfDir = transform.forward;
-
-            float dotProduct = targetDir.x * selfDir.x + targetDir.z * selfDir.z;   
-            float mag = targetDir.magnitude * selfDir.magnitude;
-
-           
-            angleRad = Mathf.Acos(dotProduct / mag);
-            if(angleRad < sightRadiusRad)
-            {
-                return true;
-            }
+            return true;
         }
+
         return false;
     }
-    private void SetTarget()
+    private void SetNavmeshTarget()
     {
         if (agent != null)
         {
             //agent.SetDestination(target.transform.position);
         }
     }
+    public GameObject GetTarget()
+    {
+        if(target == null) return GameManager.instance.playerRef;
+        
+        return target;
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == GameManager.instance.playerRef)
+        if (other.gameObject == GetTarget())
         {
             inRange = true;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == GameManager.instance.playerRef)
+        if (other.gameObject == GetTarget())
         {
+            
             inRange = false;
         }
     }

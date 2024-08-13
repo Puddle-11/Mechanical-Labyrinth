@@ -102,8 +102,10 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
-  burstDelay: 0
   burstSize: 0
+  clipSizeMax: 15
+  currAmmo: 15
+  reloadSpeed: 1.5
 --- !u!4 &4898204275461610101 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5764421673725154699, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}

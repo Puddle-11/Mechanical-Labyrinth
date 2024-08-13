@@ -137,6 +137,7 @@ public class BaseGun : Weapon
 
     public IEnumerator Reload()
     {
+        if (isReloading) yield break;
         isReloading = true;
         yield return new WaitForSeconds(reloadSpeed);
         currAmmo = clipSizeMax;

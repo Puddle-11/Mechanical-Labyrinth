@@ -103,6 +103,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   burstSize: 3
+  clipSizeMax: 15
+  currAmmo: 15
+  reloadSpeed: 1.5
 --- !u!4 &7179430413975253999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8894966728604882772, guid: b440b0e4530b7994ca41833a626f7639, type: 3}

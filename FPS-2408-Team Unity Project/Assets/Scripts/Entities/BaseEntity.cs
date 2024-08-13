@@ -83,7 +83,6 @@ public class BaseEntity : MonoBehaviour, IHealth
             Debug.LogWarning("Renderer unassigned on " + gameObject.name);
             yield break;
         }
-
     }
 
     public virtual void Death()

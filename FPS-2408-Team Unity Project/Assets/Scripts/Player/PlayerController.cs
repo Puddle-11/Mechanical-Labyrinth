@@ -25,14 +25,7 @@ public class PlayerController : BaseEntity
     [SerializeField] private float gravityStrength;
     private Vector3 playerVel;
     private PlayerHand playerHandRef;
-    //for testing purposes only \/
-    //[Header("Gun Variables")]
-    //[Space]
-    //[SerializeField] private bool isShooting;
-    //[SerializeField] private float shootDist;
-    //[SerializeField] private float shootSpeed;
-    //[SerializeField] private int shootDamage;
-    //[SerializeField] private LayerMask ignoreMask;
+
    
     
    
@@ -61,18 +54,23 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
+        if(Input.GetButtonDown("Pick Up"))
+        {
+            playerHandRef?.ClickPickUp();
+
+        }
         if (Input.GetButtonDown("Shoot"))
         {
-            playerHandRef.SetUseItem(true);
+            playerHandRef?.SetUseItem(true);
         }
         if (Input.GetButtonUp("Shoot"))
         {
-            playerHandRef.SetUseItem(false);
+            playerHandRef?.SetUseItem(false);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
             BaseGun tempOut;
-            if (playerHandRef.GetCurrentHand().gameObject.TryGetComponent<BaseGun>(out tempOut))
+            if ((playerHandRef?.GetCurrentHand()).TryGetComponent<BaseGun>(out tempOut))
             {
                 StartCoroutine(tempOut.Reload());
             }

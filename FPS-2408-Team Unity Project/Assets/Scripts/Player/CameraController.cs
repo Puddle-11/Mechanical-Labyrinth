@@ -51,19 +51,15 @@ public class CameraController : MonoBehaviour
 
         while (timeElapsed < _durr)
         {
-            if (UIManager.instance != null && !UIManager.instance.GetStatePaused())
-            {
+        
                 float evaluatedIntensity = _intensity.Evaluate(timeElapsed / camShakeDurration);
                 float x = Random.Range(-1f, 1f) * _scalar * evaluatedIntensity;
                 float y = Random.Range(-1f, 1f) * _scalar * evaluatedIntensity;
                 transform.localPosition = new Vector3(x, y, originPos.z);
                 timeElapsed += Time.deltaTime;
                 yield return null;
-            }
-            else
-            {
-                break;
-            }
+           
+            
 
         }
         transform.localPosition = originPos;
@@ -79,8 +75,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
-        if (UIManager.instance != null && !UIManager.instance.GetStatePaused())
+
+        if (UIManager.instance == null || (UIManager.instance != null && !UIManager.instance.GetStatePaused()))
         {
             float yaw = Input.GetAxis("Mouse X") * sens;
             float pitch = Input.GetAxis("Mouse Y") * sens;

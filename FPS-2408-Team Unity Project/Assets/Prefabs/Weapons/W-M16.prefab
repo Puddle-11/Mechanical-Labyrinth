@@ -132,3 +132,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   burstSize: 0
+  clipSizeMax: 15
+  currAmmo: 15
+  reloadSpeed: 1.5
