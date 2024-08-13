@@ -28,6 +28,13 @@ public class BaseGun : Weapon
         Burst,
         Manual,
     }
+    public void Start()
+    {
+        if (playerGun == true)
+        {
+            UIManager.instance.ammoDisplay(currAmmo, clipSizeMax);
+        }
+    }
     private void Update()
     {
         if (ShootConditional()) Attack();
@@ -82,7 +89,12 @@ public class BaseGun : Weapon
     public override IEnumerator AttackDelay()
     {
         isAttacking = true;
+        currAmmo--;
 
+        if (playerGun == true) { 
+            UIManager.instance.ammoDisplay(currAmmo, clipSizeMax); 
+        }
+        
 
         if (playerGun)      CameraController.instance.StartCamShake(coolDown, 0);
         if (shotType ==  GunType.Burst)     burstCounter++;
@@ -125,7 +137,6 @@ public class BaseGun : Weapon
     {
         if (!isAttacking && currAmmo > 0 && !isReloading)
         {
-            currAmmo--;
             StartCoroutine(AttackDelay());
         }
         else if (currAmmo <= 0 && !isAttacking) 

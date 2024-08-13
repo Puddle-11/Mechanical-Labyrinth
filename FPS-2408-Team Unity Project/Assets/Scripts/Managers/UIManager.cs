@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuActive;
     [SerializeField] private float flashDamageTime;
     [SerializeField] private GameObject flashDamageRef;
+    [SerializeField] private TMP_Text currAmmoField;
+
     public Image playerHealth;
     private bool isPause = false;
     public bool GetStatePaused()
@@ -90,5 +93,12 @@ public class UIManager : MonoBehaviour
         statePause();
         menuActive = menuWin;
         menuActive.SetActive(true);
+    }
+
+    public void ammoDisplay(int curr, int max)
+    {
+        //currAmmo
+        currAmmoField.text = curr + " / " + max;
+
     }
 }
