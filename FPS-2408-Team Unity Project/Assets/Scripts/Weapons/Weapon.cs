@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour, IUsable
     {
         return isAttacking;
     }
-    public void Attack()
+    public virtual void Attack()
     {
 
         if (!isAttacking)

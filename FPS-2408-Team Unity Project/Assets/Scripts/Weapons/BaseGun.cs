@@ -14,7 +14,11 @@ public class BaseGun : Weapon
     [SerializeField] private GameObject bulletTrail;
     [SerializeField] private LayerMask ignoreMask;
     [SerializeField] private int burstSize;
-    private bool PlayerGun = false;
+    [SerializeField] private int clipSizeMax;
+    [SerializeField] private int currAmmo;
+    [SerializeField] private float reloadSpeed;
+    private bool isReloading = false;
+    private bool playerGun = false;
     private bool offTrigger;
     private int burstCounter;
      
@@ -62,7 +66,7 @@ public class BaseGun : Weapon
     }
     public void SetPlayerGun(bool _val)
     {
-        PlayerGun = _val;
+        playerGun = _val;
     }
     public override IEnumerator AttackDelay()
     {
@@ -73,11 +77,11 @@ public class BaseGun : Weapon
         }
         RaycastHit hit;
         GameObject trailRef = Instantiate(bulletTrail, shootPos.transform.position, Quaternion.identity);
-        if (PlayerGun)
+        if (playerGun)
         {
             CameraController.instance.StartCamShake(coolDown, 0);
         }
-        if(Physics.Raycast(PlayerGun ? Camera.main.transform.position : shootPos.position, PlayerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
+        if(Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, playerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
         {
             IHealth healthRef;
             if(hit.collider.TryGetComponent<IHealth>(out healthRef))
@@ -88,7 +92,7 @@ public class BaseGun : Weapon
             BulletTracer BT;
         if (trailRef.TryGetComponent<BulletTracer>(out BT))
         {
-            if (PlayerGun)
+            if (playerGun)
             {
                 if (hit.collider != null)
                 {
@@ -115,5 +119,27 @@ public class BaseGun : Weapon
     private void OnDrawGizmos()
     {
         Debug.DrawRay(shootPos.position,shootPos.forward * 10,Color.red);
+    }
+
+    public override void Attack()
+    {
+        if (!isAttacking && currAmmo > 0 && !isReloading)
+        {
+            currAmmo--;
+            StartCoroutine(AttackDelay());
+        }
+        else if (currAmmo <= 0 && !isAttacking) 
+        {
+            StartCoroutine(Reload());
+        }
+        
+    }
+
+    public IEnumerator Reload()
+    {
+        isReloading = true;
+        yield return new WaitForSeconds(reloadSpeed);
+        currAmmo = clipSizeMax;
+        isReloading = false;
     }
 }

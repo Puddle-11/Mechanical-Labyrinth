@@ -69,6 +69,14 @@ public class PlayerController : BaseEntity
         {
             playerHandRef.SetUseItem(false);
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            BaseGun tempOut;
+            if (playerHandRef.GetCurrentHand().gameObject.TryGetComponent<BaseGun>(out tempOut))
+            {
+                StartCoroutine(tempOut.Reload());
+            }
+        }
 
     }
   

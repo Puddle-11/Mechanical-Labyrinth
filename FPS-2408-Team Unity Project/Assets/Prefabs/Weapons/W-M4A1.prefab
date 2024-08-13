@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDown: 0.05
-  shotType: 1
+  shotType: 0
   shootDamage: 1
   shootDist: 50
   shootPos: {fileID: 4771568509178638777}
@@ -130,8 +130,10 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
-  burstDelay: 0
   burstSize: 5
+  clipSizeMax: 45
+  currAmmo: 45
+  reloadSpeed: 3
 --- !u!4 &4771568509178638777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1823251136171036062, guid: 201149ace250afc43884b518e7daf240, type: 3}
