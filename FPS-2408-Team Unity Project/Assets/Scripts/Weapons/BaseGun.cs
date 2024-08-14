@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class BaseGun : Weapon
 {
@@ -16,6 +17,7 @@ public class BaseGun : Weapon
     [SerializeField] private float shootDist;
     [SerializeField] private Transform shootPos;
     [SerializeField] private GameObject bulletTrail;
+    [SerializeField] private GameObject[] bulletHolePrefab;
     [SerializeField] private int burstSize;
     [SerializeField] private int clipSizeMax;
     [SerializeField] private float reloadSpeed;
@@ -141,8 +143,17 @@ public class BaseGun : Weapon
             if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
                 IHealth healthRef;
-                if (hit.collider.TryGetComponent<IHealth>(out healthRef)) healthRef.UpdateHealth(-shootDamage);
+                if (hit.collider.TryGetComponent<IHealth>(out healthRef))
+                {
+                    healthRef.UpdateHealth(-shootDamage);
+                }
+                else
+                {
+                    int index = Random.Range(0, bulletHolePrefab.Length);
+                    Instantiate(bulletHolePrefab[index], hit.point  + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal));
+                }
             }
+
             SummonBulletTracer(hit, shootDir);
             yield return wfs;
         }
