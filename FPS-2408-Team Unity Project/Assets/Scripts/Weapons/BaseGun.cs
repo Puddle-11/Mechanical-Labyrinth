@@ -49,13 +49,15 @@ public class BaseGun : Weapon
     {
         
         if (ShootConditional()) Attack();
-        else
-        {
-        }
+
         if (!isAttacking)
         {
-            if (playerGun) CameraController.instance.ResetOffsetPos();
+            if (playerGun) CameraController.instance.ResetOffset(true);
             FSAtimer = Mathf.Clamp(FSAtimer - Time.deltaTime * recoilCooldownFactor, 0, Mathf.Infinity);
+        }
+        else
+        {
+            if (playerGun) CameraController.instance.ResetOffset(false);
 
         }
 

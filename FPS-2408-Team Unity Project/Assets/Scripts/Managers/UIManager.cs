@@ -32,7 +32,6 @@ public class UIManager : MonoBehaviour
     public void SetEnemyCount(int _val)
     {
         enemyCountField.text = _val.ToString();
-
     }
     public void UpdateHealthBar(float _val) //Takes a NORMALIZED value
     {
@@ -102,7 +101,6 @@ public class UIManager : MonoBehaviour
     }
     public void ToggleWinMenu(bool _val)
     {
-        
         menuWin.SetActive(_val);
     }
 

@@ -1191,8 +1191,8 @@ MonoBehaviour:
   maxy: 90
   invert: 0
   cameraAnchor: {fileID: 8478675475759446148}
-  offsetResetSpeed: 0
-  offsetResetDampening: 0
+  offsetResetSpeed: 0.2
+  offsetResetDampening: 0.005
   camShakeIntensity:
     serializedVersion: 2
     m_Curve:
@@ -1219,6 +1219,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   camShakeScalar: 0.075
   camShakeDurration: 0.15
+  resettingOffset: 0
   offset: {x: 0, y: 0}
 --- !u!114 &185323471831243175
 MonoBehaviour:
@@ -2136,6 +2137,7 @@ GameObject:
   - component: {fileID: 1743493806311950691}
   - component: {fileID: 1765897192917416764}
   - component: {fileID: 332054442967497312}
+  - component: {fileID: 2817779190246288127}
   m_Layer: 3
   m_Name: Player (modeled)
   m_TagString: Player
@@ -2249,6 +2251,27 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!95 &2817779190246288127
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3923719176859918381}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4068895595560239375
 GameObject:
   m_ObjectHideFlags: 0
