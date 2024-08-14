@@ -26,6 +26,7 @@ public class PlayerController : BaseEntity
     private int jumpCurr;
     [SerializeField] private Vector3 Walljumpdir;
     [SerializeField] private int WalljumpSpeed;
+    [SerializeField] private int wallgravity;
     private bool onWall;
     [Header("Physics Variables")]
     [Space]
@@ -142,16 +143,18 @@ public class PlayerController : BaseEntity
             onWall = true;
             WalljumpSpeed = 0;
             Debug.Log("Right");
+            gravityStrength = gravityStrength * wallgravity;
             if (Input.GetButtonDown("Jump"))
                 Walljumpdir = transform.forward * playerVel.y + Vector3.left;
 
         }
-        else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.InverseTransformPoint(transform.right), out hit, 2f, jumplayer))
+        else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.InverseTransformDirection(-transform.right), out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
             onWall = true;
             WalljumpSpeed = 0;
             Debug.Log("Left");
+            gravityStrength = gravityStrength * wallgravity;
             if (Input.GetButtonDown("Jump"))
                 Walljumpdir = transform.right + transform.up;
         }
@@ -161,14 +164,14 @@ public class PlayerController : BaseEntity
         }
 
     }
-    void jumpoffwall()
+    void wallslide()
     {
-        if (onWall == true && Input.GetButtonDown("Jump"))
+        if (onWall == true && playerVel.y < 0)
         {
 
         }
     }
-
+    
 
 
     public override void Death()
