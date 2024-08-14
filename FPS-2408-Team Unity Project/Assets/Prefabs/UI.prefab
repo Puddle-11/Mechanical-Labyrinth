@@ -3609,4 +3609,4 @@ MonoBehaviour:
   currAmmoField: {fileID: 436186101306296446}
   enemyCountField: {fileID: 7342571933229280109}
   enemyCountObj: {fileID: 6136108156272293467}
-  playerHealth: {fileID: 345406179306538758}
+  playerHealth: {fileID: 5617332226217979904}

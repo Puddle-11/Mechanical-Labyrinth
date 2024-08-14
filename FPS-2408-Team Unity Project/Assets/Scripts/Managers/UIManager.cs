@@ -7,18 +7,31 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
-
+    [Space]
+    [Header("Menus")]
+    [Space]
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuActive;
+    [Space]
+    [Header("Damage Indicator")]
+    [Space]
     [SerializeField] private float flashDamageTime;
     [SerializeField] private GameObject flashDamageRef;
+    [Space]
+    [Header("Health")]
+    [Space]
+
+    [SerializeField] private Image playerHealth;
+    [SerializeField] private Gradient playerHealthColor;
+    [Space]
+    [Header("Misc")]
+    [Space]
     [SerializeField] private TMP_Text currAmmoField;
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
      
-    public Image playerHealth;
     private bool isPause = false;
 
     public void ToggleEnemyCount(bool _val)
@@ -35,6 +48,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateHealthBar(float _val) //Takes a NORMALIZED value
     {
+        playerHealth.color = playerHealthColor.Evaluate(_val);
         playerHealth.fillAmount = _val;
 
     }
