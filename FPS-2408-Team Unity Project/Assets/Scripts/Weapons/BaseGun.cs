@@ -150,7 +150,7 @@ public class BaseGun : Weapon
                 else
                 {
                     int index = Random.Range(0, bulletHolePrefab.Length);
-                    Instantiate(bulletHolePrefab[index], hit.point  + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal));
+                    Instantiate(bulletHolePrefab[index], hit.point  + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform);
                 }
             }
 
