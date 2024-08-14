@@ -201,6 +201,8 @@ MonoBehaviour:
   shootDist: 50
   shootPos: {fileID: 5251786042946030810}
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
+  bulletHolePrefab:
+  - {fileID: 3008299338069187270, guid: e646d8652356215429ead34e36ddb5ef, type: 3}
   burstSize: 0
   clipSizeMax: 15
   reloadSpeed: 1.5

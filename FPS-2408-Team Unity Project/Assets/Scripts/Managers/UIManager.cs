@@ -31,7 +31,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text currAmmoField;
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
-     
     private bool isPause = false;
 
     public void ToggleEnemyCount(bool _val)
