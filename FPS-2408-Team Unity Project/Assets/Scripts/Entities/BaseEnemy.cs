@@ -74,6 +74,7 @@ public class BaseEnemy : BaseEntity
         }
         return false;
     }
+
     private bool GetLineOfSight()
     {
         Vector3 targetDir = (GetTarget().transform.position - transform.position).normalized;

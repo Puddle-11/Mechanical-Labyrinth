@@ -22,6 +22,7 @@ public class BaseGun : Weapon
     [Space]
     [SerializeField] private float FSAccuracy;
     [SerializeField] private AnimationCurve FSAOverTime;
+    [SerializeField] private float recoilCooldownFactor;
     [SerializeField] private float maxRecoil;
     private float FSAtimer;
     private int currAmmo;
@@ -43,6 +44,16 @@ public class BaseGun : Weapon
     {
         
         if (ShootConditional()) Attack();
+        else
+        {
+        }
+        if (!isAttacking)
+        {
+            if (playerGun) CameraController.instance.ResetOffsetPos();
+            FSAtimer = Mathf.Clamp(FSAtimer - Time.deltaTime * recoilCooldownFactor, 0, Mathf.Infinity);
+
+        }
+
     }
     #region Getters Setters
     public void SetShootPos(Transform _pos)
@@ -79,7 +90,7 @@ public class BaseGun : Weapon
         }
         else
         {
-            FSAtimer = 0;
+            
             offTrigger = true;
         }
         return res;
@@ -93,27 +104,38 @@ public class BaseGun : Weapon
     public override IEnumerator AttackDelay()
     {
         isAttacking = true;
-        UpdateAmmo(-1);
 
-        int size = shotType == GunType.Burst ? burstSize : 1;
-        WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
+        int size = 1;
         float FSATimerMax = barrelDelay * size * clipSizeMax + coolDown * (clipSizeMax / size);
+        if (shotType == GunType.Burst)
+        {
+            size = burstSize;
+         FSATimerMax = barrelDelay * size * clipSizeMax;
+        }
+      
+        WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
         for (int i = 0; i < size; i++)
         {
+            if (currAmmo == 0) break;
+        float normalizedTimer = FSAtimer/ FSATimerMax;
+            UpdateAmmo(-1);
             FSAtimer += barrelDelay;
             if (playerGun) CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
-            RaycastHit hit;
+
+
+            CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
+
+
             Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
+            shootDir += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
+            yield return null;
 
-            shootDir += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(FSAtimer / FSATimerMax);
-            //CameraController.instance.UpdateCamPos(new Vector2(0, maxRecoil * FSAtimer / FSATimerMax));
-
+            RaycastHit hit;
             if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
                 IHealth healthRef;
                 if (hit.collider.TryGetComponent<IHealth>(out healthRef)) healthRef.UpdateHealth(-shootDamage);
             }
-            Debug.DrawRay(playerGun ? Camera.main.transform.position : shootPos.position, (playerGun ? Camera.main.transform.forward : shootPos.forward) * shootDist);
             SummonBulletTracer(hit, shootDir);
             yield return wfs;
         }

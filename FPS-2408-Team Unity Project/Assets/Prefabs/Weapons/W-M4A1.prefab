@@ -141,24 +141,26 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.14309135
-      outSlope: 0.14309135
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.053214364
+      outWeight: 0
     - serializedVersion: 3
-      time: 1.0059814
-      value: 0.25
-      inSlope: 0.5960857
-      outSlope: 0.5960857
+      time: 1
+      value: 1
+      inSlope: 1.835481
+      outSlope: 1.835481
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.036976002
+      inWeight: 0.026049852
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  recoilCooldownFactor: 1
+  maxRecoil: 10
 --- !u!4 &4771568509178638777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1823251136171036062, guid: 201149ace250afc43884b518e7daf240, type: 3}

@@ -122,15 +122,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 1.835481
+      outSlope: 1.835481
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.026049852
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  recoilCooldownFactor: 1
+  maxRecoil: 10
 --- !u!4 &4898204275461610101 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5764421673725154699, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
