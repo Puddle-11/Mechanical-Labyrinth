@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class BaseGun : Weapon
 {
+    [Space]
+    [Header("General Gun Variables")]
+    [Space]
     [SerializeField] private GunType shotType;
     [SerializeField] private int shootDamage;
     [SerializeField] private float shootDist;
@@ -17,6 +20,8 @@ public class BaseGun : Weapon
     [SerializeField] private int clipSizeMax;
     [SerializeField] private float reloadSpeed;
     [SerializeField] private float barrelDelay;
+    [SerializeField] private Animator muzzleFlash;
+    [SerializeField] private float muzzleFlashSize;
     [Space]
     [Header("Accuracy Variables")]
     [Space]
@@ -129,7 +134,7 @@ public class BaseGun : Weapon
             Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
             shootDir += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             yield return null;
-
+            StartMuzzleFlash();
             RaycastHit hit;
             if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
@@ -143,7 +148,15 @@ public class BaseGun : Weapon
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
     }
-
+    private void StartMuzzleFlash()
+    {
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.transform.localScale = Vector3.one * muzzleFlashSize;
+            muzzleFlash.SetTrigger("Flash");
+            muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 180));
+        }
+    }
     public void UpdateAmmo(int _val)
     {
         SetAmmo(currAmmo + _val);
