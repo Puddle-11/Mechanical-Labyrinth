@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-[CustomEditor(typeof(BaseGun))]
+[CustomEditor(typeof(BaseGun)), CanEditMultipleObjects]
 public class BaseGunEditor : Editor
 {
 #if UNITY_EDITOR

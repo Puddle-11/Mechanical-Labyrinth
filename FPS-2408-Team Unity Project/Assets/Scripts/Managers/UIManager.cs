@@ -16,9 +16,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject flashDamageRef;
     [SerializeField] private TMP_Text currAmmoField;
     [SerializeField] private TMP_Text enemyCountField;
-
+    [SerializeField] private GameObject enemyCountObj;
+     
     public Image playerHealth;
     private bool isPause = false;
+
+    public void ToggleEnemyCount(bool _val)
+    {
+        enemyCountObj.SetActive(_val);
+    }
     public bool GetStatePaused()
     {
         return isPause;
@@ -94,11 +100,10 @@ public class UIManager : MonoBehaviour
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
-    public void openWinMenu()
+    public void ToggleWinMenu(bool _val)
     {
-        statePause();
-        menuActive = menuWin;
-        menuActive.SetActive(true);
+        
+        menuWin.SetActive(_val);
     }
 
     public void ammoDisplay(int curr, int max)

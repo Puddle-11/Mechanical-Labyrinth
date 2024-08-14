@@ -14,12 +14,23 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float miny, maxy;
     [SerializeField] private bool invert;
     [SerializeField] private Transform cameraAnchor;
+
+
+    [Space]
+    [Header("Camera Offset variables")]
+    [Space]
+    [SerializeField] private float offsetResetSpeed;
+    [SerializeField] private float offsetResetDampening;
     private float rotX;
+    private float rotY;
     [Header("Camera Shake variables")]
     [Space]
     [SerializeField] AnimationCurve camShakeIntensity;
     [SerializeField]  private float camShakeScalar;
     [SerializeField] private float camShakeDurration;
+
+    public Vector2 offset;
+
     public void Awake()
     {
         if(instance == null)
@@ -75,19 +86,35 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (UIManager.instance == null || (UIManager.instance != null && !UIManager.instance.GetStatePaused()))
         {
-            float yaw = Input.GetAxis("Mouse X") * sens;
-            float pitch = Input.GetAxis("Mouse Y") * sens;
-            rotX = invert ? rotX + pitch : rotX - pitch;
-            rotX = Mathf.Clamp(rotX, miny, maxy);
-
-            cameraAnchor.localRotation = Quaternion.Euler(rotX, 0, 0);
-            GameManager.instance.playerRef.transform.Rotate(Vector3.up * yaw);
+            UpdateCamPos();
         }
     }
-    
   
-    
+    public void UpdateCamPos()
+    {
+
+        float yaw = Input.GetAxis("Mouse X") * sens;
+        float pitch = Input.GetAxis("Mouse Y") * sens;
+        rotX = invert ? rotX + pitch: rotX - pitch;
+        rotX = Mathf.Clamp(rotX, miny, maxy);
+
+        cameraAnchor.localRotation = Quaternion.Euler(rotX + offset.y, 0, 0);
+        GameManager.instance.playerRef.transform.Rotate(Vector3.up * yaw);
+    }
+    public void UpdateOffsetPos(Vector2 _offset)
+    {
+        SetOffsetPos(offset + _offset);
+    }
+    public void SetOffsetPos(Vector2 _offset)
+    {
+        offset = _offset;
+    }
+    public void ResetOffsetPos()
+    {
+        offset = Vector2.MoveTowards(offset, Vector2.zero, offsetResetSpeed + Mathf.Pow(Vector2.Distance(offset, Vector2.zero), 2) * offsetResetDampening);
+        if (Mathf.Abs(offset.y) < 0.01) offset.y = 0;
+        if (Mathf.Abs(offset.x) < 0.01) offset.x = 0;
+    }
 }

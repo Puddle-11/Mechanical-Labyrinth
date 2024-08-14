@@ -8,6 +8,9 @@ using UnityEngine;
 
 public class BaseGun : Weapon
 {
+    [Space]
+    [Header("General Gun Variables")]
+    [Space]
     [SerializeField] private GunType shotType;
     [SerializeField] private int shootDamage;
     [SerializeField] private float shootDist;
@@ -17,6 +20,16 @@ public class BaseGun : Weapon
     [SerializeField] private int clipSizeMax;
     [SerializeField] private float reloadSpeed;
     [SerializeField] private float barrelDelay;
+    [SerializeField] private Animator muzzleFlash;
+    [SerializeField] private float muzzleFlashSize;
+    [Space]
+    [Header("Accuracy Variables")]
+    [Space]
+    [SerializeField] private float FSAccuracy;
+    [SerializeField] private AnimationCurve FSAOverTime;
+    [SerializeField] private float recoilCooldownFactor;
+    [SerializeField] private float maxRecoil;
+    private float FSAtimer;
     private int currAmmo;
     private bool isReloading = false;
     private bool playerGun = false;
@@ -34,7 +47,18 @@ public class BaseGun : Weapon
     }
     private void Update()
     {
+        
         if (ShootConditional()) Attack();
+        else
+        {
+        }
+        if (!isAttacking)
+        {
+            if (playerGun) CameraController.instance.ResetOffsetPos();
+            FSAtimer = Mathf.Clamp(FSAtimer - Time.deltaTime * recoilCooldownFactor, 0, Mathf.Infinity);
+
+        }
+
     }
     #region Getters Setters
     public void SetShootPos(Transform _pos)
@@ -52,24 +76,26 @@ public class BaseGun : Weapon
         if (!isReloading && usingItem)
         {
             
-            switch (shotType)
-            {
-                case GunType.Automatic:
-                    res = true;
-                    break;
-                case GunType.Burst:
-                case GunType.Manual:
-                    if (offTrigger)
-                    {
+                switch (shotType)
+                {
+                    case GunType.Automatic:
                         res = true;
-                    }
-                    break;
+                        break;
+                    case GunType.Burst:
+                    case GunType.Manual:
+                        if (offTrigger)
+                        {
+                            res = true;
+                        }
+                        break;
 
-            }
-            offTrigger = false;
+                }
+                offTrigger = false;
+            
         }
         else
         {
+            
             offTrigger = true;
         }
         return res;
@@ -83,29 +109,54 @@ public class BaseGun : Weapon
     public override IEnumerator AttackDelay()
     {
         isAttacking = true;
-        UpdateAmmo(-1);
 
-        int size = shotType == GunType.Burst ? burstSize : 1;
+        int size = 1;
+        float FSATimerMax = barrelDelay * size * clipSizeMax + coolDown * (clipSizeMax / size);
+        if (shotType == GunType.Burst)
+        {
+            size = burstSize;
+         FSATimerMax = barrelDelay * size * clipSizeMax;
+        }
+      
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
-
         for (int i = 0; i < size; i++)
         {
+            if (currAmmo == 0) break;
+        float normalizedTimer = FSAtimer/ FSATimerMax;
+            UpdateAmmo(-1);
+            FSAtimer += barrelDelay;
             if (playerGun) CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
+
+
+            CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
+
+
+            Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
+            shootDir += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
+            yield return null;
+            StartMuzzleFlash();
             RaycastHit hit;
-            if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, playerGun ? Camera.main.transform.forward : shootPos.forward, out hit, shootDist, ~ignoreMask))
+            if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
                 IHealth healthRef;
                 if (hit.collider.TryGetComponent<IHealth>(out healthRef)) healthRef.UpdateHealth(-shootDamage);
             }
-            Debug.DrawRay(playerGun ? Camera.main.transform.position : shootPos.position, (playerGun ? Camera.main.transform.forward : shootPos.forward) * shootDist);
-            SummonBulletTracer(hit);
+            SummonBulletTracer(hit, shootDir);
             yield return wfs;
         }
-
+        FSAtimer += coolDown;
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
     }
-
+    private void StartMuzzleFlash()
+    {
+        if (muzzleFlash != null)
+        {
+            muzzleFlash.transform.localScale = Vector3.one * muzzleFlashSize;
+            muzzleFlash.SetTrigger("Flash");
+            muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 180));
+        }
+    }
     public void UpdateAmmo(int _val)
     {
         SetAmmo(currAmmo + _val);
@@ -118,7 +169,7 @@ public class BaseGun : Weapon
         currAmmo = _val;
         if (playerGun == true) UIManager.instance.ammoDisplay(currAmmo, clipSizeMax);
     }
-    private void SummonBulletTracer(RaycastHit _path)
+    private void SummonBulletTracer(RaycastHit _path, Vector3 _dir)
     {
         GameObject trailRef = Instantiate(bulletTrail, shootPos.transform.position, Quaternion.identity);
         BulletTracer BT;
@@ -126,11 +177,11 @@ public class BaseGun : Weapon
         {
             if (playerGun)
             {
-                BT.SetPositions(shootPos.transform.position, _path.collider != null ? _path.point : Camera.main.transform.position + Camera.main.transform.forward * shootDist);
+                BT.SetPositions(shootPos.transform.position, _path.collider != null ? _path.point : Camera.main.transform.position + _dir * shootDist);
             }
             else
             {
-                BT.SetDirection(shootPos.transform.position, shootPos.forward);
+                BT.SetDirection(shootPos.transform.position, _dir);
             }
         }
     }

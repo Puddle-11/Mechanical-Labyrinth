@@ -459,7 +459,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 4
+  m_StoppingDistance: 10
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -1033,6 +1033,8 @@ MonoBehaviour:
   maxy: 90
   invert: 0
   cameraAnchor: {fileID: 537943608}
+  offsetResetSpeed: 0.01
+  offsetResetDampening: 0.005
   camShakeIntensity:
     serializedVersion: 2
     m_Curve:
@@ -1059,6 +1061,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   camShakeScalar: 0.075
   camShakeDurration: 0.15
+  offset: {x: 0, y: 0}
 --- !u!114 &1337451825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1874,6 +1877,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3944907800050988978, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4953521546902487907, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -45.19995
@@ -1881,6 +1888,10 @@ PrefabInstance:
     - target: {fileID: 9128511731899136587, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128511731899136587, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2011,6 +2022,10 @@ PrefabInstance:
       propertyPath: ignoreMask.m_Bits
       value: 1088
       objectReference: {fileID: 0}
+    - target: {fileID: 1116447676815778488, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
+      propertyPath: m_Radius
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 2107300824403025869, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.537256
@@ -2021,7 +2036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2107300824403025869, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.484725
+      value: 4.45
       objectReference: {fileID: 0}
     - target: {fileID: 2107300824403025869, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2113,23 +2128,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6304665973987437439, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.502
+      value: 0.50213146
       objectReference: {fileID: 0}
     - target: {fileID: 6304665973987437439, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.261
+      value: 0.26094246
       objectReference: {fileID: 0}
     - target: {fileID: 6304665973987437439, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9997618
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304665973987437439, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6304665973987437439, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.021823786
+      objectReference: {fileID: 0}
+    - target: {fileID: 6304665973987437439, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6304665973987437439, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -2.501
       objectReference: {fileID: 0}
     - target: {fileID: 6739927745540541213, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: agent
@@ -2147,6 +2170,14 @@ PrefabInstance:
       propertyPath: weaponScr
       value: 
       objectReference: {fileID: 1652307811}
+    - target: {fileID: 6739927745540541213, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
+      propertyPath: sightRadius
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6739927745540541213, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
+      propertyPath: rotationSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6739927745540541213, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
       propertyPath: detectionRange
       value: 15
