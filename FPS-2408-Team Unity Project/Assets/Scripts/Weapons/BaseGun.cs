@@ -21,8 +21,8 @@ public class BaseGun : Weapon
     [Header("Accuracy Variables")]
     [Space]
     [SerializeField] private float FSAccuracy;
-    [SerializeField] private float FSATimerMax;
     [SerializeField] private AnimationCurve FSAOverTime;
+    [SerializeField] private float maxRecoil;
     private float FSAtimer;
     private int currAmmo;
     private bool isReloading = false;
@@ -41,6 +41,7 @@ public class BaseGun : Weapon
     }
     private void Update()
     {
+        
         if (ShootConditional()) Attack();
     }
     #region Getters Setters
@@ -96,7 +97,7 @@ public class BaseGun : Weapon
 
         int size = shotType == GunType.Burst ? burstSize : 1;
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
-
+        float FSATimerMax = barrelDelay * size * clipSizeMax + coolDown * (clipSizeMax / size);
         for (int i = 0; i < size; i++)
         {
             FSAtimer += barrelDelay;
@@ -105,7 +106,7 @@ public class BaseGun : Weapon
             Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
 
             shootDir += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(FSAtimer / FSATimerMax);
-      
+            //CameraController.instance.UpdateCamPos(new Vector2(0, maxRecoil * FSAtimer / FSATimerMax));
 
             if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
             {

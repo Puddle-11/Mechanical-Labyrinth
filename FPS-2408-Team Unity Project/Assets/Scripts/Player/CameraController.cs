@@ -14,12 +14,16 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float miny, maxy;
     [SerializeField] private bool invert;
     [SerializeField] private Transform cameraAnchor;
+    [SerializeField] private float offsetReturnSpeed;
     private float rotX;
+    private float rotY;
     [Header("Camera Shake variables")]
     [Space]
     [SerializeField] AnimationCurve camShakeIntensity;
     [SerializeField]  private float camShakeScalar;
     [SerializeField] private float camShakeDurration;
+    private Vector2 offset;
+
     public void Awake()
     {
         if(instance == null)
@@ -75,19 +79,28 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        offset = Vector2.MoveTowards(offset, Vector2.zero, offsetReturnSpeed);
         if (UIManager.instance == null || (UIManager.instance != null && !UIManager.instance.GetStatePaused()))
         {
-            float yaw = Input.GetAxis("Mouse X") * sens;
-            float pitch = Input.GetAxis("Mouse Y") * sens;
-            rotX = invert ? rotX + pitch : rotX - pitch;
-            rotX = Mathf.Clamp(rotX, miny, maxy);
-
-            cameraAnchor.localRotation = Quaternion.Euler(rotX, 0, 0);
-            GameManager.instance.playerRef.transform.Rotate(Vector3.up * yaw);
+            UpdateCamPos();
         }
     }
-    
+  
+    public void UpdateCamPos()
+    {
+
+        rotY = Input.GetAxis("Mouse X") * sens;
+        float pitch = Input.GetAxis("Mouse Y") * sens;
+        rotX = invert ? rotX + pitch: rotX - pitch;
+        rotX = Mathf.Clamp(rotX, miny, maxy);
+
+        cameraAnchor.localRotation = Quaternion.Euler(rotX + offset.y, 0, 0);
+        GameManager.instance.playerRef.transform.Rotate(Vector3.up * (rotY + offset.x));
+    }
+    public void UpdateOffsetPos()
+    {
+
+    }
   
     
 }

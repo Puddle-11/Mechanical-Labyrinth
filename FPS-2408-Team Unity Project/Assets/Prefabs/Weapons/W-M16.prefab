@@ -135,8 +135,7 @@ MonoBehaviour:
   clipSizeMax: 15
   reloadSpeed: 1.5
   barrelDelay: 0
-  FSAccuracy: 0.2
-  FSATimerMax: 5
+  FSAccuracy: 0.05
   FSAOverTime:
     serializedVersion: 2
     m_Curve:

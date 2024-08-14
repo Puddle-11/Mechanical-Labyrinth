@@ -14,9 +14,10 @@ public class BaseEnemy : BaseEntity
     [SerializeField] protected Weapon weaponScr;
     private bool inRange;
     [SerializeField] private GameObject target;
-    [SerializeField] private float sightRadiusRad;
+    [SerializeField] private float sightRadius;
     [SerializeField] private float detectionRange;
     [SerializeField] private float rotationSpeed;
+
     public enum DetectionType
     {
         InRange,
@@ -40,6 +41,10 @@ public class BaseEnemy : BaseEntity
         {
             SetNavmeshTarget();
             weaponScr.Attack();
+            if (agent.remainingDistance <= agent.stoppingDistance)  // Rotate enemy view to adjust to player location
+            {
+                FacePlayer();
+            }
         }
         base.Update();
     }
@@ -75,7 +80,7 @@ public class BaseEnemy : BaseEntity
         float angle = Vector3.Angle(targetDir, transform.forward);
         
 
-        if (angle < sightRadiusRad)
+        if (angle < sightRadius / 2)
         {
             RaycastHit hit;
             if(Physics.Raycast(transform.position, targetDir, out hit, detectionRange, ~weaponScr.ignoreMask))
@@ -98,7 +103,7 @@ public class BaseEnemy : BaseEntity
     }
     public void FacePlayer()
     {
-        Quaternion rot = Quaternion.LookRotation(GetTarget().transform.position);
+        Quaternion rot = Quaternion.LookRotation(GetTarget().transform.position - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotationSpeed);
 
 
@@ -120,7 +125,6 @@ public class BaseEnemy : BaseEntity
     {
         if (other.gameObject == GetTarget())
         {
-            
             inRange = false;
         }
     }
@@ -130,5 +134,9 @@ public class BaseEnemy : BaseEntity
 
         base.Death(); //base death contains destroy(gameObject);
     }
-  
+    private void OnDrawGizmos()
+    {
+        Debug.DrawRay(transform.position, transform.forward * 10, Color.red);
+    }
+
 }
