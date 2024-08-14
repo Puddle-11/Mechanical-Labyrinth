@@ -119,7 +119,7 @@ MonoBehaviour:
   reloadSpeed: 1.5
   barrelDelay: 0
   muzzleFlash: {fileID: 3324316952455392607}
-  muzzleFlashSize: 1
+  muzzleFlashSize: 0.05
   FSAccuracy: 0.05
   FSAOverTime:
     serializedVersion: 2
@@ -146,7 +146,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   recoilCooldownFactor: 1
-  maxRecoil: 10
+  maxRecoil: 20
 --- !u!1001 &8362665517405701200
 PrefabInstance:
   m_ObjectHideFlags: 0

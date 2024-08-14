@@ -118,7 +118,7 @@ MonoBehaviour:
   reloadSpeed: 1.5
   barrelDelay: 0.05
   muzzleFlash: {fileID: 983026545257211559}
-  muzzleFlashSize: 1
+  muzzleFlashSize: 0.05
   FSAccuracy: 0.05
   FSAOverTime:
     serializedVersion: 2
@@ -145,7 +145,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   recoilCooldownFactor: 1
-  maxRecoil: 10
+  maxRecoil: 20
 --- !u!4 &7179430413975253999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8894966728604882772, guid: b440b0e4530b7994ca41833a626f7639, type: 3}

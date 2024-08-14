@@ -125,7 +125,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   recoilCooldownFactor: 1
-  maxRecoil: 10
+  maxRecoil: 20
 --- !u!4 &7940028811183308023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6602412205035012990, guid: 9f8c9e6fa705b5445b2b17450c2a7b89, type: 3}
