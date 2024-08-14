@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: texture.png
     second: {fileID: 2100000, guid: f5aaa5b30d18f3245974c67dc5d5f0b7, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texture
+    second: {fileID: 2800000, guid: 304ecc8a0f3aded47bb2c09af025a5a1, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
