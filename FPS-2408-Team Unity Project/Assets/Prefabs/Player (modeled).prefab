@@ -177,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 523880797623117992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.290625, z: 0}
+  m_LocalPosition: {x: 0, y: -1.290625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2180,8 +2180,13 @@ MonoBehaviour:
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
   speed: 10
   sprintMod: 1.5
+  jumplayer:
+    serializedVersion: 2
+    m_Bits: 0
   jumpHeight: 10
   jumpMax: 1
+  Walljumpdir: {x: 0, y: 0, z: 0}
+  WalljumpSpeed: 0
   gravityStrength: 21
 --- !u!114 &1743493806311950691
 MonoBehaviour:
@@ -3689,7 +3694,7 @@ Transform:
   m_GameObject: {fileID: 6891180400707284958}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.290625, z: 0}
+  m_LocalPosition: {x: 0, y: -1.290625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4902,8 +4907,8 @@ Transform:
   - {fileID: 6151449865402876288}
   - {fileID: 7092987382843129149}
   - {fileID: 4385093153407687889}
-  - {fileID: 6632465761181623484}
   - {fileID: 3279211221416684986}
+  - {fileID: 6632465761181623484}
   m_Father: {fileID: 8311861757859117002}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8463318530306665141

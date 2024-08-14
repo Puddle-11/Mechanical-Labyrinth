@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3105553646429938514}
   - component: {fileID: 1241670013441688939}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Jumpable walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

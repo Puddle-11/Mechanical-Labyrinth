@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
+using UnityEditor.Rendering;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
@@ -15,6 +16,7 @@ public class PlayerController : BaseEntity
     [Space]
     [SerializeField] private float speed;
     [SerializeField] private float sprintMod;
+    [SerializeField] private float mass;
     private bool isSprinting;
     [Header("Jump Variables")]
     [Space]
@@ -32,7 +34,7 @@ public class PlayerController : BaseEntity
     private PlayerHand playerHandRef;
 
 
-
+    private float momentum;
 
     public override void Awake()
     {
@@ -88,6 +90,7 @@ public class PlayerController : BaseEntity
             }
         }
         Walljump();
+        momentum = mass * speed;
     }
 
     private void Movement()
