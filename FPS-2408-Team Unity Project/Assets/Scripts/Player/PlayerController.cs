@@ -66,7 +66,7 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
-        if (Input.GetButton("Shoot"))
+        if (Input.GetButtonDown("Pick Up"))
         {
             playerHandRef?.ClickPickUp();
 
