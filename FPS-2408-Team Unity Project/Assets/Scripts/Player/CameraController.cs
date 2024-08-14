@@ -22,13 +22,12 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float offsetResetSpeed;
     [SerializeField] private float offsetResetDampening;
     private float rotX;
-    private float rotY;
     [Header("Camera Shake variables")]
     [Space]
     [SerializeField] AnimationCurve camShakeIntensity;
     [SerializeField]  private float camShakeScalar;
     [SerializeField] private float camShakeDurration;
-
+    public bool resettingOffset;
     public Vector2 offset;
 
     public void Awake()
@@ -91,7 +90,11 @@ public class CameraController : MonoBehaviour
             UpdateCamPos();
         }
     }
-  
+    private void FixedUpdate()
+    {
+       if(resettingOffset) ResetOffsetPos();
+    }
+
     public void UpdateCamPos()
     {
 
@@ -111,7 +114,11 @@ public class CameraController : MonoBehaviour
     {
         offset = _offset;
     }
-    public void ResetOffsetPos()
+    public void ResetOffset(bool _val)
+    {
+        resettingOffset = _val;
+    }
+    private void ResetOffsetPos()
     {
         offset = Vector2.MoveTowards(offset, Vector2.zero, offsetResetSpeed + Mathf.Pow(Vector2.Distance(offset, Vector2.zero), 2) * offsetResetDampening);
         if (Mathf.Abs(offset.y) < 0.01) offset.y = 0;

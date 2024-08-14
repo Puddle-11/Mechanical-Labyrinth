@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -7,7 +9,7 @@ public class PlayerController : BaseEntity
 {
     private Vector3 move;
 
-    
+
     private CharacterController controllerRef;
     [Header("Walk Variables")]
     [Space]
@@ -16,22 +18,25 @@ public class PlayerController : BaseEntity
     private bool isSprinting;
     [Header("Jump Variables")]
     [Space]
-
+    [SerializeField] private LayerMask jumplayer;
     [SerializeField] private float jumpHeight;
     [SerializeField] private int jumpMax;
     private int jumpCurr;
+    [SerializeField] private Vector3 Walljumpdir;
+    [SerializeField] private int WalljumpSpeed;
+    private bool onWall;
     [Header("Physics Variables")]
     [Space]
     [SerializeField] private float gravityStrength;
     private Vector3 playerVel;
     private PlayerHand playerHandRef;
 
-   
-    
-   
+
+
+
     public override void Awake()
     {
-        if(!TryGetComponent<PlayerHand>(out playerHandRef))
+        if (!TryGetComponent<PlayerHand>(out playerHandRef))
         {
             Debug.LogWarning("No player hand component found on " + gameObject.name);
         }
@@ -51,7 +56,7 @@ public class PlayerController : BaseEntity
     {
         base.SetHealth(_amount);
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
-        StartCoroutine( UIManager.instance.flashDamage());
+        StartCoroutine(UIManager.instance.flashDamage());
         CameraController.instance.StartCamShake();
     }
     // Update is called once per frame
@@ -61,7 +66,7 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
-        if(Input.GetButtonDown("Pick Up"))
+        if (Input.GetButton("Shoot"))
         {
             playerHandRef?.ClickPickUp();
 
@@ -82,9 +87,9 @@ public class PlayerController : BaseEntity
                 StartCoroutine(tempOut.Reload());
             }
         }
-
+        Walljump();
     }
-  
+
     private void Movement()
     {
         //move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -103,13 +108,13 @@ public class PlayerController : BaseEntity
 
         if (Input.GetButtonDown("Jump") && jumpCurr < jumpMax)
         {
-            
+
             jumpCurr++;
             playerVel.y = jumpHeight;
         }
         controllerRef.Move(playerVel * Time.deltaTime);
-       
-        
+
+
     }
     void Sprint()
     {
@@ -123,6 +128,41 @@ public class PlayerController : BaseEntity
         {
             speed /= sprintMod;
             isSprinting = false;
+        }
+    }
+    void Walljump()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
+        {
+            jumpCurr = 0;
+            onWall = true;
+            WalljumpSpeed = 0;
+            Debug.Log("Right");
+            if (Input.GetButtonDown("Jump"))
+                Walljumpdir = transform.forward * playerVel.y + Vector3.left;
+
+        }
+        else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.InverseTransformPoint(transform.right), out hit, 2f, jumplayer))
+        {
+            jumpCurr = 0;
+            onWall = true;
+            WalljumpSpeed = 0;
+            Debug.Log("Left");
+            if (Input.GetButtonDown("Jump"))
+                Walljumpdir = transform.right + transform.up;
+        }
+        else
+        {
+            onWall = false;
+        }
+
+    }
+    void jumpoffwall()
+    {
+        if (onWall == true && Input.GetButtonDown("Jump"))
+        {
+
         }
     }
 

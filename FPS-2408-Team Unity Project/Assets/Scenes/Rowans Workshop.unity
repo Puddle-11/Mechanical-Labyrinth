@@ -1033,7 +1033,7 @@ MonoBehaviour:
   maxy: 90
   invert: 0
   cameraAnchor: {fileID: 537943608}
-  offsetResetSpeed: 0.01
+  offsetResetSpeed: 0.2
   offsetResetDampening: 0.005
   camShakeIntensity:
     serializedVersion: 2
@@ -1061,6 +1061,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   camShakeScalar: 0.075
   camShakeDurration: 0.15
+  resettingOffset: 0
   offset: {x: 0, y: 0}
 --- !u!114 &1337451825
 MonoBehaviour:
