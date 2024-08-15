@@ -15,6 +15,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     private Material originalMaterial;
     private bool takingDamage;
     [SerializeField] private GameObject[] drops;
+    [SerializeField] protected EntityHealthBar healthBar;
     // Start is called before Start (used to initialize variables inside an object, DO NOT use awake to interact with other objects or components, this will crash your unity project
     public virtual void Awake()
     {
@@ -52,7 +53,7 @@ public class BaseEntity : MonoBehaviour, IHealth
         _amount = _amount < 0 ? 0 : _amount;
         StartCoroutine(changeIndicator(damageMaterial));
         //clamps the _amount to a min of 0
-
+        if(healthBar != null) healthBar.UpdateHealthBar((float)_amount, (float)maxHealth);
         currentHealth = _amount;
         if (_amount == 0)
         {

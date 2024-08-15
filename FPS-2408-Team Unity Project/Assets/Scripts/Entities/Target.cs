@@ -42,7 +42,7 @@ public class Target : BaseEntity
         yield return new WaitForSeconds(RespawnTime);
         collRef.enabled = true;
         rendRef.enabled = true;
-
+        healthBar.UpdateHealthBar((float)currentHealth, (float)maxHealth);
 
     }
 

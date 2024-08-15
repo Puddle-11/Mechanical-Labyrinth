@@ -184,6 +184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Target (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2408933724829381918, guid: 9e611557681d7dd4b9a730c0cd343ff6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5556967960550151185, guid: 9e611557681d7dd4b9a730c0cd343ff6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1897,6 +1901,8 @@ MonoBehaviour:
   rendRef: {fileID: 0}
   damageFlashTime: 0.1
   damageMaterial: {fileID: 0}
+  drops: []
+  healthBar: {fileID: 0}
   speed: 10
   sprintMod: 1.5
   mass: 0
