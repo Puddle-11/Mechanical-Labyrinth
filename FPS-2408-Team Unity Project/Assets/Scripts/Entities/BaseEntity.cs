@@ -11,7 +11,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     [SerializeField] protected Renderer rendRef;
     [Range(0.1f, 10f)]
     [SerializeField] private float damageFlashTime;
-    [SerializeField] private Material damageMaterial;
+    [SerializeField] protected Material damageMaterial;
     private Material originalMaterial;
     private bool takingDamage;
     [SerializeField] private GameObject[] drops;
@@ -66,7 +66,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     }
     #endregion
 
-    private IEnumerator changeIndicator(Material _flashMat)
+    public IEnumerator changeIndicator(Material _flashMat)
     {
         if (rendRef != null)
         {

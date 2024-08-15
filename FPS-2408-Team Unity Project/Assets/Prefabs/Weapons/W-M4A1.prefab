@@ -169,13 +169,13 @@ MonoBehaviour:
   - {fileID: 3008299338069187270, guid: eadd3a27fdfd7b341a32f16613717952, type: 3}
   - {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
   burstSize: 5
-  clipSizeMax: 15
+  clipSizeMax: 30
   reloadSpeed: 1.5
   barrelDelay: 0
   muzzleFlash: {fileID: 4037953909308320129}
   muzzleFlashSize: 1
   sparkParticles: {fileID: 6999054089370399508}
-  FSAccuracy: 0.05
+  FSAccuracy: 0.15
   FSAOverTime:
     serializedVersion: 2
     m_Curve:

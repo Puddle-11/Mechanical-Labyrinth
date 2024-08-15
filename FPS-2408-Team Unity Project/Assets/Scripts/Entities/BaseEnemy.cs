@@ -17,6 +17,7 @@ public class BaseEnemy : BaseEntity
     [SerializeField] private float detectionRange;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Transform headPos;
+    [SerializeField] private int sneakDamageMultiplyer = 2;
     public enum DetectionType
     {
         InRange,
@@ -25,6 +26,7 @@ public class BaseEnemy : BaseEntity
         Vision_Sound,
         Continuous,
     }
+
     // Start is called before the first frame update
     
     public override void Start()
@@ -49,7 +51,8 @@ public class BaseEnemy : BaseEntity
     }
     public bool GetEnemyAlertStatus()
     {
-        switch (DetectPlayerType)
+       
+            switch (DetectPlayerType)
         {
             case DetectionType.Continuous:
                 return true;
@@ -60,7 +63,7 @@ public class BaseEnemy : BaseEntity
                 }
                 break;
             case DetectionType.Vision:
-                if (inRange && GetLineOfSight())
+                if ((inRange && GetLineOfSight()))
                 {
                     return true;
                 }
@@ -73,7 +76,18 @@ public class BaseEnemy : BaseEntity
         }
         return false;
     }
+    public override void UpdateHealth(int _amount)
+    {
+        if (!GetEnemyAlertStatus())
+        {
+            _amount = _amount * sneakDamageMultiplyer;
+            SetNavmeshTarget();
+        }
+ 
 
+        base.UpdateHealth(_amount);
+      
+    }
     private bool GetLineOfSight()
     {
         Vector3 targetDir = (GetTarget().transform.position - transform.position).normalized;
