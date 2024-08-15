@@ -8,6 +8,17 @@ public class Weapon : MonoBehaviour, IUsable
     [SerializeField] protected float coolDown;
     protected bool isAttacking;
     public LayerMask ignoreMask;
+    protected GameObject pickUp;
+  
+
+    public void SetPickup(GameObject _pickup)
+    {
+        pickUp = _pickup;
+    }
+    public GameObject GetPickup()
+    {
+        return pickUp;
+    }
 
     public bool GetUsingItem()
     {

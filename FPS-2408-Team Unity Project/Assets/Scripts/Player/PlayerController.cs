@@ -59,7 +59,7 @@ public class PlayerController : BaseEntity
         base.SetHealth(_amount);
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
         StartCoroutine(UIManager.instance.flashDamage());
-        //CameraController.instance.StartCamShake();
+        CameraController.instance.StartCamShake();
     }
     // Update is called once per frame
     public override void Update()
@@ -156,13 +156,11 @@ public class PlayerController : BaseEntity
         {
             jumpCurr = 0;
             onWall = true;
-           // wallslide();
         }
         else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
             onWall = true;
-            // wallslide();
         }
         else
         {

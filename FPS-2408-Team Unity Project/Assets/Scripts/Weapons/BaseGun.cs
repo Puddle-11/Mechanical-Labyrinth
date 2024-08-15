@@ -25,6 +25,7 @@ public class BaseGun : Weapon
     [SerializeField] private Animator muzzleFlash;
     [SerializeField] private float muzzleFlashSize;
     [SerializeField] private ParticleSystem sparkParticles;
+    [SerializeField] private ItemType gunDrop;
     [Space]
     [Header("Accuracy Variables")]
     [Space]
@@ -120,14 +121,14 @@ public class BaseGun : Weapon
         if (shotType == GunType.Burst)
         {
             size = burstSize;
-         FSATimerMax = barrelDelay * size * clipSizeMax + coolDown;
+            FSATimerMax = barrelDelay * size * clipSizeMax + coolDown;
         }
       
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
         for (int i = 0; i < size; i++)
         {
             if (currAmmo == 0) break;
-        float normalizedTimer = FSAtimer/ FSATimerMax;
+            float normalizedTimer = FSAtimer/ FSATimerMax;
             UpdateAmmo(-1);
             FSAtimer += barrelDelay;
             if (playerGun)
@@ -138,7 +139,6 @@ public class BaseGun : Weapon
             }
             Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
             shootDir += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
-            yield return null;
             StartMuzzleFlash();
             RaycastHit hit;
             if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))

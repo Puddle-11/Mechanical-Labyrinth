@@ -32,7 +32,6 @@ public class BaseEnemy : BaseEntity
     public override void Start()
     {
         base.Start();
-   
         GameManager.instance.updateGameGoal(1);
 
     }
@@ -42,22 +41,19 @@ public class BaseEnemy : BaseEntity
         {
             SetNavmeshTarget();
             weaponScr.Attack();
-            if (agent.remainingDistance <= agent.stoppingDistance)  // Rotate enemy view to adjust to player location
-            {
-                FacePlayer();
-            }
+            if (agent.remainingDistance <= agent.stoppingDistance) FacePlayer();
         }
         base.Update();
     }
     public bool GetEnemyAlertStatus()
     {
-       
-            switch (DetectPlayerType)
+
+        switch (DetectPlayerType)
         {
             case DetectionType.Continuous:
                 return true;
             case DetectionType.InRange:
-                if (getInrange())
+                if (GetInrange())
                 {
                     return true;
                 }
@@ -83,8 +79,6 @@ public class BaseEnemy : BaseEntity
             _amount = _amount * sneakDamageMultiplyer;
             SetNavmeshTarget();
         }
- 
-
         base.UpdateHealth(_amount);
       
     }
@@ -97,20 +91,11 @@ public class BaseEnemy : BaseEntity
 
         if (angle < sightRadius / 2)
         {
-            RaycastHit hit;
-            if(Physics.Raycast(headPos.position, targetDir, out hit, detectionRange, ~weaponScr.ignoreMask))
-            {
-                if (hit.collider.gameObject == GetTarget())
-                {
-                    return true;
-                }
-            }
-            Debug.DrawRay(headPos.position, targetDir * 50);
+            return GetInrange();
         }
-
         return false;
     }
-    private bool getInrange()
+    private bool GetInrange()
     {
         Vector3 targetDir = (GetTarget().transform.position - transform.position).normalized;
         targetDir.y = -targetDir.y;

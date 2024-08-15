@@ -208,6 +208,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 2037942172071205926}
   muzzleFlashSize: 1
   sparkParticles: {fileID: 170873549607154128}
+  gunDrop: {fileID: 11400000, guid: 47ac05cec19e901448ef7f69360d4bb3, type: 2}
   FSAccuracy: 0.05
   FSAOverTime:
     serializedVersion: 2

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 public class PlayerHand : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class PlayerHand : MonoBehaviour
     [SerializeField] private float pickUpDist;
     private GameObject CurrentEquiped;
     [SerializeField] private LayerMask ignoreMask;
-    private Pickup CurrentPickup;
     [SerializeField] private Vector2 throwSpeed;
     [SerializeField] private Vector2 throwOffset;
 
@@ -59,20 +59,54 @@ public class PlayerHand : MonoBehaviour
     public void UseItem()
     {
         IUsable useRef;
-        if (CurrentEquiped != null && CurrentEquiped.TryGetComponent<IUsable>(out useRef))
+        if (GetItem(out useRef))
         {
             useRef.UseItem();
         }
     }
+    public bool GetItem(out IUsable _usableRef)
+    {
+        IUsable useRef;
+        if (CurrentEquiped != null && CurrentEquiped.TryGetComponent<IUsable>(out useRef))
+        {
+            _usableRef = useRef;
+            return true;
+        }
+        else
+        {
+            _usableRef = null;
+
+            return false;
+        }
+
+    }
     private bool AttemptDrop()
     {
-        if(CurrentEquiped != null)
+        if (CurrentEquiped != null)
         {
-            UIManager.instance.ammoDisplay(0,0);
+
+            //======================================
+            //External Resets
+            UIManager.instance.ammoDisplay(0, 0);
+            UIManager.instance.updateAmmoFill(1, 1);
+            CameraController.instance.ResetOffset(true);
+            //======================================
+
+
+            IUsable IRef;
+            if (GetItem(out IRef))
+            {
+             
+                Pickup _pickup = Instantiate(IRef.GetPickup(), transform.position, IRef.GetPickup().transform.rotation).GetComponent<Pickup>();
+                _pickup.DropItem(transform.position + transform.forward * throwOffset.x + new Vector3(0, throwOffset.y, 0), Camera.main.transform.forward * throwSpeed.x + Vector3.up * throwSpeed.y, 1);
+            }
+
+
+            //======================================
+            //Internal Resets
             Destroy(CurrentEquiped);
             CurrentEquiped = null;
-            CurrentPickup.DropItem(transform.position + transform.forward * throwOffset.x + new Vector3(0,throwOffset.y,0), Camera.main.transform.forward *throwSpeed.x+ Vector3.up * throwSpeed.y, 1);
-            CameraController.instance.ResetOffset(true);
+            //======================================
             return true;
         }
         return false;
@@ -86,13 +120,14 @@ public class PlayerHand : MonoBehaviour
             if (hit.transform.TryGetComponent<Pickup>(out objectPickupRef) && objectPickupRef.GetItem() != null)
             {
                 AttemptDrop(); //attempt a drop before picking up a new item
-                CurrentEquiped = Instantiate(objectPickupRef.PickupItem().Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
+                objectPickupRef.PickupItem(out CurrentEquiped, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
+               // CurrentEquiped = Instantiate(itemRef.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
+                
                 BaseGun BGref;
                 if(CurrentEquiped.TryGetComponent<BaseGun>(out BGref))
                 {
                     BGref.SetPlayerGun(true);
                 }
-                CurrentPickup = objectPickupRef;
 
                 return true;
             }

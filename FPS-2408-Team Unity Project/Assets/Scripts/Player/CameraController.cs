@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float camShakeDurration;
     public bool resettingOffset;
     public Vector2 offset;
-
+    private bool camShaking;
     public void Awake()
     {
         if(instance == null)
@@ -53,6 +53,8 @@ public class CameraController : MonoBehaviour
 
     private IEnumerator StartCamShakeEnum(float _durr,  float _scalar, AnimationCurve _intensity)
     {
+        if (camShaking) yield break;
+        camShaking = true;
         if (_durr == 0) _durr = camShakeDurration;
         if (_scalar == 0) _scalar = camShakeScalar;
         Vector3 originPos = transform.localPosition;
@@ -67,12 +69,9 @@ public class CameraController : MonoBehaviour
                 transform.localPosition = new Vector3(x, y, originPos.z);
                 timeElapsed += Time.deltaTime;
                 yield return null;
-           
-            
-
         }
         transform.localPosition = originPos;
-
+        camShaking = false;
     }
     // Start is called before the first frame update
     void Start()

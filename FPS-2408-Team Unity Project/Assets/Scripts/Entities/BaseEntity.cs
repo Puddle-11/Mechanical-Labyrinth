@@ -90,11 +90,15 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void Death()
     {
         //default death case
+        DropInventory();
+        Destroy(gameObject);
+    }
+    public virtual void DropInventory()
+    {
         for (int i = 0; i < drops.Length; i++)
         {
-            Instantiate(drops[i], transform.position, transform.rotation);
+            Instantiate(drops[i], transform.position, Quaternion.Euler(drops[i].transform.rotation.eulerAngles.x,Random.Range(0,180) ,drops[i].transform.rotation.eulerAngles.z));
         }
-        Destroy(gameObject);
     }
 
     // Update is called once per frame

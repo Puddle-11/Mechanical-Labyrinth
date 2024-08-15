@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Pistol C
   m_EditorClassIdentifier: 
   Object: {fileID: 6627701735221695636, guid: f7ff71dab8db5c944ac2708765f1eebb, type: 3}
+  Pickup: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}

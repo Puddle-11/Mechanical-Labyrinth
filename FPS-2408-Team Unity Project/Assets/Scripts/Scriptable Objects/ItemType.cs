@@ -7,4 +7,5 @@ public class ItemType : ScriptableObject
 {
 
     public GameObject Object;
+    public GameObject Pickup;
 }

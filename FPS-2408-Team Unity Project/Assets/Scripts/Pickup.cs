@@ -20,16 +20,29 @@ public class Pickup : MonoBehaviour
         if (Item == null) return null;
         return Item;
     }
-    public ItemType PickupItem()
+    public void PickupItem(out GameObject _ref, Vector3 _pos, Quaternion _rotation, Transform _parent)
     {
         if (Item == null)
         {
             Debug.LogWarning("Failed to pickup\n ItemType variable on " + gameObject.name + " Unassigned");
-            return null;
+            _ref = null;
+            return;
         }
-        gameObject.SetActive(false);
-        return Item;
+
+
+        _ref = Instantiate(Item.Object, _pos, _rotation, _parent);
+
+
+        if(_ref.GetComponent<IUsable>() != null)
+        {
+            _ref.GetComponent<IUsable>().SetPickup(Item.Pickup);
+            Debug.Log("Set Item");
+        }
+
+
+        Destroy(gameObject);
     }
+
     public bool DropItem(Vector3 _pos, Vector3 _velocity, float rotationalSpeed)
     {
         gameObject.transform.position = _pos;

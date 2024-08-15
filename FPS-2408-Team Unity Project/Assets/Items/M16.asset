@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: M16
   m_EditorClassIdentifier: 
   Object: {fileID: 5598139051378606121, guid: b3a1e17572cfbfe44ac7fc5364633088, type: 3}
+  Pickup: {fileID: 6171256380922855838, guid: 20b378ea970850b419e00e45dc9c693b, type: 3}
