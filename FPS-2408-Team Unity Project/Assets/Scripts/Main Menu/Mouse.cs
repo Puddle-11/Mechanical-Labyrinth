@@ -8,7 +8,6 @@ public class Mouse : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float zOffset;
     [SerializeField] private bool DisplayDefaultCursor;
-    [SerializeField] private MainSceneManager MSMRef;
     void Update()
     {
         if (Cursor.visible && DisplayDefaultCursor == false)
@@ -26,7 +25,7 @@ public class Mouse : MonoBehaviour
         IMenuButton MBref;
         if (collision.TryGetComponent<IMenuButton>(out MBref))
         {
-            MSMRef.currentButton = MBref;
+            MainSceneManager.instance.currentButton = MBref;
         }
     }
     public void OnTriggerExit2D(Collider2D collision)
@@ -34,9 +33,9 @@ public class Mouse : MonoBehaviour
         IMenuButton MBref;
         if (collision.TryGetComponent<IMenuButton>(out MBref))
         {
-            if (MSMRef.currentButton == MBref)
+            if (MainSceneManager.instance.currentButton == MBref)
             {
-                MSMRef.currentButton = null;
+                MainSceneManager.instance.currentButton = null;
             }
         }
 

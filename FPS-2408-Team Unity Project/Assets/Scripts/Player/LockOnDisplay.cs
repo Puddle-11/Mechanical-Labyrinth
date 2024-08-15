@@ -43,7 +43,7 @@ public class LockOnDisplay : MonoBehaviour
 
                 RectTransform rectRef = LockOnGUI.GetComponent<RectTransform>();
                 Vector2 WH = new Vector2(objectScreenBounds.max.x - objectScreenBounds.min.x, objectScreenBounds.max.y - objectScreenBounds.min.y);
-                WH = WH / distanceScale * boundSize;
+                WH = WH / distanceScale * (boundSize / Screen.width);
                 WH = new Vector2(Mathf.Clamp(WH.x, minSize.x, Mathf.Infinity), Mathf.Clamp(WH.y, minSize.y, Mathf.Infinity));
                 rectRef.sizeDelta = WH;
                 LockOnGUI.transform.position = (objectScreenBounds.min + objectScreenBounds.max) / 2;

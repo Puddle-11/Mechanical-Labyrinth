@@ -3663,7 +3663,7 @@ MonoBehaviour:
   LockOnGUI: {fileID: 8201063713433381398}
   relativeScale: 8
   minSize: {x: 25, y: 25}
-  boundSize: 0.5
+  boundSize: 1000
 --- !u!114 &3160835343094073241
 MonoBehaviour:
   m_ObjectHideFlags: 0
