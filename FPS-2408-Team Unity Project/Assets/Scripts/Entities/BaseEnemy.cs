@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -17,7 +16,7 @@ public class BaseEnemy : BaseEntity
     [SerializeField] private float sightRadius;
     [SerializeField] private float detectionRange;
     [SerializeField] private float rotationSpeed;
-
+    [SerializeField] private Transform headPos;
     public enum DetectionType
     {
         InRange,
@@ -78,19 +77,21 @@ public class BaseEnemy : BaseEntity
     private bool GetLineOfSight()
     {
         Vector3 targetDir = (GetTarget().transform.position - transform.position).normalized;
+        targetDir.y = -targetDir.y;
         float angle = Vector3.Angle(targetDir, transform.forward);
         
 
         if (angle < sightRadius / 2)
         {
             RaycastHit hit;
-            if(Physics.Raycast(transform.position, targetDir, out hit, detectionRange, ~weaponScr.ignoreMask))
+            if(Physics.Raycast(headPos.position, targetDir, out hit, detectionRange, ~weaponScr.ignoreMask))
             {
                 if (hit.collider.gameObject == GetTarget())
                 {
                     return true;
                 }
             }
+            Debug.DrawRay(headPos.position, targetDir * 50);
         }
 
         return false;

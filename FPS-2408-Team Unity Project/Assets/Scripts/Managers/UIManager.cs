@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     [Header("Misc")]
     [Space]
     [SerializeField] private TMP_Text currAmmoField;
+    [SerializeField] private Image ammoFillup;
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     private bool isPause = false;
@@ -120,7 +121,12 @@ public class UIManager : MonoBehaviour
     public void ammoDisplay(int curr, int max)
     {
         //currAmmo
+        ammoFillup.fillAmount = (float)curr / max;
         currAmmoField.text = curr + " / " + max;
+    }
+    public void updateAmmoFill(float curr, float max)
+    {
+        ammoFillup.fillAmount = curr / max;
 
     }
 }

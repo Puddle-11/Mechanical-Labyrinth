@@ -46,7 +46,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.17990206, g: 0.1505874, b: 0.2264151, a: 1}
+  m_BackGroundColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -112,6 +112,8 @@ MonoBehaviour:
   maxy: 90
   invert: 0
   cameraAnchor: {fileID: 865560786557438462}
+  offsetResetSpeed: 0.2
+  offsetResetDampening: 0.005
   camShakeIntensity:
     serializedVersion: 2
     m_Curve:
@@ -138,6 +140,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   camShakeScalar: 0.075
   camShakeDurration: 0.15
+  resettingOffset: 0
+  offset: {x: 0, y: 0}
 --- !u!114 &7247746252279784748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +165,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -232,14 +236,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef86f00bacb5cf740b14d187f9163672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 20
   rendRef: {fileID: 0}
   damageFlashTime: 0.1
   damageMaterial: {fileID: 0}
+  drops: []
   speed: 10
   sprintMod: 1.5
+  mass: 0
+  jumplayer:
+    serializedVersion: 2
+    m_Bits: 0
   jumpHeight: 10
   jumpMax: 1
+  Walljumpdir: {x: 0, y: 0, z: 0}
+  WalljumpSpeed: 0
+  wallgravity: 0
   gravityStrength: 21
 --- !u!114 &2034814965748635146
 MonoBehaviour:

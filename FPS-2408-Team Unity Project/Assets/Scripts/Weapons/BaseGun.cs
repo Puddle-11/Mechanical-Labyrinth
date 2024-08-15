@@ -24,6 +24,7 @@ public class BaseGun : Weapon
     [SerializeField] private float barrelDelay;
     [SerializeField] private Animator muzzleFlash;
     [SerializeField] private float muzzleFlashSize;
+    [SerializeField] private ParticleSystem sparkParticles;
     [Space]
     [Header("Accuracy Variables")]
     [Space]
@@ -129,12 +130,12 @@ public class BaseGun : Weapon
         float normalizedTimer = FSAtimer/ FSATimerMax;
             UpdateAmmo(-1);
             FSAtimer += barrelDelay;
-            if (playerGun) CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
+            if (playerGun)
+            {
+                CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
+                CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
 
-
-            CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
-
-
+            }
             Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
             shootDir += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             yield return null;
@@ -149,10 +150,13 @@ public class BaseGun : Weapon
                 }
                 else
                 {
-                    int index = Random.Range(0, bulletHolePrefab.Length);
-                    Instantiate(bulletHolePrefab[index], hit.point  + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform);
+                    if (bulletHolePrefab.Length > 0)
+                    {
+                        int index = Random.Range(0, bulletHolePrefab.Length);
+                        Instantiate(bulletHolePrefab[index], hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform);
+                    }
+                    }
                 }
-            }
 
             SummonBulletTracer(hit, shootDir);
             yield return wfs;
@@ -168,6 +172,10 @@ public class BaseGun : Weapon
             muzzleFlash.transform.localScale = Vector3.one * muzzleFlashSize;
             muzzleFlash.SetTrigger("Flash");
             muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 180));
+        }
+        if (sparkParticles != null)
+        {
+            sparkParticles.Play();
         }
     }
     public void UpdateAmmo(int _val)
@@ -220,7 +228,15 @@ public class BaseGun : Weapon
     {
         if (isReloading) yield break;
         isReloading = true;
-        yield return new WaitForSeconds(reloadSpeed);
+        float timer = 0;
+        float perBullVal = reloadSpeed / clipSizeMax;
+        timer = currAmmo * perBullVal;
+        while (timer < reloadSpeed)
+        {
+            UIManager.instance.updateAmmoFill(timer, reloadSpeed);
+            yield return null;
+            timer += Time.deltaTime;
+        }
         SetAmmo(clipSizeMax);
         isReloading = false;
     }

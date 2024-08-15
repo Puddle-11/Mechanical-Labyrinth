@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Transactions;
 using UnityEditor.Rendering;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
@@ -69,6 +68,7 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
+
         if (Input.GetButtonDown("Pick Up"))
         {
             playerHandRef?.ClickPickUp();
@@ -90,6 +90,8 @@ public class PlayerController : BaseEntity
                 StartCoroutine(tempOut.Reload());
             }
         }
+
+
         Walljump();
         momentum = mass * speed;
     }
@@ -142,7 +144,6 @@ public class PlayerController : BaseEntity
             jumpCurr = 0;
             onWall = true;
             WalljumpSpeed = 0;
-            Debug.Log("Right");
            // wallslide();
             if (Input.GetButtonDown("Jump"))
                 Walljumpdir = transform.forward * playerVel.y + Vector3.left;
@@ -153,7 +154,6 @@ public class PlayerController : BaseEntity
             jumpCurr = 0;
             onWall = true;
             WalljumpSpeed = 0;
-            Debug.Log("Left");
            // wallslide();
             if (Input.GetButtonDown("Jump"))
                 Walljumpdir = transform.right + transform.up;

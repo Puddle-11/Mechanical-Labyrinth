@@ -14,6 +14,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     [SerializeField] private Material damageMaterial;
     private Material originalMaterial;
     private bool takingDamage;
+    [SerializeField] private GameObject[] drops;
     // Start is called before Start (used to initialize variables inside an object, DO NOT use awake to interact with other objects or components, this will crash your unity project
     public virtual void Awake()
     {
@@ -88,7 +89,10 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void Death()
     {
         //default death case
-
+        for (int i = 0; i < drops.Length; i++)
+        {
+            Instantiate(drops[i], transform.position, transform.rotation);
+        }
         Destroy(gameObject);
     }
 

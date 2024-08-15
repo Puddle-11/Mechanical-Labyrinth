@@ -6,7 +6,7 @@ public class Door : BaseEntity
 {
     [SerializeField] GameObject door;
     [SerializeField] private bool inRange = false;
-
+    [SerializeField] private Collider coll;
     public override void Start()
     {
 
@@ -19,10 +19,13 @@ public class Door : BaseEntity
         if (inRange == true)
         {
             door.SetActive(false);
+            coll.enabled = false;
+
         }
         else
         {
             door.SetActive(true);
+            coll.enabled = true;
         }
     }
 

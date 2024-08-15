@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonFunction : MonoBehaviour
 {
-
     public void resume()
     {
         UIManager.instance.stateUnpause();
@@ -17,13 +16,8 @@ public class ButtonFunction : MonoBehaviour
     }
     public void quit()
     {
-    #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-
-    #else
-        Application.Quit();
-
-    #endif
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
     // Start is called before the first frame update
 
