@@ -71,7 +71,12 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
-
+        if (UIManager.instance.GetStatePaused())
+        {
+            playerHandRef?.SetUseItem(false);
+        }
+        else
+        {
         if (Input.GetButtonDown("Pick Up"))
         {
             playerHandRef?.ClickPickUp();
@@ -92,6 +97,7 @@ public class PlayerController : BaseEntity
             {
                 StartCoroutine(tempOut.Reload());
             }
+        }
         }
 
 

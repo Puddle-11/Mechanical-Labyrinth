@@ -102,7 +102,7 @@ MonoBehaviour:
   - {fileID: 3008299338069187270, guid: eadd3a27fdfd7b341a32f16613717952, type: 3}
   - {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
   burstSize: 3
-  clipSizeMax: 15
+  clipSizeMax: 25
   reloadSpeed: 1.5
   barrelDelay: 0.05
   muzzleFlash: {fileID: 3384481804074949161}

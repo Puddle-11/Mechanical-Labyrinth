@@ -238,11 +238,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 0.05
+  coolDown: 0.5
   ignoreMask:
     serializedVersion: 2
     m_Bits: 264
-  shotType: 2
+  shotType: 1
   shootDamage: 1
   shootDist: 200
   shootPos: {fileID: 4344851816761857987}
@@ -252,34 +252,34 @@ MonoBehaviour:
   - {fileID: 3008299338069187270, guid: a486823d6ee509a4eab6a27148caded3, type: 3}
   - {fileID: 3008299338069187270, guid: eadd3a27fdfd7b341a32f16613717952, type: 3}
   - {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
-  burstSize: 0
+  burstSize: 5
   clipSizeMax: 15
   reloadSpeed: 1.5
   barrelDelay: 0
   muzzleFlash: {fileID: 7911736605942200445}
   muzzleFlashSize: 0.05
   sparkParticles: {fileID: 5809287226921104108}
-  FSAccuracy: 0.05
+  FSAccuracy: 0.2
   FSAOverTime:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1.835481
-      outSlope: 1.835481
-      tangentMode: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
       weightedMode: 0
-      inWeight: 0.026049852
+      inWeight: 0
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

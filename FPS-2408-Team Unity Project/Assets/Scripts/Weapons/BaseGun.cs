@@ -120,7 +120,7 @@ public class BaseGun : Weapon
         if (shotType == GunType.Burst)
         {
             size = burstSize;
-         FSATimerMax = barrelDelay * size * clipSizeMax;
+         FSATimerMax = barrelDelay * size * clipSizeMax + coolDown;
         }
       
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
@@ -233,7 +233,10 @@ public class BaseGun : Weapon
         timer = currAmmo * perBullVal;
         while (timer < reloadSpeed)
         {
-            UIManager.instance.updateAmmoFill(timer, reloadSpeed);
+            if (playerGun)
+            {
+                UIManager.instance.updateAmmoFill(timer, reloadSpeed);
+            }
             yield return null;
             timer += Time.deltaTime;
         }

@@ -170,7 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d3cd8ae379b3043b1376f80fa0e39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MSMref: {fileID: 1904262334}
   sceneIndex: 1
 --- !u!61 &184996926
 BoxCollider2D:
@@ -264,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d3cd8ae379b3043b1376f80fa0e39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MSMref: {fileID: 1904262334}
   sceneIndex: 2
 --- !u!61 &213850415
 BoxCollider2D:
@@ -442,7 +440,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1383bdb618682143a5ae4c81ad46c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MSMref: {fileID: 1904262334}
 --- !u!61 &351661155
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -659,7 +656,6 @@ MonoBehaviour:
   mainCamera: {fileID: 356113718}
   zOffset: 0
   DisplayDefaultCursor: 1
-  MSMRef: {fileID: 1904262334}
 --- !u!4 &622444669
 Transform:
   m_ObjectHideFlags: 0
@@ -1606,7 +1602,7 @@ GameObject:
   - component: {fileID: 1904262335}
   - component: {fileID: 1904262334}
   m_Layer: 0
-  m_Name: Mani Menu Ref
+  m_Name: Main Menu Ref
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
