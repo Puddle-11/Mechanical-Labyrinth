@@ -45,7 +45,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     #region IHealth Functions
     public virtual void ResetHealth()
     {
-        currentHealth = maxHealth;
+        SetHealth(maxHealth);
     }
     public virtual void SetHealth(int _amount)
     {

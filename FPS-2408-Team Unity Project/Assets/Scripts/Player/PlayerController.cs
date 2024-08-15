@@ -56,10 +56,14 @@ public class PlayerController : BaseEntity
     }
     public override void SetHealth(int _amount)
     {
+        if(_amount > currentHealth) CameraController.instance.StartCamShake();
         base.SetHealth(_amount);
-        UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
-        StartCoroutine(UIManager.instance.flashDamage());
-        CameraController.instance.StartCamShake();
+
+        if (UIManager.instance != null)
+        {
+            UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
+            StartCoroutine(UIManager.instance.flashDamage());
+        }
     }
     // Update is called once per frame
     public override void Update()
