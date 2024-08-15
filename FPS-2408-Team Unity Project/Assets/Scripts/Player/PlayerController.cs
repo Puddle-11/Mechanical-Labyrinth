@@ -143,7 +143,7 @@ public class PlayerController : BaseEntity
             onWall = true;
             WalljumpSpeed = 0;
             Debug.Log("Right");
-            gravityStrength = gravityStrength * wallgravity;
+           // wallslide();
             if (Input.GetButtonDown("Jump"))
                 Walljumpdir = transform.forward * playerVel.y + Vector3.left;
 
@@ -154,7 +154,7 @@ public class PlayerController : BaseEntity
             onWall = true;
             WalljumpSpeed = 0;
             Debug.Log("Left");
-            gravityStrength = gravityStrength * wallgravity;
+           // wallslide();
             if (Input.GetButtonDown("Jump"))
                 Walljumpdir = transform.right + transform.up;
         }
@@ -166,10 +166,11 @@ public class PlayerController : BaseEntity
     }
     void wallslide()
     {
-        if (onWall == true && playerVel.y < 0)
+        while (onWall == true && playerVel.y < 0)
         {
-
+            gravityStrength = gravityStrength / wallgravity;
         }
+       
     }
     
 
