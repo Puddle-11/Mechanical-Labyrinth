@@ -59,7 +59,7 @@ public class PlayerController : BaseEntity
         base.SetHealth(_amount);
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
         StartCoroutine(UIManager.instance.flashDamage());
-        CameraController.instance.StartCamShake();
+        //CameraController.instance.StartCamShake();
     }
     // Update is called once per frame
     public override void Update()
@@ -111,16 +111,23 @@ public class PlayerController : BaseEntity
         }
         move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
         controllerRef.Move(move * speed * Time.deltaTime);
-
-        if (Input.GetButtonDown("Jump") && jumpCurr < jumpMax)
+        if (Input.GetButtonDown("Jump") )
         {
-
-            jumpCurr++;
-            playerVel.y = jumpHeight;
+            Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));
         }
         controllerRef.Move(playerVel * Time.deltaTime);
 
 
+    }
+    public void Jump(Vector3 _dir)
+    {
+
+        if (jumpCurr < jumpMax)
+        {
+            jumpCurr++;
+            playerVel = _dir;
+        }
+        
     }
     void Sprint()
     {
@@ -143,24 +150,22 @@ public class PlayerController : BaseEntity
         {
             jumpCurr = 0;
             onWall = true;
-            WalljumpSpeed = 0;
            // wallslide();
-            if (Input.GetButtonDown("Jump"))
-                Walljumpdir = transform.forward * playerVel.y + Vector3.left;
-
         }
-        else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.InverseTransformDirection(-transform.right), out hit, 2f, jumplayer))
+        else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
             onWall = true;
-            WalljumpSpeed = 0;
-           // wallslide();
-            if (Input.GetButtonDown("Jump"))
-                Walljumpdir = transform.right + transform.up;
+            // wallslide();
         }
         else
         {
             onWall = false;
+        }
+            Walljumpdir = new Vector3(0, jumpHeight, 0);
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump(Walljumpdir);
         }
 
     }

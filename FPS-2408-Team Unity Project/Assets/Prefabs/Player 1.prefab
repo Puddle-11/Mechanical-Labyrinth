@@ -124,12 +124,12 @@ MonoBehaviour:
   mass: 0
   jumplayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   jumpHeight: 10
   jumpMax: 1
   Walljumpdir: {x: 0, y: 0, z: 0}
-  WalljumpSpeed: 0
-  wallgravity: 0
+  WalljumpSpeed: 1
+  wallgravity: 1
   gravityStrength: 21
 --- !u!114 &7468610064374238278
 MonoBehaviour:

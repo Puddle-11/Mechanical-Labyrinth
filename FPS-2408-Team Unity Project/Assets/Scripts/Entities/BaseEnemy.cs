@@ -54,7 +54,7 @@ public class BaseEnemy : BaseEntity
             case DetectionType.Continuous:
                 return true;
             case DetectionType.InRange:
-                if (inRange)
+                if (getInrange())
                 {
                     return true;
                 }
@@ -94,6 +94,20 @@ public class BaseEnemy : BaseEntity
             Debug.DrawRay(headPos.position, targetDir * 50);
         }
 
+        return false;
+    }
+    private bool getInrange()
+    {
+        Vector3 targetDir = (GetTarget().transform.position - transform.position).normalized;
+        targetDir.y = -targetDir.y;
+        RaycastHit hit;
+        if (Physics.Raycast(headPos.position, targetDir, out hit, detectionRange, ~weaponScr.ignoreMask))
+        {
+            if (hit.collider.gameObject == GetTarget() && inRange)
+            {
+                return true;
+            }
+        }
         return false;
     }
     private void SetNavmeshTarget()
