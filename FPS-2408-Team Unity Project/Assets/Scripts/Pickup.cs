@@ -36,7 +36,6 @@ public class Pickup : MonoBehaviour
         if(_ref.GetComponent<IUsable>() != null)
         {
             _ref.GetComponent<IUsable>().SetPickup(Item.Pickup);
-            Debug.Log("Set Item");
         }
 
 
