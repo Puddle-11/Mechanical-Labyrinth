@@ -6,11 +6,10 @@ using UnityEngine.Rendering.Universal;
 public class BulletHole : MonoBehaviour
 {
     [SerializeField] private float decayTime;
-    private DecalProjector projector;
+    [SerializeField] private DecalProjector projector;
     [SerializeField] private AnimationCurve opacityOverTime;
     private void Start()
     {
-        projector = GetComponent<DecalProjector>();
         StartCoroutine(Decay());
     }
     public IEnumerator Decay()
@@ -23,5 +22,9 @@ public class BulletHole : MonoBehaviour
             yield return null;
             timer+= Time.deltaTime; 
         }
+    }
+    public void SetMat(Material _mat)
+    {
+        projector.material = _mat;
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class BaseGun : Weapon
@@ -13,7 +13,11 @@ public class BaseGun : Weapon
     [SerializeField] private float shootDist;
     [SerializeField] private Transform shootPos;
     [SerializeField] private GameObject bulletTrail;
-    [SerializeField] private GameObject[] bulletHolePrefab;
+    [SerializeField] private GameObject bulletHoleDecal;
+    [SerializeField] private Material[] NP_bulletHoleMat;
+    [SerializeField] private Material[] P_bulletHoleMat;
+    [SerializeField] private Material[] E_bulletHoleMat;
+
     [SerializeField] private int burstSize;
     [SerializeField] private int clipSizeMax;
     [SerializeField] private float reloadSpeed;
@@ -141,6 +145,7 @@ public class BaseGun : Weapon
                 CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
 
             }
+            bool penetrated = false;
             Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
             shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             StartMuzzleFlash();
@@ -154,21 +159,17 @@ public class BaseGun : Weapon
                 }
                 else
                 {
-                    if (bulletHolePrefab.Length > 0)
-                    {
-                        int index = UnityEngine.Random.Range(0, bulletHolePrefab.Length);
-                        Instantiate(bulletHolePrefab[index], hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform);
-                    }
+                        SpawnBulletHole(bulletHoleDecal, hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform, NP_bulletHoleMat);
                 }
                 RaycastHit penetratingHit;
 
                 if (penetratingDistance > 0 && Physics.Raycast(hit.point + shootDir.normalized * penetratingDistance, -shootDir, out penetratingHit, penetratingDistance, ~GameManager.instance.penetratingIgnore))
                 {
+                    penetrated = true;
                     if (healthRef == null)
                     {
-                        int index = UnityEngine.Random.Range(0, bulletHolePrefab.Length);
-
-                        Instantiate(bulletHolePrefab[index], penetratingHit.point + penetratingHit.normal * 0.1f, Quaternion.LookRotation(-penetratingHit.normal), penetratingHit.collider.transform);
+                        
+                        SpawnBulletHole(bulletHoleDecal, penetratingHit.point + penetratingHit.normal * 0.1f, Quaternion.LookRotation(-penetratingHit.normal), penetratingHit.collider.transform, E_bulletHoleMat);
                     }
                     RaycastHit postPenetrateHit;
                     if (Physics.Raycast(penetratingHit.point, shootDir, out postPenetrateHit, shootDist, ~ignoreMask))
@@ -180,7 +181,10 @@ public class BaseGun : Weapon
                         }
                     }
                 }
-
+            }
+            if(healthRef == null)
+            {
+                SpawnBulletHole(bulletHoleDecal, hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform, penetrated ? P_bulletHoleMat : NP_bulletHoleMat);
             }
 
 
@@ -190,6 +194,21 @@ public class BaseGun : Weapon
         FSAtimer += coolDown;
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
+    }
+
+    private GameObject SpawnBulletHole(GameObject _prefab, Vector3 _pos, Quaternion _rotation, Transform _parent, Material[] _mat)
+    {
+
+        GameObject res = Instantiate(_prefab, _pos, _rotation, _parent);
+        BulletHole temp;
+        if(_mat.Length > 0)
+        {
+            int index = UnityEngine.Random.Range(0, _mat.Length);
+            if (res.TryGetComponent<BulletHole>(out temp)) temp.SetMat(_mat[index]);
+        }
+
+
+        return res;
     }
     private void StartMuzzleFlash()
     {
@@ -247,7 +266,6 @@ public class BaseGun : Weapon
         {
             StartCoroutine(Reload());
         }
-        
     }
 
     public IEnumerator Reload()
