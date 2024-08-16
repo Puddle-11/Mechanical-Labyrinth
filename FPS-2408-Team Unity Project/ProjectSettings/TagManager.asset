@@ -18,8 +18,8 @@ TagManager:
   - NPC
   - Jumpable
   - Player Non-Collidable
-  - 
-  - 
+  - MainCamera
+  - Downscale Renderer
   - 
   - 
   - 

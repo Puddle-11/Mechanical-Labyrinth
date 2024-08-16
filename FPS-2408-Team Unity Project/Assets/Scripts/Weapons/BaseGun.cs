@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Drawing;
 
 using UnityEngine;
 
@@ -21,6 +21,9 @@ public class BaseGun : Weapon
     [SerializeField] private Animator muzzleFlash;
     [SerializeField] private float muzzleFlashSize;
     [SerializeField] private ParticleSystem sparkParticles;
+
+    [SerializeField] private float penetratingDistance;
+    [SerializeField] private float penetratingDamageFalloff;
     [Space]
     [Header("Accuracy Variables")]
     [Space]
@@ -28,6 +31,7 @@ public class BaseGun : Weapon
     [SerializeField] private AnimationCurve FSAOverTime;
     [SerializeField] private float recoilCooldownFactor;
     [SerializeField] private float maxRecoil;
+
     private float FSATimerMax;
     private float FSAtimer;
     private int currAmmo;
@@ -138,12 +142,12 @@ public class BaseGun : Weapon
 
             }
             Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
-            shootDir += new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
+            shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             StartMuzzleFlash();
             RaycastHit hit;
+                IHealth healthRef = null;
             if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
-                IHealth healthRef;
                 if (hit.collider.TryGetComponent<IHealth>(out healthRef))
                 {
                     healthRef.UpdateHealth(-shootDamage);
@@ -152,11 +156,33 @@ public class BaseGun : Weapon
                 {
                     if (bulletHolePrefab.Length > 0)
                     {
-                        int index = Random.Range(0, bulletHolePrefab.Length);
+                        int index = UnityEngine.Random.Range(0, bulletHolePrefab.Length);
                         Instantiate(bulletHolePrefab[index], hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform);
                     }
+                }
+                RaycastHit penetratingHit;
+
+                if (penetratingDistance > 0 && Physics.Raycast(hit.point + shootDir.normalized * penetratingDistance, -shootDir, out penetratingHit, penetratingDistance, ~GameManager.instance.penetratingIgnore))
+                {
+                    if (healthRef == null)
+                    {
+                        int index = UnityEngine.Random.Range(0, bulletHolePrefab.Length);
+
+                        Instantiate(bulletHolePrefab[index], penetratingHit.point + penetratingHit.normal * 0.1f, Quaternion.LookRotation(-penetratingHit.normal), penetratingHit.collider.transform);
+                    }
+                    RaycastHit postPenetrateHit;
+                    if (Physics.Raycast(penetratingHit.point, shootDir, out postPenetrateHit, shootDist, ~ignoreMask))
+                    {
+                        if (postPenetrateHit.collider.TryGetComponent<IHealth>(out healthRef))
+                        {
+                            int shootDamagecalc = (int)(-shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
+                            healthRef.UpdateHealth(shootDamagecalc);
+                        }
                     }
                 }
+
+            }
+
 
             SummonBulletTracer(hit, shootDir);
             yield return wfs;
@@ -171,7 +197,7 @@ public class BaseGun : Weapon
         {
             muzzleFlash.transform.localScale = Vector3.one * muzzleFlashSize;
             muzzleFlash.SetTrigger("Flash");
-            muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, Random.Range(0, 180));
+            muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 180));
         }
         if (sparkParticles != null)
         {

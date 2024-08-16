@@ -111,9 +111,11 @@ MonoBehaviour:
   coolDown: 0.05
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 264
+    m_Bits: 24840
+  pickUp: {fileID: 0}
+  gunDrop: {fileID: 11400000, guid: ffcfbefaa3c5a2c4e8fcc3cc63e96ea7, type: 2}
   shotType: 2
-  shootDamage: 1
+  shootDamage: 40
   shootDist: 200
   shootPos: {fileID: 2518076912031961564}
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
@@ -129,7 +131,8 @@ MonoBehaviour:
   muzzleFlash: {fileID: 3324316952455392607}
   muzzleFlashSize: 0.05
   sparkParticles: {fileID: 7025216176303591079}
-  gunDrop: {fileID: 11400000, guid: ffcfbefaa3c5a2c4e8fcc3cc63e96ea7, type: 2}
+  penetratingDistance: 1.5
+  penetratingDamageFalloff: 2
   FSAccuracy: 0.05
   FSAOverTime:
     serializedVersion: 2

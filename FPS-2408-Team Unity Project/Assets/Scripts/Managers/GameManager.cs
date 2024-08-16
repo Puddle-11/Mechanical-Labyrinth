@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public LayerMask projectileIgnore;
+    public LayerMask penetratingIgnore;
     public static GameManager instance;
 
 

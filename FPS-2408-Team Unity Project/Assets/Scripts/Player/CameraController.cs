@@ -29,6 +29,8 @@ public class CameraController : MonoBehaviour
     public bool resettingOffset;
     public Vector2 offset;
     private bool camShaking;
+    public Camera mainCamera;
+    public Camera pixelCamera;
     public void Awake()
     {
         if(instance == null)
@@ -39,6 +41,42 @@ public class CameraController : MonoBehaviour
         {
             Debug.LogWarning("Found two Camera Controllers in scene\nDestroyed at " + gameObject.name);
             Destroy(this);
+        }
+    }
+    public void Start()
+    {
+
+
+        GetMainCamera();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+    private void GetMainCamera()
+    {
+        if (mainCamera != null) return;
+        GameObject[] camList = GameObject.FindGameObjectsWithTag("MainCamera");
+        if (camList.Length != 0)
+        {
+
+            if (camList.Length > 1)
+            {
+
+                Debug.Log("Multiple Camera with 'MainCamera' tag found in scene\nthere can only be one main camera at a time");
+            }
+            Camera camRef;
+            if (camList[0].TryGetComponent<Camera>(out camRef))
+            {
+                mainCamera = camRef;
+            }
+            else
+            {
+                Debug.LogWarning("Gameobject: " + camList[0].name + " Marked with 'MainCamera' but doesnt contain a camera component");
+            }
+        }
+        else
+        {
+            Debug.Log("no Camera with 'MainCamera' tag found in scene");
+
         }
     }
     public void StartCamShake()
@@ -74,11 +112,7 @@ public class CameraController : MonoBehaviour
         camShaking = false;
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        Cursor.visible = false;
-        Cursor.lockState  = CursorLockMode.Locked;
-    }
+  
 
     // Update is called once per frame
     void Update()
