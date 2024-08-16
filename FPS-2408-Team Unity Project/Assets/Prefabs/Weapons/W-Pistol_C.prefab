@@ -181,10 +181,10 @@ MonoBehaviour:
   shootPos: {fileID: 6110074620738867382}
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
   bulletHolePrefab:
-  - {fileID: 3008299338069187270, guid: e646d8652356215429ead34e36ddb5ef, type: 3}
-  - {fileID: 3008299338069187270, guid: a486823d6ee509a4eab6a27148caded3, type: 3}
-  - {fileID: 3008299338069187270, guid: eadd3a27fdfd7b341a32f16613717952, type: 3}
-  - {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
+  - {fileID: 3008299338069187270, guid: 3608331bf0079814eaf4f5d43d2bcd40, type: 3}
+  - {fileID: 3008299338069187270, guid: 2fafb347828183b46b05f6f83ae613f3, type: 3}
+  - {fileID: 3008299338069187270, guid: 4542659b43fd3dd48850f4e6d61d2f8a, type: 3}
+  - {fileID: 3008299338069187270, guid: 430cc6d619535de438bc28809d78bcac, type: 3}
   burstSize: 0
   clipSizeMax: 15
   reloadSpeed: 1.5
