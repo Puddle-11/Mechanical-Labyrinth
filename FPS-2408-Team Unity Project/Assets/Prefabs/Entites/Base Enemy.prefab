@@ -135,8 +135,7 @@ MonoBehaviour:
   rendRef: {fileID: 0}
   damageFlashTime: 0.1
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
-  drops:
-  - {fileID: 6171256380922855838, guid: 20b378ea970850b419e00e45dc9c693b, type: 3}
+  drops: []
   healthBar: {fileID: 8007032946436042297}
   DetectPlayerType: 1
   agent: {fileID: 2568604070281990122}
@@ -146,6 +145,7 @@ MonoBehaviour:
   detectionRange: 50
   rotationSpeed: 5
   headPos: {fileID: 2107300824403025869}
+  sneakDamageMultiplyer: 2
 --- !u!135 &1116447676815778488
 SphereCollider:
   m_ObjectHideFlags: 0

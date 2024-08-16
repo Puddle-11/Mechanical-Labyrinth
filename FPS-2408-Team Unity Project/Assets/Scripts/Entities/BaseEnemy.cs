@@ -104,7 +104,9 @@ public class BaseEnemy : BaseEntity
         {
             if (hit.collider.gameObject == GetTarget() && inRange)
             {
+
                 return true;
+
             }
         }
         return false;
@@ -146,7 +148,7 @@ public class BaseEnemy : BaseEntity
     public override void Death()
     {
         GameManager.instance.updateGameGoal(-1);
-
+        DropItem(weaponScr.GetPickup());
         base.Death(); //base death contains destroy(gameObject);
     }
     private void OnDrawGizmos()

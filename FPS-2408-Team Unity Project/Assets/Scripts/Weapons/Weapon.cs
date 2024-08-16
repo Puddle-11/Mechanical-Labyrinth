@@ -8,8 +8,9 @@ public class Weapon : MonoBehaviour, IUsable
     [SerializeField] protected float coolDown;
     protected bool isAttacking;
     public LayerMask ignoreMask;
-    protected GameObject pickUp;
-  
+    [SerializeField] protected GameObject pickUp;
+    [SerializeField] protected ItemType gunDrop;
+
 
     public void SetPickup(GameObject _pickup)
     {
@@ -17,7 +18,19 @@ public class Weapon : MonoBehaviour, IUsable
     }
     public GameObject GetPickup()
     {
-        return pickUp;
+        if (pickUp != null)
+        {
+            return pickUp;
+        }
+        else if (gunDrop.Pickup != null)
+        {
+            return gunDrop.Pickup;
+        }
+        else
+        {
+            Debug.LogWarning("No pickup available on " + gameObject.name + "\nWith an Item type of + " + gunDrop.name);
+            return null;
+        }
     }
 
     public bool GetUsingItem()

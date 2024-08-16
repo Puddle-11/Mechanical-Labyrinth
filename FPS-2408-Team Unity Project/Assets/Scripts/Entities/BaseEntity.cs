@@ -97,9 +97,13 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         for (int i = 0; i < drops.Length; i++)
         {
-            Instantiate(drops[i], transform.position, Quaternion.Euler(drops[i].transform.rotation.eulerAngles.x,Random.Range(0,180) ,drops[i].transform.rotation.eulerAngles.z));
+            DropItem(drops[i]);
         }
     }
+    public void DropItem(GameObject _drop)
+    {
+        Instantiate(_drop, transform.position, Quaternion.Euler(_drop.transform.rotation.eulerAngles.x, Random.Range(0, 180), _drop.transform.rotation.eulerAngles.z));
 
+    }
     // Update is called once per frame
 }

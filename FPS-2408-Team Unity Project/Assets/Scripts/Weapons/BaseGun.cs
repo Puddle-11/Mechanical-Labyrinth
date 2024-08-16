@@ -21,7 +21,6 @@ public class BaseGun : Weapon
     [SerializeField] private Animator muzzleFlash;
     [SerializeField] private float muzzleFlashSize;
     [SerializeField] private ParticleSystem sparkParticles;
-    [SerializeField] private ItemType gunDrop;
     [Space]
     [Header("Accuracy Variables")]
     [Space]
