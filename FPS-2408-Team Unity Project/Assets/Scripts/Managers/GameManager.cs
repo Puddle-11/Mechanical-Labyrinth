@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public GameObject playerRef;
     [HideInInspector] public PlayerController playerControllerRef;
     private int enemyCount;
-    
-  
     private void Awake()
     {
         if (instance == null)
@@ -39,7 +37,7 @@ public class GameManager : MonoBehaviour
 
         if (enemyCount <= 0)
         {
-            UIManager.instance.ToggleEnemyCount(false);
+            //UIManager.instance.ToggleEnemyCount(false);
             UIManager.instance.ToggleWinMenu(true);
         }
     }

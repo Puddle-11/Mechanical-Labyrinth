@@ -26,6 +26,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image playerHealth;
     [SerializeField] private Gradient playerHealthColor;
     [Space]
+    [Header("Crosshair Settings")]
+    [Space]
+    [SerializeField] private int C_maxSpread;
+    [SerializeField] private int C_spreadFactor;
+    [SerializeField] private Color C_crosshairColor;
+    [SerializeField] private float C_lineDistance;
+    [SerializeField] private float C_lineLength;
+    [SerializeField] private float C_lineThickness;
+    [SerializeField] private float C_centerDotSize;
+    [SerializeField] private Crosshair crosshairRef;
+
+    [Space]
     [Header("Misc")]
     [Space]
     [SerializeField] private TMP_Text currAmmoField;
@@ -33,7 +45,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     private bool isPause = false;
+    [SerializeField] private UIObj[] ConstUI;
+    [System.Serializable]
+    private struct UIObj
+    {
+        [HideInInspector] public bool CUI_currentState;
 
+        public GameObject CUI_obj;
+    }
+    [System.Serializable]
+    private struct Crosshair
+    {
+        public GameObject centerDot;
+        public GameObject[] horizontalLine;
+        public GameObject[] verticalLine;
+    }
     public void ToggleEnemyCount(bool _val)
     {
         enemyCountObj.SetActive(_val);
@@ -71,34 +97,45 @@ public class UIManager : MonoBehaviour
             Destroy(this);
         }
     }
+    private void Start()
+    {
+        UpdateCrosshair();
+
+    }
     private void Update()
     {
         if (Input.GetButtonDown("Cancel"))
         {
             if (menuActive == null)
             {
-                statePause();
-                menuActive = menuPause;
-                menuActive.SetActive(isPause);
+                StatePause();
+          
 
             }
             else if (menuActive == menuPause)
             {
 
-                stateUnpause();
+                StateUnpause();
 
             }
         }
     }
 
-    public void statePause()
+    public void StatePause()
     {
         isPause = !isPause;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        menuActive = menuPause;
+        menuActive.SetActive(isPause);
+        for (int i = 0; i < ConstUI.Length; i++)
+        {
+            ConstUI[i].CUI_currentState = ConstUI[i].CUI_obj.activeInHierarchy;
+            ConstUI[i].CUI_obj.SetActive(false);
+        }
     }
-    public void stateUnpause()
+    public void StateUnpause()
     {
         isPause = !isPause;
         Time.timeScale = 1;
@@ -106,10 +143,14 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         menuActive.SetActive(isPause);
         menuActive = null;
+        for (int i = 0; i < ConstUI.Length; i++)
+        {
+            ConstUI[i].CUI_obj.SetActive(ConstUI[i].CUI_currentState);
+        }
     }
     public void OpenLoseMenu()
     {
-        statePause();
+        StatePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
@@ -118,15 +159,60 @@ public class UIManager : MonoBehaviour
         menuWin.SetActive(_val);
     }
 
-    public void ammoDisplay(int curr, int max)
+    public void AmmoDisplay(int curr, int max)
     {
         //currAmmo
         ammoFillup.fillAmount = (float)curr / max;
-        currAmmoField.text = curr + " / " + max;
+        currAmmoField.text = curr + "/" + max;
     }
-    public void updateAmmoFill(float curr, float max)
+    public void UpdateAmmoFill(float curr, float max)
     {
         ammoFillup.fillAmount = curr / max;
+
+    }
+    public void UpdateCrosshair()
+    {
+        crosshairRef.centerDot.GetComponent<Image>().color = C_crosshairColor;
+        crosshairRef.centerDot.transform.localScale = Vector2.one * C_centerDotSize;
+
+        for (int i = 0; i < crosshairRef.horizontalLine.Length; i++)
+        {
+            GameObject curr = crosshairRef.horizontalLine[i];
+
+
+            curr.GetComponent<Image>().color = C_crosshairColor;
+            Vector2 normDir = new Vector2(curr.transform.localPosition.normalized.x,0);
+            curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.x / 2) + normDir * C_centerDotSize/2;
+            curr.transform.localScale = new Vector2(C_lineLength, C_lineThickness);
+
+        }
+
+        for (int i = 0; i < crosshairRef.verticalLine.Length; i++)
+        {
+            GameObject curr = crosshairRef.verticalLine[i];
+
+            curr.GetComponent<Image>().color = C_crosshairColor;
+            Vector2 normDir = new Vector2(0,curr.transform.localPosition.normalized.y);
+            curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.y / 2) + normDir * C_centerDotSize / 2;
+            curr.transform.localScale = new Vector2(C_lineThickness, C_lineLength);
+        }
+    }
+    public void UpdateCrosshairSpread(float _val)
+    {
+        for (int i = 0; i < crosshairRef.horizontalLine.Length; i++)
+        {
+            GameObject curr = crosshairRef.horizontalLine[i];
+            Vector2 normDir = new Vector2(curr.transform.localPosition.normalized.x, 0);
+            curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.x / 2) + normDir * C_centerDotSize / 2 + normDir *Mathf.Clamp( _val * C_spreadFactor, 0, C_maxSpread);
+
+        }
+
+        for (int i = 0; i < crosshairRef.verticalLine.Length; i++)
+        {
+            GameObject curr = crosshairRef.verticalLine[i];
+            Vector2 normDir = new Vector2(0, curr.transform.localPosition.normalized.y);
+            curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.y / 2) + normDir * C_centerDotSize / 2 + normDir * Mathf.Clamp(_val * C_spreadFactor, 0, C_maxSpread);
+        }
 
     }
 }

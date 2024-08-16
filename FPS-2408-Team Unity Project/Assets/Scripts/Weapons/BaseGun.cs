@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Security.Cryptography;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
+using System.Drawing;
+
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class BaseGun : Weapon
 {
@@ -33,6 +29,7 @@ public class BaseGun : Weapon
     [SerializeField] private AnimationCurve FSAOverTime;
     [SerializeField] private float recoilCooldownFactor;
     [SerializeField] private float maxRecoil;
+    private float FSATimerMax;
     private float FSAtimer;
     private int currAmmo;
     private bool isReloading = false;
@@ -45,8 +42,15 @@ public class BaseGun : Weapon
         Burst,
         Manual,
     }
+    private void Awake()
+    {
+        int size = 1;
+        if (shotType == GunType.Burst) {size = burstSize;}
+        FSATimerMax = barrelDelay * size * clipSizeMax + coolDown * (clipSizeMax / size);
+    }
     public void Start()
     {
+
         SetAmmo(clipSizeMax);
     }
     private void Update()
@@ -64,6 +68,8 @@ public class BaseGun : Weapon
             if (playerGun) CameraController.instance.ResetOffset(false);
 
         }
+        UIManager.instance.UpdateCrosshairSpread(FSAccuracy * FSAOverTime.Evaluate(FSAtimer/ FSATimerMax));
+
 
     }
     #region Getters Setters
@@ -116,14 +122,9 @@ public class BaseGun : Weapon
     {
         isAttacking = true;
 
+
         int size = 1;
-        float FSATimerMax = barrelDelay * size * clipSizeMax + coolDown * (clipSizeMax / size);
-        if (shotType == GunType.Burst)
-        {
-            size = burstSize;
-            FSATimerMax = barrelDelay * size * clipSizeMax + coolDown;
-        }
-      
+        if (shotType == GunType.Burst) { size = burstSize; }
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
         for (int i = 0; i < size; i++)
         {
@@ -188,7 +189,7 @@ public class BaseGun : Weapon
         if(_val < 0) _val = 0;
         
         currAmmo = _val;
-        if (playerGun == true) UIManager.instance.ammoDisplay(currAmmo, clipSizeMax);
+        if (playerGun == true) UIManager.instance.AmmoDisplay(currAmmo, clipSizeMax);
     }
     private void SummonBulletTracer(RaycastHit _path, Vector3 _dir)
     {
@@ -208,7 +209,7 @@ public class BaseGun : Weapon
     }
     private void OnDrawGizmos()
     {
-        Debug.DrawRay(shootPos.position,shootPos.forward * 10,Color.red);
+        Debug.DrawRay(shootPos.position,shootPos.forward * 10, UnityEngine.Color.red);
     }
 
     public override void Attack()
@@ -235,7 +236,7 @@ public class BaseGun : Weapon
         {
             if (playerGun)
             {
-                UIManager.instance.updateAmmoFill(timer, reloadSpeed);
+                UIManager.instance.UpdateAmmoFill(timer, reloadSpeed);
             }
             yield return null;
             timer += Time.deltaTime;

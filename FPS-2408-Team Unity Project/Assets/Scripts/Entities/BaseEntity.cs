@@ -51,7 +51,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
 
         _amount = _amount < 0 ? 0 : _amount;
-        StartCoroutine(changeIndicator(damageMaterial));
+       if(_amount < currentHealth) StartCoroutine(changeIndicator(damageMaterial));
         //clamps the _amount to a min of 0
         if(healthBar != null) healthBar.UpdateHealthBar((float)_amount, (float)maxHealth);
         currentHealth = _amount;

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d99d16731e0a94db9f1c537c9fafd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hangTime: 10
+  hangTime: 5
   speed: 200
 --- !u!96 &3725913966428922992
 TrailRenderer:

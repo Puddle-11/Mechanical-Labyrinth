@@ -9,12 +9,12 @@ public class ButtonFunction : MonoBehaviour
 
     public void resume()
     {
-        UIManager.instance.stateUnpause();
+        UIManager.instance.StateUnpause();
     }
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        UIManager.instance.stateUnpause();
+        UIManager.instance.StateUnpause();
     }
     public void quit()
     {
@@ -26,7 +26,7 @@ public class ButtonFunction : MonoBehaviour
     {
         GameManager.instance.playerControllerRef.ResetHealth();
         GameManager.instance.playerRef.transform.position = respawnPoint.position;
-        UIManager.instance.stateUnpause();
+        UIManager.instance.StateUnpause();
     }
     // Start is called before the first frame update
 

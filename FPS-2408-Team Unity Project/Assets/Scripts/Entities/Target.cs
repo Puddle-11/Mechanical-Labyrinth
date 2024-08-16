@@ -35,11 +35,11 @@ public class Target : BaseEntity
             base.Death();
             yield break;
         }
-        ResetHealth();
 
         collRef.enabled = false;
         rendRef.enabled = false;
         yield return new WaitForSeconds(RespawnTime);
+        ResetHealth();
         collRef.enabled = true;
         rendRef.enabled = true;
         healthBar.UpdateHealthBar((float)currentHealth, (float)maxHealth);
