@@ -57,7 +57,6 @@ public class BaseGun : Weapon
     }
     public void Start()
     {
-
         SetAmmo(clipSizeMax);
     }
 

@@ -17,6 +17,20 @@ public class BaseEntity : MonoBehaviour, IHealth
     [SerializeField] private GameObject[] drops;
     [SerializeField] protected EntityHealthBar healthBar;
     // Start is called before Start (used to initialize variables inside an object, DO NOT use awake to interact with other objects or components, this will crash your unity project
+
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+    public void SetMaxHealth(int _val)
+    {
+        maxHealth = _val;
+    }
     public virtual void Awake()
     {
         if( rendRef == null)

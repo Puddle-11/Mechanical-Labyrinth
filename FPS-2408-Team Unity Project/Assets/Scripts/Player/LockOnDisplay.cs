@@ -29,7 +29,10 @@ public class LockOnDisplay : MonoBehaviour
         if(Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward,out checkLineOfSight ,Mathf.Infinity, ~GameManager.instance.projectileIgnore))
         {
             Pickup pickupRef;
-            if (checkLineOfSight.collider.TryGetComponent<Pickup>(out pickupRef) || checkLineOfSight.collider.GetComponent<IHealth>() != null)
+            IHealth healthRef;
+            checkLineOfSight.collider.TryGetComponent<Pickup>(out pickupRef);
+            checkLineOfSight.collider.TryGetComponent<IHealth>(out healthRef);
+            if (healthRef!=null || pickupRef != null)
             {
 
 
@@ -52,6 +55,11 @@ public class LockOnDisplay : MonoBehaviour
                     infoDisplay.transform.gameObject.SetActive(true);
 
                 }
+                //else if(healthRef != null)
+                //{
+                //    UpdateInfo(healthRef.GetCurrentHealth() + "/"+ healthRef.GetMaxHealth(), new Vector2(objectScreenBounds.max.x, objectScreenBounds.max.y), distanceScale);
+                //    infoDisplay.transform.gameObject.SetActive(true);
+                //}
                 else
                 {
                     UpdateInfo("", Vector3.zero, distanceScale);
@@ -59,7 +67,6 @@ public class LockOnDisplay : MonoBehaviour
                 }
                 LockOnGUI.transform.position = (objectScreenBounds.min + objectScreenBounds.max) / 2;
                 LockOnGUI.transform.localScale = Vector3.one * distanceScale;
-
                 return;
             }
         }
