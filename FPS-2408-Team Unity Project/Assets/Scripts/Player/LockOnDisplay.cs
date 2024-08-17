@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class LockOnDisplay : MonoBehaviour
 {
     public GameObject LockOnGUI;
@@ -10,6 +11,7 @@ public class LockOnDisplay : MonoBehaviour
     [SerializeField] private Vector2 minSize;
     [SerializeField] private float boundSize;
     [SerializeField] private GameObject test;
+    [SerializeField] private TMP_Text infoDisplay;
     public float scalar;
     struct ssBounds
     {
@@ -26,7 +28,8 @@ public class LockOnDisplay : MonoBehaviour
         RaycastHit checkLineOfSight;
         if(Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward,out checkLineOfSight ,Mathf.Infinity, ~GameManager.instance.projectileIgnore))
         {
-            if (checkLineOfSight.collider.GetComponent<IHealth>() != null || checkLineOfSight.collider.GetComponent<Pickup>() != null)
+            Pickup pickupRef;
+            if (checkLineOfSight.collider.TryGetComponent<Pickup>(out pickupRef) || checkLineOfSight.collider.GetComponent<IHealth>() != null)
             {
 
 
@@ -41,14 +44,35 @@ public class LockOnDisplay : MonoBehaviour
                 WH = WH / distanceScale * (boundSize / Screen.width);
                 WH = new Vector2(Mathf.Clamp(WH.x, minSize.x, Mathf.Infinity), Mathf.Clamp(WH.y, minSize.y, Mathf.Infinity));
                 rectRef.sizeDelta = WH;
+
+                if (pickupRef != null)
+                {
+
+                    UpdateInfo(pickupRef.GetStats(), new Vector2(objectScreenBounds.max.x, objectScreenBounds.max.y), distanceScale);
+                    infoDisplay.transform.gameObject.SetActive(true);
+
+                }
+                else
+                {
+                    UpdateInfo("", Vector3.zero, distanceScale);
+                    infoDisplay.transform.gameObject.SetActive(false);
+                }
                 LockOnGUI.transform.position = (objectScreenBounds.min + objectScreenBounds.max) / 2;
                 LockOnGUI.transform.localScale = Vector3.one * distanceScale;
 
                 return;
             }
         }
+        infoDisplay.transform.gameObject.SetActive(false);
+
         LockOnGUI.SetActive(false);
 
+    }
+    public void UpdateInfo(string _text, Vector2 _pos, float _distScale)
+    {
+        infoDisplay.text = _text;
+        infoDisplay.transform.position = _pos;
+        infoDisplay.transform.localScale = Vector3.one * _distScale;
     }
     private ssBounds worldToScreenBounds(Bounds _boundingBox)
     {

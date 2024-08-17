@@ -7,7 +7,16 @@ public class Pickup : MonoBehaviour
 {
     [SerializeField] private ItemType Item;
     private Rigidbody rb;
-    
+    [SerializeField] private string stats;
+    public string GetStats()
+    {
+        IUsable temp;
+        if(Item.Object.TryGetComponent<IUsable>(out temp))
+        {
+            return Item.itemName + "\n"+temp.GetItemStats();
+        }
+        return stats;
+    }
     private void Awake()
     {
         if(!TryGetComponent<Rigidbody>(out rb))

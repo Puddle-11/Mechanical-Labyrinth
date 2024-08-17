@@ -10,8 +10,15 @@ public class Weapon : MonoBehaviour, IUsable
     public LayerMask ignoreMask;
     [SerializeField] protected GameObject pickUp;
     [SerializeField] protected ItemType gunDrop;
-
-
+    [SerializeField] protected string objName;
+    public virtual string GetItemName()
+    {
+        return objName;
+    }
+    public virtual string GetItemStats()
+    {
+        return "Speed: " + coolDown;
+    }
     public void SetPickup(GameObject _pickup)
     {
         pickUp = _pickup;

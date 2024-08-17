@@ -134,7 +134,7 @@ MonoBehaviour:
   muzzleFlashSize: 0.05
   sparkParticles: {fileID: 7670983049935914722}
   penetratingDistance: 0.5
-  penetratingDamageFalloff: 2
+  penetratingDamageFalloff: 1
   FSAccuracy: 0.05
   FSAOverTime:
     serializedVersion: 2

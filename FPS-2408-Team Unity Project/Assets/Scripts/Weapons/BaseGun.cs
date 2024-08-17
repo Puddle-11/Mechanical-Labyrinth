@@ -60,6 +60,11 @@ public class BaseGun : Weapon
 
         SetAmmo(clipSizeMax);
     }
+
+    public override string GetItemStats()
+    {
+        return "Speed: " + coolDown + "\nDamage: " + shootDamage;
+    }
     private void Update()
     {
         
@@ -146,21 +151,20 @@ public class BaseGun : Weapon
 
             }
             bool penetrated = false;
-            Vector3 shootDir = playerGun ? Camera.main.transform.forward : shootPos.forward;
+            Vector3 shootDir = playerGun ? CameraController.instance.transform.forward : shootPos.forward;
             shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             StartMuzzleFlash();
             RaycastHit hit;
                 IHealth healthRef = null;
-            if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
+            if (Physics.Raycast(playerGun ? CameraController.instance.mainCamera.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
                 if (hit.collider.TryGetComponent<IHealth>(out healthRef))
                 {
                     healthRef.UpdateHealth(-shootDamage);
                 }
-                else
-                {
-                        SpawnBulletHole(bulletHoleDecal, hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform, NP_bulletHoleMat);
-                }
+
+
+
                 RaycastHit penetratingHit;
 
                 if (penetratingDistance > 0 && Physics.Raycast(hit.point + shootDir.normalized * penetratingDistance, -shootDir, out penetratingHit, penetratingDistance, ~GameManager.instance.penetratingIgnore))
@@ -168,7 +172,7 @@ public class BaseGun : Weapon
                     penetrated = true;
                     if (healthRef == null)
                     {
-                        
+
                         SpawnBulletHole(bulletHoleDecal, penetratingHit.point + penetratingHit.normal * 0.1f, Quaternion.LookRotation(-penetratingHit.normal), penetratingHit.collider.transform, E_bulletHoleMat);
                     }
                     RaycastHit postPenetrateHit;
@@ -181,13 +185,21 @@ public class BaseGun : Weapon
                         }
                     }
                 }
+
+
             }
-            if(healthRef == null)
+            if (hit.collider != null)
             {
-                SpawnBulletHole(bulletHoleDecal, hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform, penetrated ? P_bulletHoleMat : NP_bulletHoleMat);
+                if (penetrated)
+                {
+                    SpawnBulletHole(bulletHoleDecal, hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform, P_bulletHoleMat);
+                }
+                else if(!penetrated && healthRef == null)
+                {
+
+                    SpawnBulletHole(bulletHoleDecal, hit.point + hit.normal * 0.1f, Quaternion.LookRotation(-hit.normal), hit.collider.transform, NP_bulletHoleMat);
+                }
             }
-
-
             SummonBulletTracer(hit, shootDir);
             yield return wfs;
         }
