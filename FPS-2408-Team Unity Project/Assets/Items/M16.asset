@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
   m_Name: M16
   m_EditorClassIdentifier: 
+  itemName: M16
+  itemID: 0
   Object: {fileID: 5598139051378606121, guid: b3a1e17572cfbfe44ac7fc5364633088, type: 3}
   Pickup: {fileID: 6171256380922855838, guid: 20b378ea970850b419e00e45dc9c693b, type: 3}
