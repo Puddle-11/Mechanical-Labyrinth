@@ -113,6 +113,7 @@ MonoBehaviour:
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: e8ba6ad58bbee274d81af0ec1a461c06, type: 2}
+  objName: 
   shotType: 1
   shootDamage: 40
   shootDist: 200
@@ -141,7 +142,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 983026545257211559}
   muzzleFlashSize: 0.05
   sparkParticles: {fileID: 6678233631861549538}
-  penetratingDistance: 0.5
+  penetratingDistance: 1
   penetratingDamageFalloff: 1
   FSAccuracy: 0.05
   FSAOverTime:

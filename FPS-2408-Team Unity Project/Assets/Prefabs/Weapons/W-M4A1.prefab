@@ -75,10 +75,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 45779939465618169, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
+    - target: {fileID: 237284299725523394, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
+    - target: {fileID: 477061854189120910, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
+    - target: {fileID: 3480971549557165708, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
+    - target: {fileID: 3872948085759831229, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
     - target: {fileID: 4397133208892549688, guid: 201149ace250afc43884b518e7daf240, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.15
       objectReference: {fileID: 0}
+    - target: {fileID: 4759094582687272563, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
+    - target: {fileID: 5705380937420721312, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
+    - target: {fileID: 6577708151923921778, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
+    - target: {fileID: 7428768902862530290, guid: 201149ace250afc43884b518e7daf240, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: af7640bf278b3774caa71963cdbdc38f, type: 2}
     - target: {fileID: 7993003320852654636, guid: 201149ace250afc43884b518e7daf240, type: 3}
       propertyPath: m_Name
       value: W-M4A1
@@ -160,6 +196,7 @@ MonoBehaviour:
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: bf56de48a74db634a9e45f5d38c12b9c, type: 2}
+  objName: 
   shotType: 0
   shootDamage: 40
   shootDist: 200
@@ -188,7 +225,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 4037953909308320129}
   muzzleFlashSize: 1
   sparkParticles: {fileID: 6999054089370399508}
-  penetratingDistance: 0.5
+  penetratingDistance: 1
   penetratingDamageFalloff: 1
   FSAccuracy: 0.15
   FSAOverTime:
