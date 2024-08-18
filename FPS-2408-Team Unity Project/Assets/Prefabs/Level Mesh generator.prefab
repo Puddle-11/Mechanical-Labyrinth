@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8082392506002595701
+--- !u!1 &4929931634702836277
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,58 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1080875157830333715}
-  - component: {fileID: 1613702361457593329}
+  - component: {fileID: 22606344426549897}
+  - component: {fileID: 2907249646263534290}
   m_Layer: 0
-  m_Name: Game Manager
+  m_Name: Level Mesh generator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1080875157830333715
+--- !u!4 &22606344426549897
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8082392506002595701}
+  m_GameObject: {fileID: 4929931634702836277}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.2054386, y: 23.804426, z: 4.2883024}
+  m_LocalPosition: {x: 11.554, y: 10.39636, z: -7.932}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1613702361457593329
+--- !u!114 &2907249646263534290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8082392506002595701}
+  m_GameObject: {fileID: 4929931634702836277}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9dfea7d5fc822e4f934ce1ce3253f2b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e6f1875f55b1ce4db150e7f308b2061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileIgnore:
-    serializedVersion: 2
-    m_Bits: 28680
-  penetratingIgnore:
-    serializedVersion: 2
-    m_Bits: 63468
-  playerRef: {fileID: 0}
-  playerControllerRef: {fileID: 0}
+  VoxelSize: 1
+  CubicChunkSize: 10
+  MountainHeight: 7
+  GroundHeight: 12
+  ChunkSize: {x: 0, y: 0, z: 0}
+  GridSize: {x: 10, y: 5, z: 10}
+  CellScale: 8
+  MeshPrefab: {fileID: 311105137664234863, guid: b43e02eeb4de8ee4e933d6efb707800a, type: 3}
+  Compression: 0.7
+  Density: 0
+  debugMesh: 0
+  PerlinNoiseInfluence: 5
+  perlinPower: 2
+  M_MountainHeight: 0
+  M_BaseHeight: 1
+  M_scale: 15
+  GType: 2
+  currentChunk: {fileID: 0}
+  test: {fileID: 0}
