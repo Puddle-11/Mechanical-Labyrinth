@@ -167,25 +167,34 @@ public class BaseGun : Weapon
 
                 if (penetratingDistance > 0 && Physics.Raycast(hit.point + shootDir.normalized * penetratingDistance, -shootDir, out penetratingHit, penetratingDistance, ~GameManager.instance.penetratingIgnore))
                 {
-                    penetrated = true;
-                    if (healthRef == null)
+                    if (penetratingHit.collider == hit.collider)
                     {
-
-                        SpawnBulletHole(bulletHoleDecal, penetratingHit.point + penetratingHit.normal * 0.1f, Quaternion.LookRotation(-penetratingHit.normal), penetratingHit.collider.transform, E_bulletHoleMat);
-                    }
-                    RaycastHit postPenetrateHit;
-                    if (Physics.Raycast(penetratingHit.point, shootDir, out postPenetrateHit, shootDist, ~ignoreMask))
-                    {
-                        if (postPenetrateHit.collider.TryGetComponent<IHealth>(out healthRef))
+                       
+                        RaycastHit postPenetrateHit;
+                        if (Physics.Raycast(penetratingHit.point, shootDir, out postPenetrateHit, shootDist, ~ignoreMask))
                         {
-                            int shootDamagecalc = (int)(-shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
-                            healthRef.UpdateHealth(shootDamagecalc);
+                            if (postPenetrateHit.collider.TryGetComponent<IHealth>(out healthRef))
+                            {
+                                int shootDamagecalc = (int)(-shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
+                                healthRef.UpdateHealth(shootDamagecalc);
+                            }
+                        }
+                        if (postPenetrateHit.distance > 0.01f)
+                        {
+                            penetrated = true;
+                            if (healthRef == null)
+                            {
+
+
+                                //spawn exit hole
+                                SpawnBulletHole(bulletHoleDecal, penetratingHit.point + penetratingHit.normal * 0.1f, Quaternion.LookRotation(-penetratingHit.normal), penetratingHit.collider.transform, E_bulletHoleMat);
+                            }
                         }
                     }
                 }
-
-
             }
+
+
             if (hit.collider != null)
             {
                 if (penetrated)
