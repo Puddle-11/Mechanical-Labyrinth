@@ -137,20 +137,19 @@ public class BaseGun : Weapon
         int size = 1;
         if (shotType == GunType.Burst) { size = burstSize; }
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
+        FSAtimer += coolDown;
+
         for (int i = 0; i < size; i++)
         {
             if (currAmmo == 0) break;
             float normalizedTimer = FSAtimer/ FSATimerMax;
             UpdateAmmo(-1);
             FSAtimer += barrelDelay;
-            if (playerGun)
-            {
-                CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
-                CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
-
-            }
+            Vector3 tempForward = CameraController.instance.transform.forward;
+          
             bool penetrated = false;
-            Vector3 shootDir = playerGun ? CameraController.instance.transform.forward : shootPos.forward;
+
+            Vector3 shootDir = playerGun ? tempForward : shootPos.forward;
             shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             StartMuzzleFlash();
             RaycastHit hit;
@@ -200,9 +199,21 @@ public class BaseGun : Weapon
                 }
             }
             SummonBulletTracer(hit, shootDir);
+
+            if (playerGun && barrelDelay > 0)
+            {
+                CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
+                CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
+            }
             yield return wfs;
         }
-        FSAtimer += coolDown;
+        float nTimer = FSAtimer / FSATimerMax;
+
+        if (playerGun && barrelDelay <= 0)
+        {
+            CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
+            CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * nTimer));
+        }
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
     }

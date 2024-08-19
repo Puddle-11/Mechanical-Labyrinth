@@ -296,8 +296,6 @@ public class MeshGenerator : MonoBehaviour
         int fx = _ID % chunkRef.textureAtlasSize;
         int fy = Mathf.FloorToInt(_ID / (float)chunkRef.textureAtlasSize);
         Vector2 UVAnchor = new Vector2(fx, fy) / chunkRef.textureAtlasSize;
-        Debug.Log("ID: " + _ID + " Anchor: " + UVAnchor);
-
 
         _side = Mathf.Clamp(_side, 0, 5);
         Vector3[] tempVertex = new Vector3[4];
