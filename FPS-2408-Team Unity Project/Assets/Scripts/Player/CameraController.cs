@@ -30,7 +30,6 @@ public class CameraController : MonoBehaviour
     public Vector2 offset;
     private bool camShaking;
     public Camera mainCamera;
-    public Camera pixelCamera;
     public void Awake()
     {
         if(instance == null)

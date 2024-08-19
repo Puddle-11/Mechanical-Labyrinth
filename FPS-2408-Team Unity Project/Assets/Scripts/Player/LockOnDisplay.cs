@@ -12,7 +12,6 @@ public class LockOnDisplay : MonoBehaviour
     [SerializeField] private float boundSize;
     [SerializeField] private GameObject test;
     [SerializeField] private TMP_Text infoDisplay;
-    public float scalar;
     struct ssBounds
     {
        public Vector3 min;
@@ -92,16 +91,16 @@ public class LockOnDisplay : MonoBehaviour
     {
 
         Vector3[] screenPosCorners = new Vector3[8];
-        screenPosCorners[0] = CameraController.instance.mainCamera.WorldToScreenPoint(_worldBounds.max) * scalar;
+        screenPosCorners[0] = CameraController.instance.mainCamera.WorldToScreenPoint(_worldBounds.max);
 
-        screenPosCorners[1] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.max.y, _worldBounds.max.z)) * scalar;
-        screenPosCorners[2] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.max.y, _worldBounds.min.z)) * scalar;
-        screenPosCorners[3] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.max.y, _worldBounds.min.z)) * scalar;
+        screenPosCorners[1] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.max.y, _worldBounds.max.z));
+        screenPosCorners[2] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.max.y, _worldBounds.min.z));
+        screenPosCorners[3] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.max.y, _worldBounds.min.z));
 
-        screenPosCorners[4] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.min.y, _worldBounds.max.z)) * scalar;
-        screenPosCorners[5] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.min.y, _worldBounds.max.z)) * scalar;
-        screenPosCorners[6] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.min.y, _worldBounds.min.z)) * scalar;
-        screenPosCorners[7] = CameraController.instance.mainCamera.WorldToScreenPoint(_worldBounds.min) * scalar;
+        screenPosCorners[4] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.min.y, _worldBounds.max.z));
+        screenPosCorners[5] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.min.y, _worldBounds.max.z));
+        screenPosCorners[6] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.min.y, _worldBounds.min.z));
+        screenPosCorners[7] = CameraController.instance.mainCamera.WorldToScreenPoint(_worldBounds.min);
 
 
         ssBounds result = new ssBounds();
