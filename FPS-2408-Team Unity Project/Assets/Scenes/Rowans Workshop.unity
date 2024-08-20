@@ -141,16 +141,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enclose: 1
-  wallHeight: 10
-  ceilingHeight: 10
-  roomSize: 10
-  doorHeight: 4
-  doorWidth: 3
+  maxHeight: 10
+  roomMap: {fileID: 21300000, guid: 24d132f37b32f514dbf11a5ff7940d70, type: 3}
   baseBoardHeight: 1
+  topPlateHeight: 1
   floorBlockID: 4
   wallBlockID: 1
   ceilingBlockID: 2
   baseBoardBlockID: 3
+  topPlaceBlockID: 1
 --- !u!1001 &340826054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -289,17 +288,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1750312086539458527, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
+      propertyPath: m_Radius
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 1750312086539458527, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
+      propertyPath: m_SkinWidth
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385250308186476171, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
+      propertyPath: m_Radius
+      value: 0.49
+      objectReference: {fileID: 0}
     - target: {fileID: 2426318336164377244, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.39
+      value: 10.03
       objectReference: {fileID: 0}
     - target: {fileID: 2426318336164377244, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.82
+      value: 2.17
       objectReference: {fileID: 0}
     - target: {fileID: 2426318336164377244, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 17.18
+      value: 18.65
       objectReference: {fileID: 0}
     - target: {fileID: 2426318336164377244, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1422,7 +1433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: GridSize.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: GridSize.z

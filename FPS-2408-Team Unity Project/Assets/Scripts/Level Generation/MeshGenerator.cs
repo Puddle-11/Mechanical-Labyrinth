@@ -15,15 +15,11 @@ using System.Reflection;
 public class MeshGenerator : MonoBehaviour
 {
     private ChunkGrid chunkRef;
-
-    public MeshCell[,,] Cells;
-    public List<Vector3> Verticies;
-    public List<int> Triangles;
-    public List<Vector2> UVs;
+    private List<Vector3> Verticies;
+    private List<int> Triangles;
+    private List<Vector2> UVs;
     private MeshFilter mainMesh;
-    
-    [SerializeField] private MeshCollider colliderMesh;
-    public float terrainScale;
+    private MeshCollider colliderMesh;
 
 
     //add world to cell function for break and place functions
@@ -40,48 +36,22 @@ public class MeshGenerator : MonoBehaviour
     {
         chunkRef = _val;
     }
-    public void CreateShape()
-    {
-        InitializeGrid();
-        UpdateShape();
-    }
-    #region Run Externally
     public void UpdateShape()
     {
         mainMesh = GetComponent<MeshFilter>();
-
+        colliderMesh = GetComponent<MeshCollider>();
         Triangles = new List<int>();
         Verticies = new List<Vector3>();
         UVs = new List<Vector2>();
         GenerateFaces();
     }
-    //Runs when object is instantiated 
-    public void InitializeGrid()
-    {
-        Cells = new MeshCell[chunkRef.ChunkSize.x, chunkRef.ChunkSize.y, chunkRef.ChunkSize.z];
-        for (int x = 0; x < chunkRef.ChunkSize.x; x++)
-        {
-            for (int y = 0; y < chunkRef.ChunkSize.y; y++)
-            {
-                for (int z = 0; z < chunkRef.ChunkSize.z; z++)
-                {
-                    if (Cells[x, y, z] == null) Cells[x, y, z] = new MeshCell();
-                    Cells[x, y, z].ID = 0;
-                }
-            }
-        }
-    }
-    //Runs when ChunkGrid Runs generate (runs for each tile)
-    public void UpdateCell(Vector3Int _pos, int _ID)
-    {
-        Cells[_pos.x, _pos.y, _pos.z].ID = _ID;
-    }
 
 
 
 
 
-    #endregion
+
+
 
 
     private void GenerateFaces()
@@ -93,38 +63,38 @@ public class MeshGenerator : MonoBehaviour
             {
                 for (int z = 0; z < chunkRef.ChunkSize.z; z++)
                 {
-
-                    if (Cells[x, y, z].ID != 0)
+                        Vector3Int _GridPos = chunkRef.GetChunkStartPos(gameObject) + new Vector3Int(x,y,z);
+                    if (chunkRef.GetTile(_GridPos).ID != 0)
                     {
-                        int filteredID = Cells[x, y, z].ID  -1;
+                        int filteredID =chunkRef.GetTile(_GridPos).ID - 1;
                         #region chunkEdge Draws
-                        if (y == 0)
+                        if (_GridPos.y == 0)
                         {
                             //Render BottomFace
                             AddQuad(7, 5, 6, 4, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 1, filteredID);
                         }
-                        if (y == Cells.GetLength(1) - 1)
+                        if (_GridPos.y == chunkRef.bounds.max.y)
                         {
                             AddQuad(0, 1, 2, 3, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 0, filteredID);
                             //Render TopFace
 
                         }
-                        if (x == 0)
+                        if (_GridPos.x == 0)
                         {
                             AddQuad(1, 0, 5, 4, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 2, filteredID);
 
                         }
-                        if (x == Cells.GetLength(0) - 1)
+                        if (_GridPos.x == chunkRef.bounds.max.x)
                         {
                             AddQuad(6, 2, 7, 3, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 4, filteredID);
 
                         }
-                        if (z == 0)
+                        if (_GridPos.z == 0)
                         {
 
                             AddQuad(4, 0, 6, 2, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 3, filteredID);
                         }
-                        if (z == Cells.GetLength(2) - 1)
+                        if (_GridPos.z == chunkRef.bounds.max.z)
                         {
                             AddQuad(1, 5, 3, 7, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 5, filteredID);
                         }
@@ -132,16 +102,16 @@ public class MeshGenerator : MonoBehaviour
                         #region xSide
                         //------------------------------------------
                         //X Side 
-                        if (x < Cells.GetLength(0) - 1)
+                        if (_GridPos.x < chunkRef.bounds.max.x - 1)
                         {
-                            if (Cells[x + 1, y, z].ID == 0)
+                            if (chunkRef.GetTile(_GridPos + new Vector3Int(1, 0, 0)).ID == 0)
                             {
                                 AddQuad(6, 2, 7, 3, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 4, filteredID);
                             }
                         }
-                        if (x > 0)
+                        if (_GridPos.x > 0)
                         {
-                            if (Cells[x - 1, y, z].ID == 0)
+                            if (chunkRef.GetTile(_GridPos + new Vector3Int(-1, 0, 0)).ID == 0)
                             {
                                 AddQuad(1, 0, 5, 4, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 2, filteredID);
 
@@ -152,17 +122,17 @@ public class MeshGenerator : MonoBehaviour
                         #region ySide
                         //------------------------------------------
                         //Y Side 
-                        if (y < Cells.GetLength(1) - 1)
+                        if (_GridPos.y < chunkRef.bounds.max.y - 1)
                         {
-                            if (Cells[x, y + 1, z].ID == 0)
+                            if (chunkRef.GetTile(_GridPos + new Vector3Int(0, 1, 0)).ID == 0)
                             {
                                 AddQuad(0, 1, 2, 3, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 0, filteredID);
 
                             }
                         }
-                        if (y > 0)
+                        if (_GridPos.y > 0)
                         {
-                            if (Cells[x, y - 1, z].ID == 0)
+                            if (chunkRef.GetTile(_GridPos + new Vector3Int(0, -1, 0)).ID == 0)
                             {
                                 AddQuad(7, 5, 6, 4, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 1, filteredID);
 
@@ -173,17 +143,17 @@ public class MeshGenerator : MonoBehaviour
                         #region zSide
                         //------------------------------------------
                         //Z Side 
-                        if (z < Cells.GetLength(2) - 1)
+                        if (_GridPos.z < chunkRef.bounds.max.z)
                         {
-                            if (Cells[x, y, z + 1].ID == 0)
+                            if (chunkRef.GetTile(_GridPos + new Vector3Int(0, 0, 1)).ID == 0)
                             {
                                 AddQuad(1, 5, 3, 7, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 5, filteredID);
 
                             }
                         }
-                        if (z > 0)
+                        if (_GridPos.z > 0)
                         {
-                            if (Cells[x, y, z - 1].ID == 0)
+                            if (chunkRef.GetTile(_GridPos + new Vector3Int(0,0,-1)).ID == 0)
                             {
                                 AddQuad(4, 0, 6, 2, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 3, filteredID);
 
