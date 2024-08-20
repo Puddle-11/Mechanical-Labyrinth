@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonFunction : MonoBehaviour
 {
-    [SerializeField] private Transform respawnPoint;
 
     public void resume()
     {
@@ -24,9 +23,7 @@ public class ButtonFunction : MonoBehaviour
 
     public void respawn()
     {
-        GameManager.instance.playerControllerRef.ResetHealth();
-        GameManager.instance.playerRef.transform.position = respawnPoint.position;
-        UIManager.instance.StateUnpause();
+        GameManager.instance.RespawnPlayer();
     }
     // Start is called before the first frame update
 

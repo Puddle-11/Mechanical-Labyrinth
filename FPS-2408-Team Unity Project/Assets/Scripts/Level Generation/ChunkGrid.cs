@@ -65,8 +65,7 @@ public class ChunkGrid : MonoBehaviour
     private void GenerateGrid()
     {
         GridCells = new MeshCell[GridObj.GetLength(0) * CubicChunkSize, GridObj.GetLength(1) * CubicChunkSize, GridObj.GetLength(2) * CubicChunkSize];
-        Debug.Log("Grid Size: " + new Vector3Int( GridCells.GetLength(0), GridCells.GetLength(1), GridCells.GetLength(2)));
-        //This method simply updates the internal grid values, it does not propogate these values to the renderer
+   
         for (int x = 0; x < GridObj.GetLength(0) * CubicChunkSize; x++)
         {
             for (int y = 0; y < GridObj.GetLength(1) * CubicChunkSize; y++)

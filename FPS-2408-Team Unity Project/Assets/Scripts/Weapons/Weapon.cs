@@ -11,6 +11,11 @@ public class Weapon : MonoBehaviour, IUsable
     [SerializeField] protected GameObject pickUp;
     [SerializeField] protected ItemType gunDrop;
     [SerializeField] protected string objName;
+
+    public virtual bool CanAttack()
+    {
+        return !isAttacking;
+    }
     public virtual string GetItemName()
     {
         return objName;

@@ -45,6 +45,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     // Start is called before the first frame update
     public virtual void Start()
     {
+        originalMaterial = rendRef.material;
 
     }
     public virtual void Update()
@@ -63,16 +64,13 @@ public class BaseEntity : MonoBehaviour, IHealth
     }
     public virtual void SetHealth(int _amount)
     {
-
-        _amount = _amount < 0 ? 0 : _amount;
-       if(_amount < currentHealth) StartCoroutine(changeIndicator(damageMaterial));
+        _amount = Mathf.Clamp(_amount, 0, maxHealth);
+        if(_amount < currentHealth && !takingDamage) StartCoroutine(changeIndicator(damageMaterial));
         //clamps the _amount to a min of 0
         if(healthBar != null) healthBar.UpdateHealthBar((float)_amount, (float)maxHealth);
         currentHealth = _amount;
-        if (_amount == 0)
-        {
-            Death();
-        }
+        if (_amount == 0) Death();
+        
     }
     public virtual void UpdateHealth(int _amount)
     {
@@ -84,10 +82,8 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         if (rendRef != null)
         {
-            if (takingDamage) yield break;
-
             takingDamage = true;
-            originalMaterial = rendRef.material;
+
             rendRef.material = _flashMat;
             yield return new WaitForSeconds(damageFlashTime);
             rendRef.material = originalMaterial;
@@ -104,7 +100,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void Death()
     {
         //default death case
-        DropInventory();
+        //DropInventory();
         Destroy(gameObject);
     }
     public virtual void DropInventory()

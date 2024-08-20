@@ -32,7 +32,7 @@ public class PlayerController : BaseEntity
     [SerializeField] private float gravityStrength;
     private Vector3 playerVel;
     private PlayerHand playerHandRef;
-
+    private GameObject playerSpawnPos;
 
     private float momentum;
 
@@ -51,6 +51,9 @@ public class PlayerController : BaseEntity
     // Start is called before the first frame update
     public override void Start()
     {
+
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
+        //SpawnPlayer();
         base.Start();
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
     }
@@ -66,7 +69,7 @@ public class PlayerController : BaseEntity
                 StartCoroutine(UIManager.instance.flashDamage());
             }
         }
-                UIManager.instance?.UpdateHealthBar((float)currentHealth / maxHealth);
+        UIManager.instance?.UpdateHealthBar((float)currentHealth / maxHealth);
     }
     // Update is called once per frame
     public override void Update()
@@ -81,27 +84,27 @@ public class PlayerController : BaseEntity
         }
         else
         {
-        if (Input.GetButtonDown("Pick Up"))
-        {
-            playerHandRef?.ClickPickUp();
-
-        }
-        if (Input.GetButtonDown("Shoot"))
-        {
-            playerHandRef?.SetUseItem(true);
-        }
-        if (Input.GetButtonUp("Shoot"))
-        {
-            playerHandRef?.SetUseItem(false);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            BaseGun tempOut;
-            if ((playerHandRef?.GetCurrentHand()).TryGetComponent<BaseGun>(out tempOut))
+            if (Input.GetButtonDown("Pick Up"))
             {
-                StartCoroutine(tempOut.Reload());
+                playerHandRef?.ClickPickUp();
+
             }
-        }
+            if (Input.GetButtonDown("Shoot"))
+            {
+                playerHandRef?.SetUseItem(true);
+            }
+            if (Input.GetButtonUp("Shoot"))
+            {
+                playerHandRef?.SetUseItem(false);
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                BaseGun tempOut;
+                if (playerHandRef != null && playerHandRef.GetCurrentHand().TryGetComponent<BaseGun>(out tempOut))
+                {
+                    StartCoroutine(tempOut.Reload());
+                }
+            }
         }
 
 
@@ -124,29 +127,24 @@ public class PlayerController : BaseEntity
         }
         move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
         controllerRef.Move(move * speed * Time.deltaTime);
-        if (Input.GetButtonDown("Jump") )
+        if (Input.GetButtonDown("Jump"))
         {
             Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));
         }
         controllerRef.Move(playerVel * Time.deltaTime);
-
-
     }
     public void Jump(Vector3 _dir)
     {
-
         if (jumpCurr < jumpMax)
         {
             jumpCurr++;
             playerVel = _dir;
         }
-        
     }
     void Sprint()
     {
         if (Input.GetButton("Sprint") && !isSprinting)
         {
-
             speed *= sprintMod;
             isSprinting = true;
         }
@@ -173,23 +171,18 @@ public class PlayerController : BaseEntity
         {
             onWall = false;
         }
-            Walljumpdir = new Vector3(0, jumpHeight, 0);
+        Walljumpdir = new Vector3(0, jumpHeight, 0);
         if (Input.GetButtonDown("Jump"))
         {
             Jump(Walljumpdir);
         }
 
     }
+
     void wallslide()
     {
-        while (onWall == true && playerVel.y < 0)
-        {
-            gravityStrength = gravityStrength / wallgravity;
-        }
-       
+        gravityStrength = gravityStrength / wallgravity;
     }
-    
-
 
     public override void Death()
     {
