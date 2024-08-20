@@ -64,6 +64,10 @@ public class BaseGun : Weapon
     {
         return "Speed: " + coolDown + "\nDamage: " + shootDamage;
     }
+    public override bool CanAttack()
+    {
+        return !(isAttacking || isReloading);
+    }
     private void Update()
     {
         
@@ -225,6 +229,14 @@ public class BaseGun : Weapon
         isAttacking = false;
     }
 
+
+
+
+
+
+
+
+
     private GameObject SpawnBulletHole(GameObject _prefab, Vector3 _pos, Quaternion _rotation, Transform _parent, Material[] _mat)
     {
 
@@ -287,13 +299,16 @@ public class BaseGun : Weapon
 
     public override void Attack()
     {
-        if (!isAttacking && currAmmo > 0 && !isReloading)
+        if (gameObject.activeInHierarchy)
         {
-            StartCoroutine(AttackDelay());
-        }
-        else if (currAmmo <= 0 && !isAttacking) 
-        {
-            StartCoroutine(Reload());
+            if (!isAttacking && currAmmo > 0 && !isReloading)
+            {
+                StartCoroutine(AttackDelay());
+            }
+            else if (currAmmo <= 0 && !isAttacking)
+            {
+                StartCoroutine(Reload());
+            }
         }
     }
 

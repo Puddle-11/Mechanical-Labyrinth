@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonFunction : MonoBehaviour
 {
-    [SerializeField] private Transform respawnPoint;
 
     public void resume()
     {

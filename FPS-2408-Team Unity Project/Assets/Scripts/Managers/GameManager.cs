@@ -49,4 +49,10 @@ public class GameManager : MonoBehaviour
             UIManager.instance.ToggleWinMenu(true);
         }
     }
+    public void RespawnPlayer()
+    {
+        //playerControllerRef.ResetHealth();
+        //playerControllerRef.SpawnPlayer();
+        //UIManager.instance.StateUnpause();
+    }
 }

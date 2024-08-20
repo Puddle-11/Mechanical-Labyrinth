@@ -123,12 +123,12 @@ public class UIManager : MonoBehaviour
 
     public void StatePause()
     {
-        isPause = !isPause;
-        Time.timeScale = 0;
+        SetPause(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
+        if (menuActive != null && menuActive.activeInHierarchy) menuActive.SetActive(false);
         menuActive = menuPause;
-        menuActive.SetActive(isPause);
+        menuActive.SetActive(true);
         for (int i = 0; i < ConstUI.Length; i++)
         {
             ConstUI[i].CUI_currentState = ConstUI[i].CUI_obj.activeInHierarchy;
@@ -137,20 +137,26 @@ public class UIManager : MonoBehaviour
     }
     public void StateUnpause()
     {
-        isPause = !isPause;
-        Time.timeScale = 1;
+        SetPause(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        menuActive.SetActive(isPause);
+        menuActive.SetActive(false);
         menuActive = null;
         for (int i = 0; i < ConstUI.Length; i++)
         {
             ConstUI[i].CUI_obj.SetActive(ConstUI[i].CUI_currentState);
         }
     }
+    public void SetPause(bool _val)
+    {
+        isPause = _val;
+        Time.timeScale = _val ? 0 : 1;
+    }
     public void OpenLoseMenu()
     {
-        StatePause();
+        //StatePause();
+
+        SetPause(true);
         menuActive = menuLose;
         menuActive.SetActive(true);
     }

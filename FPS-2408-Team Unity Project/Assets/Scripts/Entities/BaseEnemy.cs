@@ -10,6 +10,8 @@ public class BaseEnemy : BaseEntity
 
     [SerializeField] private DetectionType DetectPlayerType;
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Animator anim;
+    [SerializeField] private float transitionSpeed;
     [SerializeField] protected Weapon weaponScr;
     private bool inRange;
     [SerializeField] private GameObject target;
@@ -18,6 +20,12 @@ public class BaseEnemy : BaseEntity
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Transform headPos;
     [SerializeField] private int sneakDamageMultiplyer = 2;
+    [SerializeField] private float roamTimer;
+    [SerializeField] private float roamingDistance;
+    private float stoppingDistOriginal;
+    private bool isRoaming;
+    private Vector3 startingPos;
+    [SerializeField] private float shootAngle;
     public enum DetectionType
     {
         InRange,
@@ -26,22 +34,65 @@ public class BaseEnemy : BaseEntity
         Vision_Sound,
         Continuous,
     }
-
+    private IEnumerator Roam()
+    {
+        isRoaming = true;
+        yield return new WaitForSeconds(roamTimer);
+        agent.stoppingDistance = 0;
+        Vector3 randDist = Random.insideUnitSphere * roamingDistance;
+        randDist += startingPos;
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randDist, out hit, roamingDistance, 1);
+        agent.SetDestination(hit.position);
+        isRoaming = false;
+        
+    }
     // Start is called before the first frame update
     
     public override void Start()
     {
+        startingPos = transform.position;
         base.Start();
         GameManager.instance.updateGameGoal(1);
-
+        stoppingDistOriginal = agent.stoppingDistance;
     }
     public override void Update()
     {
-        if (GetEnemyAlertStatus())
+        if (anim != null)
         {
-            SetNavmeshTarget();
-            weaponScr.Attack();
-            if (agent.remainingDistance <= agent.stoppingDistance) FacePlayer();
+            float agentSpeed = agent.velocity.normalized.magnitude;
+            float lerpedSpeed = Mathf.Lerp(anim.GetFloat("Speed"), agentSpeed, Time.deltaTime * transitionSpeed);
+        anim.SetFloat("Speed", lerpedSpeed);
+        }
+     
+            if (inRange && GetEnemyAlertStatus())
+            {
+                SetNavmeshTarget();
+                if (weaponScr != null)
+                {
+                    if (weaponScr.CanAttack())
+                    {
+
+                    if (anim != null) anim.SetTrigger("Attack");
+                        weaponScr.Attack();
+                    }
+                }
+                if (agent.remainingDistance <= agent.stoppingDistance) FacePlayer();
+                agent.stoppingDistance = stoppingDistOriginal;
+            }
+            else
+            {
+                agent.stoppingDistance = 0;
+
+            }
+
+        
+        if (!GetEnemyAlertStatus())
+        {
+            if (!isRoaming && agent.remainingDistance < 0.1f)
+            {
+                StartCoroutine(Roam());
+            }
         }
         base.Update();
     }
@@ -149,7 +200,7 @@ public class BaseEnemy : BaseEntity
     {
         GameManager.instance.updateGameGoal(-1);
         DropItem(weaponScr.GetPickup());
-        base.Death(); //base death contains destroy(gameObject);
+        base.Death();
     }
     private void OnDrawGizmos()
     {
