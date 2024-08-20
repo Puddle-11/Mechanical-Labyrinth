@@ -225,6 +225,14 @@ public class BaseGun : Weapon
         isAttacking = false;
     }
 
+
+
+
+
+
+
+
+
     private GameObject SpawnBulletHole(GameObject _prefab, Vector3 _pos, Quaternion _rotation, Transform _parent, Material[] _mat)
     {
 

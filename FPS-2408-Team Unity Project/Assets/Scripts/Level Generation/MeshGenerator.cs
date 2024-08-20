@@ -24,20 +24,7 @@ public class MeshGenerator : MonoBehaviour
     
     [SerializeField] private MeshCollider colliderMesh;
     public float terrainScale;
-    private Vector2 WorldCenter;
-    [HideInInspector] public WorldBounds chunkBounds;
 
-    public struct WorldBounds
-    {
-
-        public WorldBounds(Vector3 max, Vector3 min)
-        {
-            maxBounds = max;
-            minBounds = min;
-        }
-        public Vector3 maxBounds;
-        public Vector3 minBounds;
-    }
 
     //add world to cell function for break and place functions
     public Vector3[] VertexPos = new Vector3[]
@@ -53,26 +40,23 @@ public class MeshGenerator : MonoBehaviour
     {
         chunkRef = _val;
     }
-
-    private Vector3Int GetCenter()
-    {
-        return new Vector3Int(chunkRef.ChunkSize.x / 2, chunkRef.ChunkSize.y / 2, chunkRef.ChunkSize.z / 2);
-    }
-
     public void CreateShape()
     {
-        WorldCenter = new Vector2(GetWorldPos(GetCenter()).x, GetWorldPos(GetCenter()).z);
+        InitializeGrid();
+        UpdateShape();
+    }
+    #region Run Externally
+    public void UpdateShape()
+    {
         mainMesh = GetComponent<MeshFilter>();
 
         Triangles = new List<int>();
         Verticies = new List<Vector3>();
         UVs = new List<Vector2>();
-        InitializeGrid();
-        //GenerateGrid();
-
         GenerateFaces();
     }
-    private void InitializeGrid()
+    //Runs when object is instantiated 
+    public void InitializeGrid()
     {
         Cells = new MeshCell[chunkRef.ChunkSize.x, chunkRef.ChunkSize.y, chunkRef.ChunkSize.z];
         for (int x = 0; x < chunkRef.ChunkSize.x; x++)
@@ -82,12 +66,24 @@ public class MeshGenerator : MonoBehaviour
                 for (int z = 0; z < chunkRef.ChunkSize.z; z++)
                 {
                     if (Cells[x, y, z] == null) Cells[x, y, z] = new MeshCell();
-                    
                     Cells[x, y, z].ID = 0;
                 }
             }
         }
     }
+    //Runs when ChunkGrid Runs generate (runs for each tile)
+    public void UpdateCell(Vector3Int _pos, int _ID)
+    {
+        Cells[_pos.x, _pos.y, _pos.z].ID = _ID;
+    }
+
+
+
+
+
+    #endregion
+
+
     private void GenerateFaces()
     {
         
@@ -201,94 +197,17 @@ public class MeshGenerator : MonoBehaviour
         }
         UpdateMesh();
     }
-    private void GenerateGrid()
-    {
-        for (int x = 0; x < chunkRef.ChunkSize.x; x++)
-        {
-            for (int y = 0; y < chunkRef.ChunkSize.y; y++)
-            {
-                for (int z = 0; z < chunkRef.ChunkSize.z; z++)
-                {
-                    if (Cells[x,y,z] == null)
-                    {
-                        Cells[x, y, z] = new MeshCell();
-                    }
-                
-                    Cells[x, y, z].ID = chunkRef.PlaceTile(new Vector3Int(x, y, z), gameObject);
-                }
-            }
-        }
-    }
-
-    public void UpdateCell(Vector3Int _pos, int _ID)
-    {
-        Cells[_pos.x, _pos.y, _pos.z].ID = _ID;
-    }
-
-
-    private Vector3 GetWorldPos(Vector3Int _cellPos)
-    {
-        return ((Vector3)_cellPos * chunkRef.VoxelSize) + transform.position;
-    }
-    private Vector3 GetWorldPos(int _x, int _y, int _z)
-    {
-        return new Vector3(_x, _y, _z) * chunkRef.VoxelSize;
-    }
-    private Vector3Int GetCellPos(Vector3 _worldPos)
-    {
-        _worldPos -= transform.position - new Vector3(chunkRef.VoxelSize/2, chunkRef.VoxelSize/2, chunkRef.VoxelSize/2);
-        _worldPos = _worldPos / chunkRef.VoxelSize;
-        int x = (int)_worldPos.x;
-        int y = (int)_worldPos.y;
-        int z = (int)_worldPos.z;
-        return new Vector3Int(x, y, z);
-    }
-
-
-    #region Unused terrain code - KEEP 
-    //public float Sample3DPerlin(Vector3 pos)
-    //{
-    //    return noise.snoise(new Vector3((pos.x + 0.1f) / terrainScale, (pos.y + 0.1f) / terrainScale, (pos.z + 0.1f) / terrainScale)) - (pos.y * chunkRef.Compression) + chunkRef.Density;
-    //}
-    // public float SampleHeight(Vector3 pos)
-    //{
-    //    //2D noise
-    //    float Sample = (Mathf.PerlinNoise((pos.x + 0.1f) / (terrainScale), (pos.z + 0.1f) / (terrainScale)) * chunkRef.MountainHeight - chunkRef.GroundHeight);
-    //    return Sample;
-    //}
-    //public float SampleMultiplierMap(Vector3 pos)
-    //{
-    //    float Sample = (Mathf.PerlinNoise((pos.x + 0.1f) / (chunkRef.M_scale), (pos.z + 0.1f) / chunkRef.M_scale) * chunkRef.M_MountainHeight + chunkRef.M_BaseHeight);
-    //    return Sample;
-    //}
-    //public float SampleMulti(Vector3 pos)
-    //{
-    //    float RawNoise = noise.snoise(new Vector3((pos.x + 0.1f) / terrainScale, (pos.y + 0.1f) / terrainScale, (pos.z + 0.1f) / terrainScale));
-    //    float PowNoise = 0;
-    //    if (RawNoise > 0)
-    //    {
-
-    //     PowNoise = Mathf.Abs(Mathf.Pow(RawNoise, chunkRef.perlinPower));
-    //    }
-    //    else
-    //    {
-    //        PowNoise = Mathf.Abs(Mathf.Pow(RawNoise, chunkRef.perlinPower)) * -1;
-
-    //    }
-    //    return PowNoise * (chunkRef.PerlinNoiseInfluence * SampleMultiplierMap(pos)) - ((pos.y + SampleHeight(pos)) * chunkRef.Compression) + chunkRef.Density;
-
-    //}
-    #endregion
-
+  
+    //Run from generate face, Worst case run 6 times per tile
     private void AddQuad(int _ip1, int _ip2, int _ip4, int _ip3, Vector3 _origin, int _startIndex, int _side, int _ID)
     {
         int fx = _ID % chunkRef.textureAtlasSize;
         int fy = Mathf.FloorToInt(_ID / (float)chunkRef.textureAtlasSize);
         Vector2 UVAnchor = new Vector2(fx, fy) / chunkRef.textureAtlasSize;
-
         _side = Mathf.Clamp(_side, 0, 5);
         Vector3[] tempVertex = new Vector3[4];
-        Vector2[] tempUV = new Vector2[4]; 
+        Vector2[] tempUV = new Vector2[4];
+        #region Map UV's
         switch (_side)
         {
             case 0:
@@ -340,6 +259,7 @@ public class MeshGenerator : MonoBehaviour
                 break;
 
         }
+        #endregion
         tempVertex[0] = _origin + (VertexPos[_ip1] * (chunkRef.VoxelSize / 2));
         tempVertex[1] = _origin + (VertexPos[_ip2] * (chunkRef.VoxelSize / 2));
         tempVertex[2] = _origin + (VertexPos[_ip3] * (chunkRef.VoxelSize / 2));
@@ -353,6 +273,7 @@ public class MeshGenerator : MonoBehaviour
         Verticies.AddRange(tempVertex);
         UVs.AddRange(tempUV);
     }
+    //Run after all triangels and verticies have been added to the arrays
     private void UpdateMesh()
     {
         Vector2[] tempUV = new Vector2[Verticies.Count];
@@ -367,14 +288,10 @@ public class MeshGenerator : MonoBehaviour
                 tempUV[i] = UVs[i];
             }
         }
-        
         mainMesh.mesh.vertices = Verticies.ToArray();
         mainMesh.mesh.triangles = Triangles.ToArray();
         mainMesh.mesh.uv = UVs.ToArray();
         mainMesh.mesh.RecalculateNormals();
-
         colliderMesh.sharedMesh = mainMesh.mesh;
-
     }
-  
 }
