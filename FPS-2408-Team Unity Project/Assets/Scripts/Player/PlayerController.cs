@@ -32,6 +32,7 @@ public class PlayerController : BaseEntity
     [SerializeField] private float gravityStrength;
     private Vector3 playerVel;
     private PlayerHand playerHandRef;
+    private GameObject playerSpawnPos;
 
 
     private float momentum;
@@ -53,6 +54,16 @@ public class PlayerController : BaseEntity
     {
         base.Start();
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
+        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        spawnPlayer();
+    }
+
+    public void spawnPlayer()
+    {
+        
+        controllerRef.enabled = false;
+        transform.position = playerSpawnPos.transform.position;
+        controllerRef.enabled = true;
     }
     public override void SetHealth(int _amount)
     {

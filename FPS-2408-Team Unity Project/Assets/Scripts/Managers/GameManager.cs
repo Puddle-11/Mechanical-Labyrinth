@@ -25,6 +25,13 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
+
+    public void respawn()
+    {
+        playerControllerRef.ResetHealth();
+        playerControllerRef.spawnPlayer();
+        UIManager.instance.StateUnpause();
+    }
     private void Start()
     {
         playerRef = GameObject.FindWithTag("Player");
