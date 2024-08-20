@@ -38,15 +38,25 @@ public class ChunkGrid : MonoBehaviour
         new Vector3Int(1,1,1),
         new Vector3Int(-1,1,1),
     };
-    public Vector3Int ChunkToGrid(Vector3Int _blockPos, Vector3Int _chunkPos)
+    private Vector3Int ChunkToGrid(Vector3Int _blockPos, Vector3Int _chunkPos)
     {
         if (_chunkPos == Vector3Int.one * -1) return Vector3Int.one * -1;
         return new Vector3Int(_blockPos.x + _chunkPos.x * CubicChunkSize, _blockPos.y + _chunkPos.y * CubicChunkSize, _blockPos.z + _chunkPos.z * CubicChunkSize);
     }
-    public Vector3Int ChunkToGrid(Vector3Int _blockPos, GameObject _chunk)
+    private Vector3Int ChunkToGrid(Vector3Int _blockPos, GameObject _chunk)
     {
         return ChunkToGrid(_blockPos, GetChunkPos(_chunk));
     }
+    private Vector3Int GridToChunk(Vector3Int _pos, Vector3Int _chunkPos)
+    {
+        if (_chunkPos == Vector3Int.one * -1) return Vector3Int.one * -1;
+        return new Vector3Int(_pos.x % _chunkPos.x, _pos.y % _chunkPos.y, _pos.z % _chunkPos.z);
+    }
+    private Vector3Int GridToChunk(Vector3Int _pos, GameObject _chunk)
+    {
+        return ChunkToGrid(_pos, GetChunkPos(_chunk));
+    }
+
     public Vector3Int GetChunkPos(GameObject _chunk)
     {
         for (int x = 0; x < GridObj.GetLength(0); x++)
@@ -82,6 +92,7 @@ public class ChunkGrid : MonoBehaviour
         
         GenerateGrid();
     }
+   
     public void GenerateGrid()
     {
         bounds.min = Vector3Int.zero;

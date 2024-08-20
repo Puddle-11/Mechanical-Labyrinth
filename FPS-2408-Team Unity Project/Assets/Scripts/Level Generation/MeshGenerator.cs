@@ -15,7 +15,6 @@ using System.Reflection;
 public class MeshGenerator : MonoBehaviour
 {
     private ChunkGrid chunkRef;
-    private Vector3Int GridSize;
 
     public MeshCell[,,] Cells;
     public List<Vector3> Verticies;
@@ -24,7 +23,6 @@ public class MeshGenerator : MonoBehaviour
     private MeshFilter mainMesh;
     
     [SerializeField] private MeshCollider colliderMesh;
-    private float Scale;
     public float terrainScale;
     private Vector2 WorldCenter;
     [HideInInspector] public WorldBounds chunkBounds;
@@ -55,129 +53,114 @@ public class MeshGenerator : MonoBehaviour
     {
         chunkRef = _val;
     }
-   
-    public Vector3Int GetCenter()
+
+    private Vector3Int GetCenter()
     {
-        return new Vector3Int(GridSize.x / 2, GridSize.y / 2, GridSize.z / 2);
+        return new Vector3Int(chunkRef.ChunkSize.x / 2, chunkRef.ChunkSize.y / 2, chunkRef.ChunkSize.z / 2);
     }
-    public void updateGridCell(Vector3Int _pos, int _newID)
+
+    public void CreateShape()
     {
-        Cells[_pos.x, _pos.y, _pos.z].ID = _newID;
-        UpdateShape();
-    }
-    public void UpdateShape()
-    {
-        UVs = new List<Vector2>();
-        Verticies = new List<Vector3>();
+        WorldCenter = new Vector2(GetWorldPos(GetCenter()).x, GetWorldPos(GetCenter()).z);
+        mainMesh = GetComponent<MeshFilter>();
+
         Triangles = new List<int>();
+        Verticies = new List<Vector3>();
+        UVs = new List<Vector2>();
+        InitializeGrid();
+        //GenerateGrid();
+
         GenerateFaces();
     }
-    public void ClearShape()
+    private void InitializeGrid()
     {
-        Triangles = new List<int>();
-        Verticies = new List<Vector3>();
-        UVs = new List<Vector2>();
-        for (int x = 0; x < Cells.GetLength(0); x++)
+        Cells = new MeshCell[chunkRef.ChunkSize.x, chunkRef.ChunkSize.y, chunkRef.ChunkSize.z];
+        for (int x = 0; x < chunkRef.ChunkSize.x; x++)
         {
-            for (int y = 0; y < Cells.GetLength(1); y++)
+            for (int y = 0; y < chunkRef.ChunkSize.y; y++)
             {
-                for (int z = 0; z < Cells.GetLength(2); z++)
+                for (int z = 0; z < chunkRef.ChunkSize.z; z++)
                 {
+                    if (Cells[x, y, z] == null) Cells[x, y, z] = new MeshCell();
+                    
                     Cells[x, y, z].ID = 0;
                 }
             }
         }
-        GenerateFaces();
-
     }
-    public void CreateShape()
-    {
-        Scale = chunkRef.VoxelSize;
-        GridSize = chunkRef.ChunkSize;
-        WorldCenter = new Vector2(GetWorldPos(GetCenter()).x, GetWorldPos(GetCenter()).z);
-        mainMesh = GetComponent<MeshFilter>();
-        Triangles = new List<int>();
-        Verticies = new List<Vector3>();
-        UVs = new List<Vector2>();
-
-        GenerateGrid();
-        GenerateFaces();
-    }
-    public void GenerateFaces()
+    private void GenerateFaces()
     {
         
-        for (int x = 0; x < GridSize.x; x++)
+        for (int x = 0; x < chunkRef.ChunkSize.x; x++)
         {
-            for (int y = 0; y < GridSize.y; y++)
+            for (int y = 0; y < chunkRef.ChunkSize.y; y++)
             {
-                for (int z = 0; z < GridSize.z; z++)
+                for (int z = 0; z < chunkRef.ChunkSize.z; z++)
                 {
 
                     if (Cells[x, y, z].ID != 0)
                     {
                         int filteredID = Cells[x, y, z].ID  -1;
-
-                        
                         #region chunkEdge Draws
                         if (y == 0)
                         {
                             //Render BottomFace
-                            AddQuad(7, 5, 6, 4, new Vector3(x, y, z) * Scale, Verticies.Count, 1, filteredID);
+                            AddQuad(7, 5, 6, 4, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 1, filteredID);
                         }
                         if (y == Cells.GetLength(1) - 1)
                         {
-                            AddQuad(0, 1, 2, 3, new Vector3(x, y, z) * Scale, Verticies.Count, 0, filteredID);
+                            AddQuad(0, 1, 2, 3, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 0, filteredID);
                             //Render TopFace
 
                         }
                         if (x == 0)
                         {
-                            AddQuad(1, 0, 5, 4, new Vector3(x, y, z) * Scale, Verticies.Count, 2, filteredID);
+                            AddQuad(1, 0, 5, 4, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 2, filteredID);
 
                         }
                         if (x == Cells.GetLength(0) - 1)
                         {
-                            AddQuad(6, 2, 7, 3, new Vector3(x, y, z) * Scale, Verticies.Count, 4, filteredID);
+                            AddQuad(6, 2, 7, 3, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 4, filteredID);
 
                         }
                         if (z == 0)
                         {
 
-                            AddQuad(4, 0, 6, 2, new Vector3(x, y, z) * Scale, Verticies.Count, 3, filteredID);
+                            AddQuad(4, 0, 6, 2, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 3, filteredID);
                         }
                         if (z == Cells.GetLength(2) - 1)
                         {
-                            AddQuad(1, 5, 3, 7, new Vector3(x, y, z) * Scale, Verticies.Count, 5, filteredID);
+                            AddQuad(1, 5, 3, 7, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 5, filteredID);
                         }
                         #endregion
-
+                        #region xSide
                         //------------------------------------------
                         //X Side 
                         if (x < Cells.GetLength(0) - 1)
                         {
                             if (Cells[x + 1, y, z].ID == 0)
                             {
-                                AddQuad(6, 2, 7, 3, new Vector3(x, y, z) * Scale, Verticies.Count, 4, filteredID);
+                                AddQuad(6, 2, 7, 3, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 4, filteredID);
                             }
                         }
                         if (x > 0)
                         {
                             if (Cells[x - 1, y, z].ID == 0)
                             {
-                                AddQuad(1, 0, 5, 4, new Vector3(x, y, z) * Scale, Verticies.Count, 2, filteredID);
+                                AddQuad(1, 0, 5, 4, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 2, filteredID);
 
                             }
                         }
                         //------------------------------------------
-
-
+                        #endregion
+                        #region ySide
                         //------------------------------------------
                         //Y Side 
                         if (y < Cells.GetLength(1) - 1)
                         {
                             if (Cells[x, y + 1, z].ID == 0)
                             {
-                                AddQuad(0, 1, 2, 3, new Vector3(x, y, z) * Scale, Verticies.Count, 0, filteredID);
+                                AddQuad(0, 1, 2, 3, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 0, filteredID);
 
                             }
                         }
@@ -185,20 +168,20 @@ public class MeshGenerator : MonoBehaviour
                         {
                             if (Cells[x, y - 1, z].ID == 0)
                             {
-                                AddQuad(7, 5, 6, 4, new Vector3(x, y, z) * Scale, Verticies.Count, 1, filteredID);
+                                AddQuad(7, 5, 6, 4, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 1, filteredID);
 
                             }
                         }
                         //------------------------------------------
-
-
+                        #endregion
+                        #region zSide
                         //------------------------------------------
                         //Z Side 
                         if (z < Cells.GetLength(2) - 1)
                         {
                             if (Cells[x, y, z + 1].ID == 0)
                             {
-                                AddQuad(1, 5, 3, 7, new Vector3(x, y, z) * Scale, Verticies.Count, 5, filteredID);
+                                AddQuad(1, 5, 3, 7, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 5, filteredID);
 
                             }
                         }
@@ -206,49 +189,55 @@ public class MeshGenerator : MonoBehaviour
                         {
                             if (Cells[x, y, z - 1].ID == 0)
                             {
-                                AddQuad(4, 0, 6, 2, new Vector3(x, y, z) * Scale, Verticies.Count, 3, filteredID);
+                                AddQuad(4, 0, 6, 2, new Vector3(x, y, z) * chunkRef.VoxelSize, Verticies.Count, 3, filteredID);
 
                             }
                         }
                         //------------------------------------------
+                        #endregion
                     }
                 }
             }
         }
         UpdateMesh();
     }
-    public void GenerateGrid()
+    private void GenerateGrid()
     {
-        Cells = new MeshCell[GridSize.x, GridSize.y, GridSize.z];
-        for (int x = 0; x < GridSize.x; x++)
+        for (int x = 0; x < chunkRef.ChunkSize.x; x++)
         {
-            for (int y = 0; y < GridSize.y; y++)
+            for (int y = 0; y < chunkRef.ChunkSize.y; y++)
             {
-                for (int z = 0; z < GridSize.z; z++)
+                for (int z = 0; z < chunkRef.ChunkSize.z; z++)
                 {
                     if (Cells[x,y,z] == null)
                     {
                         Cells[x, y, z] = new MeshCell();
                     }
-                   // Cells[x, y, z].worldPosition = GetWorldPos(x,y,z);
                 
                     Cells[x, y, z].ID = chunkRef.PlaceTile(new Vector3Int(x, y, z), gameObject);
                 }
             }
         }
     }
-    public Vector3 GetWorldPos(Vector3Int _cellPos)
+
+    public void UpdateCell(Vector3Int _pos, int _ID)
     {
-        return ((Vector3)_cellPos * Scale) + transform.position;
+        Cells[_pos.x, _pos.y, _pos.z].ID = _ID;
     }
-    public Vector3 GetWorldPos(int _x, int _y, int _z)
+
+
+    private Vector3 GetWorldPos(Vector3Int _cellPos)
     {
-        return new Vector3(_x, _y, _z) * Scale;
+        return ((Vector3)_cellPos * chunkRef.VoxelSize) + transform.position;
     }
-    public Vector3Int GetCellPos(Vector3 _worldPos)
+    private Vector3 GetWorldPos(int _x, int _y, int _z)
     {
-        _worldPos -= transform.position - new Vector3(Scale/2, Scale/2, Scale/2);
-        _worldPos = _worldPos / Scale;
+        return new Vector3(_x, _y, _z) * chunkRef.VoxelSize;
+    }
+    private Vector3Int GetCellPos(Vector3 _worldPos)
+    {
+        _worldPos -= transform.position - new Vector3(chunkRef.VoxelSize/2, chunkRef.VoxelSize/2, chunkRef.VoxelSize/2);
+        _worldPos = _worldPos / chunkRef.VoxelSize;
         int x = (int)_worldPos.x;
         int y = (int)_worldPos.y;
         int z = (int)_worldPos.z;
@@ -291,7 +280,7 @@ public class MeshGenerator : MonoBehaviour
     //}
     #endregion
 
-    public void AddQuad(int _ip1, int _ip2, int _ip4, int _ip3, Vector3 _origin, int _startIndex, int _side, int _ID)
+    private void AddQuad(int _ip1, int _ip2, int _ip4, int _ip3, Vector3 _origin, int _startIndex, int _side, int _ID)
     {
         int fx = _ID % chunkRef.textureAtlasSize;
         int fy = Mathf.FloorToInt(_ID / (float)chunkRef.textureAtlasSize);
@@ -351,10 +340,10 @@ public class MeshGenerator : MonoBehaviour
                 break;
 
         }
-        tempVertex[0] = _origin + (VertexPos[_ip1] * (Scale/2));
-        tempVertex[1] = _origin + (VertexPos[_ip2] * (Scale / 2));
-        tempVertex[2] = _origin + (VertexPos[_ip3] * (Scale / 2));
-        tempVertex[3] = _origin + (VertexPos[_ip4] * (Scale / 2));
+        tempVertex[0] = _origin + (VertexPos[_ip1] * (chunkRef.VoxelSize / 2));
+        tempVertex[1] = _origin + (VertexPos[_ip2] * (chunkRef.VoxelSize / 2));
+        tempVertex[2] = _origin + (VertexPos[_ip3] * (chunkRef.VoxelSize / 2));
+        tempVertex[3] = _origin + (VertexPos[_ip4] * (chunkRef.VoxelSize / 2));
         int[] tempTriangles = new int[] 
         { 
         _startIndex, _startIndex + 1, _startIndex + 3,
@@ -364,7 +353,7 @@ public class MeshGenerator : MonoBehaviour
         Verticies.AddRange(tempVertex);
         UVs.AddRange(tempUV);
     }
-    public void UpdateMesh()
+    private void UpdateMesh()
     {
         Vector2[] tempUV = new Vector2[Verticies.Count];
         for (int i = 0; i < tempUV.Length; i++)
