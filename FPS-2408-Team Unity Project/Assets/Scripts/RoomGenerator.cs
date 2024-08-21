@@ -18,7 +18,9 @@ public class RoomGenerator : IGenerator
     
 
     //Specific to FromGenerator
-    [HideInInspector] public int maxNumOfRooms;
+    [HideInInspector] public int maxNumOfPrimaryRooms;
+    [HideInInspector] public int maxNumOfSecondaryRooms;
+
     [HideInInspector] public float minRoomDist;
     [HideInInspector] public Vector2Int minRoomSize;
     [HideInInspector] public Vector2Int maxRoomSize;
@@ -70,7 +72,7 @@ public class RoomGenerator : IGenerator
 
         //================================
         //Draw Rooms
-        RoomMarker[] Rooms = GenerateRooms(roomTexture);
+        RoomMarker[] Rooms = GeneratePrimaryRooms(roomTexture);
         for (int i = 0; i < Rooms.Length; i++)
         {
             Vector2Int offset = new Vector2Int((Rooms[i].R_Size.x / 2), (Rooms[i].R_Size.y / 2));
@@ -83,25 +85,24 @@ public class RoomGenerator : IGenerator
                 }
             }
         }
-        //================================
 
+       
+        //================================
         for (int i = 0; i < Rooms.Length; i++)
         {
             int nextRoom = i == Rooms.Length - 1? 0 : i +1;
 
-            //for (int j = 0; j < 2; j++)
-            //{
+            for (int j = 0; j < 2; j++)
+            {
 
-            //    DrawLine(Rooms[i].R_Pos, Rooms[j].R_Pos, 1);
-            //}
-           
-                DrawLine(Rooms[i].R_Pos, Rooms[nextRoom].R_Pos, 1);
+                DrawLine(Rooms[i].R_Pos, Rooms[j].R_Pos, DoorWidth);
+            }
 
-            
-
+            // DrawLine(Rooms[i].R_Pos, Rooms[nextRoom].R_Pos, DoorWidth);
         }
-        roomTexture.SetPixel(Rooms[0].R_Pos.x, Rooms[0].R_Pos.y, Color.black);
-        //================================
+
+        GenerateSecondaryRooms(roomTexture);
+           //================================
         //Set Outline To Black
         for (int x = 0; x < roomTexture.Size().x; x++)
         {
@@ -120,10 +121,48 @@ public class RoomGenerator : IGenerator
         
     }
 
-
-    private RoomMarker[] GenerateRooms(Texture2D _texture)
+    private void GenerateSecondaryRooms(Texture2D _texture)
     {
-        RoomMarker[] tempRes = new RoomMarker[maxNumOfRooms];
+        for (int i = 0; i < maxNumOfSecondaryRooms; i++)
+        {
+             RoomMarker tempRoom = new RoomMarker();
+            tempRoom.R_Size = new Vector2Int((int)Random.Range(minRoomSize.x, maxRoomSize.x), (int)Random.Range(minRoomSize.y, maxRoomSize.y));
+            Vector2Int Padding = new Vector2Int((tempRoom.R_Size.x / 2), (tempRoom.R_Size.y / 2));
+            tempRoom.R_Pos = new Vector2Int((int)Random.Range(0 + Padding.x, _texture.Size().x - Padding.x), (int)Random.Range(0 + Padding.y, _texture.Size().y - Padding.y));
+            Vector2Int offset = new Vector2Int((tempRoom.R_Size.x / 2), (tempRoom.R_Size.y / 2));
+
+            bool success = true;
+
+            for (int x = 0; x < tempRoom.R_Size.x; x++)
+            {
+                for (int y = 0; y < tempRoom.R_Size.y; y++)
+                {
+                    Vector2Int _pos = new Vector2Int(tempRoom.R_Pos.x + x - offset.x, tempRoom.R_Pos.y + y - offset.y);
+                    if(roomTexture.GetPixel(_pos.x, _pos.y) != Color.black)
+                    {
+                        success = false;
+                    }
+                }
+                if (!success) break;
+            }
+            if (success)
+            {
+                for (int x = 0; x < tempRoom.R_Size.x; x++)
+                {
+                    for (int y = 0; y < tempRoom.R_Size.y; y++)
+                    {
+                        roomTexture.SetPixel(tempRoom.R_Pos.x + x - offset.x, tempRoom.R_Pos.y + y - offset.y, Color.white);
+                    }
+                }
+            }
+
+
+        }
+
+    }
+    private RoomMarker[] GeneratePrimaryRooms(Texture2D _texture)
+    {
+        RoomMarker[] tempRes = new RoomMarker[maxNumOfPrimaryRooms];
         List<RoomMarker> res = new List<RoomMarker>(0);
         for (int i = 0; i < tempRes.Length; i++)
         {
@@ -138,13 +177,11 @@ public class RoomGenerator : IGenerator
              
                 if (i == 0 || (currMinDist.x > minRoomDist && currMinDist.y > minRoomDist))
                 {
-                    //Debug.Log(currMinDist);
                     res.Add(tempRes[i]);
                     break;
                 }
                 safety++;
             }
-
         }
         return res.ToArray();
     }
@@ -165,7 +202,6 @@ public class RoomGenerator : IGenerator
         }
 
         return new Vector2Int(xDist, yDist);
-
     }
     private void DrawLine(Vector2Int _p1, Vector2Int _p2, int width)
     {
@@ -174,11 +210,12 @@ public class RoomGenerator : IGenerator
         //Draw Line One
         Vector2Int CursorPos = _p1;
         int safety = 1000;
+
         while (CursorPos != _p2 || safety <= 0)
         {
-            for (int x = CursorPos.x - width; x < CursorPos.x + width + 1; x++)
+            for (int x = CursorPos.x - Mathf.FloorToInt(((width - 1) / 2)) - 1; x < CursorPos.x + Mathf.CeilToInt(((width - 1) / 2)) + 1; x++)
             {
-                for (int y = CursorPos.y - width; y < CursorPos.y + width + 1; y++)
+                for (int y = CursorPos.y - Mathf.FloorToInt(((width - 1) / 2)) - 1; y < CursorPos.y + Mathf.CeilToInt(((width - 1) / 2)) + 1; y++)
                 {
 
                     roomTexture.SetPixel(x, y, Color.white);

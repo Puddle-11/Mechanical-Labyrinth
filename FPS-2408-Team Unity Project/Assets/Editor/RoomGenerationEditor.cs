@@ -60,9 +60,13 @@ public class RoomGenerationCustomEditor : Editor
         EditorGUILayout.Space();
 
         _targetCast.minRoomDist = EditorGUILayout.FloatField("Min Room Distance", _targetCast.minRoomDist);
-        _targetCast.maxNumOfRooms = EditorGUILayout.IntField("Number of Rooms", _targetCast.maxNumOfRooms);
+        _targetCast.maxNumOfPrimaryRooms = EditorGUILayout.IntField("Number of Rooms", _targetCast.maxNumOfPrimaryRooms);
+        _targetCast.maxNumOfSecondaryRooms = EditorGUILayout.IntField("Number of Secondary Rooms", _targetCast.maxNumOfSecondaryRooms);
+
         _targetCast.minRoomSize = EditorGUILayout.Vector2IntField("Min Room Size", _targetCast.minRoomSize);
         _targetCast.maxRoomSize = EditorGUILayout.Vector2IntField("Max Room Size", _targetCast.maxRoomSize);
+        _targetCast.DoorWidth = EditorGUILayout.IntField("Door Width", _targetCast.DoorWidth);
+        _targetCast.DoorHeight = EditorGUILayout.IntField("Door Height", _targetCast.DoorHeight);
 
 
 
