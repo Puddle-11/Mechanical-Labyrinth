@@ -45,8 +45,10 @@ public class BaseEntity : MonoBehaviour, IHealth
     // Start is called before the first frame update
     public virtual void Start()
     {
-        originalMaterial = rendRef.material;
-
+        if (rendRef != null)
+        {
+            originalMaterial = rendRef.material;
+        }
     }
     public virtual void Update()
     {

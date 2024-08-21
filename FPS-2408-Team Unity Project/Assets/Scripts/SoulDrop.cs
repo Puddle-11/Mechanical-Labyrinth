@@ -19,4 +19,5 @@ public class SoulDrop : MonoBehaviour
             Destroy(soul);
         }
     }
+
 }
