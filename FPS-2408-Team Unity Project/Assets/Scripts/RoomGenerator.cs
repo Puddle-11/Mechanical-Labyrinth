@@ -1,101 +1,227 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class RoomGenerator : IGenerator
 {
-   public GenerationType generatorType;
-  [HideInInspector] public int maxHeight; //This value will cap out at bounds height 
- //Specific to FromTexture
-  [HideInInspector] public Sprite roomMap;
-//Specific to FromVariables
-  [HideInInspector] public int RoomSize;
-  [HideInInspector] public int DoorHeight;
-  [HideInInspector] public int DoorWidth;
- //Global
-  [HideInInspector] public int baseBoardHeight;
-  [HideInInspector] public int topPlateHeight;
-  [HideInInspector] public int floorBlockID;
-  [HideInInspector] public int wallBlockID;
-  [HideInInspector] public int ceilingBlockID;
-  [HideInInspector] public int baseBoardBlockID;
-  [HideInInspector] public int topPlaceBlockID;
+    public GenerationType generatorType;
+    [HideInInspector] public int maxHeight; //This value will cap out at bounds height 
+    //Specific to FromTexture && FromGenerator
+    [HideInInspector] public Sprite roomMap;
+    //Specific to FromVariables
+    [HideInInspector] public int RoomSize;
+    [HideInInspector] public int DoorHeight;
+    [HideInInspector] public int DoorWidth;
+    
+
+    //Specific to FromGenerator
+    [HideInInspector] public int maxNumOfRooms;
+    [HideInInspector] public float minRoomDist;
+    [HideInInspector] public Vector2Int minRoomSize;
+    [HideInInspector] public Vector2Int maxRoomSize;
+    //Global
+    [HideInInspector] public int baseBoardHeight;
+    [HideInInspector] public int topPlateHeight;
+    [HideInInspector] public int floorBlockID;
+    [HideInInspector] public int wallBlockID;
+    [HideInInspector] public int ceilingBlockID;
+    [HideInInspector] public int baseBoardBlockID;
+    [HideInInspector] public int topPlaceBlockID;
+    [HideInInspector] public Texture2D roomTexture;
+    private struct RoomMarker
+    {
+        public Vector2Int R_Size;
+        public Vector2Int R_Pos;
+    }
     private ChunkGrid.GridBounds bounds;
     public enum GenerationType
     {
         FromTexture,
-        FromVariables,
-        FromWaveFunction,
+        FromAlgorithm,
     }
+  
     public override void SetGeneratorBounds(ChunkGrid.GridBounds _bounds)
     {
         bounds = _bounds;
     }
+    public override void GenerateMap()
+    {
 
+        if (generatorType == GenerationType.FromTexture)
+        {
+            roomTexture = roomMap.texture;
+            return;
+        }
+
+        roomTexture = new Texture2D(bounds.max.x + 1, bounds.max.z + 1);
+        //================================
+        //Set Texture to all black
+        for (int x = 0; x < roomTexture.Size().x; x++)
+        {
+            for (int y = 0; y < roomTexture.Size().y; y++)
+            {
+                roomTexture.SetPixel(x,y,Color.black);
+            }
+        }
+        //================================
+
+        //================================
+        //Draw Rooms
+        RoomMarker[] Rooms = GenerateRooms(roomTexture);
+        for (int i = 0; i < Rooms.Length; i++)
+        {
+            Vector2Int offset = new Vector2Int((Rooms[i].R_Size.x / 2), (Rooms[i].R_Size.y / 2));
+            Debug.Log(offset);
+            for (int x = 0; x < Rooms[i].R_Size.x; x++)
+            {
+                for (int y = 0; y < Rooms[i].R_Size.y; y++)
+                {
+                    roomTexture.SetPixel(Rooms[i].R_Pos.x + x - offset.x, Rooms[i].R_Pos.y + y - offset.y, Color.white);
+                }
+            }
+        }
+        //================================
+
+        for (int i = 0; i < Rooms.Length; i++)
+        {
+            int nextRoom = i == Rooms.Length - 1? 0 : i +1;
+
+            //for (int j = 0; j < 2; j++)
+            //{
+
+            //    DrawLine(Rooms[i].R_Pos, Rooms[j].R_Pos, 1);
+            //}
+           
+                DrawLine(Rooms[i].R_Pos, Rooms[nextRoom].R_Pos, 1);
+
+            
+
+        }
+        roomTexture.SetPixel(Rooms[0].R_Pos.x, Rooms[0].R_Pos.y, Color.black);
+        //================================
+        //Set Outline To Black
+        for (int x = 0; x < roomTexture.Size().x; x++)
+        {
+            for (int y = 0; y < roomTexture.Size().y; y++)
+            {
+                if (x == 0 || x == roomTexture.Size().x - 1 || y == 0 || y == roomTexture.Size().y - 1)
+                {
+                    roomTexture.SetPixel(x, y, Color.black);
+                    continue;
+                }
+            }
+        }
+        //================================
+
+        roomTexture.Apply();
+        
+    }
+
+
+    private RoomMarker[] GenerateRooms(Texture2D _texture)
+    {
+        RoomMarker[] tempRes = new RoomMarker[maxNumOfRooms];
+        List<RoomMarker> res = new List<RoomMarker>(0);
+        for (int i = 0; i < tempRes.Length; i++)
+        {
+            int safety = 0;
+            while (safety < 50)
+            {
+                tempRes[i].R_Size = new Vector2Int((int)Random.Range(minRoomSize.x, maxRoomSize.x), (int)Random.Range(minRoomSize.y, maxRoomSize.y));
+                Vector2Int Padding = new Vector2Int((tempRes[i].R_Size.x / 2), (tempRes[i].R_Size.y / 2));
+                tempRes[i].R_Pos = new Vector2Int((int)Random.Range(0 + Padding.x, _texture.Size().x - Padding.x), (int)Random.Range(0 + Padding.y, _texture.Size().y - Padding.y));
+
+                Vector2Int currMinDist = GetMinDist(tempRes[i], res.ToArray());
+             
+                if (i == 0 || (currMinDist.x > minRoomDist && currMinDist.y > minRoomDist))
+                {
+                    //Debug.Log(currMinDist);
+                    res.Add(tempRes[i]);
+                    break;
+                }
+                safety++;
+            }
+
+        }
+        return res.ToArray();
+    }
+    private Vector2Int GetMinDist(RoomMarker _origin, RoomMarker[] _allRooms)
+    {
+        if (_allRooms.Length == 0) return Vector2Int.one *  int.MaxValue;
+
+        int xDist = Mathf.Abs(_origin.R_Pos.x - _allRooms[0].R_Pos.x) - ((_origin.R_Size.x/2) + (_allRooms[0].R_Size.x/2));
+        int yDist = Mathf.Abs(_origin.R_Pos.y - _allRooms[0].R_Pos.y) - ((_origin.R_Size.y/2) + (_allRooms[0].R_Size.y/2));
+        
+        for (int i = 0; i < _allRooms.Length; i++)
+        {
+            int xTempDist = Mathf.Abs(_origin.R_Pos.x - _allRooms[i].R_Pos.x) - ((_origin.R_Size.x / 2) + (_allRooms[i].R_Size.x / 2));
+            int yTempDist = Mathf.Abs(_origin.R_Pos.y - _allRooms[i].R_Pos.y) - ((_origin.R_Size.y / 2) + (_allRooms[i].R_Size.y / 2));
+
+            if (xTempDist < xDist) xDist = xTempDist;
+            if (yTempDist < yDist) yDist = yTempDist;
+        }
+
+        return new Vector2Int(xDist, yDist);
+
+    }
+    private void DrawLine(Vector2Int _p1, Vector2Int _p2, int width)
+    {
+        bool flipDir = Random.Range(0,2) == 0 ? true : false;
+        //==============================
+        //Draw Line One
+        Vector2Int CursorPos = _p1;
+        int safety = 1000;
+        while (CursorPos != _p2 || safety <= 0)
+        {
+            for (int x = CursorPos.x - width; x < CursorPos.x + width + 1; x++)
+            {
+                for (int y = CursorPos.y - width; y < CursorPos.y + width + 1; y++)
+                {
+
+                    roomTexture.SetPixel(x, y, Color.white);
+                }
+            }
+
+            if (flipDir)
+            {
+                if (CursorPos.x > _p2.x) CursorPos.x--;
+                else if (CursorPos.x < _p2.x) CursorPos.x++;
+                else if (CursorPos.y < _p2.y) CursorPos.y++;
+                else if (CursorPos.y > _p2.y) CursorPos.y--;
+                safety--;
+
+                continue;
+            }
+            else
+            {
+                if (CursorPos.x < _p2.x) CursorPos.x++;
+                else if (CursorPos.x > _p2.x) CursorPos.x--;
+                else if (CursorPos.y > _p2.y) CursorPos.y--;
+                else if (CursorPos.y < _p2.y) CursorPos.y++;
+            safety--;
+                continue;
+            }
+        }
+       
+
+
+    }
     public override int PlaceTile(Vector3Int _pos)
     {
-        switch (generatorType)
-        {
-            case GenerationType.FromTexture:
-                return FromTexture(_pos);
-            case GenerationType.FromVariables:
-                return FromVariables(_pos);
-        }
-        return 0;
+        return FromTexture(_pos);
+
     }
-    private int FromVariables(Vector3Int _pos)
-    {
-        //ceiling
-        if (_pos.y == bounds.max.y)
-        {
-            return 2;
-        }
-
-        //Flor
-        if (_pos.y == 0)
-        {
-            return 2;
-        }
-        //Outer walls
-
-        if (_pos.x == 0 || _pos.x == bounds.max.x || _pos.z == 0 || _pos.z == bounds.max.z)
-        {
-            return _pos.y == 1 ? 3 : 1;
-        }
-
-        //Doors
-        if (_pos.y < 4)
-        {
-            if ((float)_pos.x % 10 >= 4 && (float)_pos.x % 10 <= 6)
-            {
-                return 0;
-            }
-            if ((float)_pos.z % 10 >= 4 && (float)_pos.z % 10 <= 6)
-            {
-                return 0;
-            }
-        }
 
 
-        //walls
-        if (_pos.y < 10)
-        {
-            if (_pos.x % 10 == 0 || _pos.z % 10 == 0)
-            {
-
-                return _pos.y == 1 ? 3 : 1;
-
-            }
-        }
-
-        return 0;
-    }
+  
     private int FromTexture(Vector3Int _pos)
     {
-        Color temp = roomMap.texture.GetPixel(_pos.x, _pos.z);
+        Color temp = roomTexture.GetPixel(_pos.x, _pos.z);
         float greyCol = temp.grayscale * maxHeight;
-        if (roomMap.texture.GetPixel(_pos.x + 1, _pos.z).grayscale != 0f || roomMap.texture.GetPixel(_pos.x - 1, _pos.z).grayscale != 0f || roomMap.texture.GetPixel(_pos.x, _pos.z + 1).grayscale != 0f || roomMap.texture.GetPixel(_pos.x, _pos.z - 1).grayscale != 0f)
+        if (roomTexture.GetPixel(_pos.x + 1, _pos.z).grayscale != 0f || roomTexture.GetPixel(_pos.x - 1, _pos.z).grayscale != 0f || roomTexture.GetPixel(_pos.x, _pos.z + 1).grayscale != 0f || roomTexture.GetPixel(_pos.x, _pos.z - 1).grayscale != 0f)
         {
 
             if (_pos.y == 0) return floorBlockID;

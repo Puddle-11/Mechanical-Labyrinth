@@ -32,6 +32,11 @@ public class ChunkGrid : MonoBehaviour
     }
     private void Start()
     {
+
+        bounds.min = Vector3Int.zero;
+        bounds.max = GridSize * CubicChunkSize - Vector3Int.one;
+        iGen.SetGeneratorBounds(bounds);
+        iGen.GenerateMap();
         InstantiateGrid();
         GenerateGrid();
         RenderGrid();
@@ -42,11 +47,9 @@ public class ChunkGrid : MonoBehaviour
     private void InstantiateGrid()
     {
         //This method takes all the values given and instantiates a grid of chunks to work with
-        bounds.min = Vector3Int.zero;
         GridObj = new GameObject[GridSize.x, GridSize.y, GridSize.z];
         CellScale = CubicChunkSize * VoxelSize;
         ChunkSize = Vector3Int.one * CubicChunkSize;
-        bounds.max = GridSize * CubicChunkSize - Vector3Int.one;
 
         for (int x = 0; x < GridObj.GetLength(0); x++)
         {
@@ -150,7 +153,6 @@ public class ChunkGrid : MonoBehaviour
     private int PlaceTile(Vector3Int _pos)
     {
         //returns what a tile at a GLOBAL POSITION should be
-        iGen.SetGeneratorBounds(bounds);
         return iGen.PlaceTile(_pos);
     }
 

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class IGenerator :MonoBehaviour
 {
+    [Header("IGENERATOR")]
+    [Space]
     [SerializeField] protected bool enclose;
     public virtual int PlaceTile(Vector3Int _pos)
     {
@@ -10,6 +12,10 @@ public class IGenerator :MonoBehaviour
         return 0;
     }
     public virtual void SetGeneratorBounds(ChunkGrid.GridBounds _bounds)
+    {
+
+    }
+    public virtual void GenerateMap()
     {
 
     }
