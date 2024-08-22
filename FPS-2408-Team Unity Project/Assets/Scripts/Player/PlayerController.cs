@@ -157,7 +157,50 @@ public class PlayerController : BaseEntity
         UIManager.instance?.UpdateHealthBar((float)currentHealth / maxHealth);
     }
     // Update is called once per frame
+<<<<<<< Updated upstream
  
+=======
+    public override void Update()
+    {
+
+        base.Update();
+        Movement();
+        Sprint();
+        if (UIManager.instance.GetStatePaused())
+        {
+            playerHandRef?.SetUseItem(false);
+        }
+        else
+        {
+        if (Input.GetButtonDown("Pick Up"))
+        {
+            playerHandRef?.ClickPickUp();
+
+        }
+        if (Input.GetButtonDown("Shoot"))
+        {
+            playerHandRef?.SetUseItem(true);
+        }
+        if (Input.GetButtonUp("Shoot"))
+        {
+            playerHandRef?.SetUseItem(false);
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            BaseGun tempOut;
+            if ((playerHandRef?.GetCurrentHand()).TryGetComponent<BaseGun>(out tempOut))
+            {
+                StartCoroutine(tempOut.Reload());
+            }
+        }
+        }
+
+
+        Walljump();
+        wallslide();
+        momentum = mass * speed;
+    }
+>>>>>>> Stashed changes
 
     private void Movement()
     {
@@ -207,18 +250,24 @@ public class PlayerController : BaseEntity
         if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
-            onWall = true;
+            onWall = true;  
+            Walljumpdir = new Vector3(0, jumpHeight, 0);
         }
         else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
             onWall = true;
+            Walljumpdir = new Vector3(0, jumpHeight, 0);
         }
         else
         {
             onWall = false;
         }
+<<<<<<< Updated upstream
         Walljumpdir = new Vector3(0, jumpHeight, 0);
+=======
+          
+>>>>>>> Stashed changes
         if (Input.GetButtonDown("Jump"))
         {
             Jump(Walljumpdir);
@@ -228,7 +277,18 @@ public class PlayerController : BaseEntity
 
     void wallslide()
     {
+<<<<<<< Updated upstream
         gravityStrength = gravityStrength / wallgravity;
+=======
+        if (onWall == true && playerVel.y < 0)
+        {
+            playerVel.y = 0;
+            gravityStrength = gravityStrength / wallgravity;
+        }
+        else if(onWall == false) { 
+        
+        }
+>>>>>>> Stashed changes
     }
 
     public override void Death()
