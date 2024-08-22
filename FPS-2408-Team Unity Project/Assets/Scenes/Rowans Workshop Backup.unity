@@ -145,11 +145,12 @@ MonoBehaviour:
   maxHeight: 9
   roomMap: {fileID: 21300000, guid: 24d132f37b32f514dbf11a5ff7940d70, type: 3}
   RoomSize: 0
-  DoorHeight: 0
-  DoorWidth: 0
-  maxNumOfRooms: 10
+  DoorHeight: 4
+  DoorWidth: 3
+  maxNumOfPrimaryRooms: 5
+  maxNumOfSecondaryRooms: 5
   minRoomDist: 0
-  minRoomSize: {x: 15, y: 15}
+  minRoomSize: {x: 8, y: 8}
   maxRoomSize: {x: 25, y: 25}
   baseBoardHeight: 1
   topPlateHeight: 1
