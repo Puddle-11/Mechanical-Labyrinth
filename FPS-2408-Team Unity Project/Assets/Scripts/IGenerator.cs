@@ -6,6 +6,7 @@ public class IGenerator :MonoBehaviour
     [Header("IGENERATOR")]
     [Space]
     [SerializeField] protected bool enclose;
+
     public virtual int PlaceTile(Vector3Int _pos)
     {
         if(_pos.y == 0)return 1;
@@ -18,5 +19,9 @@ public class IGenerator :MonoBehaviour
     public virtual void GenerateMap()
     {
 
+    }
+    public virtual Vector2Int GetStartingPoint()
+    {
+        return Vector2Int.zero;
     }
 }

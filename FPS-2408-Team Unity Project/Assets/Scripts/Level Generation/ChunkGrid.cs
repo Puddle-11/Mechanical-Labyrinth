@@ -37,6 +37,14 @@ public class ChunkGrid : MonoBehaviour
         bounds.max = GridSize * CubicChunkSize - Vector3Int.one;
         iGen.SetGeneratorBounds(bounds);
         iGen.GenerateMap();
+        Vector2Int UPos = iGen.GetStartingPoint();
+        Vector3Int FPos = new Vector3Int(UPos.x, 2, UPos.y);
+
+        //FAULTY CODE
+        //============================
+        GameManager.instance.playerControllerRef.SetPlayerSpawnPos(GridToWorld(FPos));
+        GameManager.instance.playerControllerRef.spawnPlayer();
+        //============================
         InstantiateGrid();
         GenerateGrid();
         RenderGrid();
@@ -61,6 +69,7 @@ public class ChunkGrid : MonoBehaviour
                     GridObj[x, y, z] = Instantiate(MeshPrefab, transform.position, Quaternion.identity, transform);
                     GridObj[x, y, z].transform.position = ChunkToWorld(new Vector3Int(x, y, z));
                     GridObj[x, y, z].GetComponent<MeshGenerator>().SetChunkRef(this);
+
                 }
             }
         }
@@ -110,6 +119,10 @@ public class ChunkGrid : MonoBehaviour
     #endregion
 
     #region Convertions
+    private Vector3 GridToWorld(Vector3Int _pos)
+    {
+        return transform.position + (Vector3)_pos * VoxelSize;
+    }
     public Vector3Int GetChunkStartPos(GameObject _chunkObj)
     {
        return GetChunkStartPos(GetChunkPos(_chunkObj));

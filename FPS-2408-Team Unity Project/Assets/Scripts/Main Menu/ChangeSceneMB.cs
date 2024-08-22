@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ChangeSceneMB : BaseMenuButton, IMenuButton
 {
-    [SerializeField] private int sceneIndex;
+    [SerializeField] private string sceneName;
     public void Click()
     {
-        SceneManager.LoadScene(sceneIndex);
+        BootLoadManager.instance.LoadGameScene(sceneName);
 
     }
 }

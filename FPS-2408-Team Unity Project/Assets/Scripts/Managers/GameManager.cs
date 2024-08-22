@@ -30,12 +30,39 @@ public class GameManager : MonoBehaviour
     {
         playerControllerRef.ResetHealth();
         playerControllerRef.spawnPlayer();
+        
         UIManager.instance.StateUnpause();
+    }
+    private void OnEnable()
+    {
+        BootLoadManager.instance.gameSceneChangeEvent += respawn;
+        
+    }
+    private void OnDisable()
+    {
+        BootLoadManager.instance.gameSceneChangeEvent -= respawn;
+
     }
     private void Start()
     {
-        playerRef = GameObject.FindWithTag("Player");
-        playerControllerRef = playerRef.GetComponent<PlayerController>();
+
+        if (TryFindPlayer(out playerRef))
+        {
+            playerRef.TryGetComponent<PlayerController>(out playerControllerRef);
+            if (playerControllerRef != null) respawn();
+        }
+    }
+    public bool TryFindPlayer(out GameObject _ref)
+    {
+        GameObject tempref = GameObject.FindWithTag("Player");
+        if (tempref != null)
+        {
+            _ref = tempref;
+            return true;
+        }
+        _ref = null;
+        return false;
+
     }
 
     public void updateGameGoal(int _amount)
@@ -49,10 +76,5 @@ public class GameManager : MonoBehaviour
             UIManager.instance.ToggleWinMenu(true);
         }
     }
-    public void RespawnPlayer()
-    {
-        //playerControllerRef.ResetHealth();
-        //playerControllerRef.SpawnPlayer();
-        //UIManager.instance.StateUnpause();
-    }
+
 }

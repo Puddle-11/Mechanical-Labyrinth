@@ -18,10 +18,7 @@ public class Target : BaseEntity
     }
 
 
-    public override void Start()
-    {
-       
-    }
+
 
     public override void Death()
     {

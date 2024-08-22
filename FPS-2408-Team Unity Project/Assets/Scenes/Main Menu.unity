@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d3cd8ae379b3043b1376f80fa0e39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneName: Gun Range
 --- !u!61 &184996926
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d3cd8ae379b3043b1376f80fa0e39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 2
+  sceneName: MainLevel
 --- !u!61 &213850415
 BoxCollider2D:
   m_ObjectHideFlags: 0

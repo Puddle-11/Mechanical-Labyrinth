@@ -173,9 +173,8 @@ public class BaseEnemy : BaseEntity
     {
         Quaternion rot = Quaternion.LookRotation(GetTarget().transform.position - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotationSpeed);
-
-
     }
+
     public GameObject GetTarget()
     {
         if(target == null) return GameManager.instance.playerRef;

@@ -129,34 +129,45 @@ public class UIManager : MonoBehaviour
         if (menuActive != null && menuActive.activeInHierarchy) menuActive.SetActive(false);
         menuActive = menuPause;
         menuActive.SetActive(true);
-        for (int i = 0; i < ConstUI.Length; i++)
-        {
-            ConstUI[i].CUI_currentState = ConstUI[i].CUI_obj.activeInHierarchy;
-            ConstUI[i].CUI_obj.SetActive(false);
-        }
+        
     }
     public void StateUnpause()
     {
         SetPause(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        menuActive.SetActive(false);
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
         menuActive = null;
         for (int i = 0; i < ConstUI.Length; i++)
         {
-            ConstUI[i].CUI_obj.SetActive(ConstUI[i].CUI_currentState);
+            if (ConstUI[i].CUI_obj != null)
+            {
+                ConstUI[i].CUI_obj.SetActive(ConstUI[i].CUI_currentState);
+            }
         }
     }
     public void SetPause(bool _val)
     {
         isPause = _val;
         Time.timeScale = _val ? 0 : 1;
+        if (_val == true) return;
+        for (int i = 0; i < ConstUI.Length; i++)
+        {
+            if (ConstUI[i].CUI_obj != null)
+            {
+                ConstUI[i].CUI_currentState = ConstUI[i].CUI_obj.activeInHierarchy;
+                ConstUI[i].CUI_obj.SetActive(false);
+            }
+        }
     }
     public void OpenLoseMenu()
     {
-        //StatePause();
-
         SetPause(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         menuActive = menuLose;
         menuActive.SetActive(true);
     }

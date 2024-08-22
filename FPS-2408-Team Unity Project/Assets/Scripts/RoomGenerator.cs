@@ -33,6 +33,7 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public int baseBoardBlockID;
     [HideInInspector] public int topPlaceBlockID;
     [HideInInspector] public Texture2D roomTexture;
+    private Vector2Int startPos;
     private struct RoomMarker
     {
         public Vector2Int R_Size;
@@ -48,6 +49,10 @@ public class RoomGenerator : IGenerator
     public override void SetGeneratorBounds(ChunkGrid.GridBounds _bounds)
     {
         bounds = _bounds;
+    }
+    public override Vector2Int GetStartingPoint()
+    {
+        return startPos;
     }
     public override void GenerateMap()
     {
@@ -73,9 +78,7 @@ public class RoomGenerator : IGenerator
         //================================
         //Draw Rooms
         RoomMarker[] Rooms = GeneratePrimaryRooms(roomTexture);
-        
-
-
+        startPos = Rooms[0].R_Pos;
         for (int i = 0; i < Rooms.Length; i++)
         {
             Vector2Int offset = new Vector2Int((Rooms[i].R_Size.x / 2), (Rooms[i].R_Size.y / 2));
@@ -270,6 +273,7 @@ public class RoomGenerator : IGenerator
                     {
                         roomTexture.SetPixel(x, y, new Color(GSC, GSC, GSC));
                     }
+                   
                 }
             }
 

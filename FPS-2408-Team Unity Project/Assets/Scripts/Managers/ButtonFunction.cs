@@ -18,7 +18,7 @@ public class ButtonFunction : MonoBehaviour
     public void quit()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        BootLoadManager.instance.ExitGameMode();
     }
 
     public void respawn()

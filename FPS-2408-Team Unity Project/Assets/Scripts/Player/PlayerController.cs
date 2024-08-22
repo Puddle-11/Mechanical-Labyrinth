@@ -56,16 +56,45 @@ public class PlayerController : BaseEntity
         //SpawnPlayer();
         base.Start();
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
-        playerSpawnPos = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-        spawnPlayer();
     }
-
-    public void spawnPlayer()
+    private bool TryFindPlayerSpawnPos(out GameObject _ref)
     {
-        
-        controllerRef.enabled = false;
-        transform.position = playerSpawnPos.transform.position;
-        controllerRef.enabled = true;
+
+            GameObject temp = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        if(temp != null)
+        {
+
+            _ref = temp;
+            Debug.Log("Pos successfuly found: " + _ref.name);
+
+            return true;
+        }
+        Debug.Log("Pos not found");
+
+        _ref = null;
+
+        return false;
+    }
+    public bool spawnPlayer()
+    {
+
+        if (TryFindPlayerSpawnPos(out playerSpawnPos))
+        {
+            controllerRef.enabled = false;
+
+            transform.position = playerSpawnPos.transform.position;
+
+
+            controllerRef.enabled = true;
+
+            return true;
+        }
+
+        return false;
+    }
+    public void SetPlayerSpawnPos(Vector3 _pos)
+    {
+        playerSpawnPos.transform.position = _pos;
     }
     public override void SetHealth(int _amount)
     {

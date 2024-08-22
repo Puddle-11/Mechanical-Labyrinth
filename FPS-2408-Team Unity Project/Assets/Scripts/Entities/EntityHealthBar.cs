@@ -15,6 +15,6 @@ public class EntityHealthBar : MonoBehaviour
  
     private void Update()
     {
-       transform.LookAt(new Vector3(GameManager.instance.playerRef.transform.position.x, transform.position.y, GameManager.instance.playerRef.transform.position.z));
+        if(GameManager.instance != null) transform.LookAt(new Vector3(GameManager.instance.playerRef.transform.position.x, transform.position.y, GameManager.instance.playerRef.transform.position.z));
     }
 }
