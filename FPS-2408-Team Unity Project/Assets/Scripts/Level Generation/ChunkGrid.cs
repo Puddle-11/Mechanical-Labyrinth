@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Properties;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.GameCenter;
@@ -42,10 +43,16 @@ public class ChunkGrid : MonoBehaviour
 
         //FAULTY CODE
         //============================
-        GameManager.instance.playerControllerRef.SetPlayerSpawnPos(GridToWorld(FPos));
-        GameManager.instance.playerControllerRef.spawnPlayer();
-        //============================
-        InstantiateGrid();
+        if (GameManager.instance != null)
+        {
+            if (GameManager.instance.playerControllerRef != null)
+            {
+                GameManager.instance.playerControllerRef.SetPlayerSpawnPos(GridToWorld(FPos));
+                GameManager.instance.playerControllerRef.spawnPlayer();
+            }
+        }
+            //============================
+            InstantiateGrid();
         GenerateGrid();
         RenderGrid();
     }

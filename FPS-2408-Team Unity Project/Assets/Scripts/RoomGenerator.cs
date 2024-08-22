@@ -104,7 +104,16 @@ public class RoomGenerator : IGenerator
         //================================
 
         roomTexture.Apply();
-        
+        for (int x = 0; x < roomTexture.width; x++)
+        {
+            roomTexture.SetPixel(x, roomTexture.height - 1, Color.black);
+            roomTexture.SetPixel(x, 0, Color.black);
+        }
+        for (int y = 0; y < roomTexture.width; y++)
+        {
+            roomTexture.SetPixel(roomTexture.height - 1, y, Color.black);
+            roomTexture.SetPixel(0, y, Color.black);
+        }
     }
 
     private void GenerateSecondaryRooms(Texture2D _texture, int _padding, int _hallwaySearchDist)

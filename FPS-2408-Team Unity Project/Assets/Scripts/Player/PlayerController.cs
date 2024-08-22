@@ -34,6 +34,9 @@ public class PlayerController : BaseEntity
     private PlayerHand playerHandRef;
     private GameObject playerSpawnPos;
 
+    public delegate void PlayerUsed();
+    public PlayerUsed playerUseEvent;
+
     private float momentum;
 
     public override void Awake()
@@ -56,6 +59,47 @@ public class PlayerController : BaseEntity
         //SpawnPlayer();
         base.Start();
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
+    }
+    public override void Update()
+    {
+
+        base.Update();
+        Movement();
+        Sprint();
+        if (UIManager.instance.GetStatePaused())
+        {
+            playerHandRef?.SetUseItem(false);
+        }
+        else
+        {
+            if (Input.GetButtonDown("Pick Up"))
+            {
+
+                playerUseEvent?.Invoke();
+                //playerHandRef?.ClickPickUp();
+
+            }
+            if (Input.GetButtonDown("Shoot"))
+            {
+                playerHandRef?.SetUseItem(true);
+            }
+            if (Input.GetButtonUp("Shoot"))
+            {
+                playerHandRef?.SetUseItem(false);
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                BaseGun tempOut;
+                if (playerHandRef != null && playerHandRef.GetCurrentHand().TryGetComponent<BaseGun>(out tempOut))
+                {
+                    StartCoroutine(tempOut.Reload());
+                }
+            }
+        }
+
+
+        Walljump();
+        momentum = mass * speed;
     }
     private bool TryFindPlayerSpawnPos(out GameObject _ref)
     {
@@ -84,7 +128,6 @@ public class PlayerController : BaseEntity
 
             transform.position = playerSpawnPos.transform.position;
 
-
             controllerRef.enabled = true;
 
             return true;
@@ -94,7 +137,10 @@ public class PlayerController : BaseEntity
     }
     public void SetPlayerSpawnPos(Vector3 _pos)
     {
-        playerSpawnPos.transform.position = _pos;
+        if (TryFindPlayerSpawnPos(out playerSpawnPos))
+        {
+            playerSpawnPos.transform.position = _pos;
+        }
     }
     public override void SetHealth(int _amount)
     {
@@ -111,45 +157,7 @@ public class PlayerController : BaseEntity
         UIManager.instance?.UpdateHealthBar((float)currentHealth / maxHealth);
     }
     // Update is called once per frame
-    public override void Update()
-    {
-
-        base.Update();
-        Movement();
-        Sprint();
-        if (UIManager.instance.GetStatePaused())
-        {
-            playerHandRef?.SetUseItem(false);
-        }
-        else
-        {
-            if (Input.GetButtonDown("Pick Up"))
-            {
-                playerHandRef?.ClickPickUp();
-
-            }
-            if (Input.GetButtonDown("Shoot"))
-            {
-                playerHandRef?.SetUseItem(true);
-            }
-            if (Input.GetButtonUp("Shoot"))
-            {
-                playerHandRef?.SetUseItem(false);
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                BaseGun tempOut;
-                if (playerHandRef != null && playerHandRef.GetCurrentHand().TryGetComponent<BaseGun>(out tempOut))
-                {
-                    StartCoroutine(tempOut.Reload());
-                }
-            }
-        }
-
-
-        Walljump();
-        momentum = mass * speed;
-    }
+ 
 
     private void Movement()
     {

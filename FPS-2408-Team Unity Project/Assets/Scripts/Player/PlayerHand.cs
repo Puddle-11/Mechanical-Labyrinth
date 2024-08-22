@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -121,8 +122,11 @@ public class PlayerHand : MonoBehaviour
             {
                 AttemptDrop(); //attempt a drop before picking up a new item
                 objectPickupRef.PickupItem(out CurrentEquiped, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
-               // CurrentEquiped = Instantiate(itemRef.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
-                
+                // CurrentEquiped = Instantiate(itemRef.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
+                IUsable iRef;
+                if (GetItem(out iRef)) {
+                    GameManager.instance.playerControllerRef.playerUseEvent = iRef.UseItem;
+                }
                 BaseGun BGref;
                 if(CurrentEquiped.TryGetComponent<BaseGun>(out BGref))
                 {
