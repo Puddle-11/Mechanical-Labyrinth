@@ -20,12 +20,12 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.5568628, g: 0.5568628, b: 0.5568628, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -359,86 +359,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: iGen
-      value: 
-      objectReference: {fileID: 802431281}
-    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: VoxelSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: GridSize.x
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: GridSize.y
-      value: 1
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: GridSize.z
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: CubicChunkSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: textureAtlasSize
-      value: 2
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 4929931634702836277, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: m_Name
       value: Level Mesh generator
       objectReference: {fileID: 0}
-    - target: {fileID: 4929931634702836277, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4929931634702836277, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 802431281}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
---- !u!1 &802431280 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4929931634702836277, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-  m_PrefabInstance: {fileID: 460504886}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &802431281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 802431280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ad24d17ab25184a898b3b05dbc8888, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enclose: 1
-  generatorType: 1
-  maxHeight: 9
-  roomMap: {fileID: 21300000, guid: 24d132f37b32f514dbf11a5ff7940d70, type: 3}
-  RoomSize: 0
-  DoorHeight: 5
-  DoorWidth: 3
-  maxNumOfPrimaryRooms: 5
-  maxNumOfSecondaryRooms: 5
-  minRoomDist: 0
-  minRoomSize: {x: 8, y: 8}
-  maxRoomSize: {x: 25, y: 25}
-  baseBoardHeight: 1
-  topPlateHeight: 1
-  floorBlockID: 4
-  wallBlockID: 1
-  ceilingBlockID: 2
-  baseBoardBlockID: 3
-  topPlaceBlockID: 1
-  roomTexture: {fileID: 0}
 --- !u!1001 &821855552
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -553,67 +489,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a5ef60f98df70e489851b2252678b50, type: 3}
---- !u!1001 &1980232654
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1645875506255807876, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_Name
-      value: Exit Door
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2052023250530535192, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5006319978249751375, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
-      propertyPath: nextSceneName
-      value: Gun Range
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -621,6 +496,5 @@ SceneRoots:
   - {fileID: 821855552}
   - {fileID: 1922321583}
   - {fileID: 175747968}
-  - {fileID: 1980232654}
   - {fileID: 460504886}
   - {fileID: 56473898}

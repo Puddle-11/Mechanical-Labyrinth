@@ -58,7 +58,7 @@ public class RoomGenerationCustomEditor : Editor
         EditorGUILayout.LabelField("FROM ALGORITHM", EditorStyles.boldLabel);
 
         EditorGUILayout.Space();
-
+        _targetCast.ceilingHeight = EditorGUILayout.IntField("Ceiling Height", _targetCast.ceilingHeight);
         _targetCast.minRoomDist = EditorGUILayout.FloatField("Min Room Distance", _targetCast.minRoomDist);
         _targetCast.maxNumOfPrimaryRooms = EditorGUILayout.IntField("Number of Rooms", _targetCast.maxNumOfPrimaryRooms);
         _targetCast.maxNumOfSecondaryRooms = EditorGUILayout.IntField("Number of Secondary Rooms", _targetCast.maxNumOfSecondaryRooms);
@@ -67,10 +67,6 @@ public class RoomGenerationCustomEditor : Editor
         _targetCast.maxRoomSize = EditorGUILayout.Vector2IntField("Max Room Size", _targetCast.maxRoomSize);
         _targetCast.DoorWidth = EditorGUILayout.IntField("Door Width", _targetCast.DoorWidth);
         _targetCast.DoorHeight = EditorGUILayout.IntField("Door Height", _targetCast.DoorHeight);
-
-
-
-
     }
 }
     #endregion

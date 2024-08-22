@@ -13,14 +13,14 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public Sprite roomMap;
     //Specific to FromVariables
     [HideInInspector] public int RoomSize;
-    [HideInInspector] public int DoorHeight;
+     public int DoorHeight;
     [HideInInspector] public int DoorWidth;
     
 
     //Specific to FromGenerator
     [HideInInspector] public int maxNumOfPrimaryRooms;
     [HideInInspector] public int maxNumOfSecondaryRooms;
-
+    [HideInInspector] public int ceilingHeight;
     [HideInInspector] public float minRoomDist;
     [HideInInspector] public Vector2Int minRoomSize;
     [HideInInspector] public Vector2Int maxRoomSize;
@@ -33,6 +33,7 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public int baseBoardBlockID;
     [HideInInspector] public int topPlaceBlockID;
     [HideInInspector] public Texture2D roomTexture;
+    private Color roomCol;
     private Vector2Int startPos;
     private struct RoomMarker
     {
@@ -56,7 +57,7 @@ public class RoomGenerator : IGenerator
     }
     public override void GenerateMap()
     {
-
+        roomCol = new Color((float)ceilingHeight / 10, (float)ceilingHeight / 10, (float)ceilingHeight / 10);
         if (generatorType == GenerationType.FromTexture)
         {
             roomTexture = roomMap.texture;
@@ -86,11 +87,11 @@ public class RoomGenerator : IGenerator
             {
                 for (int y = 0; y < Rooms[i].R_Size.y; y++)
                 {
-                    roomTexture.SetPixel(Rooms[i].R_Pos.x + x - offset.x, Rooms[i].R_Pos.y + y - offset.y, Color.white);
+                    roomTexture.SetPixel(Rooms[i].R_Pos.x + x - offset.x, Rooms[i].R_Pos.y + y - offset.y, roomCol);
                 }
             }
         }
-
+        
        
         //================================
 
@@ -160,7 +161,7 @@ public class RoomGenerator : IGenerator
                     for (int y = 0; y < tempRoom.R_Size.y; y++)
                     {
                        
-                        roomTexture.SetPixel(tempRoom.R_Pos.x + x - offset.x, tempRoom.R_Pos.y + y - offset.y, Color.white);
+                        roomTexture.SetPixel(tempRoom.R_Pos.x + x - offset.x, tempRoom.R_Pos.y + y - offset.y, roomCol);
 
                     }
                 }
@@ -270,13 +271,14 @@ public class RoomGenerator : IGenerator
         //Draw Line One
         Vector2Int CursorPos = _p1;
         int safety = 1000;
-        float GSC = (float)height / maxHeight;
+        Debug.Log(height);
+        float GSC = (float)height / 10;
         //Debug.Log("Width: " + width + "Floor: " + Mathf.FloorToInt(((float)(width - 1) / 2)) + " Ceiling: " + Mathf.CeilToInt(((float)(width - 1) / 2)));
         while (CursorPos != _p2 || safety <= 0)
         {
             for (int x = CursorPos.x - Mathf.FloorToInt((float)(width - 1) / 2) - 1; x < CursorPos.x + Mathf.CeilToInt((float)(width - 1) / 2) + 1; x++)
             {
-                for (int y = CursorPos.y - Mathf.FloorToInt(((width - 1) / 2)) - 1; y < CursorPos.y + Mathf.CeilToInt(((width - 1) / 2)) + 1; y++)
+                for (int y = CursorPos.y - Mathf.FloorToInt(((float)(width - 1) / 2)) - 1; y < CursorPos.y + Mathf.CeilToInt(((float)(width - 1) / 2)) + 1; y++)
                 {
                     if (roomTexture.GetPixel(x, y) == Color.black)
                     {
@@ -321,7 +323,7 @@ public class RoomGenerator : IGenerator
     private int FromTexture(Vector3Int _pos)
     {
         Color temp = roomTexture.GetPixel(_pos.x, _pos.z);
-        float greyCol = temp.grayscale * maxHeight;
+        int greyCol =  Mathf.RoundToInt((float)temp.grayscale * (float)maxHeight);
         if (roomTexture.GetPixel(_pos.x + 1, _pos.z).grayscale != 0f || roomTexture.GetPixel(_pos.x - 1, _pos.z).grayscale != 0f || roomTexture.GetPixel(_pos.x, _pos.z + 1).grayscale != 0f || roomTexture.GetPixel(_pos.x, _pos.z - 1).grayscale != 0f)
         {
 

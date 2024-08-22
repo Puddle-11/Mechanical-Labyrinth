@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 22606344426549897}
   - component: {fileID: 2907249646263534290}
+  - component: {fileID: 5579074951367543165}
   m_Layer: 0
   m_Name: Level Mesh generator
   m_TagString: Untagged
@@ -46,20 +47,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VoxelSize: 1
   CubicChunkSize: 10
-  MountainHeight: 7
-  GroundHeight: 12
   ChunkSize: {x: 0, y: 0, z: 0}
-  GridSize: {x: 10, y: 5, z: 10}
-  CellScale: 8
+  GridSize: {x: 15, y: 1, z: 15}
   MeshPrefab: {fileID: 311105137664234863, guid: b43e02eeb4de8ee4e933d6efb707800a, type: 3}
-  Compression: 0.7
-  Density: 0
-  debugMesh: 0
-  PerlinNoiseInfluence: 5
-  perlinPower: 2
-  M_MountainHeight: 0
-  M_BaseHeight: 1
-  M_scale: 15
-  GType: 2
-  currentChunk: {fileID: 0}
-  test: {fileID: 0}
+  iGen: {fileID: 5579074951367543165}
+  textureAtlasSize: 2
+--- !u!114 &5579074951367543165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929931634702836277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71ad24d17ab25184a898b3b05dbc8888, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enclose: 1
+  EndDoorPrefab: {fileID: 1645875506255807876, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
+  generatorType: 1
+  maxHeight: 10
+  roomMap: {fileID: 21300000, guid: 24d132f37b32f514dbf11a5ff7940d70, type: 3}
+  RoomSize: 0
+  DoorHeight: 5
+  DoorWidth: 2
+  maxNumOfPrimaryRooms: 5
+  maxNumOfSecondaryRooms: 5
+  ceilingHeight: 8
+  minRoomDist: 0
+  minRoomSize: {x: 8, y: 8}
+  maxRoomSize: {x: 25, y: 25}
+  baseBoardHeight: 1
+  topPlateHeight: 1
+  floorBlockID: 4
+  wallBlockID: 1
+  ceilingBlockID: 2
+  baseBoardBlockID: 3
+  topPlaceBlockID: 1
+  roomTexture: {fileID: 0}

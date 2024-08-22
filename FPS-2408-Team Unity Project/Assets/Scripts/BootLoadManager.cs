@@ -6,15 +6,13 @@ public class BootLoadManager : MonoBehaviour
 {
     [SerializeField] private string startScene;
     public static BootLoadManager instance;
-     public delegate void OnSceneChange();
-    public OnSceneChange sceneChangeEvent;
-    public OnSceneChange gameSceneChangeEvent;
+     public delegate void SceneEvent();
+    public SceneEvent startLoadEvent;
+    public SceneEvent stopLoadEvent;
+    public SceneEvent sceneChangeEvent;
     private void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
+        if(instance == null)instance = this;
         else
         {
             Debug.LogWarning("ERROR: Two boot loaders initialized, make sure the bootloader scene is only being run once on start");
@@ -26,9 +24,11 @@ public class BootLoadManager : MonoBehaviour
 
         LoadScene(startScene);
     }
+
+    #region LoadScene
     public void LoadScene(string _sceneName)
     {
-        Debug.Log("Attemped Load Scene: " + _sceneName);
+        startLoadEvent?.Invoke();
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             if (SceneManager.GetSceneAt(i).name != "BootLoader" && SceneManager.GetSceneAt(i).name != "GameLoader")
@@ -37,11 +37,16 @@ public class BootLoadManager : MonoBehaviour
             }
 
         }
-        if (sceneChangeEvent != null)
-        {
-            sceneChangeEvent.Invoke();
-        }
-        SceneManager.LoadScene(_sceneName, LoadSceneMode.Additive);
+
+         SceneManager.LoadScene(_sceneName, LoadSceneMode.Additive);
+        StartCoroutine(SetScene(_sceneName));
+    }
+    public IEnumerator SetScene(string _sceneName)
+    {
+        yield return null;
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneName));
+        stopLoadEvent?.Invoke();
+        sceneChangeEvent?.Invoke();
     }
     public void LoadGameScene(string _sceneName)
     {
@@ -52,13 +57,10 @@ public class BootLoadManager : MonoBehaviour
         }
 
         LoadScene(_sceneName);
-        StartCoroutine(InvokeGameSceneChange());
     }
-    private IEnumerator InvokeGameSceneChange()
-    {
-        yield return null;
-        if (gameSceneChangeEvent != null) gameSceneChangeEvent.Invoke();
-    }
+    #endregion
+
+    #region EnterExit Gamemode
     public void EnterGameMode()
     {
         UnLoadScene("GameLoader");
@@ -75,7 +77,10 @@ public class BootLoadManager : MonoBehaviour
         SceneManager.LoadScene("GameLoader", LoadSceneMode.Additive);
         LoadScene(_sceneName);
     }
+    #endregion
 
+ 
+    #region Unload Scene
     public void UnLoadScene(string _sceneName)
     {
         UnLoadScene(new string[] {_sceneName});
@@ -95,4 +100,5 @@ public class BootLoadManager : MonoBehaviour
 
         }
     }
+    #endregion
 }

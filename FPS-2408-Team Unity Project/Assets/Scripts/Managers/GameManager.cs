@@ -35,13 +35,17 @@ public class GameManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        BootLoadManager.instance.gameSceneChangeEvent += respawn;
-        
+        if (BootLoadManager.instance != null)
+        {
+            BootLoadManager.instance.sceneChangeEvent += respawn;
+        }
     }
     private void OnDisable()
     {
-        BootLoadManager.instance.gameSceneChangeEvent -= respawn;
-
+        if (BootLoadManager.instance != null)
+        {
+            BootLoadManager.instance.sceneChangeEvent -= respawn;
+        }
     }
     private void Start()
     {

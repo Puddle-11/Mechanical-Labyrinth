@@ -75,12 +75,12 @@ public class PlayerController : BaseEntity
             if (Input.GetButtonDown("Pick Up"))
             {
 
-                playerUseEvent?.Invoke();
-                //playerHandRef?.ClickPickUp();
+                playerHandRef?.ClickPickUp();
 
             }
             if (Input.GetButtonDown("Shoot"))
             {
+                //playerUseEvent?.Invoke();
                 playerHandRef?.SetUseItem(true);
             }
             if (Input.GetButtonUp("Shoot"))

@@ -21,7 +21,9 @@ public class ChunkGrid : MonoBehaviour
     public GridBounds bounds;
     public int textureAtlasSize;
     private MeshCell[,,] GridCells;
-
+    private delegate void ChunkGenProgress();
+    private ChunkGenProgress StartLoad;
+    private ChunkGenProgress EndLoad;
     public struct GridBounds
     {
         public Vector3Int min;
@@ -30,6 +32,15 @@ public class ChunkGrid : MonoBehaviour
     private void Awake()
     {
         GridObj = new GameObject[GridSize.x, GridSize.y, GridSize.x];
+    }
+    private void OnEnable()
+    {
+        BootLoadManager.instance.sceneChangeEvent += SpawnEndDoor;
+    }
+    private void OnDisable()
+    {
+        BootLoadManager.instance.sceneChangeEvent -= SpawnEndDoor;
+
     }
     private void Start()
     {
@@ -54,9 +65,16 @@ public class ChunkGrid : MonoBehaviour
             //============================
             InstantiateGrid();
         GenerateGrid();
-        RenderGrid();
+        StartCoroutine(RenderGrid());
+
     }
 
+    private void SpawnEndDoor()
+    {
+        Vector2Int UPos = iGen.GetStartingPoint();
+        Vector3Int _gridPos = new Vector3Int(UPos.x, 2, UPos.y);
+        Instantiate(iGen.EndDoorPrefab, GridToWorld(_gridPos) + new Vector3(0, 0, -2), Quaternion.LookRotation(new Vector3(0,0,1)));
+    }
 
     #region MainGeneration
     private void InstantiateGrid()
@@ -93,14 +111,13 @@ public class ChunkGrid : MonoBehaviour
                 {
                     if (GridCells[x, y, z] == null) GridCells[x, y, z] = new MeshCell();
                     Vector3Int _pos = new Vector3Int(x, y, z);
-               
                     GridCells[x, y, z].ID = PlaceTile(_pos);
                 }
             }
         }
     }
 
-    private void RenderGrid()
+    private IEnumerator RenderGrid()
     {
         //This method takes the internal grid values and updates the renderer acordingly 
         for (int x = 0; x < GridObj.GetLength(0); x++)
@@ -116,12 +133,13 @@ public class ChunkGrid : MonoBehaviour
                     if (GridObj[_chunkPos.x, _chunkPos.y, _chunkPos.z].TryGetComponent<MeshGenerator>(out meshGenRef))
                     {
                         meshGenRef.UpdateShape();
+                        yield return null;
                     }
                 }
             }
         }
-
     }
+
 
     #endregion
 
