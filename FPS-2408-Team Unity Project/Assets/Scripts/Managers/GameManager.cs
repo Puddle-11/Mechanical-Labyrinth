@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         if (BootLoadManager.instance != null)
         {
             BootLoadManager.instance.stopLoadEvent += respawn;
+            BootLoadManager.instance.startLoadEvent += ResetGameGoal;
 
         }
     }
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
         if (BootLoadManager.instance != null)
         {
             BootLoadManager.instance.stopLoadEvent -= respawn;
+            BootLoadManager.instance.startLoadEvent -= ResetGameGoal;
 
         }
     }
@@ -56,6 +58,10 @@ public class GameManager : MonoBehaviour
     {
         if (BootLoadManager.instance.IsLoading())
         {
+            if(playerRef.activeInHierarchy == true)
+            {
+                playerRef.SetActive(false);
+            }
             //THIS SHOULD BE THE ONLY SPOT OUTSIDE OF BOOTLOADER THAT STOPLOADEVENT IS INVOKED
             //=====================================================
             //Add more conditions to this if you want to wait until after a function is complete to load the level
@@ -66,6 +72,13 @@ public class GameManager : MonoBehaviour
                 else BootLoadManager.instance.UpdateLoadingBar(GetChunkGrid().progress);
             }
             //=====================================================
+        }
+        else
+        {
+            if (playerRef.activeInHierarchy == false)
+            {
+                playerRef.SetActive(true);
+            }
         }
     }
     private ChunkGrid GetChunkGrid()
@@ -96,7 +109,11 @@ public class GameManager : MonoBehaviour
         return false;
 
     }
-
+    public void ResetGameGoal()
+    {
+        enemyCount = 0;
+        UIManager.instance.SetEnemyCount(enemyCount);
+    }
     public void updateGameGoal(int _amount)
     {
         enemyCount += _amount;

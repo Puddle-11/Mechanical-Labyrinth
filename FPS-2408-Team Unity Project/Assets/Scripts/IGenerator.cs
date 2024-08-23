@@ -12,6 +12,10 @@ public class IGenerator :MonoBehaviour
         if(_pos.y == 0)return 1;
         return 0;
     }
+    public virtual Texture2D GetRoomTexture()
+    {
+        return null;
+    }
     public virtual void SetGeneratorBounds(ChunkGrid.GridBounds _bounds)
     {
 

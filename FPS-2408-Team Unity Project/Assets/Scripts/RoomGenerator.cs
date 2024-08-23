@@ -35,6 +35,10 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public Texture2D roomTexture;
     private Color roomCol;
     private Vector2Int startPos;
+    public override Texture2D GetRoomTexture()
+    {
+        return roomTexture;
+    }
     private struct RoomMarker
     {
         public Vector2Int R_Size;

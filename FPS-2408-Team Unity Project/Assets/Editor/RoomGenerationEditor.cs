@@ -37,7 +37,6 @@ public class RoomGenerationCustomEditor : Editor
     {
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("GENERAL", EditorStyles.boldLabel);
-
         EditorGUILayout.Space();
         _targetCast.maxHeight = EditorGUILayout.IntField("Max Height", _targetCast.maxHeight);
         _targetCast.roomMap = EditorGUILayout.ObjectField("Room Map", _targetCast.roomMap, typeof(Sprite), true) as Sprite;

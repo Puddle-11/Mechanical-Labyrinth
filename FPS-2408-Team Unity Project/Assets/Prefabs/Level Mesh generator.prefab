@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 22606344426549897}
   - component: {fileID: 2907249646263534290}
   - component: {fileID: 5579074951367543165}
+  - component: {fileID: 8784826018999248502}
   m_Layer: 0
   m_Name: Level Mesh generator
   m_TagString: ChunkGrid
@@ -48,11 +49,12 @@ MonoBehaviour:
   VoxelSize: 1
   CubicChunkSize: 10
   ChunkSize: {x: 0, y: 0, z: 0}
-  GridSize: {x: 15, y: 1, z: 15}
+  GridSize: {x: 10, y: 1, z: 10}
   MeshPrefab: {fileID: 311105137664234863, guid: b43e02eeb4de8ee4e933d6efb707800a, type: 3}
   iGen: {fileID: 5579074951367543165}
   textureAtlasSize: 2
   progress: 0
+  navMeshSurfaceRef: {fileID: 0}
 --- !u!114 &5579074951367543165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,3 +89,22 @@ MonoBehaviour:
   baseBoardBlockID: 3
   topPlaceBlockID: 1
   roomTexture: {fileID: 0}
+--- !u!114 &8784826018999248502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929931634702836277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fd4c356e0e5d94ba1d2f95a179b2d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxNumEnemies: 1
+  enemyList:
+  - enemyScale: {x: 0, y: 0, z: 0}
+    enemyPrefab: {fileID: 968438769837204579, guid: 77b036a6c999fa447bcf032cbd9122a7, type: 3}
+    frequency: 0
+  currentEnemyCount: 0
+  offset: {x: 0, y: 2, z: 0}

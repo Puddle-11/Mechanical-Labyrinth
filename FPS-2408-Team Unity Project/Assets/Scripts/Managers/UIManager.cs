@@ -49,6 +49,8 @@ public class UIManager : MonoBehaviour
 
 
 
+
+  
     [System.Serializable]
     private struct UIObj
     {
@@ -63,6 +65,7 @@ public class UIManager : MonoBehaviour
         public GameObject[] horizontalLine;
         public GameObject[] verticalLine;
     }
+   
     public void ToggleEnemyCount(bool _val)
     {
         enemyCountObj.SetActive(_val);

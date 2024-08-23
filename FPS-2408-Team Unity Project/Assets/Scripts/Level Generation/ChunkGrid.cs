@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using Unity.Properties;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
@@ -27,10 +28,20 @@ public class ChunkGrid : MonoBehaviour
     public float progress;
     private int chunkLoaded;
     private int totalChunks;
+    [SerializeField] private NavMeshSurface navMeshSurfaceRef;
+    public Texture2D GetRoomTexture()
+    {
+        return iGen.GetRoomTexture();
+    }
     public struct GridBounds
     {
         public Vector3Int min;
         public Vector3Int max;
+    }
+    public struct WorldBounds
+    {
+        public Vector3 min;
+        public Vector3 max;
     }
     private void Awake()
     {
@@ -152,6 +163,8 @@ public class ChunkGrid : MonoBehaviour
                 }
             }
         }
+        yield return null;
+        navMeshSurfaceRef.BuildNavMesh();
         EndLoad?.Invoke();
     }
 
@@ -159,7 +172,7 @@ public class ChunkGrid : MonoBehaviour
     #endregion
 
     #region Convertions
-    private Vector3 GridToWorld(Vector3Int _pos)
+    public Vector3 GridToWorld(Vector3Int _pos)
     {
         return transform.position + (Vector3)_pos * VoxelSize;
     }
@@ -171,7 +184,7 @@ public class ChunkGrid : MonoBehaviour
     {
         return new Vector3Int(_chunkPos.x * CubicChunkSize, _chunkPos.y * CubicChunkSize,  _chunkPos.z * CubicChunkSize);
     }
-    private Vector3Int GetChunkPos(GameObject _chunk)
+    public Vector3Int GetChunkPos(GameObject _chunk)
     {
         for (int x = 0; x < GridObj.GetLength(0); x++)
         {

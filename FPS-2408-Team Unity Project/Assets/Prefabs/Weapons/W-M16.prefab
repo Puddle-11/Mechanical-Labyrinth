@@ -160,6 +160,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3178302259699123502, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2337232885287080046}
+    - targetCorrespondingSourceObject: {fileID: 3178302259699123502, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6712590827107848762}
   m_SourcePrefab: {fileID: 100100000, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
 --- !u!4 &5251786042946030810 stripped
 Transform:
@@ -247,6 +250,25 @@ MonoBehaviour:
     m_RotationOrder: 4
   recoilCooldownFactor: 1
   maxRecoil: 20
+--- !u!114 &-6712590827107848762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598139051378606121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: 
 --- !u!1001 &7583524607950447859
 PrefabInstance:
   m_ObjectHideFlags: 0

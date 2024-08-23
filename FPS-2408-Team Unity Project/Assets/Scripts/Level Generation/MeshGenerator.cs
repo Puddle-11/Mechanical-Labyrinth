@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Experimental.AI;
 using static UnityEngine.GraphicsBuffer;
 using System.Reflection;
+using Unity.AI.Navigation;
 
 
 [RequireComponent(typeof(MeshFilter))]
@@ -20,7 +21,6 @@ public class MeshGenerator : MonoBehaviour
     private List<Vector2> UVs;
     private MeshFilter mainMesh;
     private MeshCollider colliderMesh;
-
 
     //add world to cell function for break and place functions
     public Vector3[] VertexPos = new Vector3[]
@@ -56,7 +56,6 @@ public class MeshGenerator : MonoBehaviour
 
     private void GenerateFaces()
     {
-        
         for (int x = 0; x < chunkRef.ChunkSize.x; x++)
         {
             for (int y = 0; y < chunkRef.ChunkSize.y; y++)
@@ -258,6 +257,8 @@ public class MeshGenerator : MonoBehaviour
                 tempUV[i] = UVs[i];
             }
         }
+        gameObject.name = "Mesh Renderer: " + chunkRef.GetChunkPos(gameObject);
+        if (Verticies.Count <= 0) Destroy(gameObject);
         mainMesh.mesh.vertices = Verticies.ToArray();
         mainMesh.mesh.triangles = Triangles.ToArray();
         mainMesh.mesh.uv = UVs.ToArray();

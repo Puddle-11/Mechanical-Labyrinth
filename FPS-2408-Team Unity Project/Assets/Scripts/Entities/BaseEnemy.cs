@@ -26,6 +26,8 @@ public class BaseEnemy : BaseEntity
     private bool isRoaming;
     private Vector3 startingPos;
     [SerializeField] private float shootAngle;
+    [SerializeField] private Vector3[] patrolPoints;
+    public int patrolPointCount;
     public enum DetectionType
     {
         InRange,
@@ -34,16 +36,32 @@ public class BaseEnemy : BaseEntity
         Vision_Sound,
         Continuous,
     }
+    public void SetPatrolPoints(Vector3[] _val)
+    {
+        patrolPoints = _val;
+    }
     private IEnumerator Roam()
     {
         isRoaming = true;
         yield return new WaitForSeconds(roamTimer);
-        agent.stoppingDistance = 0;
-        Vector3 randDist = Random.insideUnitSphere * roamingDistance;
-        randDist += startingPos;
-        NavMeshHit hit;
-        NavMesh.SamplePosition(randDist, out hit, roamingDistance, 1);
-        agent.SetDestination(hit.position);
+            agent.stoppingDistance = 0;
+        Vector3 _nextPos = transform.position;
+        if (ChunkGrid.instance == null)
+        {
+            Vector3 randDist = Random.insideUnitSphere * roamingDistance;
+            randDist += startingPos;
+            NavMeshHit hit;
+            NavMesh.SamplePosition(randDist, out hit, roamingDistance, 1);
+            _nextPos = hit.position;
+        }
+        else
+        {
+            if (patrolPoints.Length != 0)
+            {
+                _nextPos = patrolPoints[Random.Range(0, patrolPoints.Length)];
+            }
+        }
+            agent.SetDestination(_nextPos);
         isRoaming = false;
         
     }

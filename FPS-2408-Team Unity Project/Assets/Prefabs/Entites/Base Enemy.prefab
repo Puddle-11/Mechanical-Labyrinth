@@ -136,6 +136,8 @@ MonoBehaviour:
   healthBar: {fileID: 4848661306541249062}
   DetectPlayerType: 1
   agent: {fileID: 2568604070281990122}
+  anim: {fileID: 0}
+  transitionSpeed: 0
   weaponScr: {fileID: 5889668402176537774}
   target: {fileID: 0}
   sightRadius: 90
@@ -146,6 +148,8 @@ MonoBehaviour:
   roamTimer: 0
   roamingDistance: 0
   shootAngle: 0
+  patrolPoints: []
+  patrolPointCount: 6
 --- !u!135 &1116447676815778488
 SphereCollider:
   m_ObjectHideFlags: 0
