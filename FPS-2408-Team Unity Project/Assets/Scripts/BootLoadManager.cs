@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class BootLoadManager : MonoBehaviour
 {
     [SerializeField] private string startScene;
+    [SerializeField] private Image loadingBar;
+    [SerializeField] private GameObject loadingScreenObj;
     public static BootLoadManager instance;
      public delegate void SceneEvent();
     public SceneEvent startLoadEvent;
     public SceneEvent stopLoadEvent;
-    public SceneEvent sceneChangeEvent;
+    private bool inLoadScreen;
+
+    public bool IsLoading()
+    {
+        return inLoadScreen;
+    }
     private void Awake()
     {
         if(instance == null)instance = this;
@@ -19,11 +27,35 @@ public class BootLoadManager : MonoBehaviour
             Destroy(this);
         }
     }
+    private void Update()
+    {
+        
+    }
     private void Start()
     {
-
+        startLoadEvent += OpenLoadMenu;
+        stopLoadEvent += CloseLoadMenu;
         LoadScene(startScene);
     }
+
+    public void OpenLoadMenu()
+    {
+        inLoadScreen = true;
+        loadingBar.fillAmount = 0;
+        loadingScreenObj.SetActive(true);
+    }
+    public void CloseLoadMenu()
+    {
+        inLoadScreen = false;
+
+        loadingScreenObj.SetActive(false);
+    }
+    public void UpdateLoadingBar(float _val)
+    {
+        loadingBar.fillAmount = _val;
+    }
+
+
 
     #region LoadScene
     public void LoadScene(string _sceneName)
@@ -45,8 +77,7 @@ public class BootLoadManager : MonoBehaviour
     {
         yield return null;
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneName));
-        stopLoadEvent?.Invoke();
-        sceneChangeEvent?.Invoke();
+        if (GameManager.instance == null) stopLoadEvent?.Invoke();
     }
     public void LoadGameScene(string _sceneName)
     {
@@ -55,10 +86,15 @@ public class BootLoadManager : MonoBehaviour
         {
             EnterGameMode();
         }
-
+        StartCoroutine(DelayLoadScene(_sceneName));
+    }
+    public IEnumerator DelayLoadScene(string _sceneName)
+    {
+        yield return null;
         LoadScene(_sceneName);
     }
     #endregion
+
 
     #region EnterExit Gamemode
     public void EnterGameMode()
@@ -71,12 +107,15 @@ public class BootLoadManager : MonoBehaviour
         UnLoadScene("GameLoader");
         LoadScene("Main Menu");
     }
+    
+    
     public void EnterGameMode(string _sceneName)
     {
         UnLoadScene("GameLoader");
         SceneManager.LoadScene("GameLoader", LoadSceneMode.Additive);
         LoadScene(_sceneName);
     }
+
     #endregion
 
  

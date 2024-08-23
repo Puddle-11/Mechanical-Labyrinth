@@ -8,8 +8,10 @@ public class BulletHole : MonoBehaviour
     [SerializeField] private float decayTime;
     [SerializeField] private DecalProjector projector;
     [SerializeField] private AnimationCurve opacityOverTime;
+    [SerializeField] private ParticleSystem impactEffect;
     private void Start()
     {
+        impactEffect.Play();
         StartCoroutine(Decay());
     }
     public IEnumerator Decay()
@@ -17,10 +19,9 @@ public class BulletHole : MonoBehaviour
         float timer = 0;
         while (timer < decayTime)
         {
-          
             projector.fadeFactor = opacityOverTime.Evaluate(timer/decayTime);
             yield return null;
-            timer+= Time.deltaTime; 
+            timer+= Time.deltaTime;
         }
     }
     public void SetMat(Material _mat)

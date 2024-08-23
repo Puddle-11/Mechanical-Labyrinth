@@ -46,31 +46,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject enemyCountObj;
     private bool isPause = false;
     [SerializeField] private UIObj[] ConstUI;
-    [SerializeField] private GameObject loadingScreenObj;
-    private void OnEnable()
-    {
-        BootLoadManager.instance.startLoadEvent += StartloadAnim;
-        BootLoadManager.instance.stopLoadEvent += EndLoadAnim;
 
-    }
-    private void OnDisable()
-    {
-        BootLoadManager.instance.startLoadEvent -= StartloadAnim;
-        BootLoadManager.instance.stopLoadEvent -= EndLoadAnim;
 
-    }
-    public void StartloadAnim()
-    {
-        Debug.Log("Started Anim");
-        loadingScreenObj.SetActive(true);
-    }
-    public void EndLoadAnim()
-    {
-        Debug.Log("ended Anim");
 
-        loadingScreenObj.SetActive(false);
-
-    }
     [System.Serializable]
     private struct UIObj
     {
@@ -129,19 +107,22 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (!BootLoadManager.instance.IsLoading())
         {
-            if (menuActive == null)
+            if (Input.GetButtonDown("Cancel"))
             {
-                StatePause();
-          
+                if (menuActive == null)
+                {
+                    StatePause();
 
-            }
-            else if (menuActive == menuPause)
-            {
 
-                StateUnpause();
+                }
+                else if (menuActive == menuPause)
+                {
 
+                    StateUnpause();
+
+                }
             }
         }
     }

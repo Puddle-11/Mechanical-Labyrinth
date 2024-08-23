@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public GameObject playerRef;
     [HideInInspector] public PlayerController playerControllerRef;
     private int enemyCount;
+    private ChunkGrid chunkGridRef;
+
     private void Awake()
     {
         if (instance == null)
@@ -37,15 +39,41 @@ public class GameManager : MonoBehaviour
     {
         if (BootLoadManager.instance != null)
         {
-            BootLoadManager.instance.sceneChangeEvent += respawn;
+            BootLoadManager.instance.stopLoadEvent += respawn;
+
         }
     }
     private void OnDisable()
     {
         if (BootLoadManager.instance != null)
         {
-            BootLoadManager.instance.sceneChangeEvent -= respawn;
+            BootLoadManager.instance.stopLoadEvent -= respawn;
+
         }
+    }
+
+    private void Update()
+    {
+        if (BootLoadManager.instance.IsLoading())
+        {
+            //THIS SHOULD BE THE ONLY SPOT OUTSIDE OF BOOTLOADER THAT STOPLOADEVENT IS INVOKED
+            //=====================================================
+            //Add more conditions to this if you want to wait until after a function is complete to load the level
+            if (GetChunkGrid() == null) BootLoadManager.instance.stopLoadEvent.Invoke();
+            else
+            {
+                if (GetChunkGrid().progress == 1)BootLoadManager.instance.stopLoadEvent.Invoke();
+                else BootLoadManager.instance.UpdateLoadingBar(GetChunkGrid().progress);
+            }
+            //=====================================================
+        }
+    }
+    private ChunkGrid GetChunkGrid()
+    {
+        if (ChunkGrid.instance == null) return null;
+
+
+        return ChunkGrid.instance;
     }
     private void Start()
     {
@@ -76,7 +104,6 @@ public class GameManager : MonoBehaviour
 
         if (enemyCount <= 0)
         {
-            //UIManager.instance.ToggleEnemyCount(false);
             UIManager.instance.ToggleWinMenu(true);
         }
     }

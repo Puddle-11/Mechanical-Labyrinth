@@ -66,7 +66,7 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
-        if (UIManager.instance.GetStatePaused())
+        if (UIManager.instance.GetStatePaused() || BootLoadManager.instance.IsLoading())
         {
             playerHandRef?.SetUseItem(false);
         }
@@ -109,11 +109,9 @@ public class PlayerController : BaseEntity
         {
 
             _ref = temp;
-            Debug.Log("Pos successfuly found: " + _ref.name);
 
             return true;
         }
-        Debug.Log("Pos not found");
 
         _ref = null;
 

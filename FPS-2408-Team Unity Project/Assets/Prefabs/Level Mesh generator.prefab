@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5579074951367543165}
   m_Layer: 0
   m_Name: Level Mesh generator
-  m_TagString: Untagged
+  m_TagString: ChunkGrid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,6 +52,7 @@ MonoBehaviour:
   MeshPrefab: {fileID: 311105137664234863, guid: b43e02eeb4de8ee4e933d6efb707800a, type: 3}
   iGen: {fileID: 5579074951367543165}
   textureAtlasSize: 2
+  progress: 0
 --- !u!114 &5579074951367543165
 MonoBehaviour:
   m_ObjectHideFlags: 0

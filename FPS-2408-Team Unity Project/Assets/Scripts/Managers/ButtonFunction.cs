@@ -12,7 +12,7 @@ public class ButtonFunction : MonoBehaviour
     }
     public void restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        BootLoadManager.instance.LoadGameScene(SceneManager.GetActiveScene().name);
         UIManager.instance.StateUnpause();
     }
     public void quit()

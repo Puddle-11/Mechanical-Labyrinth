@@ -142,16 +142,10 @@ public class RoomGenerator : IGenerator
                 }
                 if (!success) break;
             }
-
-
-
-
-
-
             Vector2Int nearestPos;
             if (success)
             {
-                if (GetNearestPPoint(out nearestPos, tempRoom.R_Pos, _texture, 100))
+                if (GetNearestPPoint(out nearestPos, tempRoom.R_Pos, _texture, 500))
                 {
                     DrawDoubleHallway(tempRoom.R_Pos, nearestPos, DoorWidth, DoorHeight);
 
@@ -173,7 +167,6 @@ public class RoomGenerator : IGenerator
     }
     private bool GetNearestPPoint(out Vector2Int _res, Vector2Int _origin, Texture2D _texture, int _searchDist)
     {
-
         for (int xy = 0; xy < _searchDist; xy++)
         {
             //Positive x search
@@ -271,7 +264,6 @@ public class RoomGenerator : IGenerator
         //Draw Line One
         Vector2Int CursorPos = _p1;
         int safety = 1000;
-        Debug.Log(height);
         float GSC = (float)height / 10;
         //Debug.Log("Width: " + width + "Floor: " + Mathf.FloorToInt(((float)(width - 1) / 2)) + " Ceiling: " + Mathf.CeilToInt(((float)(width - 1) / 2)));
         while (CursorPos != _p2 || safety <= 0)
