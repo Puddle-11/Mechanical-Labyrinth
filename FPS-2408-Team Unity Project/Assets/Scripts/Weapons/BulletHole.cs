@@ -11,7 +11,10 @@ public class BulletHole : MonoBehaviour
     [SerializeField] private ParticleSystem impactEffect;
     private void Start()
     {
-        impactEffect.Play();
+        if (impactEffect != null)
+        {
+            impactEffect.Play();
+        }
         StartCoroutine(Decay());
     }
     public IEnumerator Decay()

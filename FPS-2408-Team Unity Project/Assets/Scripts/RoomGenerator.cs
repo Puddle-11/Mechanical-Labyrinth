@@ -95,7 +95,7 @@ public class RoomGenerator : IGenerator
        
         //================================
 
-        GenerateSecondaryRooms(roomTexture, 2, 100);
+        GenerateSecondaryRooms(roomTexture, 2);
 
         for (int i = 0; i < Rooms.Length; i++)
         {
@@ -103,7 +103,7 @@ public class RoomGenerator : IGenerator
             DrawDoubleHallway(Rooms[i].R_Pos, Rooms[nextRoom].R_Pos, DoorWidth, DoorHeight);
         }
         //================================
-
+        
         roomTexture.Apply();
         for (int x = 0; x < roomTexture.width; x++)
         {
@@ -117,7 +117,7 @@ public class RoomGenerator : IGenerator
         }
     }
 
-    private void GenerateSecondaryRooms(Texture2D _texture, int _padding, int _hallwaySearchDist)
+    private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
     {
         int successfulRooms = 0;
         for (int i = 0; i < 1000; i++)
@@ -150,6 +150,8 @@ public class RoomGenerator : IGenerator
                     DrawDoubleHallway(tempRoom.R_Pos, nearestPos, DoorWidth, DoorHeight);
 
                 }
+                
+
                 for (int x = 0; x < tempRoom.R_Size.x; x++)
                 {
                     for (int y = 0; y < tempRoom.R_Size.y; y++)
