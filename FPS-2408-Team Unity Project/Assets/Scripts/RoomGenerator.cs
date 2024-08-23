@@ -149,19 +149,19 @@ public class RoomGenerator : IGenerator
                 {
                     DrawDoubleHallway(tempRoom.R_Pos, nearestPos, DoorWidth, DoorHeight);
 
-                }
-                
 
-                for (int x = 0; x < tempRoom.R_Size.x; x++)
-                {
-                    for (int y = 0; y < tempRoom.R_Size.y; y++)
+
+                    for (int x = 0; x < tempRoom.R_Size.x; x++)
                     {
-                       
-                        roomTexture.SetPixel(tempRoom.R_Pos.x + x - offset.x, tempRoom.R_Pos.y + y - offset.y, roomCol);
+                        for (int y = 0; y < tempRoom.R_Size.y; y++)
+                        {
 
+                            roomTexture.SetPixel(tempRoom.R_Pos.x + x - offset.x, tempRoom.R_Pos.y + y - offset.y, roomCol);
+
+                        }
                     }
-                }
                 successfulRooms++;
+                }
             }
             if (successfulRooms >= maxNumOfSecondaryRooms) break;
         }
