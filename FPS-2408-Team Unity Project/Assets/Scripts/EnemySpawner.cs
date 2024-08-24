@@ -9,6 +9,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyType[] enemyList;
     private int currentEnemyCount;
     [SerializeField] private Vector3 offset;
+    [SerializeField] private int patrolPointsCount;
     private List<Vector3> allPositions = new List<Vector3>();
     private void Start()
     {
@@ -31,7 +32,6 @@ public class EnemySpawner : MonoBehaviour
                 if(_texture.GetPixel(x,y) != Color.black)
                 {
                     allPositions.Add(ChunkGrid.instance.GridToWorld(new Vector3Int(x, 0, y)) + offset);
-                    //SpawnEnemy(ChunkGrid.instance.GridToWorld(new Vector3Int(x,0,y)) + offset, 1);
                 }
             }
         }
@@ -60,9 +60,11 @@ public class EnemySpawner : MonoBehaviour
             if(enemyObj.TryGetComponent<BaseEnemy>(out baseEnRef))
             {
                 List<Vector3> enemyPatrolPoints = new List<Vector3>();
-                for (int i = 0; i < baseEnRef.patrolPointCount; i++)
+                for (int i = 0; i < patrolPointsCount; i++)
                 {
-                   enemyPatrolPoints.Add( allPositions[UnityEngine.Random.Range(0, allPositions.Count)]);
+                    int index = UnityEngine.Random.Range(0, allPositions.Count);
+                   enemyPatrolPoints.Add( allPositions[index]);
+                    allPositions.RemoveAt(index);
                 }
                 baseEnRef.SetPatrolPoints(enemyPatrolPoints.ToArray());
             }

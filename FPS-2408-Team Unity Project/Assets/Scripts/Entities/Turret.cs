@@ -14,6 +14,11 @@ public class Turret : BaseEnemy
     public override void Update()
     {
         base.Update();
-        weaponScr.transform.LookAt(GameManager.instance.playerRef.transform.position);
+        if (weaponScr != null)
+        {
+
+            weaponScr.transform.LookAt(GameManager.instance.playerRef.transform.position);
+
+        }
     }
 }

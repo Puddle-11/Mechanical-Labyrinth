@@ -76,7 +76,8 @@ MonoBehaviour:
   m_RendererFeatures:
   - {fileID: -2958532236713492211}
   - {fileID: -7603333206355715319}
-  m_RendererFeatureMap: 0d81260e9b2ef1d6095b3ca6bb887b96
+  - {fileID: 6926230196103008506}
+  m_RendererFeatureMap: 0d81260e9b2ef1d6095b3ca6bb887b96fad04da7aae91e60
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
@@ -115,3 +116,35 @@ MonoBehaviour:
   m_CopyDepthMode: 1
   m_AccurateGbufferNormals: 0
   m_IntermediateTextureMode: 1
+--- !u!114 &6926230196103008506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 032e529da03c41a4f8dada76eab9d2c5, type: 3}
+  m_Name: ScreenSpaceOutlines
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  renderPassEvent: 350
+  outlinesLayerMask:
+    serializedVersion: 2
+    m_Bits: 32832
+  outlineSettings:
+    outlineColor: {r: 0.8, g: 0.17105429, b: 0.15294118, a: 1}
+    outlineScale: 3.5
+    depthThreshold: 8.1
+    robertsCrossMultiplier: 100
+    normalThreshold: 0.4
+    steepAngleThreshold: 0.2
+    steepAngleMultiplier: 25
+    colorFormat: 0
+    depthBufferBits: 0
+    filterMode: 2
+    backgroundColor: {r: 0, g: 0, b: 0, a: 0}
+    perObjectData: 0
+    enableDynamicBatching: 0
+    enableInstancing: 0

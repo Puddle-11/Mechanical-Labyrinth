@@ -8,22 +8,22 @@ public class ButtonFunction : MonoBehaviour
 
     public void resume()
     {
-        UIManager.instance.StateUnpause();
+        UIManager.instance?.StateUnpause();
     }
     public void restart()
     {
-        BootLoadManager.instance.LoadGameScene(SceneManager.GetActiveScene().name);
+        BootLoadManager.instance?.LoadGameScene(SceneManager.GetActiveScene().name);
         UIManager.instance.StateUnpause();
     }
     public void quit()
     {
         Time.timeScale = 1;
-        BootLoadManager.instance.ExitGameMode();
+        BootLoadManager.instance?.ExitGameMode();
     }
 
     public void respawn()
     {
-        GameManager.instance.respawn();
+        GameManager.instance?.respawn();
     }
     // Start is called before the first frame update
 

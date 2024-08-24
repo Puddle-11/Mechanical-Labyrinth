@@ -165,6 +165,7 @@ public class ChunkGrid : MonoBehaviour
         }
         yield return null;
         navMeshSurfaceRef.BuildNavMesh();
+        yield return null;
         EndLoad?.Invoke();
     }
 

@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-        if (!BootLoadManager.instance.IsLoading())
+        if (BootLoadManager.instance == null || (BootLoadManager.instance != null && !BootLoadManager.instance.IsLoading()))
         {
             if (Input.GetButtonDown("Cancel"))
             {

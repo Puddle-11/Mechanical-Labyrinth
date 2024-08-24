@@ -13,6 +13,7 @@ public class PlayerController : BaseEntity
     private CharacterController controllerRef;
     [Header("Walk Variables")]
     [Space]
+    [SerializeField] private SoundSenseSource footstepSoundRef;
     [SerializeField] private float speed;
     [SerializeField] private float sprintMod;
     [SerializeField] private float mass;
@@ -66,7 +67,7 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
-        if (UIManager.instance.GetStatePaused() || BootLoadManager.instance.IsLoading())
+        if (UIManager.instance.GetStatePaused() || (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading()))
         {
             playerHandRef?.SetUseItem(false);
         }
@@ -172,6 +173,11 @@ public class PlayerController : BaseEntity
             playerVel.y -= gravityStrength * Time.deltaTime;
         }
         move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
+        if(move.x > 0 || move.y > 0 || move.z > 0)
+        {
+            //LATER THIS LINE OF CODE NEEDS TO BE HOOKED UP TO A PLAYER ANIMATION
+            footstepSoundRef?.TriggerSound(transform.position);
+        }
         controllerRef.Move(move * speed * Time.deltaTime);
         if (Input.GetButtonDown("Jump"))
         {

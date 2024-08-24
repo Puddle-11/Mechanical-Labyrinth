@@ -34,13 +34,13 @@ public class Weapon : MonoBehaviour, IUsable
         {
             return pickUp;
         }
-        else if (gunDrop.Pickup != null)
+        else if (gunDrop?.Pickup != null)
         {
             return gunDrop.Pickup;
         }
         else
         {
-            Debug.LogWarning("No pickup available on " + gameObject.name + "\nWith an Item type of + " + gunDrop.name);
+            Debug.LogWarning("No pickup available on " + gameObject.name);
             return null;
         }
     }

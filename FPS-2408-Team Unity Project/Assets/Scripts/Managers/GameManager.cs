@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (BootLoadManager.instance.IsLoading())
+        if (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading())
         {
             if(playerRef.activeInHierarchy == true)
             {
