@@ -8,6 +8,7 @@ using UnityEngine.SocialPlatforms;
 public class PlayerController : BaseEntity
 {
     private Vector3 move;
+    private Vector2 input;
 
 
     private CharacterController controllerRef;
@@ -16,8 +17,14 @@ public class PlayerController : BaseEntity
     [SerializeField] private SoundSenseSource footstepSoundRef;
     [SerializeField] private float speed;
     [SerializeField] private float sprintMod;
-    [SerializeField] private float mass;
     private bool isSprinting;
+    [SerializeField] private float accelerationSpeed;
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float dashMod; 
+    [SerializeField] private float timer;
+    private bool isDashing;
+    [SerializeField] private float mass;
+
     [Header("Jump Variables")]
     [Space]
     [SerializeField] private LayerMask jumplayer;
@@ -28,6 +35,7 @@ public class PlayerController : BaseEntity
     [SerializeField] private int WalljumpSpeed;
     [SerializeField] private int wallgravity;
     private bool onWall;
+
     [Header("Physics Variables")]
     [Space]
     [SerializeField] private float gravityStrength;
@@ -63,10 +71,14 @@ public class PlayerController : BaseEntity
     }
     public override void Update()
     {
-
         base.Update();
         Movement();
         Sprint();
+
+        //move = input * accelerationSpeed * Time.deltaTime;
+        //move.x = Mathf.Clamp(move.x,0,maxSpeed);
+        //move.y = Mathf.Clamp(move.y, 0, maxSpeed);
+        //controllerRef.Move(move);
         if (UIManager.instance.GetStatePaused() || (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading()))
         {
             playerHandRef?.SetUseItem(false);
@@ -96,12 +108,35 @@ public class PlayerController : BaseEntity
                     StartCoroutine(tempOut.Reload());
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                StartCoroutine(Dash());
+            }
         }
 
 
         Walljump();
         momentum = mass * speed;
     }
+
+    public IEnumerator Dash()
+    {
+
+        Debug.Log("called");
+        if (isDashing) yield break;
+        isDashing = true;
+        speed = speed * dashMod;
+        //timer = 2;
+        //while (timer < 0 )
+        //{
+        //    yield return null;
+        //    timer -= Time.deltaTime;
+        //}
+        yield return new WaitForSeconds(0.5f);
+        isDashing = false;
+        speed = speed / dashMod;
+    }
+
     private bool TryFindPlayerSpawnPos(out GameObject _ref)
     {
 

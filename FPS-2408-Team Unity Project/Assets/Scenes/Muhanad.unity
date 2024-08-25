@@ -6721,6 +6721,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2387560800148918711, guid: 447857aebf88c4b4787d11657c0b982a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2574219603463103112, guid: 447857aebf88c4b4787d11657c0b982a, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -6874,6 +6878,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 919132147659303881}
     - target: {fileID: 6792761834454421830, guid: 447857aebf88c4b4787d11657c0b982a, type: 3}
+      propertyPath: senseType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6792761834454421830, guid: 447857aebf88c4b4787d11657c0b982a, type: 3}
       propertyPath: DetectPlayerType
       value: 1
       objectReference: {fileID: 0}
@@ -6951,12 +6959,32 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
+      propertyPath: dashMod
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
+      propertyPath: maxSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
+      propertyPath: dashSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
       propertyPath: wallgravity
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
       propertyPath: WalljumpSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
+      propertyPath: accelerationSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8197052998779638438, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
       propertyPath: m_LocalPosition.x

@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuActive;
+    [SerializeField] GameObject menuControlsLegend;
     [Space]
     [Header("Damage Indicator")]
     [Space]
@@ -47,10 +48,10 @@ public class UIManager : MonoBehaviour
     private bool isPause = false;
     [SerializeField] private UIObj[] ConstUI;
 
+    private bool showingControls = true;
 
 
 
-  
     [System.Serializable]
     private struct UIObj
     {
@@ -124,6 +125,10 @@ public class UIManager : MonoBehaviour
                     StateUnpause();
 
                 }
+            }
+            if (Input.GetButtonDown("tab"))
+            {
+                ToggleControlsLegend(showingControls);
             }
         }
     }
@@ -238,5 +243,19 @@ public class UIManager : MonoBehaviour
             curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.y / 2) + normDir * C_centerDotSize / 2 + normDir * Mathf.Clamp(_val * C_spreadFactor, 0, C_maxSpread);
         }
 
+    }
+    public void ToggleControlsLegend(bool _val)
+    {
+        if (showingControls == true){
+                
+            menuControlsLegend.SetActive(false);
+            showingControls = false;
+
+        }
+        else if (showingControls == false)
+        {
+            menuControlsLegend.SetActive(true);
+            showingControls = true;
+        }
     }
 }
