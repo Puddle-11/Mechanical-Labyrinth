@@ -133,12 +133,12 @@ MonoBehaviour:
   - {fileID: 8034685555572478420}
   - {fileID: 5216720139057223241}
   ropeLength: 1.5
-  currentControlPos: []
   lnRef: {fileID: 2684594170053987105}
   lineResolution: 10
-  lineUpdateSpeed: 0
-  springConstant: 1
-  dampeningForce: 5
+  springConstant: 5
+  dampeningForce: 8
+  dynamic: 1
+  acceptableMargin: 0
 --- !u!120 &2684594170053987105
 LineRenderer:
   serializedVersion: 2
@@ -377,25 +377,28 @@ MonoBehaviour:
   anim: {fileID: 0}
   transitionSpeed: 0.5
   shoulderPos: {x: 0, y: 0.25, z: 0}
-  legDistance: 0.3
+  legDistance: 0.45
   legs:
-  - legObj: {fileID: 6599964473670020775}
-    worldPos: {x: 3.1999993, y: -0.48817512, z: 1.8199999}
+  - anchor: {fileID: 1598880857746196811}
+    absolutePos: {x: 0, y: 0, z: 0}
+    legObj: {fileID: 6599964473670020775}
+    currPos: {x: 0, y: 0, z: 0}
     isMoving: 0
-  - legObj: {fileID: 4874909088531433400}
-    worldPos: {x: 1.599999, y: -0.48817512, z: 1.8199999}
+  - anchor: {fileID: 1669081784621448885}
+    absolutePos: {x: 0, y: 0, z: 0}
+    legObj: {fileID: 4874909088531433400}
+    currPos: {x: 0, y: 0, z: 0}
     isMoving: 0
-  - legObj: {fileID: 6687460609577648810}
-    worldPos: {x: 1.599999, y: -0.48817512, z: 0.21999979}
+  - anchor: {fileID: 3355802286819163415}
+    absolutePos: {x: 0, y: 0, z: 0}
+    legObj: {fileID: 6687460609577648810}
+    currPos: {x: 0, y: 0, z: 0}
     isMoving: 0
-  - legObj: {fileID: 3957960152811301335}
-    worldPos: {x: 3.1999965, y: -0.48817512, z: 0.21999979}
+  - anchor: {fileID: 4057274630579545052}
+    absolutePos: {x: 0, y: 0, z: 0}
+    legObj: {fileID: 3957960152811301335}
+    currPos: {x: 0, y: 0, z: 0}
     isMoving: 0
-  legAnchorPos:
-  - {fileID: 1598880857746196811}
-  - {fileID: 1669081784621448885}
-  - {fileID: 3355802286819163415}
-  - {fileID: 4057274630579545052}
   ground:
     serializedVersion: 2
     m_Bits: 72451
