@@ -7028,6 +7028,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
+      propertyPath: friction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
       propertyPath: maxSpeed
       value: 50
       objectReference: {fileID: 0}
@@ -7038,6 +7042,10 @@ PrefabInstance:
     - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
       propertyPath: wallgravity
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
+      propertyPath: acceleration
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7915787125269613869, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
       propertyPath: WalljumpSpeed

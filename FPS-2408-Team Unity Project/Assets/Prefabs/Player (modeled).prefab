@@ -1138,6 +1138,7 @@ MonoBehaviour:
   camShakeDurration: 0.15
   resettingOffset: 0
   offset: {x: 0, y: 0}
+  mainCamera: {fileID: 0}
 --- !u!114 &185323471831243175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2092,22 +2093,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  rendRef: {fileID: 0}
-  damageFlashTime: 0.1
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
-  drops: []
   healthBar: {fileID: 0}
-  speed: 10
+  damageFlashTime: 0.1
+  drops: []
+  footstepSoundRef: {fileID: 0}
+  acceleration: 25
   sprintMod: 1.5
-  mass: 0
+  maxSpeed: 50
+  friction: 1
+  dashMod: 5
+  mass: 10
   jumplayer:
     serializedVersion: 2
     m_Bits: 2048
   jumpHeight: 10
   jumpMax: 1
   Walljumpdir: {x: 0, y: 0, z: 0}
-  WalljumpSpeed: 0
-  wallgravity: 0
+  WalljumpSpeed: 10
+  wallgravity: 5
   gravityStrength: 21
 --- !u!114 &1743493806311950691
 MonoBehaviour:

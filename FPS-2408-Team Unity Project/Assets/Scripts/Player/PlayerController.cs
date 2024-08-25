@@ -8,20 +8,20 @@ using UnityEngine.SocialPlatforms;
 public class PlayerController : BaseEntity
 {
     private Vector3 move;
-    private Vector2 input;
 
 
     private CharacterController controllerRef;
     [Header("Walk Variables")]
     [Space]
     [SerializeField] private SoundSenseSource footstepSoundRef;
-    [SerializeField] private float speed;
+    [SerializeField] private float acceleration;
     [SerializeField] private float sprintMod;
     private bool isSprinting;
-    [SerializeField] private float accelerationSpeed;
     [SerializeField] private float maxSpeed;
+    private Vector3 speed;
+    [SerializeField] private float friction;
     [SerializeField] private float dashMod; 
-    [SerializeField] private float timer;
+    //[SerializeField] private float timer;
     private bool isDashing;
     [SerializeField] private float mass;
 
@@ -116,16 +116,14 @@ public class PlayerController : BaseEntity
 
 
         Walljump();
-        momentum = mass * speed;
+        momentum = mass * acceleration;
     }
 
     public IEnumerator Dash()
     {
-
-        Debug.Log("called");
         if (isDashing) yield break;
         isDashing = true;
-        speed = speed * dashMod;
+        acceleration = acceleration * dashMod;
         //timer = 2;
         //while (timer < 0 )
         //{
@@ -134,7 +132,7 @@ public class PlayerController : BaseEntity
         //}
         yield return new WaitForSeconds(0.5f);
         isDashing = false;
-        speed = speed / dashMod;
+        acceleration = acceleration / dashMod;
     }
 
     private bool TryFindPlayerSpawnPos(out GameObject _ref)
@@ -213,7 +211,11 @@ public class PlayerController : BaseEntity
             //LATER THIS LINE OF CODE NEEDS TO BE HOOKED UP TO A PLAYER ANIMATION
             footstepSoundRef?.TriggerSound(transform.position);
         }
-        controllerRef.Move(move * speed * Time.deltaTime);
+
+        speed += move * acceleration * Time.deltaTime;
+        speed /= 1 + friction * Time.deltaTime;
+        controllerRef.Move(speed * Time.deltaTime);
+        //controllerRef.Move(move * acceleration * Time.deltaTime);
         if (Input.GetButtonDown("Jump"))
         {
             Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));
@@ -232,12 +234,12 @@ public class PlayerController : BaseEntity
     {
         if (Input.GetButton("Sprint") && !isSprinting)
         {
-            speed *= sprintMod;
+            acceleration *= sprintMod;
             isSprinting = true;
         }
         else if (!Input.GetButton("Sprint") && isSprinting)
         {
-            speed /= sprintMod;
+            acceleration /= sprintMod;
             isSprinting = false;
         }
     }
