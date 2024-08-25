@@ -404,7 +404,7 @@ MonoBehaviour:
     m_Bits: 72451
   groundSearchDist: 10
   maxDistanceFromTarget: 0.2
-  hardMaxDistance: 0.6
+  hardMaxDistance: 0.25
   legMoveSpeed: 0.2
   legLiftHeight: 0.2
   legLiftCurve:
