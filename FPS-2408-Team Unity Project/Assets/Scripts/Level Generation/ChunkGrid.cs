@@ -178,6 +178,12 @@ public class ChunkGrid : MonoBehaviour
     #endregion
 
     #region Convertions
+    public Vector3Int WorldToGrid(Vector3 _pos)
+    {
+        Vector3 normalPos = transform.position - _pos;
+        return new Vector3Int(Mathf.CeilToInt(normalPos.x / VoxelSize), Mathf.CeilToInt(normalPos.y / VoxelSize), Mathf.CeilToInt(normalPos.z / VoxelSize));
+    }
+
     public Vector3 GridToWorld(Vector3Int _pos)
     {
         return transform.position + (Vector3)_pos * VoxelSize;

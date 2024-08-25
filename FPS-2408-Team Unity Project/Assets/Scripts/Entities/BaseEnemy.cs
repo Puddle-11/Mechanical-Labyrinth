@@ -147,15 +147,7 @@ public class BaseEnemy : BaseEntity
     }
     //=======================================
     #endregion
-    private IEnumerator contactDamageDelay(IHealth _target)
-    {
-        if (runningContactDamage) yield break;
-        runningContactDamage = true;
-        _target.UpdateHealth(-contactDamage);
-        yield return new WaitForSeconds(contactDamageFrequency);
-        runningContactDamage = false;
 
-    }
     #region Getters and Setters
     //=======================================
     //GETTERS AND SETTERS
@@ -367,7 +359,7 @@ public class BaseEnemy : BaseEntity
     //-------------
     public void FacePlayer()
     {
-        Quaternion rot = Quaternion.LookRotation(target.transform.position - transform.position);
+        Quaternion rot = Quaternion.LookRotation(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotationSpeed);
     }
     #endregion
@@ -391,8 +383,15 @@ public class BaseEnemy : BaseEntity
         base.Death();
     }
     #endregion
-  
- 
+    private IEnumerator contactDamageDelay(IHealth _target)
+    {
+        if (runningContactDamage) yield break;
+        runningContactDamage = true;
+        _target.UpdateHealth(-contactDamage);
+        yield return new WaitForSeconds(contactDamageFrequency);
+        runningContactDamage = false;
+
+    }
     public virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

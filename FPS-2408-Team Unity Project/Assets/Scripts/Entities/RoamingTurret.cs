@@ -11,28 +11,33 @@ public class RoamingTurret : BaseEnemy
     [Header("_______________________________")]
     [Space]
     [SerializeField] private Vector3 shoulderPos;
+    [SerializeField] private float legDistance;
     [SerializeField] private Leg[] legs;
-    [SerializeField] private Transform[] legAnchorPos;
-    private Vector3[] legTargetPos;
     [SerializeField] private LayerMask ground;
     [SerializeField] private float groundSearchDist;
     [SerializeField] private float maxDistanceFromTarget;
     [SerializeField] private float hardMaxDistance;
     [SerializeField] private float legMoveSpeed;
-    [SerializeField] private AnimationCurve legLiftCurve;
     [SerializeField] private float legLiftHeight;
+    [SerializeField] private AnimationCurve legLiftCurve;
     [System.Serializable]
     public struct Leg
     {
+        public Transform anchor;
+       [HideInInspector] public Vector3 absolutePos;
         public GameObject legObj;
-        public Vector3 worldPos;
-        public bool isMoving;
+        [HideInInspector] public Vector3 currPos;
+        [HideInInspector] public bool isMoving;
+        public float DistanceToAbsolute()
+        {
+            return Vector3.Distance(currPos, absolutePos);
+        }
     }
     public override void Start()
     {
         base.Start();
-
-     legTargetPos = UpdateAnchorPos();
+        UpdateAnchors();
+        UpdateAbsolutePos();
     }
     public override void Update()
     {
@@ -41,91 +46,61 @@ public class RoamingTurret : BaseEnemy
     }
     private void UpdateLegs()
     {
-        legTargetPos = UpdateAnchorPos();
+        UpdateAbsolutePos();
 
         for (int i = 0; i < legs.Length; i++)
         {
             int A1 = i >= legs.Length - 1 ? 0 : i + 1;
             int A2 = i <= 0 ? legs.Length - 1 : i - 1;
-            if (Vector3.Distance(legs[i].worldPos, legTargetPos[i]) > maxDistanceFromTarget)
+            if (legs[i].DistanceToAbsolute() > maxDistanceFromTarget)
             {
                 if (!legs[A1].isMoving && !legs[A2].isMoving)
-                {
-
                     StartCoroutine(MoveLeg(i));
-                }
-                else if (Vector3.Distance(legs[i].worldPos, legTargetPos[i]) > hardMaxDistance)
-                {
-                    StartCoroutine(MoveLeg(i));
-
-                }
             }
-            if (i > legs.Length)
+            else if (legs[i].DistanceToAbsolute() > hardMaxDistance)
             {
-                Debug.LogWarning("Incorrect number of legs assigned to " + gameObject.name);
+                legs[i].isMoving = false;
+                StartCoroutine(MoveLeg(i));
             }
-            else
-            {
-                legs[i].legObj.transform.position = legs[i].worldPos;
-                Quaternion rot = Quaternion.LookRotation(shoulderPos + transform.position - legs[i].legObj.transform.position);
-                legs[i].legObj.transform.rotation = rot;
-            }
+            legs[i].legObj.transform.position = legs[i].currPos;
+            Quaternion rot = Quaternion.LookRotation(shoulderPos + transform.position - legs[i].legObj.transform.position);
+            legs[i].legObj.transform.rotation = rot;
         }
+    }
+    private void UpdateAnchors()
+    {
+        for (int i = 0; i < legs.Length; i++) 
+            legs[i].anchor.localPosition = legs[i].anchor.localPosition.normalized * legDistance;
     }
     public IEnumerator MoveLeg(int index)
     {
         if (legs[index].isMoving) yield break;
         legs[index].isMoving = true;
+
         float timer = 0;
         while (timer < legMoveSpeed)
         {
-            Vector3 lerpPos = Vector3.Lerp(legs[index].worldPos, legTargetPos[index], timer / legMoveSpeed);
-            legs[index].worldPos = lerpPos + Vector3.up * legLiftCurve.Evaluate(timer / legMoveSpeed) * legLiftHeight;
+            Vector3 lerpPos = Vector3.Lerp(legs[index].currPos, legs[index].absolutePos, timer / legMoveSpeed);
+            legs[index].currPos = lerpPos + Vector3.up * legLiftCurve.Evaluate(timer / legMoveSpeed) * legLiftHeight;
             timer += Time.deltaTime;
             yield return null;
-
         }
-        legs[index].worldPos = legTargetPos[index];
+
+        legs[index].currPos = legs[index].absolutePos; //snaps leg to final position
         legs[index].isMoving = false;
     }
-    private Vector3[] UpdateAnchorPos()
+    private void UpdateAbsolutePos()
     {
-        Vector3[] temp = new Vector3[legAnchorPos.Length];
-        for (int i = 0; i < legAnchorPos.Length; i++)
+        for (int i = 0; i < legs.Length; i++)
         {
-            Vector3 rayPos = shoulderPos + new Vector3(legAnchorPos[i].position.x, 0, legAnchorPos[i].position.z);
+            Vector3 rayPos = shoulderPos + new Vector3(legs[i].anchor.position.x, transform.position.y, legs[i].anchor.position.z);
+
             RaycastHit hit;
             if (Physics.Raycast(rayPos, Vector3.down, out hit, groundSearchDist, ground))
-            {
-                temp[i] = hit.point;
-            }
-            else
-            {
-                temp[i] = rayPos + Vector3.down * groundSearchDist;
-            }
-        }
-        return temp;
-    }
-    public override void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-        if (legTargetPos != null)
-        {
-            for (int i = 0; i < legTargetPos.Length; i++)
-            {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(legTargetPos[i], 0.2f);
-
-            }
-        }
-        if (legs != null)
-        {
-            for (int i = 0; i < legs.Length; i++)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(legs[i].worldPos, 0.1f);
-
-            }
+                legs[i].absolutePos = hit.point;
+            else 
+               legs[i].absolutePos = rayPos + Vector3.down * groundSearchDist;
         }
     }
+  
 }

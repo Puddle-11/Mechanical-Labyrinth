@@ -10,7 +10,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     [Header("_______________________________")]
 
     [SerializeField] protected int maxHealth;
-    [SerializeField] protected Renderer rendRef;
+    [SerializeField] protected RenderContainer[] rendRef;
     [SerializeField] protected Material damageMaterial;
     [SerializeField] protected EntityHealthBar healthBar;
     [Range(0.1f, 10f)]
@@ -20,30 +20,58 @@ public class BaseEntity : MonoBehaviour, IHealth
    
     
     protected int currentHealth;
-    private Material[] originalMaterial;
     private bool takingDamage;
 
+    public struct RenderContainer
+    {
+        public Renderer currRenderer;
+        [HideInInspector] public Material[] renderOriginMaterial;
+        [HideInInspector] public Material damageMaterial;
+        public void ResetMaterials()
+        {
+            Material[] tempArr = new Material[currRenderer.materials.Length];
+            for (int i = 0; i < tempArr.Length; i++)
+            {
+                tempArr[i] = renderOriginMaterial[i];
 
+            }
+            currRenderer.materials  = tempArr;
+        }
+        public void SetMaterials(Material _newMat)
+        {
+            Material[] tempArr = new Material[currRenderer.materials.Length];
+            for (int i = 0; i < tempArr.Length; i++)
+            {
+                tempArr[i] = _newMat;
+            }
+            currRenderer.materials = tempArr;
+        }
+        public void GetMaterials()
+        {
+            renderOriginMaterial = currRenderer.materials;
+        }
+    }
 
     public virtual void Awake()
     {
-        if( rendRef == null)
+        Renderer[] tempArr = GetComponentsInChildren<Renderer>();
+        rendRef = new RenderContainer[tempArr.Length];
+        for (int i = 0; i < rendRef.Length; i++)
         {
-            if (!TryGetComponent<Renderer>(out rendRef))
-            {
-                Debug.LogWarning("Failed to find renderer on " + gameObject.name);
-            }
+            rendRef[i].currRenderer = tempArr[i];
         }
         ResetHealth();
     }
     // Start is called before the first frame update
     public virtual void Start()
     {
-        if (rendRef != null)
+        for (int i = 0; i < rendRef.Length; i++)
         {
-            originalMaterial = rendRef.materials;
+            rendRef[i].GetMaterials();
         }
+        
     }
+
     public virtual void Update()
     {
         
@@ -58,6 +86,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         return currentHealth;
     }
+
     public int GetMaxHealth()
     {
         return maxHealth;
@@ -66,6 +95,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         maxHealth = _val;
     }
+
     public virtual void ResetHealth()
     {
         SetHealth(maxHealth);
@@ -73,8 +103,9 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void SetHealth(int _amount)
     {
         _amount = Mathf.Clamp(_amount, 0, maxHealth);
+
         if(_amount < currentHealth && !takingDamage) StartCoroutine(changeIndicator(damageMaterial));
-        //clamps the _amount to a min of 0
+
         if(healthBar != null) healthBar.UpdateHealthBar((float)_amount, (float)maxHealth);
         currentHealth = _amount;
         if (_amount == 0) Death();
@@ -90,15 +121,15 @@ public class BaseEntity : MonoBehaviour, IHealth
         if (rendRef != null)
         {
             takingDamage = true;
-
-            Material[] damageArr = new Material[originalMaterial.Length];
-            for (int i = 0; i < damageArr.Length; i++)
+            for (int i = 0; i < rendRef.Length; i++)
             {
-                damageArr[i] = _flashMat;
+                rendRef[i].SetMaterials(damageMaterial);
             }
-            rendRef.materials = damageArr;
             yield return new WaitForSeconds(damageFlashTime);
-            rendRef.materials = originalMaterial;
+            for (int i = 0; i < rendRef.Length; i++)
+            {
+                rendRef[i].ResetMaterials();
+            }
             takingDamage = false;
 
         }
@@ -112,7 +143,6 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void Death()
     {
         //default death case
-        //DropInventory();
         Destroy(gameObject);
     }
     public virtual void DropInventory()

@@ -57,6 +57,11 @@ public class RoomGenerationCustomEditor : Editor
         EditorGUILayout.LabelField("FROM ALGORITHM", EditorStyles.boldLabel);
 
         EditorGUILayout.Space();
+        _targetCast.ropePrefab = EditorGUILayout.ObjectField("Rope Prefab", _targetCast.ropePrefab, typeof(GameObject), true) as GameObject;
+        _targetCast.numberOfRopes = EditorGUILayout.IntField("Number Of Ropes", _targetCast.numberOfRopes);
+        _targetCast.maxRopeAnchorDistance = EditorGUILayout.IntField("Rope Anchor Distance", _targetCast.maxRopeAnchorDistance);
+        _targetCast.numberOfRopeAnchors = EditorGUILayout.IntField("Number Of Rope Anchors", _targetCast.numberOfRopeAnchors);
+
         _targetCast.ceilingHeight = EditorGUILayout.IntField("Ceiling Height", _targetCast.ceilingHeight);
         _targetCast.minRoomDist = EditorGUILayout.FloatField("Min Room Distance", _targetCast.minRoomDist);
         _targetCast.maxNumOfPrimaryRooms = EditorGUILayout.IntField("Number of Rooms", _targetCast.maxNumOfPrimaryRooms);

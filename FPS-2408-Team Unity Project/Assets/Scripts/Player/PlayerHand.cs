@@ -14,8 +14,7 @@ public class PlayerHand : MonoBehaviour
     [SerializeField] private Vector2 throwOffset;
 
 
-    //========================================================
-    //THESE METHODS NEED OPTIMIZING TOT
+
     public void SetUseItem(bool _val)
     {
         IUsable itemRef;
@@ -38,10 +37,6 @@ public class PlayerHand : MonoBehaviour
     //all the way to the currently equiped item, there are to many points of failure
     // - Rowan
     //========================================================
-
-
-
- 
 
 
     public GameObject GetCurrentHand()
@@ -93,15 +88,12 @@ public class PlayerHand : MonoBehaviour
             CameraController.instance.ResetOffset(true);
             //======================================
 
-
             IUsable IRef;
             if (GetItem(out IRef))
             {
-             
                 Pickup _pickup = Instantiate(IRef.GetPickup(), transform.position, IRef.GetPickup().transform.rotation).GetComponent<Pickup>();
                 _pickup.DropItem(transform.position + transform.forward * throwOffset.x + new Vector3(0, throwOffset.y, 0), Camera.main.transform.forward * throwSpeed.x + Vector3.up * throwSpeed.y, 1);
             }
-
 
             //======================================
             //Internal Resets

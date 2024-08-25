@@ -15,8 +15,10 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public int RoomSize;
      public int DoorHeight;
     [HideInInspector] public int DoorWidth;
-    
-
+    [HideInInspector] public int maxRopeAnchorDistance;
+    [HideInInspector] public GameObject ropePrefab;
+    [HideInInspector] public int numberOfRopes;
+    [HideInInspector] public int numberOfRopeAnchors;
     //Specific to FromGenerator
     [HideInInspector] public int maxNumOfPrimaryRooms;
     [HideInInspector] public int maxNumOfSecondaryRooms;
@@ -120,8 +122,54 @@ public class RoomGenerator : IGenerator
             roomTexture.SetPixel(0, y, Color.black);
         }
     }
+    public void GenerateDecorations(Texture2D _texture, Vector3 _offset)
+    {
+        _texture.wrapMode = TextureWrapMode.Clamp;
+        List<Vector2Int> allPositions = new List<Vector2Int>();
+        for (int x = 0; x < _texture.width; x++)
+        {
+            for (int y = 0; y < _texture.height; y++)
+            {
+                Color temp = roomTexture.GetPixel(x, y);
+                int greyCol = Mathf.RoundToInt((float)temp.grayscale * (float)maxHeight);
 
-    private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
+                if (_texture.GetPixel(x, y) != Color.black)
+                {
+                    allPositions.Add(new Vector2Int(x, y));
+                }
+            }
+        }
+        for (int i = 0; i < numberOfRopes; i++)
+        {
+            int randIndex = Random.Range(0,allPositions.Count);
+            Vector2Int startPos = allPositions[randIndex];
+
+
+            List<Vector2Int> possibleAnchorPos = new List<Vector2Int>();
+            for (int x = -maxRopeAnchorDistance; x < maxRopeAnchorDistance; x++)
+            {
+                for (int y = -maxRopeAnchorDistance; y < maxRopeAnchorDistance; y++)
+                {
+                    if(_texture.GetPixel(startPos.x+x, startPos.y+y) != Color.black)
+                    {
+                        possibleAnchorPos.Add( new Vector2Int(startPos.x+x, startPos.y+y));
+                    }
+                }
+            }
+            for (int j = 0; j < numberOfRopeAnchors; j++)
+            {
+                if (possibleAnchorPos.Count <= 0)
+                {
+                    break;
+                }
+                else
+                {
+
+                }
+            }
+        }
+    }
+private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
     {
         int successfulRooms = 0;
         for (int i = 0; i < 1000; i++)

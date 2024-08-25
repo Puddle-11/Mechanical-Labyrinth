@@ -34,11 +34,19 @@ public class Target : BaseEntity
         }
 
         collRef.enabled = false;
-        rendRef.enabled = false;
+        for (int i = 0; i < rendRef.Length; i++)
+        {
+
+            rendRef[i].currRenderer.enabled = false;
+        }
         yield return new WaitForSeconds(RespawnTime);
         ResetHealth();
         collRef.enabled = true;
-        rendRef.enabled = true;
+        for (int i = 0; i < rendRef.Length; i++)
+        {
+
+            rendRef[i].currRenderer.enabled = true;
+        }
         healthBar.UpdateHealthBar((float)currentHealth, (float)maxHealth);
 
     }
