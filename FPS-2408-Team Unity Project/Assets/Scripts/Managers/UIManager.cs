@@ -117,8 +117,6 @@ public class UIManager : MonoBehaviour
                 if (menuActive == null)
                 {
                     StatePause();
-
-
                 }
                 else if (menuActive == menuPause)
                 {

@@ -24,7 +24,7 @@ public class BaseGun : Weapon
     [SerializeField] private float barrelDelay;
     [SerializeField] private Animator muzzleFlash;
     [SerializeField] private float muzzleFlashSize;
-    [SerializeField] private ParticleSystem sparkParticles;
+    [SerializeField] private ParticleSystem[] sparkParticles;
 
     [SerializeField] private float penetratingDistance;
     [SerializeField] private float penetratingDamageFalloff;
@@ -59,7 +59,6 @@ public class BaseGun : Weapon
     {
         SetAmmo(clipSizeMax);
     }
-
     public override string GetItemStats()
     {
         return "Speed: " + coolDown + "\nDamage: " + shootDamage;
@@ -157,7 +156,6 @@ public class BaseGun : Weapon
             RaycastHit hit;
             IHealth healthRef = null;
             #endregion
-
 
             UpdateAmmo(-1);
             StartMuzzleFlash();
@@ -259,9 +257,13 @@ public class BaseGun : Weapon
             muzzleFlash.SetTrigger("Flash");
             muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 180));
         }
-        if (sparkParticles != null)
+        if (sparkParticles.Length > 0)
         {
-            sparkParticles.Play();
+            foreach (ParticleSystem PS in sparkParticles)
+            {
+
+                PS.Play();
+            }
         }
     }
     public void UpdateAmmo(int _val)

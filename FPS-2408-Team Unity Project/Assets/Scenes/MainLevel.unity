@@ -363,9 +363,13 @@ PrefabInstance:
       value: Level generator
       objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: patrolPointsCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[0].enemyPrefab
       value: 
-      objectReference: {fileID: 4401137175823337248, guid: ce32f82cbbc04cb4f81192e8b85e70a8, type: 3}
+      objectReference: {fileID: 2466940318331819860, guid: 50e14811848cb804e8afaf38e357d186, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

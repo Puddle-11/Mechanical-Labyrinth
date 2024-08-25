@@ -56,11 +56,16 @@ public class ChunkGrid : MonoBehaviour
     private void OnEnable()
     {
         BootLoadManager.instance.stopLoadEvent += SpawnEndDoor;
+        BootLoadManager.instance.startLoadEvent += removeListeners;
     }
     private void OnDisable()
     {
-        BootLoadManager.instance.stopLoadEvent -= SpawnEndDoor;
+        removeListeners();
+    }
+    private void removeListeners() //Since the chunk grid changes from scene to scene we need to make sure we remove the listeners before the next scene is loaded
+    {
 
+        BootLoadManager.instance.stopLoadEvent -= SpawnEndDoor;
     }
     private void Start()
     {

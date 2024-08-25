@@ -227,7 +227,8 @@ MonoBehaviour:
   barrelDelay: 0
   muzzleFlash: {fileID: 4037953909308320129}
   muzzleFlashSize: 1
-  sparkParticles: {fileID: 6999054089370399508}
+  sparkParticles:
+  - {fileID: 6999054089370399508}
   penetratingDistance: 1
   penetratingDamageFalloff: 1
   FSAccuracy: 0.15

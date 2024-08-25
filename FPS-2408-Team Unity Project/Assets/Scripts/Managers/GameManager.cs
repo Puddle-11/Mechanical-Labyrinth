@@ -31,15 +31,18 @@ public class GameManager : MonoBehaviour
     public void respawn()
     {
         playerControllerRef.ResetHealth();
+
+    }
+    public void MoveToRespawn()
+    {
         playerControllerRef.spawnPlayer();
-        
         UIManager.instance.StateUnpause();
     }
     private void OnEnable()
     {
         if (BootLoadManager.instance != null)
         {
-            BootLoadManager.instance.stopLoadEvent += respawn;
+            BootLoadManager.instance.stopLoadEvent += MoveToRespawn;
             BootLoadManager.instance.startLoadEvent += ResetGameGoal;
 
         }
@@ -48,7 +51,7 @@ public class GameManager : MonoBehaviour
     {
         if (BootLoadManager.instance != null)
         {
-            BootLoadManager.instance.stopLoadEvent -= respawn;
+            BootLoadManager.instance.stopLoadEvent -= MoveToRespawn;
             BootLoadManager.instance.startLoadEvent -= ResetGameGoal;
 
         }

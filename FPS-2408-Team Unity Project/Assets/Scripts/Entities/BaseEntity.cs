@@ -5,32 +5,26 @@ using UnityEngine;
 
 public class BaseEntity : MonoBehaviour, IHealth
 {
+    [Space]
+    [Header("BASE ENTITY GENERAL")]
+    [Header("_______________________________")]
 
     [SerializeField] protected int maxHealth;
-    protected int currentHealth;
     [SerializeField] protected Renderer rendRef;
+    [SerializeField] protected Material damageMaterial;
+    [SerializeField] protected EntityHealthBar healthBar;
     [Range(0.1f, 10f)]
     [SerializeField] private float damageFlashTime;
-    [SerializeField] protected Material damageMaterial;
-    private Material originalMaterial;
-    private bool takingDamage;
     [SerializeField] private GameObject[] drops;
-    [SerializeField] protected EntityHealthBar healthBar;
     // Start is called before Start (used to initialize variables inside an object, DO NOT use awake to interact with other objects or components, this will crash your unity project
+   
+    
+    protected int currentHealth;
+    private Material[] originalMaterial;
+    private bool takingDamage;
 
 
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
-    }
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
-    public void SetMaxHealth(int _val)
-    {
-        maxHealth = _val;
-    }
+
     public virtual void Awake()
     {
         if( rendRef == null)
@@ -47,7 +41,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         if (rendRef != null)
         {
-            originalMaterial = rendRef.material;
+            originalMaterial = rendRef.materials;
         }
     }
     public virtual void Update()
@@ -60,6 +54,18 @@ public class BaseEntity : MonoBehaviour, IHealth
     //=================================
 
     #region IHealth Functions
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+    public int GetMaxHealth()
+    {
+        return maxHealth;
+    }
+    public void SetMaxHealth(int _val)
+    {
+        maxHealth = _val;
+    }
     public virtual void ResetHealth()
     {
         SetHealth(maxHealth);
@@ -72,7 +78,6 @@ public class BaseEntity : MonoBehaviour, IHealth
         if(healthBar != null) healthBar.UpdateHealthBar((float)_amount, (float)maxHealth);
         currentHealth = _amount;
         if (_amount == 0) Death();
-        
     }
     public virtual void UpdateHealth(int _amount)
     {
@@ -86,9 +91,14 @@ public class BaseEntity : MonoBehaviour, IHealth
         {
             takingDamage = true;
 
-            rendRef.material = _flashMat;
+            Material[] damageArr = new Material[originalMaterial.Length];
+            for (int i = 0; i < damageArr.Length; i++)
+            {
+                damageArr[i] = _flashMat;
+            }
+            rendRef.materials = damageArr;
             yield return new WaitForSeconds(damageFlashTime);
-            rendRef.material = originalMaterial;
+            rendRef.materials = originalMaterial;
             takingDamage = false;
 
         }

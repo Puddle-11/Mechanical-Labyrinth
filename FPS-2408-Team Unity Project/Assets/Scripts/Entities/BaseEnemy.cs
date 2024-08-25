@@ -17,12 +17,26 @@ public class BaseEnemy : BaseEntity
     [Space]
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] protected Weapon weaponScr;
-    [SerializeField] protected float stoppingDistance;
+    [SerializeField] private Transform headPos;
+    [SerializeField] private Vector3[] patrolPoints;
+    [SerializeField] private int contactDamage = 15;
+    [SerializeField] private float contactDamageFrequency = 0.5f;
+
+    [Space]
+    [SerializeField] protected float stoppingDistance = 7;
+    [SerializeField] private float rotationSpeed = 180;
+    [SerializeField] private float roamTimer = 2;
+    [SerializeField] private float roamingDistance = 15;
+    [SerializeField] private int sneakDamageMultiplyer = 2;
     [Header("DETECTION")]
     [Space]
-    [SerializeField] private float sightRange;
-    [SerializeField] private float hearingRange;
-    [SerializeField] private float attackRange;
+    [SerializeField] private float attackRange = 7;
+    [SerializeField] private float sightRange = 13.5f;
+    [SerializeField] private float hearingRange = 20;
+    [Space]
+    [SerializeField] private float attackAngle = 50;
+    [SerializeField] private float sightAngle = 90;
+    [Space]
     [SerializeField] private GameObject target;
     [SerializeField] private DetectionType senseType;
     [SerializeField] private LayerMask sightMask;
@@ -33,26 +47,12 @@ public class BaseEnemy : BaseEntity
 
     [SerializeField] private Image alertMarker;
     [SerializeField] private Animator anim;
+    [SerializeField] private float transitionSpeed = 0.5f;
+
     private EnemyState currState;
-
-
-
-
-
-    //OLD VARIABLES
-    //===========================
-    [SerializeField] private float sightAngle;
-    [SerializeField] private float attackAngle;
-    [SerializeField] private float transitionSpeed;
-
-    [SerializeField] private float rotationSpeed;
-    [SerializeField] private Transform headPos;
-    [SerializeField] private int sneakDamageMultiplyer = 2;
-    [SerializeField] private float roamTimer;
-    [SerializeField] private float roamingDistance;
     private bool isRoaming;
     private Vector3 startingPos;
-    [SerializeField] private Vector3[] patrolPoints;
+    private bool runningContactDamage;
 
     #region Custom Structs and Enums
     //=======================================
@@ -76,7 +76,6 @@ public class BaseEnemy : BaseEntity
     //=======================================
     #endregion
 
-
     #region Default MonoBehavior Methods
     //=======================================
     //DEFAULT MONOBEHAVIOR METHODS
@@ -87,6 +86,7 @@ public class BaseEnemy : BaseEntity
     {
         if (target != null) SetUpEvents();
     }
+    //-------------
     public void OnDisable()
     {
         if (senseType == DetectionType.Sound || senseType == DetectionType.Vision_Sound)
@@ -101,6 +101,7 @@ public class BaseEnemy : BaseEntity
             }
         }
     }
+    //-------------
     public void SetUpEvents()
     {
         if (senseType == DetectionType.Sound || senseType == DetectionType.Vision_Sound)
@@ -123,6 +124,7 @@ public class BaseEnemy : BaseEntity
         base.Start();
         GameManager.instance.updateGameGoal(1);
     }
+    //-------------
     public override void Update()
     {
         StateHandler();
@@ -135,9 +137,25 @@ public class BaseEnemy : BaseEntity
      
         base.Update();
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject == GameManager.instance.playerRef)
+        {
+            StartCoroutine(contactDamageDelay(other.GetComponent<IHealth>()));
+        }
+    }
     //=======================================
     #endregion
+    private IEnumerator contactDamageDelay(IHealth _target)
+    {
+        if (runningContactDamage) yield break;
+        runningContactDamage = true;
+        _target.UpdateHealth(-contactDamage);
+        yield return new WaitForSeconds(contactDamageFrequency);
+        runningContactDamage = false;
 
+    }
     #region Getters and Setters
     //=======================================
     //GETTERS AND SETTERS
@@ -246,11 +264,12 @@ public class BaseEnemy : BaseEntity
     #region State Machine
     private void StateHandler()
     {
+        if (agent == null) return;
         EnemyStatus(ref currState);
         switch (currState)
         {
             case EnemyState.Patrol:
-                agent.stoppingDistance = 0;
+                 agent.stoppingDistance = 0;
                 if (agent.remainingDistance < 0.1f)
                 {
                     StartCoroutine(Roam());
@@ -271,6 +290,7 @@ public class BaseEnemy : BaseEntity
             weaponScr?.Attack();
         }
     }
+    //-------------
     private void EnemyStatus(ref EnemyState _enemyStateRef)
     {
         if (senseType == DetectionType.InRange)
@@ -311,7 +331,7 @@ public class BaseEnemy : BaseEntity
 
         }
     }
-
+    //-------------
     private void EnterInvestigate(Vector3 _pos)
     {
         if ((currState == EnemyState.Patrol || currState == EnemyState.Investigate) && IsInRange())
@@ -320,16 +340,14 @@ public class BaseEnemy : BaseEntity
             SetNavmeshTarget(_pos);
         }
     }
-    #endregion
-
-
+    //-------------
     private IEnumerator Roam()
     {
         if (isRoaming) yield break;
         isRoaming = true;
         yield return new WaitForSeconds(roamTimer);
         Vector3 _nextPos = transform.position;
-        if (ChunkGrid.instance == null)
+        if (patrolPoints.Length <= 0)
         {
             Vector3 randDist = Random.insideUnitSphere * roamingDistance;
             randDist += startingPos;
@@ -339,16 +357,22 @@ public class BaseEnemy : BaseEntity
         }
         else
         {
-            if (patrolPoints.Length != 0)
-            {
-                _nextPos = patrolPoints[Random.Range(0, patrolPoints.Length)];
-            }
+
+            _nextPos = patrolPoints[Random.Range(0, patrolPoints.Length)];
+
         }
         agent.SetDestination(_nextPos);
         isRoaming = false;
     }
+    //-------------
+    public void FacePlayer()
+    {
+        Quaternion rot = Quaternion.LookRotation(target.transform.position - transform.position);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotationSpeed);
+    }
+    #endregion
 
-
+    #region IHealth Methods
     public override void UpdateHealth(int _amount)
     {
         if (currState == EnemyState.Patrol || currState == EnemyState.Investigate)
@@ -357,22 +381,19 @@ public class BaseEnemy : BaseEntity
             EnterInvestigate(target.transform.position);
         }
         base.UpdateHealth(_amount);
-      
+
     }
-    public void FacePlayer()
-    {
-        Quaternion rot = Quaternion.LookRotation(target.transform.position - transform.position);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotationSpeed);
-    }
+    //-------------
     public override void Death()
     {
-        GameManager.instance.updateGameGoal(-1);
-       if(weaponScr!=null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
+        GameManager.instance?.updateGameGoal(-1);
+        if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
         base.Death();
     }
-
-
-    private void OnDrawGizmos()
+    #endregion
+  
+ 
+    public virtual void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, sightRange);
