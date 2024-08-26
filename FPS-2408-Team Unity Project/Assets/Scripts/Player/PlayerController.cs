@@ -114,8 +114,8 @@ public class PlayerController : BaseEntity
             }
         }
 
-
-        Walljump();
+        wallslide();
+       // Walljump();
         momentum = mass * acceleration;
     }
 
@@ -248,24 +248,31 @@ public class PlayerController : BaseEntity
     }
     void Walljump()
     {
+        
         RaycastHit hit;
+        Walljumpdir = new Vector3(0, jumpHeight, 0);
         if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
-            onWall = true;  
-            Walljumpdir = new Vector3(0, jumpHeight, 0);
+            onWall = true;
+            if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
+            {
+                Walljumpdir = new Vector3(GameManager.instance.playerRef.transform.position.x, jumpHeight, 0);
+            }
         }
         else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
             onWall = true;
-            Walljumpdir = new Vector3(0, jumpHeight, 0);
+            if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
+            {
+                Walljumpdir = new Vector3(-GameManager.instance.playerRef.transform.position.x, jumpHeight, 0);
+            }
         }
         else
         {
             onWall = false;
         }
-        Walljumpdir = new Vector3(0, jumpHeight, 0);
         if (Input.GetButtonDown("Jump"))
         {
             Jump(Walljumpdir);
@@ -275,15 +282,12 @@ public class PlayerController : BaseEntity
 
     void wallslide()
     {
-        gravityStrength = gravityStrength / wallgravity;
 
         if (onWall == true && playerVel.y < 0)
         {
             playerVel.y = 0;
-            gravityStrength = gravityStrength / wallgravity;
-        }
-        else if(onWall == false) { 
-        
+            gravityStrength = gravityStrength /= wallgravity;
+            gravityStrength = Mathf.Clamp(gravityStrength, 12, 26);
         }
     }
 
