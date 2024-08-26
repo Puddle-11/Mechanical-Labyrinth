@@ -4,9 +4,12 @@ using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.U2D;
+using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class RoomGenerator : IGenerator
 {
+    [SerializeField] private LayerMask groundLayer;
     public GenerationType generatorType;
     [HideInInspector] public int maxHeight; //This value will cap out at bounds height 
     //Specific to FromTexture && FromGenerator
@@ -19,6 +22,7 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public GameObject ropePrefab;
     [HideInInspector] public int numberOfRopes;
     [HideInInspector] public int numberOfRopeAnchors;
+    [HideInInspector] public Vector2 ropeLength;
     //Specific to FromGenerator
     [HideInInspector] public int maxNumOfPrimaryRooms;
     [HideInInspector] public int maxNumOfSecondaryRooms;
@@ -35,6 +39,7 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public int baseBoardBlockID;
     [HideInInspector] public int topPlaceBlockID;
     [HideInInspector] public Texture2D roomTexture;
+
     private Color roomCol;
     private Vector2Int startPos;
     public override Texture2D GetRoomTexture()
@@ -52,7 +57,17 @@ public class RoomGenerator : IGenerator
         FromTexture,
         FromAlgorithm,
     }
-  
+    public void Start()
+    {
+        
+        ChunkGrid.instance.EndLoad += GenerateDecorations;
+    }
+
+    private void OnDisable()
+    {
+        ChunkGrid.instance.EndLoad -= GenerateDecorations;
+
+    }
     public override void SetGeneratorBounds(ChunkGrid.GridBounds _bounds)
     {
         bounds = _bounds;
@@ -122,18 +137,17 @@ public class RoomGenerator : IGenerator
             roomTexture.SetPixel(0, y, Color.black);
         }
     }
-    public void GenerateDecorations(Texture2D _texture, Vector3 _offset)
+    private void GenerateDecorations()
     {
-        _texture.wrapMode = TextureWrapMode.Clamp;
+        roomTexture.wrapMode = TextureWrapMode.Clamp;
         List<Vector2Int> allPositions = new List<Vector2Int>();
-        for (int x = 0; x < _texture.width; x++)
+        for (int x = 0; x < roomTexture.width; x++)
         {
-            for (int y = 0; y < _texture.height; y++)
+            for (int y = 0; y < roomTexture.height; y++)
             {
-                Color temp = roomTexture.GetPixel(x, y);
-                int greyCol = Mathf.RoundToInt((float)temp.grayscale * (float)maxHeight);
+               
 
-                if (_texture.GetPixel(x, y) != Color.black)
+                if (roomTexture.GetPixel(x, y) != Color.black)
                 {
                     allPositions.Add(new Vector2Int(x, y));
                 }
@@ -141,36 +155,48 @@ public class RoomGenerator : IGenerator
         }
         for (int i = 0; i < numberOfRopes; i++)
         {
-            int randIndex = Random.Range(0,allPositions.Count);
+            int randIndex = Random.Range(0, allPositions.Count);
             Vector2Int startPos = allPositions[randIndex];
 
 
-            List<Vector2Int> possibleAnchorPos = new List<Vector2Int>();
-            for (int x = -maxRopeAnchorDistance; x < maxRopeAnchorDistance; x++)
-            {
-                for (int y = -maxRopeAnchorDistance; y < maxRopeAnchorDistance; y++)
-                {
-                    if(_texture.GetPixel(startPos.x+x, startPos.y+y) != Color.black)
-                    {
-                        possibleAnchorPos.Add( new Vector2Int(startPos.x+x, startPos.y+y));
-                    }
-                }
-            }
+            List<Vector3> anchorPositions = new List<Vector3>();
+            Color temp = roomTexture.GetPixel(startPos.x, startPos.y);
+            int greyCol = Mathf.RoundToInt((float)temp.grayscale * (float)maxHeight);
+            Vector3 rayoriginPos = ChunkGrid.instance.GridToWorld(new Vector3Int(startPos.x, greyCol, startPos.y)) + new Vector3(0, -0.5f, 0);
             for (int j = 0; j < numberOfRopeAnchors; j++)
             {
-                if (possibleAnchorPos.Count <= 0)
+                Vector3 raycastDir = Random.insideUnitSphere.normalized;
+                raycastDir.y = raycastDir.y < 0 ? raycastDir.y * -1 : raycastDir.y;
+                RaycastHit hit;
+                if (Physics.Raycast(rayoriginPos + Vector3.down, raycastDir, out hit, maxRopeAnchorDistance, groundLayer))
                 {
-                    break;
-                }
-                else
-                {
-
+                    anchorPositions.Add(hit.point);
                 }
             }
+            //==============================================
+            //GET AVERAGE DISTANCE
+            float avgDist = 0;
+            float avgYPos = 0;
+            for (int j = 0; j < anchorPositions.Count - 1; j++)
+            {
+                avgDist += Vector3.Distance(anchorPositions[j], anchorPositions[j + 1]);
+                avgYPos += anchorPositions[j].y;
+            }
+            avgYPos += anchorPositions[anchorPositions.Count - 1].y;
+            avgYPos /= anchorPositions.Count;
+            avgDist /= anchorPositions.Count - 1;
+
+            //==============================================
+            GameObject rope = Instantiate(ropePrefab, rayoriginPos, Quaternion.identity);
+            Rope ropeScrRef = rope.GetComponent<Rope>();
+
+
+            ropeScrRef.SetRopeLength(avgDist +  avgYPos * Random.Range(ropeLength.x, ropeLength.y));
+            ropeScrRef.SetAnchors(anchorPositions.ToArray());
         }
     }
 private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
-    {
+    { 
         int successfulRooms = 0;
         for (int i = 0; i < 1000; i++)
         {

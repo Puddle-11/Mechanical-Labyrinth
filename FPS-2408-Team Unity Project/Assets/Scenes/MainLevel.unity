@@ -362,14 +362,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level generator
       objectReference: {fileID: 0}
-    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: patrolPointsCount
-      value: 10
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: ropeLength.x
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: enemyList.Array.data[0].enemyPrefab
-      value: 
-      objectReference: {fileID: 2466940318331819860, guid: 50e14811848cb804e8afaf38e357d186, type: 3}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: ropeLength.y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: numberOfRopes
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: numberOfRopeAnchors
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: maxRopeAnchorDistance
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

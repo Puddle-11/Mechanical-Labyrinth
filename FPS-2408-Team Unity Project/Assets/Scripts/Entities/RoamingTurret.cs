@@ -27,7 +27,7 @@ public class RoamingTurret : BaseEnemy
        [HideInInspector] public Vector3 absolutePos;
         public GameObject legObj;
         [HideInInspector] public Vector3 currPos;
-        [HideInInspector] public bool isMoving;
+         public bool isMoving;
         public float DistanceToAbsolute()
         {
             return Vector3.Distance(currPos, absolutePos);
@@ -52,15 +52,20 @@ public class RoamingTurret : BaseEnemy
         {
             int A1 = i >= legs.Length - 1 ? 0 : i + 1;
             int A2 = i <= 0 ? legs.Length - 1 : i - 1;
+
+            int oposite = (i + 2) % legs.Length;
+      
             if (legs[i].DistanceToAbsolute() > maxDistanceFromTarget)
             {
                 if (!legs[A1].isMoving && !legs[A2].isMoving)
+                {
                     StartCoroutine(MoveLeg(i));
+                    StartCoroutine(MoveLeg(oposite));
+                }
             }
             else if (legs[i].DistanceToAbsolute() > hardMaxDistance)
             {
-                legs[i].isMoving = false;
-                StartCoroutine(MoveLeg(i));
+                StartCoroutine(MoveLeg(i, true));
             }
             legs[i].legObj.transform.position = legs[i].currPos;
             Quaternion rot = Quaternion.LookRotation(shoulderPos + transform.position - legs[i].legObj.transform.position);
@@ -72,11 +77,10 @@ public class RoamingTurret : BaseEnemy
         for (int i = 0; i < legs.Length; i++) 
             legs[i].anchor.localPosition = legs[i].anchor.localPosition.normalized * legDistance;
     }
-    public IEnumerator MoveLeg(int index)
+    public IEnumerator MoveLeg(int index, bool _override = false)
     {
-        if (legs[index].isMoving) yield break;
+        if (!_override && legs[index].isMoving) yield break;
         legs[index].isMoving = true;
-
         float timer = 0;
         while (timer < legMoveSpeed)
         {
@@ -102,5 +106,20 @@ public class RoamingTurret : BaseEnemy
                legs[i].absolutePos = rayPos + Vector3.down * groundSearchDist;
         }
     }
-  
+    public override void OnDrawGizmos()
+    {
+        for (int i = 0; i < legs.Length; i++)
+        {
+            Gizmos.color = Color.yellow;
+
+            Gizmos.DrawWireSphere( legs[i].absolutePos, 0.2f);
+            Gizmos.color = Color.cyan;
+
+            Gizmos.DrawWireSphere(legs[i].currPos, 0.1f);
+            Gizmos.color = Color.magenta;
+
+            Gizmos.DrawWireSphere(shoulderPos + new Vector3(legs[i].anchor.position.x, transform.position.y, legs[i].anchor.position.z), 0.3f);
+        }
+        base.OnDrawGizmos();
+    }
 }

@@ -58,6 +58,8 @@ public class RoomGenerationCustomEditor : Editor
 
         EditorGUILayout.Space();
         _targetCast.ropePrefab = EditorGUILayout.ObjectField("Rope Prefab", _targetCast.ropePrefab, typeof(GameObject), true) as GameObject;
+        _targetCast.ropeLength = EditorGUILayout.Vector2Field("Rope Length", _targetCast.ropeLength);
+
         _targetCast.numberOfRopes = EditorGUILayout.IntField("Number Of Ropes", _targetCast.numberOfRopes);
         _targetCast.maxRopeAnchorDistance = EditorGUILayout.IntField("Rope Anchor Distance", _targetCast.maxRopeAnchorDistance);
         _targetCast.numberOfRopeAnchors = EditorGUILayout.IntField("Number Of Rope Anchors", _targetCast.numberOfRopeAnchors);

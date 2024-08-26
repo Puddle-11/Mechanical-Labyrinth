@@ -17,7 +17,7 @@ public class VelocityTest : MonoBehaviour
         currForce = Vector3.Distance(transform.position, target.position) * springConstant;
         Vector3 direction = (target.position - transform.position).normalized;
         inertia += direction * currForce * Time.deltaTime / mass;
-
+        inertia /= 1+ dampeningForce * Time.deltaTime;
         transform.Translate(inertia);
     }
 }

@@ -76,6 +76,10 @@ MonoBehaviour:
   RoomSize: 0
   DoorHeight: 5
   DoorWidth: 2
+  maxRopeAnchorDistance: 15
+  ropePrefab: {fileID: 5163827342326432378, guid: 37bbb55b989437042a31c9d76c2b0634, type: 3}
+  numberOfRopes: 5
+  numberOfRopeAnchors: 4
   maxNumOfPrimaryRooms: 5
   maxNumOfSecondaryRooms: 5
   ceilingHeight: 8
@@ -105,9 +109,10 @@ MonoBehaviour:
   maxEnemyCount: 7
   enemyList:
   - enemyScale: {x: 0, y: 0, z: 0}
-    enemyPrefab: {fileID: 4211651637459009485, guid: a283e18e2753afa49820fec4ff7d9745, type: 3}
+    enemyPrefab: {fileID: 2466940318331819860, guid: 50e14811848cb804e8afaf38e357d186, type: 3}
     frequency: 0
   offset: {x: 0, y: 2, z: 0}
+  patrolPointsCount: 10
 --- !u!114 &7672495625900177833
 MonoBehaviour:
   m_ObjectHideFlags: 0

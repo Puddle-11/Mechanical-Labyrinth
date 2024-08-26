@@ -206,16 +206,19 @@ public class PlayerController : BaseEntity
             playerVel.y -= gravityStrength * Time.deltaTime;
         }
         move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
-        if(move.x > 0 || move.y > 0 || move.z > 0)
+       // speed += move * acceleration * Time.deltaTime;
+        if (Mathf.Abs(move.x) > 0.01 || Mathf.Abs(move.y) > 0.01 || Mathf.Abs(move.z) > 0.01)
         {
             //LATER THIS LINE OF CODE NEEDS TO BE HOOKED UP TO A PLAYER ANIMATION
             footstepSoundRef?.TriggerSound(transform.position);
         }
+        else
+        {
+           // speed /= 1 + friction * Time.deltaTime;
+        }
 
-        speed += move * acceleration * Time.deltaTime;
-        speed /= 1 + friction * Time.deltaTime;
-        controllerRef.Move(speed * Time.deltaTime);
-        //controllerRef.Move(move * acceleration * Time.deltaTime);
+        //controllerRef.Move(speed * Time.deltaTime);
+        controllerRef.Move(move * acceleration * Time.deltaTime);
         if (Input.GetButtonDown("Jump"))
         {
             Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));

@@ -302,14 +302,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 150
-  rendRef: {fileID: 0}
-  damageFlashTime: 0.1
   damageMaterial: {fileID: 0}
-  drops: []
   healthBar: {fileID: 0}
+  damageFlashTime: 0.1
+  drops: []
   footstepSoundRef: {fileID: 7812129156646002974}
-  speed: 10
+  acceleration: 15
   sprintMod: 1.5
+  maxSpeed: 0
+  friction: 0
+  dashMod: 0
   mass: 0
   jumplayer:
     serializedVersion: 2
