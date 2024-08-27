@@ -68,8 +68,7 @@ public class BaseGun : Weapon
         return !(isAttacking || isReloading);
     }
     private void Update()
-    {
-        
+    {   
         if (ShootConditional()) Attack();
 
         if (!isAttacking)

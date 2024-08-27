@@ -112,6 +112,10 @@ public class PlayerController : BaseEntity
             {
                 StartCoroutine(Dash());
             }
+            if (Input.GetMouseButtonDown(1))
+            {
+                playerHandRef?.toggleADS();
+            }
         }
 
 

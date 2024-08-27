@@ -7,6 +7,8 @@ using UnityEngine.SocialPlatforms;
 public class PlayerHand : MonoBehaviour
 {
     [SerializeField] private GameObject handAnchor;
+    [SerializeField] private GameObject adsAnchor;
+    [SerializeField] private float adsSpeed;
     [SerializeField] private float pickUpDist;
     private GameObject CurrentEquiped;
     [SerializeField] private LayerMask ignoreMask;
@@ -14,6 +16,7 @@ public class PlayerHand : MonoBehaviour
     [SerializeField] private Vector2 throwOffset;
 
 
+    private bool isAiming = false;
 
     public void SetUseItem(bool _val)
     {
@@ -129,5 +132,27 @@ public class PlayerHand : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void toggleADS()
+    {
+        if (CurrentEquiped != null)
+        {
+            isAiming = !isAiming;
+
+            if (isAiming)
+            {
+                //CurrentEquiped.transform.position = adsAnchor.transform.position;
+                CurrentEquiped.transform.parent = adsAnchor.transform;
+                CurrentEquiped.transform.localPosition = Vector3.zero;
+
+            }
+            else
+            {
+                //CurrentEquiped.transform.position = handAnchor.transform.position;
+                CurrentEquiped.transform.parent = handAnchor.transform;
+                CurrentEquiped.transform.localPosition = Vector3.zero;
+            }
+        }
     }
 }
