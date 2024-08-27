@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
@@ -9,53 +10,113 @@ public class Rope : MonoBehaviour
 {
     [Header("GENERAL")]
     [Space]
-    [SerializeField] private Transform[] anchors;
-    [SerializeField] private float ropeLength;
+    [SerializeField] protected Transform[] anchors;
+    [SerializeField] protected float ropeLength;
 
 
-    [SerializeField] private LineRenderer lnRef;
-    [SerializeField] private int lineResolution;
+    [SerializeField] protected LineRenderer lnRef;
+    [SerializeField] protected int lineResolution = 10;
     [Space]
     [Header("PHYSICS")]
     [Space]
-    [SerializeField] private float springConstant;
-    [SerializeField] private float dampeningForce;
-    [SerializeField] private float acceptableMargin;
+    [SerializeField] protected float springConstant = 0.25f;
+    [SerializeField] protected float dampeningForce = 5f;
+    [SerializeField] protected float acceptableMargin = 0.001f;
 
-    [SerializeField] private bool dynamic = true;
+    [SerializeField] protected bool dynamic = true;
 
-    [SerializeField] private float swaySpeed;
-    [SerializeField] private Vector3 swayDir;
-
-
-    private Vector3[] Positions;
-    private ControlPoint[] currentControlPos;
-    private float swayTimer;
+    [SerializeField] protected float swaySpeed = 0.5f;
+    [SerializeField] protected Vector3 swayDir;
+    [SerializeField] protected float softCollForce = 0.02f;
+    [SerializeField] protected GameObject collisionDetectorPrefab;
+    protected Vector3[] Positions;
+    protected ControlPoint[] currentControlPos;
+    protected float swayTimer;
     [System.Serializable]
     public struct ControlPoint
     {
         public Vector3 absolutePosition;
         public Vector3 currentPosition;
         public Vector3 currenInertia;
+        public GameObject inputCollider;
     }
 
-    private void Start()
+    public virtual void Start()
     {
         SetRope();
+    }
+    public void SetColor(Color _col)
+    {
+        GradientAlphaKey[] gradientAlphaKeys = new GradientAlphaKey[1];
+        GradientColorKey[] gradientColorKeys = new GradientColorKey[1];
+        gradientColorKeys[0] = new GradientColorKey(_col, 0f);
+        gradientAlphaKeys[0] = new GradientAlphaKey(1f, 0f);
+        Gradient tempGrad = new Gradient();
+        tempGrad.SetKeys(gradientColorKeys, gradientAlphaKeys);
+        lnRef.colorGradient = tempGrad;
+    }
+    public void RopeInput(Vector3 _pos, int _index)
+    {
+        Vector3 normalizedDir = (currentControlPos[_index].currentPosition - new Vector3(_pos.x, currentControlPos[_index].currentPosition.y, _pos.z)).normalized;
+        currentControlPos[_index].currenInertia += normalizedDir * softCollForce * Vector3.Distance(anchors[_index].position, anchors[_index + 1].position);
+   
+    
     }
     public void SetRope()
     {
         swayTimer = Random.Range(0f, Mathf.PI);
         currentControlPos = new ControlPoint[anchors.Length - 1];
+
+
         UpdateCurveAnchorPoints();
+        GenerateColliders();
+
+
         for (int i = 0; i < currentControlPos.Length; i++)
         {
+            
+               
             currentControlPos[i].currentPosition = currentControlPos[i].absolutePosition;
             currentControlPos[i].currenInertia = Vector3.zero;
         }
         Positions = new Vector3[lineResolution * currentControlPos.Length];
         UpdateRopePhysics();
         DrawRope(true);
+    }
+    public virtual void GenerateColliders()
+    {
+        if (collisionDetectorPrefab != null)
+        {
+            for (int i = 0; i < currentControlPos.Length; i++)
+            {
+
+                Vector3 instancePos = CalculateCurve(0.5f, anchors[i].position, anchors[i + 1].position, currentControlPos[i].absolutePosition);
+                Quaternion lookRot = Quaternion.LookRotation(anchors[i].position - instancePos);
+                GameObject trig = Instantiate(collisionDetectorPrefab, instancePos, lookRot, transform);
+                RopeInputReceiver ropeinputRef;
+                if (trig.TryGetComponent<RopeInputReceiver>(out ropeinputRef))
+                {
+                    ropeinputRef.SetIndex(i);
+                    ropeinputRef.SetRopeRef(this);
+                }
+                currentControlPos[i].inputCollider = trig;
+
+            }
+        }
+    }
+
+    public virtual void UpdateColliders()
+    {
+        if (collisionDetectorPrefab != null)
+        {
+            for (int i = 0; i < currentControlPos.Length; i++)
+            {
+                Vector3 instancePos = CalculateCurve(0.5f, anchors[i].position, anchors[i + 1].position, currentControlPos[i].absolutePosition);
+                Quaternion lookRot = Quaternion.LookRotation(anchors[i].position - instancePos);
+                currentControlPos[i].inputCollider.transform.rotation = lookRot;
+                currentControlPos[i].inputCollider.transform.position = instancePos;
+            }
+        }
     }
     public void SetAnchors(Transform[] _transforms)
     {
@@ -83,12 +144,13 @@ public class Rope : MonoBehaviour
         SetAnchors(transforms);
     }
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if (dynamic)
         {
             UpdateRopePhysics();
-            DrawRope();
+            DrawRope(false);
+            UpdateColliders();
         }
     }
     private void UpdateRopePhysics()
@@ -105,10 +167,8 @@ public class Rope : MonoBehaviour
             currentControlPos[i].currenInertia /= 1 + dampeningForce * Time.deltaTime;
             currentControlPos[i].currentPosition += currentControlPos[i].currenInertia;
         }
-       
-
     }
-    public void DrawRope(bool _override = false)
+    public void DrawRope(bool _override)
     {
         for (int i = 0; i < currentControlPos.Length; i++)
         {
@@ -139,7 +199,7 @@ public class Rope : MonoBehaviour
             currentControlPos[i].absolutePosition = Mathf.Sin(swayTimer) * swayDir + ((anchors[i + 1].position + anchors[i].position) / 2) + Vector3.down * Mathf.Clamp(ropeLength - Vector3.Distance(anchors[i].position, anchors[i + 1].position), 0f, Mathf.Infinity);
         }
     }
-    private Vector3 CalculateCurve(float t, Vector3 p1, Vector3 p2, Vector3 control)
+    protected Vector3 CalculateCurve(float t, Vector3 p1, Vector3 p2, Vector3 control)
     {
         return Mathf.Pow((1-t),2) * p1 + 2 * (1 - t) * t * control + Mathf.Pow(t, 2) * p2;
     }

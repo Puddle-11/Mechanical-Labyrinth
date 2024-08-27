@@ -18,7 +18,6 @@ public class PlayerController : BaseEntity
     [SerializeField] private float sprintMod;
     private bool isSprinting;
     [SerializeField] private float maxSpeed;
-    private Vector3 speed;
     [SerializeField] private float friction;
     [SerializeField] private float dashMod; 
     //[SerializeField] private float timer;
@@ -118,7 +117,10 @@ public class PlayerController : BaseEntity
         Walljump();
         momentum = mass * acceleration;
     }
-
+    public void UpdatePlayerSpeed(float _mod)
+    {
+        acceleration *= _mod;
+    }
     public IEnumerator Dash()
     {
         if (isDashing) yield break;
@@ -206,19 +208,19 @@ public class PlayerController : BaseEntity
             playerVel.y -= gravityStrength * Time.deltaTime;
         }
         move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
-       // speed += move * acceleration * Time.deltaTime;
+
         if (Mathf.Abs(move.x) > 0.01 || Mathf.Abs(move.y) > 0.01 || Mathf.Abs(move.z) > 0.01)
         {
             //LATER THIS LINE OF CODE NEEDS TO BE HOOKED UP TO A PLAYER ANIMATION
             footstepSoundRef?.TriggerSound(transform.position);
         }
-        else
+        playerVel += move * acceleration;
+        if(playerVel.magnitude > maxSpeed)
         {
-           // speed /= 1 + friction * Time.deltaTime;
+            playerVel = playerVel.normalized * maxSpeed;
         }
 
-        //controllerRef.Move(speed * Time.deltaTime);
-        controllerRef.Move(move * acceleration * Time.deltaTime);
+        controllerRef.Move(playerVel * Time.deltaTime);
         if (Input.GetButtonDown("Jump"))
         {
             Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));

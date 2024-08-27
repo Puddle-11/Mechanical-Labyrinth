@@ -137,8 +137,12 @@ MonoBehaviour:
   lineResolution: 10
   springConstant: 5
   dampeningForce: 8
-  dynamic: 1
   acceptableMargin: 0
+  dynamic: 1
+  swaySpeed: 0
+  swayDir: {x: 0, y: 0, z: 0}
+  softCollForce: 0
+  collisionDetectorPrefab: {fileID: 0}
 --- !u!120 &2684594170053987105
 LineRenderer:
   serializedVersion: 2
@@ -255,6 +259,7 @@ GameObject:
   - component: {fileID: 4556611165813591666}
   - component: {fileID: 1562353904306735454}
   - component: {fileID: 8820785827657055896}
+  - component: {fileID: 4539792015008374870}
   m_Layer: 6
   m_Name: Turret
   m_TagString: Untagged
@@ -404,7 +409,7 @@ MonoBehaviour:
     m_Bits: 72451
   groundSearchDist: 10
   maxDistanceFromTarget: 0.2
-  hardMaxDistance: 0.25
+  hardMaxDistance: 0.6
   legMoveSpeed: 0.2
   legLiftHeight: 0.2
   legLiftCurve:
@@ -440,6 +445,33 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!54 &4539792015008374870
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2466940318331819860}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 14
+  m_CollisionDetection: 0
 --- !u!1 &2691024300743352413
 GameObject:
   m_ObjectHideFlags: 0

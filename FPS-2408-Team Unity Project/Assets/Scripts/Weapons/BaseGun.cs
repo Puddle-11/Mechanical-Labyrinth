@@ -18,16 +18,16 @@ public class BaseGun : Weapon
     [SerializeField] private Material[] P_bulletHoleMat;
     [SerializeField] private Material[] E_bulletHoleMat;
 
-    [SerializeField] private int burstSize;
-    [SerializeField] private int clipSizeMax;
-    [SerializeField] private float reloadSpeed;
-    [SerializeField] private float barrelDelay;
-    [SerializeField] private Animator muzzleFlash;
-    [SerializeField] private float muzzleFlashSize;
-    [SerializeField] private ParticleSystem[] sparkParticles;
+    [SerializeField] protected int burstSize;
+    [SerializeField] protected int clipSizeMax;
+    [SerializeField] protected float reloadSpeed;
+    [SerializeField] protected float barrelDelay;
+    [SerializeField] protected Animator muzzleFlash;
+    [SerializeField] protected float muzzleFlashSize;
+    [SerializeField] protected ParticleSystem[] sparkParticles;
 
-    [SerializeField] private float penetratingDistance;
-    [SerializeField] private float penetratingDamageFalloff;
+    [SerializeField] protected float penetratingDistance;
+    [SerializeField] protected float penetratingDamageFalloff;
     [Space]
     [Header("Accuracy Variables")]
     [Space]
@@ -117,7 +117,6 @@ public class BaseGun : Weapon
 
                 }
                 offTrigger = false;
-            
         }
         else
         {
@@ -131,12 +130,11 @@ public class BaseGun : Weapon
     {
         if (isAttacking) isAttacking = false; //safegaurding against edgecases with the AttackDelay Ienumerator
     }
+    //This is the only function that needs to be overridden for different types of weapons
 
     public override IEnumerator AttackDelay()
     {
         isAttacking = true;
-
-
         int size = 1;
         if (shotType == GunType.Burst) { size = burstSize; }
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
