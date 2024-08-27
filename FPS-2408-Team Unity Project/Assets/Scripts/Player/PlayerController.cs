@@ -201,14 +201,17 @@ public class PlayerController : BaseEntity
     private void Movement()
     {
         //move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            playerVel.x = 0;
+        playerVel.z = 0;
+
         if (controllerRef.isGrounded)
         {
             jumpCurr = 0;
-            playerVel = Vector3.zero;
+            playerVel.y = 0;
+
         }
         else
         {
-
             playerVel.y -= gravityStrength * Time.deltaTime;
         }
         move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
@@ -218,12 +221,12 @@ public class PlayerController : BaseEntity
             //LATER THIS LINE OF CODE NEEDS TO BE HOOKED UP TO A PLAYER ANIMATION
             footstepSoundRef?.TriggerSound(transform.position);
         }
-        playerVel += move * acceleration;
-        if(playerVel.magnitude > maxSpeed)
+        Vector2 tempVel = new Vector2(playerVel.x, playerVel.z) + new Vector2(move.x, move.z) * acceleration;
+        if(tempVel.magnitude > maxSpeed)
         {
-            playerVel = playerVel.normalized * maxSpeed;
+            tempVel = tempVel.normalized * maxSpeed;
         }
-
+        playerVel = new Vector3(tempVel.x, playerVel.y, tempVel.y);
         controllerRef.Move(playerVel * Time.deltaTime);
         if (Input.GetButtonDown("Jump"))
         {

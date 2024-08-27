@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -53,7 +55,6 @@ public class BaseEnemy : BaseEntity
     protected bool isRoaming;
     protected Vector3 startingPos;
     protected bool runningContactDamage;
-
     #region Custom Structs and Enums
     //=======================================
     //CUSTOM STRUCTS AND ENUMS
@@ -208,16 +209,13 @@ public class BaseEnemy : BaseEntity
     }
     protected bool IsInRange(out Vector3 _dirToTarget, float _dist)
     {
-        Debug.Log("In Range Function");
         _dirToTarget = DirectionToTarget();
-        Debug.Log(DistanceToTarget() + " " + hearingRange);
 
         if (DistanceToTarget() < hearingRange)
         {
             RaycastHit hit;
             Vector3 pos = transform.position;
             if (headPos != null) pos = headPos.transform.position;
-
             if (Physics.Raycast(pos, _dirToTarget, out hit, _dist, ~sightMask))
             {
                 if (hit.collider.gameObject == target)
@@ -225,8 +223,6 @@ public class BaseEnemy : BaseEntity
                     return true;
                 }
             }
-            Debug.Log("Hit ray");
-            Debug.DrawRay(pos, _dirToTarget * 10);
         }
         return false;
 
@@ -234,11 +230,12 @@ public class BaseEnemy : BaseEntity
     //-------------
     public bool InAngleRange(float _range)
     {
-        Vector3 dir;
+        Vector3 dPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        Vector3 targetDir = (dPos - transform.position).normalized;
+
         //Checks if target is in range, Gets the direction to the target and checks the angle from transform.forward
         //if less than sight radius, target is in sight
-
-        if (IsInRange(out dir, sightRange) && Vector3.Angle(dir, transform.forward) < _range / 2)
+        if (IsInRange(sightRange) && Vector3.Angle(targetDir, transform.forward) < _range / 2)
         {
             return true;
         }
@@ -348,7 +345,7 @@ public class BaseEnemy : BaseEntity
         Vector3 _nextPos = transform.position;
         if (patrolPoints.Length <= 0)
         {
-            Vector3 randDist = Random.insideUnitSphere * roamingDistance;
+            Vector3 randDist = UnityEngine.Random.insideUnitSphere * roamingDistance;
             randDist += startingPos;
             NavMeshHit hit;
             NavMesh.SamplePosition(randDist, out hit, roamingDistance, 1);
@@ -356,8 +353,7 @@ public class BaseEnemy : BaseEntity
         }
         else
         {
-
-            _nextPos = patrolPoints[Random.Range(0, patrolPoints.Length)];
+            _nextPos = patrolPoints[UnityEngine.Random.Range(0, patrolPoints.Length)];
 
         }
         agent.SetDestination(_nextPos);
