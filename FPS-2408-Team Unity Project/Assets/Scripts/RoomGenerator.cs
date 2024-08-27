@@ -136,6 +136,10 @@ public class RoomGenerator : IGenerator
             roomTexture.SetPixel(roomTexture.height - 1, y, Color.black);
             roomTexture.SetPixel(0, y, Color.black);
         }
+        //miniMap = GetComponent<Image>();
+        //Debug.Log("got component");
+        //miniMap.sprite = roomMap;
+        //Debug.Log("Not set");
     }
     private void GenerateDecorations()
     {

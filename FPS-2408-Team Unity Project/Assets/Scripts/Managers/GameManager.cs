@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
 
-    [HideInInspector] public GameObject playerRef;
-    [HideInInspector] public PlayerController playerControllerRef;
+    public GameObject playerRef;
+    public PlayerController playerControllerRef;
     private int enemyCount;
     private ChunkGrid chunkGridRef;
 
