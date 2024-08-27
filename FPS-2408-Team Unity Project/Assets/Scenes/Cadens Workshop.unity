@@ -566,7 +566,7 @@ PrefabInstance:
 
 
 
-        Press [TAB] to remove control legend'
+        Press [TAB] to remove control legend.'
       objectReference: {fileID: 0}
     - target: {fileID: 2315014580121254107, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: m_AnchoredPosition.y
