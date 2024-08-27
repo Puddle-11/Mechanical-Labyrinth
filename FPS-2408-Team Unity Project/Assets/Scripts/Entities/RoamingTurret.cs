@@ -10,16 +10,16 @@ public class RoamingTurret : BaseEnemy
     [Header("ROAMING TURRET")]
     [Header("_______________________________")]
     [Space]
-    [SerializeField] private Vector3 shoulderPos;
-    [SerializeField] private float legDistance;
-    [SerializeField] private Leg[] legs;
-    [SerializeField] private LayerMask ground;
-    [SerializeField] private float groundSearchDist;
-    [SerializeField] private float maxDistanceFromTarget;
-    [SerializeField] private float hardMaxDistance;
-    [SerializeField] private float legMoveSpeed;
-    [SerializeField] private float legLiftHeight;
-    [SerializeField] private AnimationCurve legLiftCurve;
+    [SerializeField] protected Vector3 shoulderPos;
+    [SerializeField] protected float legDistance;
+    [SerializeField] protected Leg[] legs;
+    [SerializeField] protected LayerMask ground;
+    [SerializeField] protected float groundSearchDist;
+    [SerializeField] protected float maxDistanceFromTarget;
+    [SerializeField] protected float hardMaxDistance;
+    [SerializeField] protected float legMoveSpeed;
+    [SerializeField] protected float legLiftHeight;
+    [SerializeField] protected AnimationCurve legLiftCurve;
     [System.Serializable]
     public struct Leg
     {
@@ -46,24 +46,23 @@ public class RoamingTurret : BaseEnemy
     }
     private void UpdateLegs()
     {
-        UpdateAbsolutePos();
 
+        UpdateAbsolutePos();
         for (int i = 0; i < legs.Length; i++)
         {
             int A1 = i >= legs.Length - 1 ? 0 : i + 1;
             int A2 = i <= 0 ? legs.Length - 1 : i - 1;
 
-            int oposite = (i + 2) % legs.Length;
-      
+
             if (legs[i].DistanceToAbsolute() > maxDistanceFromTarget)
             {
                 if (!legs[A1].isMoving && !legs[A2].isMoving)
                 {
                     StartCoroutine(MoveLeg(i));
-                    StartCoroutine(MoveLeg(oposite));
+                    StartCoroutine(MoveLeg((i + 2) % legs.Length));
                 }
             }
-            else if (legs[i].DistanceToAbsolute() > hardMaxDistance)
+            if (legs[i].DistanceToAbsolute() > hardMaxDistance)
             {
                 StartCoroutine(MoveLeg(i, true));
             }
@@ -71,6 +70,7 @@ public class RoamingTurret : BaseEnemy
             Quaternion rot = Quaternion.LookRotation(shoulderPos + transform.position - legs[i].legObj.transform.position);
             legs[i].legObj.transform.rotation = rot;
         }
+    
     }
     private void UpdateAnchors()
     {
@@ -106,7 +106,7 @@ public class RoamingTurret : BaseEnemy
                legs[i].absolutePos = rayPos + Vector3.down * groundSearchDist;
         }
     }
-    public override void OnDrawGizmos()
+    public override void OnDrawGizmosSelected()
     {
         for (int i = 0; i < legs.Length; i++)
         {
@@ -120,6 +120,6 @@ public class RoamingTurret : BaseEnemy
 
             Gizmos.DrawWireSphere(shoulderPos + new Vector3(legs[i].anchor.position.x, transform.position.y, legs[i].anchor.position.z), 0.3f);
         }
-        base.OnDrawGizmos();
+        base.OnDrawGizmosSelected();
     }
 }

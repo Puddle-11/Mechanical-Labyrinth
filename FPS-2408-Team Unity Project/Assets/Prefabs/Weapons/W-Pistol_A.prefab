@@ -197,7 +197,7 @@ MonoBehaviour:
   m_GenerateLinks: 0
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
-  m_AffectedAgents: 
+  m_AffectedAgents: ffffffff
 --- !u!4 &7179430413975253999 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8894966728604882772, guid: b440b0e4530b7994ca41833a626f7639, type: 3}

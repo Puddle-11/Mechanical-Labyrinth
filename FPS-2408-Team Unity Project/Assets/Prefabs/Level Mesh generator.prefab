@@ -70,16 +70,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enclose: 1
   EndDoorPrefab: {fileID: 1645875506255807876, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
   generatorType: 1
   maxHeight: 10
   roomMap: {fileID: 21300000, guid: 24d132f37b32f514dbf11a5ff7940d70, type: 3}
   RoomSize: 0
   DoorHeight: 5
   DoorWidth: 2
-  maxRopeAnchorDistance: 15
+  maxRopeAnchorDistance: 5
   ropePrefab: {fileID: 5163827342326432378, guid: 37bbb55b989437042a31c9d76c2b0634, type: 3}
-  numberOfRopes: 5
-  numberOfRopeAnchors: 4
+  numberOfRopes: 25
+  numberOfRopeAnchors: 3
+  ropeLength: {x: 0.5, y: 0.75}
   maxNumOfPrimaryRooms: 5
   maxNumOfSecondaryRooms: 5
   ceilingHeight: 8

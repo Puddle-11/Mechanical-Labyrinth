@@ -364,27 +364,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: ropeLength.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: ropeLength.y
       value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: numberOfRopes
-      value: 25
+      propertyPath: ropeLength.y
+      value: 0.9
       objectReference: {fileID: 0}
-    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: groundLayer.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: numberOfRopeAnchors
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
-      propertyPath: maxRopeAnchorDistance
-      value: 5
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

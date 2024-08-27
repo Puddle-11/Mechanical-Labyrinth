@@ -15,44 +15,44 @@ public class BaseEnemy : BaseEntity
     [Header("BASE ENEMY GENERAL")]
     [Header("_______________________________")]
     [Space]
-    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected Weapon weaponScr;
-    [SerializeField] private Transform headPos;
-    [SerializeField] private Vector3[] patrolPoints;
-    [SerializeField] private int contactDamage = 15;
-    [SerializeField] private float contactDamageFrequency = 0.5f;
+    [SerializeField] protected Transform headPos;
+    [SerializeField] protected Vector3[] patrolPoints;
+    [SerializeField] protected int contactDamage = 15;
+    [SerializeField] protected float contactDamageFrequency = 0.5f;
 
     [Space]
     [SerializeField] protected float stoppingDistance = 7;
-    [SerializeField] private float rotationSpeed = 180;
-    [SerializeField] private float roamTimer = 2;
-    [SerializeField] private float roamingDistance = 15;
-    [SerializeField] private int sneakDamageMultiplyer = 2;
+    [SerializeField] protected float rotationSpeed = 180;
+    [SerializeField] protected float roamTimer = 2;
+    [SerializeField] protected float roamingDistance = 15;
+    [SerializeField] protected int sneakDamageMultiplyer = 2;
     [Header("DETECTION")]
     [Space]
-    [SerializeField] private float attackRange = 7;
-    [SerializeField] private float sightRange = 13.5f;
-    [SerializeField] private float hearingRange = 20;
+    [SerializeField] protected float attackRange = 7;
+    [SerializeField] protected float sightRange = 13.5f;
+    [SerializeField] protected float hearingRange = 20;
     [Space]
-    [SerializeField] private float attackAngle = 50;
-    [SerializeField] private float sightAngle = 90;
+    [SerializeField] protected float attackAngle = 50;
+    [SerializeField] protected float sightAngle = 90;
     [Space]
-    [SerializeField] private GameObject target;
-    [SerializeField] private DetectionType senseType;
-    [SerializeField] private LayerMask sightMask;
+    [SerializeField] protected GameObject target;
+    [SerializeField] protected DetectionType senseType;
+    [SerializeField] protected LayerMask sightMask;
 
     [Space]
     [Header("PLAYER FEEDBACK")]
     [Space]
 
-    [SerializeField] private Image alertMarker;
-    [SerializeField] private Animator anim;
-    [SerializeField] private float transitionSpeed = 0.5f;
+    [SerializeField] protected Image alertMarker;
+    [SerializeField] protected Animator anim;
+    [SerializeField] protected float transitionSpeed = 0.5f;
 
-    private EnemyState currState;
-    private bool isRoaming;
-    private Vector3 startingPos;
-    private bool runningContactDamage;
+    protected EnemyState currState;
+    protected bool isRoaming;
+    protected Vector3 startingPos;
+    protected bool runningContactDamage;
 
     #region Custom Structs and Enums
     //=======================================
@@ -88,6 +88,10 @@ public class BaseEnemy : BaseEntity
     }
     //-------------
     public void OnDisable()
+    {
+        RemoveEvents();
+    }
+    protected void RemoveEvents()
     {
         if (senseType == DetectionType.Sound || senseType == DetectionType.Vision_Sound)
         {
@@ -156,7 +160,7 @@ public class BaseEnemy : BaseEntity
         patrolPoints = _val;
     }
     //-------------
-    private void SetNavmeshTarget(Vector3 _pos)
+    protected void SetNavmeshTarget(Vector3 _pos)
     {
        agent?.SetDestination(_pos);
     }
@@ -177,7 +181,7 @@ public class BaseEnemy : BaseEntity
     //=======================================
     //HELPER FUNCTIONS
 
-    private float DistanceToTarget()
+    protected float DistanceToTarget()
     {
         return Vector3.Distance(target.transform.position, transform.position);
     }
@@ -185,28 +189,29 @@ public class BaseEnemy : BaseEntity
     public Vector3 DirectionToTarget()
     {
         Vector3 targetDir = (target.transform.position - transform.position).normalized;
-        targetDir.y = -targetDir.y;
-        Debug.DrawRay(transform.position, targetDir *hearingRange);
         return targetDir;
     }
     //-------------
-    public bool IsInRange(float _dist)
+    protected bool IsInRange(float _dist)
     {
         Vector3 angle;
         return IsInRange(out angle, _dist);
     }
-    public bool IsInRange()
+    protected bool IsInRange()
     {
         return IsInRange(hearingRange);
     }
-    public bool IsInRange(out Vector3 _dirToTarget)
+    protected bool IsInRange(out Vector3 _dirToTarget)
     {
 
        return IsInRange(out _dirToTarget, hearingRange);
     }
-    public bool IsInRange(out Vector3 _dirToTarget, float _dist)
+    protected bool IsInRange(out Vector3 _dirToTarget, float _dist)
     {
+        Debug.Log("In Range Function");
         _dirToTarget = DirectionToTarget();
+        Debug.Log(DistanceToTarget() + " " + hearingRange);
+
         if (DistanceToTarget() < hearingRange)
         {
             RaycastHit hit;
@@ -220,6 +225,8 @@ public class BaseEnemy : BaseEntity
                     return true;
                 }
             }
+            Debug.Log("Hit ray");
+            Debug.DrawRay(pos, _dirToTarget * 10);
         }
         return false;
 
@@ -254,7 +261,7 @@ public class BaseEnemy : BaseEntity
     #endregion
 
     #region State Machine
-    private void StateHandler()
+    protected virtual void StateHandler()
     {
         if (agent == null) return;
         EnemyStatus(ref currState);
@@ -283,7 +290,7 @@ public class BaseEnemy : BaseEntity
         }
     }
     //-------------
-    private void EnemyStatus(ref EnemyState _enemyStateRef)
+    protected void EnemyStatus(ref EnemyState _enemyStateRef)
     {
         if (senseType == DetectionType.InRange)
         {
@@ -324,7 +331,7 @@ public class BaseEnemy : BaseEntity
         }
     }
     //-------------
-    private void EnterInvestigate(Vector3 _pos)
+    protected void EnterInvestigate(Vector3 _pos)
     {
         if ((currState == EnemyState.Patrol || currState == EnemyState.Investigate) && IsInRange())
         {
@@ -333,7 +340,7 @@ public class BaseEnemy : BaseEntity
         }
     }
     //-------------
-    private IEnumerator Roam()
+    protected IEnumerator Roam()
     {
         if (isRoaming) yield break;
         isRoaming = true;
@@ -361,6 +368,7 @@ public class BaseEnemy : BaseEntity
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotationSpeed);
+
     }
     #endregion
 
@@ -380,10 +388,13 @@ public class BaseEnemy : BaseEntity
     {
         GameManager.instance?.updateGameGoal(-1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
+        RemoveEvents();
         base.Death();
     }
     #endregion
-    private IEnumerator contactDamageDelay(IHealth _target)
+
+    
+    protected IEnumerator contactDamageDelay(IHealth _target)
     {
         if (runningContactDamage) yield break;
         runningContactDamage = true;
@@ -392,7 +403,7 @@ public class BaseEnemy : BaseEntity
         runningContactDamage = false;
 
     }
-    public virtual void OnDrawGizmos()
+    public virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, sightRange);

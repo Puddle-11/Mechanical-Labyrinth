@@ -18,7 +18,6 @@ public class PlayerController : BaseEntity
     [SerializeField] private float sprintMod;
     private bool isSprinting;
     [SerializeField] private float maxSpeed;
-    private Vector3 speed;
     [SerializeField] private float friction;
     [SerializeField] private float dashMod; 
     //[SerializeField] private float timer;
@@ -118,11 +117,14 @@ public class PlayerController : BaseEntity
             }
         }
 
-
-        Walljump();
+        wallslide();
+       // Walljump();
         momentum = mass * acceleration;
     }
-
+    public void UpdatePlayerSpeed(float _mod)
+    {
+        acceleration *= _mod;
+    }
     public IEnumerator Dash()
     {
         if (isDashing) yield break;
@@ -210,19 +212,19 @@ public class PlayerController : BaseEntity
             playerVel.y -= gravityStrength * Time.deltaTime;
         }
         move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
-       // speed += move * acceleration * Time.deltaTime;
+
         if (Mathf.Abs(move.x) > 0.01 || Mathf.Abs(move.y) > 0.01 || Mathf.Abs(move.z) > 0.01)
         {
             //LATER THIS LINE OF CODE NEEDS TO BE HOOKED UP TO A PLAYER ANIMATION
             footstepSoundRef?.TriggerSound(transform.position);
         }
-        else
+        playerVel += move * acceleration;
+        if(playerVel.magnitude > maxSpeed)
         {
-           // speed /= 1 + friction * Time.deltaTime;
+            playerVel = playerVel.normalized * maxSpeed;
         }
 
-        //controllerRef.Move(speed * Time.deltaTime);
-        controllerRef.Move(move * acceleration * Time.deltaTime);
+        controllerRef.Move(playerVel * Time.deltaTime);
         if (Input.GetButtonDown("Jump"))
         {
             Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));
@@ -252,24 +254,31 @@ public class PlayerController : BaseEntity
     }
     void Walljump()
     {
+        
         RaycastHit hit;
+        Walljumpdir = new Vector3(0, jumpHeight, 0);
         if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
-            onWall = true;  
-            Walljumpdir = new Vector3(0, jumpHeight, 0);
+            onWall = true;
+            if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
+            {
+                Walljumpdir = new Vector3(GameManager.instance.playerRef.transform.position.x, jumpHeight, 0);
+            }
         }
         else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
         {
             jumpCurr = 0;
             onWall = true;
-            Walljumpdir = new Vector3(0, jumpHeight, 0);
+            if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
+            {
+                Walljumpdir = new Vector3(-GameManager.instance.playerRef.transform.position.x, jumpHeight, 0);
+            }
         }
         else
         {
             onWall = false;
         }
-        Walljumpdir = new Vector3(0, jumpHeight, 0);
         if (Input.GetButtonDown("Jump"))
         {
             Jump(Walljumpdir);
@@ -279,15 +288,12 @@ public class PlayerController : BaseEntity
 
     void wallslide()
     {
-        gravityStrength = gravityStrength / wallgravity;
 
         if (onWall == true && playerVel.y < 0)
         {
             playerVel.y = 0;
-            gravityStrength = gravityStrength / wallgravity;
-        }
-        else if(onWall == false) { 
-        
+            gravityStrength = gravityStrength /= wallgravity;
+            gravityStrength = Mathf.Clamp(gravityStrength, 12, 26);
         }
     }
 

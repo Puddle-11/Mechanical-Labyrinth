@@ -167,11 +167,14 @@ public class RoomGenerator : IGenerator
             {
                 Vector3 raycastDir = Random.insideUnitSphere.normalized;
                 raycastDir.y = raycastDir.y < 0 ? raycastDir.y * -1 : raycastDir.y;
+
+
                 RaycastHit hit;
                 if (Physics.Raycast(rayoriginPos + Vector3.down, raycastDir, out hit, maxRopeAnchorDistance, groundLayer))
                 {
                     anchorPositions.Add(hit.point);
                 }
+            Debug.DrawRay(rayoriginPos + Vector3.down, raycastDir * maxRopeAnchorDistance, Color.red, 1000);
             }
             //==============================================
             //GET AVERAGE DISTANCE

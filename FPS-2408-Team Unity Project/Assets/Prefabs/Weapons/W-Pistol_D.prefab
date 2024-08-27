@@ -198,7 +198,7 @@ MonoBehaviour:
   m_GenerateLinks: 0
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
-  m_AffectedAgents: 
+  m_AffectedAgents: ffffffff
 --- !u!1001 &1238983288157647395
 PrefabInstance:
   m_ObjectHideFlags: 0
