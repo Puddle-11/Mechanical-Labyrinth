@@ -9,6 +9,7 @@ using UnityEngine.AI;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
+
 public class BaseEnemy : BaseEntity
 {
     //NEW VARIABLES
@@ -50,7 +51,7 @@ public class BaseEnemy : BaseEntity
     [SerializeField] protected Image alertMarker;
     [SerializeField] protected Animator anim;
     [SerializeField] protected float transitionSpeed = 0.5f;
-
+    [SerializeField] public AudioClip[] Deathsounds;
     protected EnemyState currState;
     protected bool isRoaming;
     protected Vector3 startingPos;
@@ -388,6 +389,7 @@ public class BaseEnemy : BaseEntity
     //-------------
     public override void Death()
     {
+        AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], AudioManager.soundType.enemy);
         GameManager.instance.UpdateKillCounter(1);
         GameManager.instance?.updateGameGoal(-1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
