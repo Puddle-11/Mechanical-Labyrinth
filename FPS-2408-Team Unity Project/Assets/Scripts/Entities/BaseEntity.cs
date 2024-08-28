@@ -142,8 +142,11 @@ public class BaseEntity : MonoBehaviour, IHealth
 
     public virtual void Death()
     {
-        //default death case
+        if (gameObject != null)
+        {
+            //default death case
         Destroy(gameObject);
+        }
     }
     public virtual void DropInventory()
     {

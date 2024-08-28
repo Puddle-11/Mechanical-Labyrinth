@@ -43,7 +43,6 @@ public class PlayerController : BaseEntity
     private GameObject playerSpawnPos;
     [Header("Sounds")]
     [Space]
-    
     [SerializeField] private float footstepDelay;
     public AudioClip[] footstepSounds;
     public AudioClip[] damageSounds;

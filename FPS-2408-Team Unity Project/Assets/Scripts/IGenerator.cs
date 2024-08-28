@@ -7,6 +7,7 @@ public class IGenerator :MonoBehaviour
     [Space]
     [SerializeField] protected bool enclose;
     public GameObject EndDoorPrefab;
+    public Vector3 endDoorOffset;
     public virtual int PlaceTile(Vector3Int _pos)
     {
         if(_pos.y == 0)return 1;

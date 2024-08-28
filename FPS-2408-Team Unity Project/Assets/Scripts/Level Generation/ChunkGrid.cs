@@ -28,6 +28,7 @@ public class ChunkGrid : MonoBehaviour
     public float progress;
     private int chunkLoaded;
     private int totalChunks;
+   
     [SerializeField] private NavMeshSurface navMeshSurfaceRef;
     public Texture2D GetRoomTexture()
     {
@@ -100,7 +101,7 @@ public class ChunkGrid : MonoBehaviour
     {
         Vector2Int UPos = iGen.GetStartingPoint();
         Vector3Int _gridPos = new Vector3Int(UPos.x, 2, UPos.y);
-        Instantiate(iGen.EndDoorPrefab, GridToWorld(_gridPos) + new Vector3(0, 0, -2), Quaternion.LookRotation(new Vector3(0,0,1)));
+        Instantiate(iGen.EndDoorPrefab, GridToWorld(_gridPos) + iGen.endDoorOffset, Quaternion.LookRotation(new Vector3(0,0,1)));
     }
 
     #region MainGeneration

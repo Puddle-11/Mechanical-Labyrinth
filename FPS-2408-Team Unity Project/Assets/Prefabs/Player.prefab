@@ -411,8 +411,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7217878186516373717}
   - component: {fileID: 3171956104164039815}
-  - component: {fileID: 7146269501787680071}
   - component: {fileID: 6280407459343709001}
+  - component: {fileID: 3357709615950047693}
   m_Layer: 0
   m_Name: Minimap Cam
   m_TagString: Untagged
@@ -486,14 +486,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &7146269501787680071
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5243290589362345652}
-  m_Enabled: 1
 --- !u!114 &6280407459343709001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,6 +530,19 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &3357709615950047693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243290589362345652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f25d8b52dcf406a46be0bbdd2c1ea0f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbsoluteHeight: 30
 --- !u!1 &9109832186709042457
 GameObject:
   m_ObjectHideFlags: 0

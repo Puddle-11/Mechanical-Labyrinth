@@ -370,13 +370,29 @@ PrefabInstance:
       propertyPath: ropeLength.y
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: EndDoorPrefab
+      value: 
+      objectReference: {fileID: 5607771420141801015, guid: ca80fbc208a597a489fcec984d340aab, type: 3}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: minRoomSize.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: minRoomSize.y
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: endDoorOffset.y
+      value: -1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: maxEnemyCount
-      value: 7
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.size
