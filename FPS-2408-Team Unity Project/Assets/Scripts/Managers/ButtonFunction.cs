@@ -13,7 +13,8 @@ public class ButtonFunction : MonoBehaviour
     public void restart()
     {
         BootLoadManager.instance?.LoadGameScene(SceneManager.GetActiveScene().name);
-        UIManager.instance.StateUnpause();
+        GameManager.instance?.respawn();
+        UIManager.instance?.StateUnpause();
     }
     public void quit()
     {
@@ -24,6 +25,7 @@ public class ButtonFunction : MonoBehaviour
     public void respawn()
     {
         GameManager.instance?.respawn();
+        GameManager.instance?.MoveToRespawn();
     }
     // Start is called before the first frame update
 

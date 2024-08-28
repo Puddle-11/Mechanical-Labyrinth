@@ -37,6 +37,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float C_lineThickness;
     [SerializeField] private float C_centerDotSize;
     [SerializeField] private Crosshair crosshairRef;
+    [Space]
+    [Header("Loss Screen Stats")]
+
+    [Space]
+    [SerializeField] private TMP_Text enemiesKilled;
+    [SerializeField] private TMP_Text damageDealt;
+    [SerializeField] private TMP_Text attemptNumber;
+
+    [SerializeField] private GameObject runStatsObj;
 
     [Space]
     [Header("Misc")]
@@ -45,17 +54,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image ammoFillup;
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
-    private bool isPause = false;
-    [SerializeField] private UIObj[] ConstUI;
+    [SerializeField] private Animator UIFadeAnim;
+
+    public UIObj[] ConstUI;
 
     private bool showingControls = true;
 
 
 
     [System.Serializable]
-    private struct UIObj
-    {
-        [HideInInspector] public bool CUI_currentState;
+    public struct UIObj
+    { public bool CUI_currentState;
 
         public GameObject CUI_obj;
     }
@@ -67,23 +76,35 @@ public class UIManager : MonoBehaviour
         public GameObject[] verticalLine;
     }
    
+    public void SetAttemptNumber(int _val)
+    {
+        attemptNumber.text = _val.ToString();
+    }
+
+    public void SetEnemiesKilled(int _val)
+    {
+        enemiesKilled.text = "Enemies Killed: " + _val.ToString();
+    }
+    public void SetDamageDealt(ulong _val)
+    {
+        damageDealt.text = "Damage Dealt: " + _val.ToString();
+    }
     public void ToggleEnemyCount(bool _val)
     {
         enemyCountObj.SetActive(_val);
     }
-    public bool GetStatePaused()
-    {
-        return isPause;
-    }
+    
     public void SetEnemyCount(int _val)
     {
         enemyCountField.text = _val.ToString();
     }
     public void UpdateHealthBar(float _val) //Takes a NORMALIZED value
     {
-        playerHealth.color = playerHealthColor.Evaluate(_val);
-        playerHealth.fillAmount = _val;
-
+        if (playerHealth != null)
+        {
+            playerHealth.color = playerHealthColor.Evaluate(_val);
+            playerHealth.fillAmount = _val;
+        }
     }
     public IEnumerator flashDamage()
     {
@@ -91,6 +112,10 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(flashDamageTime);
         flashDamageRef.SetActive(false);
 
+    }
+    public void ResetTempUI()
+    {
+        flashDamageRef.SetActive(false);
     }
     private void Awake()
     {
@@ -128,14 +153,16 @@ public class UIManager : MonoBehaviour
             }
             if (Input.GetButtonDown("tab"))
             {
-                ToggleControlsLegend(showingControls);
+                ToggleControlsLegend();
             }
         }
     }
 
     public void StatePause()
     {
-        SetPause(true);
+        runStatsObj.SetActive(true);
+        UIFadeAnim.SetBool("InUI", true);
+        GameManager.instance.SetPause(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         if (menuActive != null && menuActive.activeInHierarchy) menuActive.SetActive(false);
@@ -145,7 +172,11 @@ public class UIManager : MonoBehaviour
     }
     public void StateUnpause()
     {
-        SetPause(false);
+        runStatsObj.SetActive(false);
+
+        UIFadeAnim.SetBool("InUI", false);
+
+        GameManager.instance.SetPause(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         if (menuActive != null)
@@ -161,23 +192,12 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-    public void SetPause(bool _val)
-    {
-        isPause = _val;
-        Time.timeScale = _val ? 0 : 1;
-        if (_val == true) return;
-        for (int i = 0; i < ConstUI.Length; i++)
-        {
-            if (ConstUI[i].CUI_obj != null)
-            {
-                ConstUI[i].CUI_currentState = ConstUI[i].CUI_obj.activeInHierarchy;
-                ConstUI[i].CUI_obj.SetActive(false);
-            }
-        }
-    }
+    
     public void OpenLoseMenu()
     {
-        SetPause(true);
+        runStatsObj.SetActive(true);
+        UIFadeAnim.SetBool("InUI", true);
+        GameManager.instance.SetPause(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         menuActive = menuLose;
@@ -207,8 +227,6 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < crosshairRef.horizontalLine.Length; i++)
         {
             GameObject curr = crosshairRef.horizontalLine[i];
-
-
             curr.GetComponent<Image>().color = C_crosshairColor;
             Vector2 normDir = new Vector2(curr.transform.localPosition.normalized.x,0);
             curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.x / 2) + normDir * C_centerDotSize/2;
@@ -244,7 +262,7 @@ public class UIManager : MonoBehaviour
         }
 
     }
-    public void ToggleControlsLegend(bool _val)
+    public void ToggleControlsLegend()
     {
         if (showingControls == true){
                 

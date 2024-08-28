@@ -114,7 +114,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (UIManager.instance == null || (UIManager.instance != null && !UIManager.instance.GetStatePaused()))
+        if (UIManager.instance == null || (UIManager.instance != null && !GameManager.instance.GetStatePaused()))
         {
             UpdateCamPos();
         }

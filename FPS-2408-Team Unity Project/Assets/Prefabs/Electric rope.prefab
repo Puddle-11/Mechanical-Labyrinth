@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9164030569256302508}
   - component: {fileID: 2810163227999853926}
   - component: {fileID: 3718082361605845821}
+  - component: {fileID: 2349133617277427097}
+  - component: {fileID: 4486841976699107859}
   m_Layer: 0
   m_Name: Electric rope
   m_TagString: Untagged
@@ -48,17 +50,17 @@ MonoBehaviour:
   anchors:
   - {fileID: 0}
   - {fileID: 0}
-  ropeLength: 15
+  ropeLength: 25
   lnRef: {fileID: 3718082361605845821}
-  lineResolution: 10
+  lineResolution: 15
   springConstant: 0.25
   dampeningForce: 5
   acceptableMargin: 0.001
   dynamic: 1
-  swaySpeed: 0.5
-  swayDir: {x: 0, y: 0, z: 0}
+  interactable: 1
   softCollForce: 0.02
-  collisionDetectorPrefab: {fileID: 5236128973368633217, guid: 18feffef21592954da99c784b306acac, type: 3}
+  colliderSize: 0.5
+  currentControlPos: []
   colorOverLifetime:
     serializedVersion: 2
     key0: {r: 1, g: 0.7489872, b: 0, a: 1}
@@ -89,7 +91,8 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  decayTime: 3
+  decayTime: 100
+  hangDist: 5
 --- !u!120 &3718082361605845821
 LineRenderer:
   serializedVersion: 2
@@ -194,3 +197,40 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!64 &2349133617277427097
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439380383593716450}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!114 &4486841976699107859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439380383593716450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669ea800a58dded41890a62e6c93bc40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  damageAmount: 2
+  defaulltSpeed: 0.2

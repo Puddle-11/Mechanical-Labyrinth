@@ -10,24 +10,18 @@ public class Weapon : MonoBehaviour, IUsable
     public LayerMask ignoreMask;
     [SerializeField] protected GameObject pickUp;
     [SerializeField] protected ItemType gunDrop;
-    [SerializeField] protected string objName;
 
-    public virtual bool CanAttack()
-    {
-        return !isAttacking;
-    }
-    public virtual string GetItemName()
-    {
-        return objName;
-    }
-    public virtual string GetItemStats()
-    {
-        return "Speed: " + coolDown;
-    }
-    public void SetPickup(GameObject _pickup)
-    {
-        pickUp = _pickup;
-    }
+    #region Getters Setters
+    public virtual ItemType GetItemType() { return gunDrop; }
+    public virtual bool CanAttack() { return !isAttacking; }
+    public virtual string GetItemName() { return gunDrop.name; }
+    public virtual string GetItemStats() { return "Speed: " + coolDown; }
+    public void SetPickup(GameObject _pickup) { pickUp = _pickup; }
+    public bool GetUsingItem() { return usingItem; }
+    public void SetUsingItem(bool _val) { usingItem = _val; }
+    public bool GetIsAttacking() { return isAttacking; }
+    #endregion
+    public void UseItem() { Attack(); }
     public GameObject GetPickup()
     {
         if (pickUp != null)
@@ -45,23 +39,7 @@ public class Weapon : MonoBehaviour, IUsable
         }
     }
 
-    public bool GetUsingItem()
-    {
-        return usingItem;
-    }
-    public void SetUsingItem(bool _val)
-    {
-        usingItem = _val;
-    }
-    public void UseItem()
-    {
-        Attack();
-    }
-  
-    public bool GetIsAttacking()
-    {
-        return isAttacking;
-    }
+    
     public virtual void Attack()
     {
 

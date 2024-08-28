@@ -178,7 +178,7 @@ public class RoomGenerator : IGenerator
                 {
                     anchorPositions.Add(hit.point);
                 }
-            Debug.DrawRay(rayoriginPos + Vector3.down, raycastDir * maxRopeAnchorDistance, Color.red, 1000);
+                Debug.DrawRay(rayoriginPos + Vector3.down, raycastDir * maxRopeAnchorDistance, Color.red, 1000);
             }
             //==============================================
             //GET AVERAGE DISTANCE
@@ -189,17 +189,20 @@ public class RoomGenerator : IGenerator
                 avgDist += Vector3.Distance(anchorPositions[j], anchorPositions[j + 1]);
                 avgYPos += anchorPositions[j].y;
             }
-            avgYPos += anchorPositions[anchorPositions.Count - 1].y;
-            avgYPos /= anchorPositions.Count;
-            avgDist /= anchorPositions.Count - 1;
+            if (anchorPositions.Count != 0)
+            {
+                avgYPos += anchorPositions[anchorPositions.Count - 1].y;
+                avgYPos /= anchorPositions.Count;
+                avgDist /= anchorPositions.Count - 1;
 
-            //==============================================
-            GameObject rope = Instantiate(ropePrefab, rayoriginPos, Quaternion.identity);
-            Rope ropeScrRef = rope.GetComponent<Rope>();
+                //==============================================
+                GameObject rope = Instantiate(ropePrefab, rayoriginPos, Quaternion.identity);
+                Rope ropeScrRef = rope.GetComponent<Rope>();
 
 
-            ropeScrRef.SetRopeLength(avgDist +  avgYPos * Random.Range(ropeLength.x, ropeLength.y));
-            ropeScrRef.SetAnchors(anchorPositions.ToArray());
+                ropeScrRef.SetRopeLength(avgDist + avgYPos * Random.Range(ropeLength.x, ropeLength.y));
+                ropeScrRef.SetAnchors(anchorPositions.ToArray());
+            }
         }
     }
 private void GenerateSecondaryRooms(Texture2D _texture, int _padding)

@@ -7,32 +7,25 @@ public class Tazer : Weapon
 {
     private GameObject currTazer;
     [SerializeField] private GameObject electricRopePrefab;
+    [SerializeField] private float lineDecay;
     [SerializeField] private GameObject endAnchor;
     [SerializeField] private float projectileSpeed;
     [SerializeField] private Transform shootPos;
-    public bool debugShoot;
-    private void Update()
-    {
-        if (debugShoot)
-        {
-            Attack();
-            debugShoot = false;
-        }
-    }
+
     public override IEnumerator AttackDelay()
     {
         isAttacking = true;
 
-       currTazer = Instantiate(electricRopePrefab, shootPos.position, Quaternion.identity, transform);
+       currTazer = Instantiate(electricRopePrefab, Vector3.zero, Quaternion.identity);
         ElectrifiedRope electricRopeRef;
-        GameObject endAnchorInstance = Instantiate(endAnchor, shootPos.position, Quaternion.identity);
-        GameObject startAnchor = new GameObject("Start Anchor");
-        startAnchor.transform.position = shootPos.position;
-        startAnchor.transform.parent = shootPos;
+        GameObject endAnchorInstance = Instantiate(endAnchor, shootPos.position + shootPos.position * 0.01f, Quaternion.identity);
+        GameObject startAnchorInstance = Instantiate(endAnchor, shootPos.position, Quaternion.identity);
+
+        
         if(currTazer.TryGetComponent<ElectrifiedRope>(out electricRopeRef))
         {
-            electricRopeRef.SetDecay(coolDown);
-            electricRopeRef.SetAnchors(new Transform[] {startAnchor.transform, endAnchorInstance.transform});
+            electricRopeRef.SetDecay(lineDecay);
+            electricRopeRef.SetAnchors(new Transform[] { startAnchorInstance.transform, endAnchorInstance.transform});
         }
         Rigidbody tempRef;
         if(endAnchorInstance.TryGetComponent<Rigidbody>(out tempRef)){

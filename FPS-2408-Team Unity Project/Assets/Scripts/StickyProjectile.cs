@@ -7,7 +7,9 @@ public class StickyProjectile : MonoBehaviour
     [SerializeField] private Rigidbody rbRef;
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(rbRef);
-        transform.parent = collision.transform;
+        
+            Destroy(rbRef);
+            transform.parent = collision.transform;
+        
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -8,12 +9,11 @@ public class GameManager : MonoBehaviour
     public LayerMask projectileIgnore;
     public LayerMask penetratingIgnore;
     public static GameManager instance;
-
-
+    public CurrentStats currentStats;
     public GameObject playerRef;
     public PlayerController playerControllerRef;
     private int enemyCount;
-    private ChunkGrid chunkGridRef;
+    private bool isPause = false;
 
     private void Awake()
     {
@@ -27,23 +27,22 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
-
     public void respawn()
     {
         playerControllerRef.ResetHealth();
-
     }
     public void MoveToRespawn()
     {
         playerControllerRef.spawnPlayer();
-        UIManager.instance.StateUnpause();
+        //UIManager.instance.StateUnpause();
     }
     private void OnEnable()
     {
+
         if (BootLoadManager.instance != null)
         {
             BootLoadManager.instance.stopLoadEvent += MoveToRespawn;
-            BootLoadManager.instance.startLoadEvent += ResetGameGoal;
+            BootLoadManager.instance.startLoadEvent += ResetGame;
 
         }
     }
@@ -52,11 +51,28 @@ public class GameManager : MonoBehaviour
         if (BootLoadManager.instance != null)
         {
             BootLoadManager.instance.stopLoadEvent -= MoveToRespawn;
-            BootLoadManager.instance.startLoadEvent -= ResetGameGoal;
+            BootLoadManager.instance.startLoadEvent -= ResetGame;
 
         }
     }
+   
+    private void Start()
+    {
 
+        currentStats.isActive = true;
+        if (TryFindPlayer(out playerRef))
+        {
+            playerRef.TryGetComponent<PlayerController>(out playerControllerRef);
+            if (playerControllerRef != null) respawn();
+        }
+    }
+    public void ResetAllStats()
+    {
+        currentStats.S_TotalDamage = 0;
+        currentStats.S_TotallEnemiesKilled = 0;
+        currentStats.S_Item = null;
+        currentStats.isActive = false;
+    }
     private void Update()
     {
         if (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading())
@@ -84,6 +100,45 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public bool GetStatePaused()
+    {
+        return isPause;
+    }
+    public void SetPause(bool _val)
+    {
+
+        isPause = _val;
+        Time.timeScale = _val ? 0 : 1;
+        if (_val != true) return;
+        for (int i = 0; i < UIManager.instance.ConstUI.Length; i++)
+        {
+            if (UIManager.instance.ConstUI[i].CUI_obj != null)
+            {
+                UIManager.instance.ConstUI[i].CUI_currentState = UIManager.instance.ConstUI[i].CUI_obj.activeInHierarchy;
+                UIManager.instance.ConstUI[i].CUI_obj.SetActive(false);
+            }
+        }
+    }
+    public void UpdateDeathCounter(int _val)
+    {
+        currentStats.S_TotalDeaths += _val;
+        UIManager.instance.SetAttemptNumber(currentStats.S_TotalDeaths);
+    }
+    public void UpdateKillCounter(int _val)
+    {
+        SetKillCounter(currentStats.S_TotallEnemiesKilled + _val);
+    }
+    public void SetKillCounter(int _val)
+    {
+        currentStats.S_TotallEnemiesKilled = _val;
+        UIManager.instance.SetEnemiesKilled(currentStats.S_TotallEnemiesKilled);
+    }
+    public void UpdateDamageDealt(int _val)
+    {
+        currentStats.S_TotalDamage += (UInt64)_val;
+        UIManager.instance.SetDamageDealt(currentStats.S_TotalDamage);
+    }
+
     private ChunkGrid GetChunkGrid()
     {
         if (ChunkGrid.instance == null) return null;
@@ -91,14 +146,9 @@ public class GameManager : MonoBehaviour
 
         return ChunkGrid.instance;
     }
-    private void Start()
+    public void UpdateCurrentItem(ItemType _item)
     {
-
-        if (TryFindPlayer(out playerRef))
-        {
-            playerRef.TryGetComponent<PlayerController>(out playerControllerRef);
-            if (playerControllerRef != null) respawn();
-        }
+        currentStats.S_Item = _item;
     }
     public bool TryFindPlayer(out GameObject _ref)
     {
@@ -112,9 +162,17 @@ public class GameManager : MonoBehaviour
         return false;
 
     }
-    public void ResetGameGoal()
+
+    public void ResetGame()
     {
+        UIManager.instance.ResetTempUI();
+        UIManager.instance.SetDamageDealt(currentStats.S_TotalDamage);
+        UIManager.instance.SetEnemiesKilled(currentStats.S_TotallEnemiesKilled);
+        UIManager.instance.SetAttemptNumber(currentStats.S_TotalDeaths);
+
+        if (currentStats.isActive) UpdateCurrentItem(playerControllerRef.GetCurrentItemType());
         enemyCount = 0;
+        UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);
     }
     public void updateGameGoal(int _amount)

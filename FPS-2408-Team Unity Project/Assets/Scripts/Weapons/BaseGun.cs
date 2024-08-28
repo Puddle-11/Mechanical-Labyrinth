@@ -160,6 +160,8 @@ public class BaseGun : Weapon
             {
                 if (hit.collider.TryGetComponent<IHealth>(out healthRef))
                 {
+
+                    if (playerGun)  GameManager.instance.UpdateDamageDealt(shootDamage);
                     healthRef.UpdateHealth(-shootDamage);
                 }
                 RaycastHit penetratingHit;
@@ -184,8 +186,10 @@ public class BaseGun : Weapon
                         }
                         if (penetrated == true && postPenetrateHit.collider != null && postPenetrateHit.collider.TryGetComponent<IHealth>(out healthRef))
                         {
-                            int shootDamagecalc = (int)(-shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
-                            healthRef.UpdateHealth(shootDamagecalc);
+                            int shootDamagecalc = (int)(shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
+
+                            if (playerGun) GameManager.instance.UpdateDamageDealt(shootDamagecalc);
+                            healthRef.UpdateHealth(-shootDamagecalc);
                         }
                     }
                 }

@@ -28,6 +28,8 @@ public class RoamingTurret : BaseEnemy
         public GameObject legObj;
         [HideInInspector] public Vector3 currPos;
          public bool isMoving;
+        public Transform kneeJoint;
+        public Transform upperLeg;
         public float DistanceToAbsolute()
         {
             return Vector3.Distance(currPos, absolutePos);
@@ -69,13 +71,22 @@ public class RoamingTurret : BaseEnemy
             legs[i].legObj.transform.position = legs[i].currPos;
             Quaternion rot = Quaternion.LookRotation(shoulderPos + transform.position - legs[i].legObj.transform.position);
             legs[i].legObj.transform.rotation = rot;
+
+            if (legs[i].kneeJoint != null && legs[i].upperLeg != null)
+            {
+                Quaternion rotUpper = Quaternion.LookRotation(legs[i].kneeJoint.position - legs[i].upperLeg.transform.position);
+                legs[i].upperLeg.transform.rotation = rot;
+
+            }
         }
     
     }
     private void UpdateAnchors()
     {
-        for (int i = 0; i < legs.Length; i++) 
+        for (int i = 0; i < legs.Length; i++)
+        {
             legs[i].anchor.localPosition = legs[i].anchor.localPosition.normalized * legDistance;
+        }
     }
     public IEnumerator MoveLeg(int index, bool _override = false)
     {
@@ -108,6 +119,7 @@ public class RoamingTurret : BaseEnemy
     }
     public override void OnDrawGizmosSelected()
     {
+        if (legs == null) return;
         for (int i = 0; i < legs.Length; i++)
         {
             Gizmos.color = Color.yellow;

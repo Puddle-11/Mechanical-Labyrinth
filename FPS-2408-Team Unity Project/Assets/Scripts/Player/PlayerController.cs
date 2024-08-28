@@ -41,12 +41,17 @@ public class PlayerController : BaseEntity
     private Vector3 playerVel;
     private PlayerHand playerHandRef;
     private GameObject playerSpawnPos;
-
+    [Header("Sounds")]
+    [Space]
+    
+    [SerializeField] private float footstepDelay;
+    public AudioClip[] footstepSounds;
+    public AudioClip[] damageSounds;
     public delegate void PlayerUsed();
     public PlayerUsed playerUseEvent;
-
+    private bool playingFootstepSound;
     private float momentum;
-
+    private bool isDead;
     public override void Awake()
     {
         if (!TryGetComponent<PlayerHand>(out playerHandRef))
@@ -68,17 +73,15 @@ public class PlayerController : BaseEntity
         base.Start();
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
     }
+    
     public override void Update()
     {
         base.Update();
         Movement();
         Sprint();
 
-        //move = input * accelerationSpeed * Time.deltaTime;
-        //move.x = Mathf.Clamp(move.x,0,maxSpeed);
-        //move.y = Mathf.Clamp(move.y, 0, maxSpeed);
-        //controllerRef.Move(move);
-        if (UIManager.instance.GetStatePaused() || (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading()))
+ 
+        if (GameManager.instance.GetStatePaused() || (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading()))
         {
             playerHandRef?.SetUseItem(false);
         }
@@ -121,6 +124,12 @@ public class PlayerController : BaseEntity
        // Walljump();
         momentum = mass * acceleration;
     }
+    public ItemType GetCurrentItemType()
+    {
+ 
+            return playerHandRef.GetCurrentItemType();
+    }
+
     public void UpdatePlayerSpeed(float _mod)
     {
         acceleration *= _mod;
@@ -130,12 +139,6 @@ public class PlayerController : BaseEntity
         if (isDashing) yield break;
         isDashing = true;
         acceleration = acceleration * dashMod;
-        //timer = 2;
-        //while (timer < 0 )
-        //{
-        //    yield return null;
-        //    timer -= Time.deltaTime;
-        //}
         yield return new WaitForSeconds(0.5f);
         isDashing = false;
         acceleration = acceleration / dashMod;
@@ -157,6 +160,11 @@ public class PlayerController : BaseEntity
 
         return false;
     }
+    public override void ResetHealth()
+    {
+        isDead = false;
+        base.ResetHealth();
+    }
     public bool spawnPlayer()
     {
 
@@ -170,7 +178,6 @@ public class PlayerController : BaseEntity
 
             return true;
         }
-
         return false;
     }
     public void SetPlayerSpawnPos(Vector3 _pos)
@@ -196,36 +203,30 @@ public class PlayerController : BaseEntity
     }
     // Update is called once per frame
 
-  
+
 
     private void Movement()
     {
-        //move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            playerVel.x = 0;
+        move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
+        playerVel.x = 0;
         playerVel.z = 0;
 
         if (controllerRef.isGrounded)
         {
             jumpCurr = 0;
             playerVel.y = 0;
+        }
+        else playerVel.y -= gravityStrength * Time.deltaTime;
 
-        }
-        else
-        {
-            playerVel.y -= gravityStrength * Time.deltaTime;
-        }
-        move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
 
-        if (Mathf.Abs(move.x) > 0.01 || Mathf.Abs(move.y) > 0.01 || Mathf.Abs(move.z) > 0.01)
+        if (move.magnitude > 0.3 && controllerRef.isGrounded)
         {
-            //LATER THIS LINE OF CODE NEEDS TO BE HOOKED UP TO A PLAYER ANIMATION
-            footstepSoundRef?.TriggerSound(transform.position);
+            StartCoroutine(playStepSound());
         }
+
         Vector2 tempVel = new Vector2(playerVel.x, playerVel.z) + new Vector2(move.x, move.z) * acceleration;
-        if(tempVel.magnitude > maxSpeed)
-        {
-            tempVel = tempVel.normalized * maxSpeed;
-        }
+        if (tempVel.magnitude > maxSpeed) tempVel = tempVel.normalized * maxSpeed;
+        
         playerVel = new Vector3(tempVel.x, playerVel.y, tempVel.y);
         controllerRef.Move(playerVel * Time.deltaTime);
         if (Input.GetButtonDown("Jump"))
@@ -233,6 +234,15 @@ public class PlayerController : BaseEntity
             Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));
         }
         controllerRef.Move(playerVel * Time.deltaTime);
+    }
+    public IEnumerator playStepSound()
+    {
+        if (playingFootstepSound) yield break;
+        playingFootstepSound = true;
+        AudioManager.instance.PlaySound(footstepSounds[Random.Range(0, footstepSounds.Length)], AudioManager.soundType.player);
+        footstepSoundRef?.TriggerSound(transform.position);
+        yield return new WaitForSeconds(1 / playerVel.magnitude * footstepDelay);
+        playingFootstepSound = true;
     }
     public void Jump(Vector3 _dir)
     {
@@ -257,7 +267,6 @@ public class PlayerController : BaseEntity
     }
     void Walljump()
     {
-        
         RaycastHit hit;
         Walljumpdir = new Vector3(0, jumpHeight, 0);
         if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
@@ -286,7 +295,6 @@ public class PlayerController : BaseEntity
         {
             Jump(Walljumpdir);
         }
-
     }
 
     void wallslide()
@@ -302,6 +310,10 @@ public class PlayerController : BaseEntity
 
     public override void Death()
     {
+        if (isDead) return;
+        isDead = true;
+        GameManager.instance.ResetAllStats();
+        GameManager.instance.UpdateDeathCounter(1);
         UIManager.instance.OpenLoseMenu();
     }
 }

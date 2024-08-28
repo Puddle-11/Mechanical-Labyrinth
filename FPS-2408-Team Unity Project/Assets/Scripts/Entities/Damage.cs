@@ -12,7 +12,7 @@ public class Damage : MonoBehaviour
     private float timer;
     public enum damageType
     {
-        stationary,
+        single,
         continuous,
     }
 
@@ -22,7 +22,16 @@ public class Damage : MonoBehaviour
         IHealth healthRef;
         if(other.TryGetComponent<IHealth>(out healthRef))
         {
+            if (type == damageType.single)
+            {
+                healthRef.UpdateHealth(-damageAmount);
+                
+            }
+            else
+            {
+
             currRef = healthRef;
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -33,25 +42,30 @@ public class Damage : MonoBehaviour
         {
             if (currRef == healthRef)
             {
-
-                currRef = null;
+                if (type == damageType.continuous)
+                {
+                    currRef = null;
+                }
             }
         }
     }
     private void Update()
     {
-        if (timer > 0)
+        if (type == damageType.continuous)
         {
-            timer -= Time.deltaTime;
-        }
-        if(timer <= 0)
-        {
-            if (currRef != null)
+            if (timer > 0)
             {
-                currRef.UpdateHealth(-damageAmount);
+                timer -= Time.deltaTime;
             }
-            timer = defaulltSpeed;
+            if (timer <= 0)
+            {
+                if (currRef != null)
+                {
+                    currRef.UpdateHealth(-damageAmount);
+                }
+                timer = defaulltSpeed;
+            }
         }
     }
 
-}
+    }

@@ -35,6 +35,15 @@ public class PlayerHand : MonoBehaviour
         }
         return false;
     }
+    public IUsable GetIUsable()
+    {
+        IUsable itemRef;
+        if (CurrentEquiped != null && CurrentEquiped.TryGetComponent<IUsable>(out itemRef))
+        {
+            return itemRef;
+        }
+        return null;
+    }
     //========================================================
     //I really hate the "chain" of methods from the player controller
     //all the way to the currently equiped item, there are to many points of failure
@@ -46,7 +55,19 @@ public class PlayerHand : MonoBehaviour
     {
         return CurrentEquiped;
     }
+    public ItemType GetCurrentItemType()
+    {
+        if(CurrentEquiped != null)
+        {
+            IUsable temp = GetIUsable();
+            if(temp != null)
+            {
+                return temp.GetItemType();
+            }
+        }
+        return null;
 
+    }
 
     public void ClickPickUp()
     {

@@ -291,13 +291,19 @@ public class BaseEnemy : BaseEntity
     {
         if (senseType == DetectionType.InRange)
         {
-            if (IsInRange())
+            if (IsInRange(attackRange))
+            {
+                _enemyStateRef = EnemyState.Attack;
+            }
+            else if(IsInRange())
             {
                 _enemyStateRef = EnemyState.Persue;
+
             }
             else
             {
                 _enemyStateRef = EnemyState.Patrol;
+
             }
         }
         else if (senseType == DetectionType.Continuous)
@@ -323,7 +329,7 @@ public class BaseEnemy : BaseEntity
                 _enemyStateRef = EnemyState.Patrol;
             }
             else if (currState == EnemyState.Investigate && DistanceToDestination() < 0.01f) currState = EnemyState.Patrol;
-            ;
+            
 
         }
     }
@@ -382,6 +388,7 @@ public class BaseEnemy : BaseEntity
     //-------------
     public override void Death()
     {
+        GameManager.instance.UpdateKillCounter(1);
         GameManager.instance?.updateGameGoal(-1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
         RemoveEvents();

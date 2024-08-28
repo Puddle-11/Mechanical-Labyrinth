@@ -11,5 +11,6 @@ public interface IUsable
     public void UseItem();
     public string GetItemName();
     public string GetItemStats();
+    public ItemType GetItemType();
 
 }
