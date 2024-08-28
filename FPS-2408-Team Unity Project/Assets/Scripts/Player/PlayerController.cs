@@ -38,6 +38,7 @@ public class PlayerController : BaseEntity
     [Header("Physics Variables")]
     [Space]
     [SerializeField] private float gravityStrength;
+    float originalgravity;
     private Vector3 playerVel;
     private PlayerHand playerHandRef;
     private GameObject playerSpawnPos;
@@ -49,6 +50,7 @@ public class PlayerController : BaseEntity
     public delegate void PlayerUsed();
     public PlayerUsed playerUseEvent;
     private bool playingFootstepSound;
+   [Range(0,1)][SerializeField] float footstepvol;
     private float momentum;
     private bool isDead;
     public override void Awake()
@@ -72,7 +74,14 @@ public class PlayerController : BaseEntity
         base.Start();
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
     }
-    
+    public void SetPlayervel(Vector3 Playervel)
+    {
+        playerVel = Playervel;
+    }
+   public Vector3 GetPlayervel()
+    {
+        return playerVel;
+    }
     public override void Update()
     {
         base.Update();
@@ -120,7 +129,7 @@ public class PlayerController : BaseEntity
         }
 
         wallslide();
-       // Walljump();
+        Walljump();
         momentum = mass * acceleration;
     }
     public ItemType GetCurrentItemType()
@@ -241,7 +250,7 @@ public class PlayerController : BaseEntity
         AudioManager.instance.PlaySound(footstepSounds[Random.Range(0, footstepSounds.Length)], AudioManager.soundType.player);
         footstepSoundRef?.TriggerSound(transform.position);
         yield return new WaitForSeconds(1 / playerVel.magnitude * footstepDelay);
-        playingFootstepSound = true;
+        playingFootstepSound = false;
     }
     public void Jump(Vector3 _dir)
     {
@@ -274,7 +283,7 @@ public class PlayerController : BaseEntity
             onWall = true;
             if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
             {
-                Walljumpdir = new Vector3(GameManager.instance.playerRef.transform.position.x, jumpHeight, 0);
+                Walljumpdir = new Vector3(-playerVel.x, jumpHeight, 0);
             }
         }
         else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
@@ -283,7 +292,11 @@ public class PlayerController : BaseEntity
             onWall = true;
             if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
             {
-                Walljumpdir = new Vector3(-GameManager.instance.playerRef.transform.position.x, jumpHeight, 0);
+                Walljumpdir = new Vector3(-playerVel.x, jumpHeight, 0);
+            }
+            else if (Input.GetButtonDown("Jump") && controllerRef.isGrounded) { 
+            
+            
             }
         }
         else
@@ -305,6 +318,13 @@ public class PlayerController : BaseEntity
             gravityStrength = gravityStrength /= wallgravity;
             gravityStrength = Mathf.Clamp(gravityStrength, 12, 26);
         }
+        else
+        {
+            //returnoriginalgravity();
+        }
+    }
+    void returnoriginalgravity() {
+      originalgravity = gravityStrength;
     }
 
     public override void Death()
