@@ -257,7 +257,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8191
+    m_Bits: 237567
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -474,7 +474,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 393215
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 6d9990ef77a8d0c489e201c393422d8e, type: 2}
   m_TargetDisplay: 0
@@ -509,7 +509,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -619,6 +619,7 @@ MonoBehaviour:
   footstepDelay: 0
   footstepSounds: []
   damageSounds: []
+  footstepvol: 0
 --- !u!114 &2174789186933504693
 MonoBehaviour:
   m_ObjectHideFlags: 0

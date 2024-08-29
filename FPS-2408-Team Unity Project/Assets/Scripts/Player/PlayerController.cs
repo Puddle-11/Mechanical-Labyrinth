@@ -146,6 +146,7 @@ public class PlayerController : BaseEntity
     {
         if (isDashing) yield break;
         isDashing = true;
+        if (dashMod <= 0) yield break;
         acceleration = acceleration * dashMod;
         yield return new WaitForSeconds(0.5f);
         isDashing = false;

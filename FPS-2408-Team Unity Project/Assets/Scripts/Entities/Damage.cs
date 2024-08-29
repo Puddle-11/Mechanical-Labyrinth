@@ -20,25 +20,24 @@ public class Damage : MonoBehaviour
     {
         if (other.isTrigger) return;
         IHealth healthRef;
-        if(other.TryGetComponent<IHealth>(out healthRef))
+        if(other.TryGetComponent<IHealth>(out healthRef) && other.gameObject == GameManager.instance.playerRef)
         {
             if (type == damageType.single)
             {
                 healthRef.UpdateHealth(-damageAmount);
-                
             }
             else
             {
-
-            currRef = healthRef;
+                currRef = healthRef;
             }
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.isTrigger) return;
         IHealth healthRef;
-        if (other.TryGetComponent<IHealth>(out healthRef))
+        if (other.TryGetComponent<IHealth>(out healthRef) && other.gameObject == GameManager.instance.playerRef)
         {
             if (currRef == healthRef)
             {
@@ -49,6 +48,7 @@ public class Damage : MonoBehaviour
             }
         }
     }
+
     private void Update()
     {
         if (type == damageType.continuous)

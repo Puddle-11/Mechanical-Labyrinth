@@ -11,20 +11,18 @@ public class BaseGun : Weapon
     [SerializeField] private GunType shotType;
     [SerializeField] private int shootDamage;
     [SerializeField] private float shootDist;
-    [SerializeField] private Transform shootPos;
+    [SerializeField] private Barrel[] shootPos;
     [SerializeField] private GameObject bulletTrail;
     [SerializeField] private GameObject bulletHoleDecal;
     [SerializeField] private Material[] NP_bulletHoleMat;
     [SerializeField] private Material[] P_bulletHoleMat;
     [SerializeField] private Material[] E_bulletHoleMat;
-
+    private int currBarrel =0;
     [SerializeField] protected int burstSize;
     [SerializeField] protected int clipSizeMax;
     [SerializeField] protected float reloadSpeed;
     [SerializeField] protected float barrelDelay;
-    [SerializeField] protected Animator muzzleFlash;
     [SerializeField] protected float muzzleFlashSize;
-    [SerializeField] protected ParticleSystem[] sparkParticles;
 
     [SerializeField] protected float penetratingDistance;
     [SerializeField] protected float penetratingDamageFalloff;
@@ -42,7 +40,13 @@ public class BaseGun : Weapon
     private bool isReloading = false;
     private bool playerGun = false;
     private bool offTrigger;
-     
+    [System.Serializable]
+    public struct Barrel {
+        public Transform _pos;
+        public Animator _muzzleFlash;
+        public ParticleSystem[] _sparks;
+    }
+
     public enum GunType
     {
         Automatic,
@@ -81,15 +85,12 @@ public class BaseGun : Weapon
             if (playerGun) CameraController.instance.ResetOffset(false);
 
         }
-        UIManager.instance.UpdateCrosshairSpread(FSAccuracy * FSAOverTime.Evaluate(FSAtimer/ FSATimerMax));
+        if (playerGun) UIManager.instance.UpdateCrosshairSpread(FSAccuracy * FSAOverTime.Evaluate(FSAtimer/ FSATimerMax));
 
 
     }
     #region Getters Setters
-    public void SetShootPos(Transform _pos)
-    {
-        shootPos = _pos;
-    }
+ 
     public void SetPlayerGun(bool _val)
     {
         playerGun = _val;
@@ -142,13 +143,20 @@ public class BaseGun : Weapon
         for (int i = 0; i < size; i++)
         {
             if (currAmmo == 0) break;
-
+            if (shootPos.Length > 1)
+            {
+                currBarrel++;
+                if(currBarrel > shootPos.Length - 1)
+                {
+                    currBarrel = 0;
+                }
+            }
             #region Variable Setup
             float normalizedTimer = FSAtimer / FSATimerMax;
             FSAtimer += barrelDelay;
             bool penetrated = false;
             Vector3 tempForward = CameraController.instance.transform.forward;
-            Vector3 shootDir = playerGun ? tempForward : shootPos.forward;
+            Vector3 shootDir = playerGun ? tempForward : shootPos[currBarrel]._pos.forward;
             shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             RaycastHit hit;
             IHealth healthRef = null;
@@ -156,7 +164,7 @@ public class BaseGun : Weapon
 
             UpdateAmmo(-1);
             StartMuzzleFlash();
-            if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
+            if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos[currBarrel]._pos.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
                 if (hit.collider.TryGetComponent<IHealth>(out healthRef))
                 {
@@ -228,14 +236,6 @@ public class BaseGun : Weapon
         isAttacking = false;
     }
 
-
-
-
-
-
-
-
-
     private GameObject SpawnBulletHole(GameObject _prefab, Vector3 _pos, Quaternion _rotation, Transform _parent, Material[] _mat)
     {
 
@@ -252,17 +252,16 @@ public class BaseGun : Weapon
     }
     private void StartMuzzleFlash()
     {
-        if (muzzleFlash != null)
+        if (shootPos[currBarrel]._muzzleFlash != null)
         {
-            muzzleFlash.transform.localScale = Vector3.one * muzzleFlashSize;
-            muzzleFlash.SetTrigger("Flash");
-            muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 180));
+            shootPos[currBarrel]._muzzleFlash.transform.localScale = Vector3.one * muzzleFlashSize;
+            shootPos[currBarrel]._muzzleFlash.SetTrigger("Flash");
+            shootPos[currBarrel]._muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 180));
         }
-        if (sparkParticles.Length > 0)
+        if (shootPos[currBarrel]._sparks.Length > 0)
         {
-            foreach (ParticleSystem PS in sparkParticles)
+            foreach (ParticleSystem PS in shootPos[currBarrel]._sparks)
             {
-
                 PS.Play();
             }
         }
@@ -281,24 +280,21 @@ public class BaseGun : Weapon
     }
     private void SummonBulletTracer(RaycastHit _path, Vector3 _dir)
     {
-        GameObject trailRef = Instantiate(bulletTrail, shootPos.transform.position, Quaternion.identity);
+        GameObject trailRef = Instantiate(bulletTrail, shootPos[currBarrel]._pos.transform.position, Quaternion.identity);
         BulletTracer BT;
         if (trailRef.TryGetComponent<BulletTracer>(out BT))
         {
             if (playerGun)
             {
-                BT.SetPositions(shootPos.transform.position, _path.collider != null ? _path.point : Camera.main.transform.position + _dir * shootDist);
+                BT.SetPositions(shootPos[currBarrel]._pos.transform.position, _path.collider != null ? _path.point : Camera.main.transform.position + _dir * shootDist);
             }
             else
             {
-                BT.SetDirection(shootPos.transform.position, _dir);
+                BT.SetDirection(shootPos[currBarrel]._pos.transform.position, _dir);
             }
         }
     }
-    private void OnDrawGizmos()
-    {
-        Debug.DrawRay(shootPos.position,shootPos.forward * 10, UnityEngine.Color.red);
-    }
+
 
     public override void Attack()
     {

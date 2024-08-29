@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour, IUsable
 {
     protected bool usingItem;
     [SerializeField] protected float coolDown;
-    protected bool isAttacking;
+    [SerializeField] protected bool isAttacking;
     public LayerMask ignoreMask;
     [SerializeField] protected GameObject pickUp;
     [SerializeField] protected ItemType gunDrop;

@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public PlayerController playerControllerRef;
     private int enemyCount;
     private bool isPause = false;
+    public delegate void OnWin();
+    public OnWin levelWon;
 
     private void Awake()
     {
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
         currentStats.S_TotallEnemiesKilled = 0;
         currentStats.S_Item = null;
         currentStats.isActive = false;
+        currentStats.S_Level = 0;
     }
     private void Update()
     {
@@ -138,7 +141,18 @@ public class GameManager : MonoBehaviour
         currentStats.S_TotalDamage += (UInt64)_val;
         UIManager.instance.SetDamageDealt(currentStats.S_TotalDamage);
     }
-
+    public int GetCurrentLevel()
+    {
+        return currentStats.S_Level;
+    }
+    public void SetCurrentLevel(int _val)
+    {
+        currentStats.S_Level = _val;
+    }
+    public void UpdateCurrentLevel(int _val)
+    {
+        SetCurrentLevel(GetCurrentLevel() + _val);
+    }
     private ChunkGrid GetChunkGrid()
     {
         if (ChunkGrid.instance == null) return null;
@@ -182,6 +196,7 @@ public class GameManager : MonoBehaviour
 
         if (enemyCount <= 0)
         {
+            levelWon?.Invoke();
             UIManager.instance.ToggleWinMenu(true);
         }
     }
