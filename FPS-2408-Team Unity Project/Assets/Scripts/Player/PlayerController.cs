@@ -316,7 +316,7 @@ public class PlayerController : BaseEntity
     void wallslide()
     {
 
-        if (onWall == true && playerVel.y >= 0)
+        if (onWall == true)
         {
             playerVel.y = 0;
             gravityStrength = gravityStrength /= wallgravity;
