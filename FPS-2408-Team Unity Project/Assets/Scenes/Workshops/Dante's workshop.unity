@@ -243,7 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpringVelocity: {x: 0, y: 10, z: 0}
   SpringDirection: {x: 0, y: 10, z: 0}
-  Springforce: 5
+  Springforce: 15
 --- !u!1001 &872207180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -774,6 +774,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
+--- !u!114 &1539692350 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8101759799611266597, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
+  m_PrefabInstance: {fileID: 1539692349}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893547688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef86f00bacb5cf740b14d187f9163672, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1893547688 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9109832186709042457, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
@@ -816,7 +827,7 @@ MonoBehaviour:
     m_Bits: 0
   currentStats: {fileID: 0}
   playerRef: {fileID: 1893547688}
-  playerControllerRef: {fileID: 0}
+  playerControllerRef: {fileID: 1539692350}
 --- !u!4 &2039619971
 Transform:
   m_ObjectHideFlags: 0

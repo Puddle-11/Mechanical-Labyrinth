@@ -18,8 +18,9 @@ public class Spring : MonoBehaviour
             other.GetComponent<PlayerController>();
             if (other.GetComponent<PlayerController>() != null)
             {
+                GameManager.instance.playerControllerRef.GetPlayervel();
                 GameManager.instance.playerControllerRef.SetPlayervel(SpringDirection.normalized * Springforce);
-                Vector3.Reflect(SpringDirection.normalized * Springforce, SpringVelocity);
+                
             }
         }
            else 

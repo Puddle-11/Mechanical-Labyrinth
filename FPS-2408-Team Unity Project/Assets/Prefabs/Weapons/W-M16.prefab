@@ -62,11 +62,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4657176410209153439, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
   m_PrefabInstance: {fileID: 44870529679119156}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &6535592630840064571 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6497708398380427535, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
-  m_PrefabInstance: {fileID: 44870529679119156}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7037732991436195079
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -201,12 +196,20 @@ MonoBehaviour:
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: 2ffabef03afc2704fab3fc11cab93bbd, type: 2}
+<<<<<<< Updated upstream
   shootsounds: []
+=======
+  shootsounds:
+  - {fileID: 8300000, guid: a5a5359097e62fe48a87665456f1dd54, type: 3}
+>>>>>>> Stashed changes
   shotType: 2
   ammoType: 3
   shootDamage: 40
   shootDist: 200
-  shootPos: {fileID: 5251786042946030810}
+  shootPos:
+  - _pos: {fileID: 0}
+    _muzzleFlash: {fileID: 0}
+    _sparks: []
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
   bulletHoleDecal: {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
   NP_bulletHoleMat:
@@ -228,10 +231,7 @@ MonoBehaviour:
   clipSizeMax: 10
   reloadSpeed: 1.5
   barrelDelay: 0
-  muzzleFlash: {fileID: 6535592630840064571}
   muzzleFlashSize: 1
-  sparkParticles:
-  - {fileID: 1833320379406260343}
   penetratingDistance: 3
   penetratingDamageFalloff: 1
   FSAccuracy: 0.05
@@ -340,10 +340,5 @@ PrefabInstance:
 --- !u!4 &626355319806341901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7029931740142131198, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
-  m_PrefabInstance: {fileID: 7583524607950447859}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &1833320379406260343 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8092779793813044356, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
   m_PrefabInstance: {fileID: 7583524607950447859}
   m_PrefabAsset: {fileID: 0}
