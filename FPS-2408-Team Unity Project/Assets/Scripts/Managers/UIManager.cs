@@ -213,10 +213,11 @@ public class UIManager : MonoBehaviour
         //currAmmo
         ammoFillup.fillAmount = (float)curr / max;
         currAmmoField.text = curr + "/" + max;
+        Debug.Log("hit ammo display");
     }
-    public void UpdateAmmoFill(float curr, float max)
+    public void UpdateAmmoFill(float val)
     {
-        ammoFillup.fillAmount = curr / max;
+        ammoFillup.fillAmount = val;
 
     }
     public void UpdateCrosshair()

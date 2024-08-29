@@ -108,7 +108,7 @@ public class PlayerHand : MonoBehaviour
             //======================================
             //External Resets
             UIManager.instance.AmmoDisplay(0, 0);
-            UIManager.instance.UpdateAmmoFill(1, 1);
+            UIManager.instance.UpdateAmmoFill(1);
             CameraController.instance.ResetOffset(true);
             //======================================
 

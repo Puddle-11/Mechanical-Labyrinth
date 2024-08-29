@@ -195,13 +195,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDown: 0.3
+  isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: 2ffabef03afc2704fab3fc11cab93bbd, type: 2}
-  objName: 
+  shootsounds: []
   shotType: 2
+  ammoType: 3
   shootDamage: 40
   shootDist: 200
   shootPos: {fileID: 5251786042946030810}
