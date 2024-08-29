@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,12 +32,15 @@ public class GameManager : MonoBehaviour
     }
     public void respawn()
     {
-        playerControllerRef.ResetHealth();
+
+    }
+    public void ResetCurrentHealth()
+    {
+        currentStats.S_CurrentHealth = playerControllerRef.GetMaxHealth();
     }
     public void MoveToRespawn()
     {
         playerControllerRef.spawnPlayer();
-        //UIManager.instance.StateUnpause();
     }
     private void OnEnable()
     {
@@ -70,6 +74,7 @@ public class GameManager : MonoBehaviour
     }
     public void ResetAllStats()
     {
+        currentStats.S_AmmoInventory = new int[0];
         currentStats.S_TotalDamage = 0;
         currentStats.S_TotallEnemiesKilled = 0;
         currentStats.S_Item = null;
@@ -103,10 +108,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    public bool GetStatePaused()
-    {
-        return isPause;
-    }
+    public bool GetStatePaused(){return isPause;}
     public void SetPause(bool _val)
     {
 
@@ -127,10 +129,7 @@ public class GameManager : MonoBehaviour
         currentStats.S_TotalDeaths += _val;
         UIManager.instance.SetAttemptNumber(currentStats.S_TotalDeaths);
     }
-    public void UpdateKillCounter(int _val)
-    {
-        SetKillCounter(currentStats.S_TotallEnemiesKilled + _val);
-    }
+    public void UpdateKillCounter(int _val){SetKillCounter(currentStats.S_TotallEnemiesKilled + _val);}
     public void SetKillCounter(int _val)
     {
         currentStats.S_TotallEnemiesKilled = _val;
@@ -141,28 +140,19 @@ public class GameManager : MonoBehaviour
         currentStats.S_TotalDamage += (UInt64)_val;
         UIManager.instance.SetDamageDealt(currentStats.S_TotalDamage);
     }
-    public int GetCurrentLevel()
+    public int GetCurrentLevel(){ return currentStats.S_Level;}
+    public void SetCurrentLevel(int _val) { currentStats.S_Level = _val; }
+    public void UpdateCurrentLevel(int _val){SetCurrentLevel(GetCurrentLevel() + _val);}
+    public void UpdateCurrentItem(ItemType _item){currentStats.S_Item = _item;}
+    public void SetAmmoInventory(int[] _arr){ currentStats.S_AmmoInventory = _arr;}
+    public int[] GetAmmoInventory(){return currentStats.S_AmmoInventory; }
+    public ItemType GetCurrentItemType(){return currentStats.S_Item;}
+    private ChunkGrid GetChunkGrid(){return ChunkGrid.instance;}
+    public void SetCurrentHealth(int _val) { currentStats.S_CurrentHealth = _val; }
+    public int GetCurrentHealth()
     {
-        return currentStats.S_Level;
-    }
-    public void SetCurrentLevel(int _val)
-    {
-        currentStats.S_Level = _val;
-    }
-    public void UpdateCurrentLevel(int _val)
-    {
-        SetCurrentLevel(GetCurrentLevel() + _val);
-    }
-    private ChunkGrid GetChunkGrid()
-    {
-        if (ChunkGrid.instance == null) return null;
-
-
-        return ChunkGrid.instance;
-    }
-    public void UpdateCurrentItem(ItemType _item)
-    {
-        currentStats.S_Item = _item;
+        if (currentStats.S_CurrentHealth <= 0) return playerControllerRef.GetMaxHealth();
+        return currentStats.S_CurrentHealth;
     }
     public bool TryFindPlayer(out GameObject _ref)
     {

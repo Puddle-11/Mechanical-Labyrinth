@@ -164,7 +164,8 @@ public class BaseEnemy : BaseEntity
     //-------------
     protected void SetNavmeshTarget(Vector3 _pos)
     {
-       agent?.SetDestination(_pos);
+       
+       agent.SetDestination(_pos);
     }
     private void SetNavmeshTarget()
     {
@@ -389,9 +390,9 @@ public class BaseEnemy : BaseEntity
     //-------------
     public override void Death()
     {
-        AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], AudioManager.soundType.enemy);
-        GameManager.instance.UpdateKillCounter(1);
+       if(Deathsounds.Length > 0) AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], AudioManager.soundType.enemy);
         GameManager.instance?.updateGameGoal(-1);
+        GameManager.instance.UpdateKillCounter(1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
         RemoveEvents();
         base.Death();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class AmmoInventory : MonoBehaviour
@@ -50,15 +51,28 @@ public class AmmoInventory : MonoBehaviour
         }
         
     }
+    private void Start()
+    {
+        if (GameManager.instance != null)
+        {
+            int[] temp = GameManager.instance.GetAmmoInventory();
+            if (temp != null && temp.Length > 0)
+            {
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    if (i >= ammoCounts.Length) break;
+                    ammoCounts[i] = temp[i];
+                }
+            }
+        }
+
+    }
     public int GetAmmoTypeCount()
     {
         return numOfAmmoTypes;
     }
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
     public int GetAmmoAmount(bulletType type)
     {
         return GetAmmoAmount((int)type);
@@ -96,5 +110,6 @@ public class AmmoInventory : MonoBehaviour
                 UIManager.instance.UpdateCurrInvAmmo(type);
             }
         }
+        if (GameManager.instance != null) GameManager.instance.SetAmmoInventory(ammoCounts);
     }
 }

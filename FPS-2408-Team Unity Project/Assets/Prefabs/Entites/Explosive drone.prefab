@@ -92,10 +92,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6753962329535431369}
-  - component: {fileID: 6138963473433851361}
   - component: {fileID: 7568492905502799312}
   - component: {fileID: 8589487485629443617}
-  - component: {fileID: 4845480398953961218}
   - component: {fileID: 8175484972286208621}
   - component: {fileID: 4527273249660388099}
   m_Layer: 0
@@ -124,49 +122,6 @@ Transform:
   - {fileID: 5484394858984232419}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6138963473433851361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2919294226157067530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d5a302f7a759ee48b86e7f184a8b34d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 2
-  damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
-  healthBar: {fileID: 2548521708779764410}
-  damageFlashTime: 0.1
-  drops: []
-  agent: {fileID: 8589487485629443617}
-  weaponScr: {fileID: 0}
-  headPos: {fileID: 6355810914028348732}
-  patrolPoints: []
-  contactDamage: 15
-  contactDamageFrequency: 0.5
-  stoppingDistance: 1
-  rotationSpeed: 180
-  roamTimer: 2
-  roamingDistance: 15
-  sneakDamageMultiplyer: 2
-  attackRange: 2
-  sightRange: 13.5
-  hearingRange: 20
-  attackAngle: 50
-  sightAngle: 90
-  target: {fileID: 0}
-  senseType: 3
-  sightMask:
-    serializedVersion: 2
-    m_Bits: 64
-  alertMarker: {fileID: 0}
-  anim: {fileID: 0}
-  transitionSpeed: 0.5
-  Deathsounds:
-  - {fileID: 8300000, guid: ff2d4ab68a40bf142aa2602879aedeaa, type: 3}
 --- !u!65 &7568492905502799312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -210,20 +165,6 @@ NavMeshAgent:
   m_BaseOffset: 2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4845480398953961218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2919294226157067530}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ae1c63acb127e442bcc8165b5e7ee38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  magnitude: {x: 0, y: 0.2, z: 0}
-  speed: 2
 --- !u!114 &8175484972286208621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,13 +177,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45358e726290e014e8a44c61a6d95b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
+  healthBar: {fileID: 2548521708779764410}
+  damageFlashTime: 0.1
+  drops: []
+  agent: {fileID: 8589487485629443617}
+  weaponScr: {fileID: 0}
+  headPos: {fileID: 6753962329535431369}
+  patrolPoints: []
+  contactDamage: 15
+  contactDamageFrequency: 0.5
+  stoppingDistance: 0
+  rotationSpeed: 180
+  roamTimer: 2
+  roamingDistance: 15
+  sneakDamageMultiplyer: 2
+  attackRange: 7
+  sightRange: 13.5
+  hearingRange: 20
+  attackAngle: 50
+  sightAngle: 90
+  target: {fileID: 0}
+  senseType: 0
+  sightMask:
+    serializedVersion: 2
+    m_Bits: 64
+  alertMarker: {fileID: 0}
+  anim: {fileID: 0}
+  transitionSpeed: 0.5
+  Deathsounds: []
   magnitude: {x: 0, y: 0.2, z: 0}
   speed: 2
-  drone: {fileID: 2919294226157067530}
-  explodeTime: 3
   explosionDamage: 100
-  inRange: 0
-  coll: {fileID: 7568492905502799312}
 --- !u!65 &4527273249660388099
 BoxCollider:
   m_ObjectHideFlags: 0

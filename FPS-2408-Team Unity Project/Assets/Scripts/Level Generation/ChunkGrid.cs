@@ -10,6 +10,8 @@ public class ChunkGrid : MonoBehaviour
     public static ChunkGrid instance;
     [HideInInspector] public Vector3Int ChunkSize;
     [SerializeField] private Vector3Int minGridSize;
+    [SerializeField] private Vector3Int maxGridSize;
+
     public Vector3Int GridSize;
     private GameObject[,,] GridObj;
     private float CellScale;
@@ -67,9 +69,9 @@ public class ChunkGrid : MonoBehaviour
     private void Start()
     {
         GridSize *= GameManager.instance.GetCurrentLevel();
-        GridSize.x = Mathf.Clamp(GridSize.x, minGridSize.x, int.MaxValue);
-        GridSize.y = Mathf.Clamp(GridSize.y, minGridSize.y, int.MaxValue);
-        GridSize.z = Mathf.Clamp(GridSize.z, minGridSize.z, int.MaxValue);
+        GridSize.x = Mathf.Clamp(GridSize.x, minGridSize.x, maxGridSize.x);
+        GridSize.y = Mathf.Clamp(GridSize.y, minGridSize.y, maxGridSize.y);
+        GridSize.z = Mathf.Clamp(GridSize.z, minGridSize.z, maxGridSize.z);
 
         bounds.min = Vector3Int.zero;
         bounds.max = GridSize * CubicChunkSize - Vector3Int.one;

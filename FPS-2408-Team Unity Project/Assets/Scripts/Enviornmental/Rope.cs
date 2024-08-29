@@ -207,7 +207,7 @@ public class Rope : MonoBehaviour
             for (int j = 0; j < lineResolution; j++)
             {
 
-                Positions[(i * lineResolution) + j].SetPoint(CalculateCurve(j / (float)(lineResolution - 1), anchors[i].position, anchors[i + 1].position, currentControlPos[i].currentPosition), colliderSize, i, gameObject);
+                if (anchors[i] != null&& anchors[i+i] != null) Positions[(i * lineResolution) + j].SetPoint(CalculateCurve(j / (float)(lineResolution - 1), anchors[i].position, anchors[i + 1].position, currentControlPos[i].currentPosition), colliderSize, i, gameObject);
             }
         }
         lnRef.positionCount = Positions.Length;
@@ -218,7 +218,7 @@ public class Rope : MonoBehaviour
     {
         for (int i = 0; i < currentControlPos.Length; i++)
         {
-            currentControlPos[i].absolutePosition = ((anchors[i + 1].position + anchors[i].position) / 2) + Vector3.down * Mathf.Clamp(ropeLength - Vector3.Distance(anchors[i].position, anchors[i + 1].position), 0f, Mathf.Infinity);
+            if (anchors[i] != null && anchors[i+1] != null) currentControlPos[i].absolutePosition = ((anchors[i + 1].position + anchors[i].position) / 2) + Vector3.down * Mathf.Clamp(ropeLength - Vector3.Distance(anchors[i].position, anchors[i + 1].position), 0f, Mathf.Infinity);
         }
     }
     protected Vector3 CalculateCurve(float t, Vector3 p1, Vector3 p2, Vector3 control)

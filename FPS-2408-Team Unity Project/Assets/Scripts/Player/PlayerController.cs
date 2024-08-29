@@ -19,9 +19,7 @@ public class PlayerController : BaseEntity
     private bool isSprinting;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float friction;
-    [SerializeField] private float dashMod; 
     //[SerializeField] private float timer;
-    private bool isDashing;
     [SerializeField] private float mass;
 
     [Header("Jump Variables")]
@@ -65,12 +63,17 @@ public class PlayerController : BaseEntity
         {
             Debug.LogWarning("No character controller found on " + gameObject.name);
         }
-        base.Awake();
+        Renderer[] tempArr = GetComponentsInChildren<Renderer>();
+        rendRef = new RenderContainer[tempArr.Length];
+        for (int i = 0; i < rendRef.Length; i++)
+        {
+            rendRef[i].currRenderer = tempArr[i];
+        }
     }
     // Start is called before the first frame update
     public override void Start()
     {
-
+        SetHealth(GameManager.instance.GetCurrentHealth());
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
         //SpawnPlayer();
         originalgravity = gravityStrength;
@@ -119,10 +122,7 @@ public class PlayerController : BaseEntity
                     StartCoroutine(tempOut.Reload());
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                StartCoroutine(Dash());
-            }
+
             if (Input.GetMouseButtonDown(1))
             {
                 playerHandRef?.toggleADS();
@@ -142,15 +142,6 @@ public class PlayerController : BaseEntity
     public void UpdatePlayerSpeed(float _mod)
     {
         acceleration *= _mod;
-    }
-    public IEnumerator Dash()
-    {
-        if (isDashing) yield break;
-        isDashing = true;
-        acceleration = acceleration * dashMod;
-        yield return new WaitForSeconds(0.5f);
-        isDashing = false;
-        acceleration = acceleration / dashMod;
     }
 
     private bool TryFindPlayerSpawnPos(out GameObject _ref)
@@ -198,6 +189,8 @@ public class PlayerController : BaseEntity
     }
     public override void SetHealth(int _amount)
     {
+
+
         if (_amount < currentHealth)
         {
             if (CameraController.instance != null) CameraController.instance.StartCamShake();
@@ -207,7 +200,9 @@ public class PlayerController : BaseEntity
                 StartCoroutine(UIManager.instance.flashDamage());
             }
         }
+
         base.SetHealth(_amount);
+        GameManager.instance.SetCurrentHealth(currentHealth);
         UIManager.instance?.UpdateHealthBar((float)currentHealth / maxHealth);
     }
     // Update is called once per frame
@@ -246,6 +241,7 @@ public class PlayerController : BaseEntity
             Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));
         }
         controllerRef.Move(playerVel * Time.deltaTime);
+
     }
     public IEnumerator playStepSound()
     {
@@ -288,22 +284,22 @@ public class PlayerController : BaseEntity
     {
         RaycastHit hit;
         Walljumpdir = new Vector3(0, jumpHeight, 0);
-        if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
+        if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 0.6f, jumplayer))
         {
             jumpCurr = 0;
             onWall = true;
             if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
             {
-                Walljumpdir = new Vector3(-playerVel.x, jumpHeight, 0);
+                Walljumpdir = new Vector3(-playerVel.x, jumpHeight, -playerVel.z);
             }
         }
-        else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 2f, jumplayer))
+        else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 0.6f, jumplayer))
         {
             jumpCurr = 0;
             onWall = true;
             if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
             {
-                Walljumpdir = new Vector3(-playerVel.x, jumpHeight, 0);
+                Walljumpdir = new Vector3(-playerVel.x, jumpHeight, -playerVel.z);
             }
             else if (Input.GetButtonDown("Jump") && controllerRef.isGrounded) { 
             

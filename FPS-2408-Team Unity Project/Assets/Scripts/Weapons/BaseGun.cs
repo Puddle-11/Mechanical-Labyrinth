@@ -74,19 +74,6 @@ public class BaseGun : Weapon
     }
 
 
-    public int GetCurrAmmo()
-    {
-        return currAmmo;
-    }
-   
-    public override string GetItemStats()
-    {
-        return "Speed: " + coolDown + "\nDamage: " + shootDamage;
-    }
-    public override bool CanAttack()
-    {
-        return !(isAttacking || isReloading);
-    }
     private void Update()
     {   
         if (ShootConditional()) Attack();
@@ -110,18 +97,14 @@ public class BaseGun : Weapon
 
     }
     #region Getters Setters
-    public void SetShootPos(Transform _pos)
-    {
-        barrels[currBarrel].shootObj = _pos;
-    }
-    public AmmoInventory.bulletType GetAmmoType()
-    {
-        return ammoType;
-    }
-    public void SetPlayerGun(bool _val)
-    {
-        playerGun = _val;
-    }
+
+    public int GetMaxClipSize() { return clipSizeMax; }
+    public int GetCurrAmmo() { return currAmmo; }
+    public override string GetItemStats() { return "Speed: " + coolDown + "\nDamage: " + shootDamage; }
+    public override bool CanAttack() { return !(isAttacking || isReloading); }
+    public void SetShootPos(Transform _pos){barrels[currBarrel].shootObj = _pos;}
+    public AmmoInventory.bulletType GetAmmoType(){return ammoType;}
+    public void SetPlayerGun(bool _val){playerGun = _val;}
     #endregion
     private bool ShootConditional()
     {
@@ -155,12 +138,12 @@ public class BaseGun : Weapon
 
     private void OnEnable()
     {
-        BootLoadManager.instance.stopLoadEvent += OpenAmmoUI;
+        if (BootLoadManager.instance != null) BootLoadManager.instance.stopLoadEvent += OpenAmmoUI;
         if (isAttacking) isAttacking = false; //safegaurding against edgecases with the AttackDelay Ienumerator
     }
     private void OnDisable()
     {
-        BootLoadManager.instance.stopLoadEvent -= OpenAmmoUI;
+        if(BootLoadManager.instance!=null)BootLoadManager.instance.stopLoadEvent -= OpenAmmoUI;
 
         if (playerGun) UIManager.instance.CloseCurrInvAmmo();
 
@@ -353,6 +336,7 @@ public class BaseGun : Weapon
     public IEnumerator Reload()
     {
         if (isReloading) yield break;
+        if (currAmmo == clipSizeMax) yield break;
         isReloading = true;
 
 

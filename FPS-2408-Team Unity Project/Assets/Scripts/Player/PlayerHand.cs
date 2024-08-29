@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using static UnityEditor.Progress;
 
 public class PlayerHand : MonoBehaviour
 {
@@ -19,6 +20,14 @@ public class PlayerHand : MonoBehaviour
     private bool isAiming = false;
     private void Start()
     {
+        if(GameManager.instance != null)
+        {
+          ItemType t =   GameManager.instance.GetCurrentItemType();
+            if(t != null)
+            {
+                ForcePickup(t);
+            }
+        }
     }
     public void SetUseItem(bool _val)
     {
@@ -135,6 +144,40 @@ public class PlayerHand : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public void ForcePickup(ItemType _item)
+    {
+        AttemptDrop();
+
+        GameObject _ref = Instantiate(_item.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
+
+
+        if (_ref.GetComponent<IUsable>() != null)
+        {
+            _ref.GetComponent<IUsable>().SetPickup(_item.Pickup);
+        }
+        BaseGun bgref;
+        if (_ref.TryGetComponent<BaseGun>(out bgref))
+        {
+            bgref.SetPlayerGun(true);
+            bgref.SetAmmo(bgref.GetMaxClipSize());
+        }
+        CurrentEquiped = _ref;
+        IUsable iRef;
+
+        if (GetItem(out iRef))
+        {
+            PlayerController r = GameManager.instance.playerControllerRef;
+            if (r != null)
+            {
+                r.playerUseEvent = iRef.UseItem;
+            }
+        }
+            BaseGun BGref;
+        if (CurrentEquiped.TryGetComponent<BaseGun>(out BGref))
+        {
+            BGref.SetPlayerGun(true);
+        }
     }
     private bool AttemptPickup()
     {

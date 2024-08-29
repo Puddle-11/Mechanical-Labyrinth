@@ -12,12 +12,14 @@ public class ButtonFunction : MonoBehaviour
     }
     public void restart()
     {
+        GameManager.instance?.ResetCurrentHealth();
         BootLoadManager.instance?.LoadGameScene(SceneManager.GetActiveScene().name);
-        GameManager.instance?.respawn();
         UIManager.instance?.StateUnpause();
     }
     public void quit()
     {
+        if(GameManager.instance?.GetCurrentHealth() == 0) GameManager.instance?.ResetCurrentHealth();
+
         Time.timeScale = 1;
         BootLoadManager.instance?.ExitGameMode();
     }

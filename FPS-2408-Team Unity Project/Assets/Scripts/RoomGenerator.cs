@@ -59,6 +59,8 @@ public class RoomGenerator : IGenerator
     {
         
         ChunkGrid.instance.EndLoad += GenerateDecorations;
+        maxNumOfPrimaryRooms *= GameManager.instance.GetCurrentLevel() + 1;
+        maxNumOfSecondaryRooms += GameManager.instance.GetCurrentLevel() + 1;
     }
 
     private void OnDisable()
