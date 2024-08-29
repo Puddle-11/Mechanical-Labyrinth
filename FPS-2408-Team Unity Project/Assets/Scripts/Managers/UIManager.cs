@@ -55,6 +55,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     [SerializeField] private Animator UIFadeAnim;
+    [SerializeField] private TMP_Text currAmmoInvAmount;
+    [SerializeField] private Image currAmmoInvIcon;
 
     public UIObj[] ConstUI;
 
@@ -75,7 +77,11 @@ public class UIManager : MonoBehaviour
         public GameObject[] horizontalLine;
         public GameObject[] verticalLine;
     }
-   
+    public void UpdateAmmoInInv(AmmoInventory.bulletType _type)
+    {
+        currAmmoInvAmount.text =  AmmoInventory.instance.GetAmmoAmount(_type).ToString();
+        currAmmoInvIcon.sprite = AmmoInventory.instance.GetAmmoIcon(_type);
+    }
     public void SetAttemptNumber(int _val)
     {
         attemptNumber.text = _val.ToString();
@@ -213,7 +219,6 @@ public class UIManager : MonoBehaviour
         //currAmmo
         ammoFillup.fillAmount = (float)curr / max;
         currAmmoField.text = curr + "/" + max;
-        Debug.Log("hit ammo display");
     }
     public void UpdateAmmoFill(float val)
     {

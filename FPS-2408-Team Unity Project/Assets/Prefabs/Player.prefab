@@ -616,13 +616,13 @@ MonoBehaviour:
   WalljumpSpeed: 3
   wallgravity: 1
   gravityStrength: 21
-  footstepDelay: 0.3
+  footstepDelay: 0.4
   footstepSounds:
   - {fileID: 8300000, guid: 60572617274ab6e43b9f8af9918043b0, type: 3}
   - {fileID: 8300000, guid: 2fc9228299437ae4ca6b619fdaee4c4d, type: 3}
   - {fileID: 8300000, guid: 508b1415ba3210748b6bae5b0bfcacf8, type: 3}
   damageSounds: []
-  footstepvol: 0
+  footstepvol: 0.2
 --- !u!114 &2174789186933504693
 MonoBehaviour:
   m_ObjectHideFlags: 0

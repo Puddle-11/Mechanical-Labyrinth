@@ -409,8 +409,55 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4929931634702836277, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1555918049}
   m_SourcePrefab: {fileID: 100100000, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+--- !u!1 &1555918048 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4929931634702836277, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+  m_PrefabInstance: {fileID: 460504886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1555918049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555918048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5011a3ece09afe64bb7358a98e8be95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allLoot:
+  - levelRange: {x: 0, y: 2}
+    Loot:
+    - _prefab: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 2729555954413337297, guid: 01fca0010a775aa498d7e8fc9b5f5370, type: 3}
+      _frequency: 1
+  - levelRange: {x: 3, y: 6}
+    Loot:
+    - _prefab: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 2729555954413337297, guid: 01fca0010a775aa498d7e8fc9b5f5370, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4017666822207980650, guid: 5bc1038690561184ebe92d362ad752d1, type: 3}
+      _frequency: 3
+    - _prefab: {fileID: 3388937891742639473, guid: 1db890cf10f4efa4f89136d8e366a51c, type: 3}
+      _frequency: 3
+  lootDensity: 0.005
+  lootSpawnOffset: {x: 0, y: 1, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

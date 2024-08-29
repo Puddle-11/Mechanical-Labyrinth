@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BaseGun : Weapon
 {
@@ -12,7 +13,6 @@ public class BaseGun : Weapon
     [SerializeField] private AmmoInventory.bulletType ammoType;
     [SerializeField] private int shootDamage;
     [SerializeField] private float shootDist;
-    [SerializeField] private Transform shootPos;
     [SerializeField] private GameObject bulletTrail;
     [SerializeField] private GameObject bulletHoleDecal;
     [SerializeField] private Material[] NP_bulletHoleMat;
@@ -23,10 +23,8 @@ public class BaseGun : Weapon
     [SerializeField] protected int clipSizeMax;
     [SerializeField] protected float reloadSpeed;
     [SerializeField] protected float barrelDelay;
-    [SerializeField] protected Animator muzzleFlash;
     [SerializeField] protected float muzzleFlashSize;
-    [SerializeField] protected ParticleSystem[] sparkParticles;
-
+    [SerializeField] protected Barrel[] barrels;
     [SerializeField] protected float penetratingDistance;
     [SerializeField] protected float penetratingDamageFalloff;
     [Space]
@@ -43,7 +41,14 @@ public class BaseGun : Weapon
     private bool isReloading = false;
     private bool playerGun = false;
     private bool offTrigger;
-     
+    private int currBarrel;
+    [System.Serializable]
+     public struct Barrel
+    {
+        public Transform shootObj;
+        public Animator muzzleFlash;
+        public ParticleSystem[] sparks;
+    }
     public enum GunType
     {
         Automatic,
@@ -93,7 +98,7 @@ public class BaseGun : Weapon
     #region Getters Setters
     public void SetShootPos(Transform _pos)
     {
-        shootPos = _pos;
+        barrels[currBarrel].shootObj = _pos;
     }
     public void SetPlayerGun(bool _val)
     {
@@ -153,15 +158,19 @@ public class BaseGun : Weapon
             FSAtimer += barrelDelay;
             bool penetrated = false;
             Vector3 tempForward = CameraController.instance.transform.forward;
-            Vector3 shootDir = playerGun ? tempForward : shootPos.forward;
+            Vector3 shootDir = playerGun ? tempForward : barrels[currBarrel].shootObj.forward;
             shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             RaycastHit hit;
             IHealth healthRef = null;
             #endregion
-
+            currBarrel++;
+            if(currBarrel > barrels.Length - 1)
+            {
+                currBarrel = 0;
+            }
             UpdateAmmo(-1);
             StartMuzzleFlash();
-            if (Physics.Raycast(playerGun ? Camera.main.transform.position : shootPos.position, shootDir, out hit, shootDist, ~ignoreMask))
+            if (Physics.Raycast(playerGun ? Camera.main.transform.position : barrels[currBarrel].shootObj.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
                 if (hit.collider.TryGetComponent<IHealth>(out healthRef))
                 {
@@ -232,15 +241,6 @@ public class BaseGun : Weapon
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
     }
-
-
-
-
-
-
-
-
-
     private GameObject SpawnBulletHole(GameObject _prefab, Vector3 _pos, Quaternion _rotation, Transform _parent, Material[] _mat)
     {
 
@@ -257,15 +257,15 @@ public class BaseGun : Weapon
     }
     private void StartMuzzleFlash()
     {
-        if (muzzleFlash != null)
+        if (barrels[currBarrel].muzzleFlash != null)
         {
-            muzzleFlash.transform.localScale = Vector3.one * muzzleFlashSize;
-            muzzleFlash.SetTrigger("Flash");
-            muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 180));
+            barrels[currBarrel].muzzleFlash.transform.localScale = Vector3.one * muzzleFlashSize;
+            barrels[currBarrel].muzzleFlash.SetTrigger("Flash");
+            barrels[currBarrel].muzzleFlash.gameObject.transform.localEulerAngles = new Vector3(0, 0, UnityEngine.Random.Range(0, 180));
         }
-        if (sparkParticles.Length > 0)
+        if (barrels[currBarrel].sparks.Length > 0)
         {
-            foreach (ParticleSystem PS in sparkParticles)
+            foreach (ParticleSystem PS in barrels[currBarrel].sparks)
             {
 
                 PS.Play();
@@ -284,28 +284,28 @@ public class BaseGun : Weapon
         currAmmo = _val;
         if (playerGun == true) {
             UIManager.instance.AmmoDisplay(currAmmo, clipSizeMax);
-            Debug.Log("Updated display");
+            UIManager.instance.UpdateAmmoInInv(ammoType);
         }
     }
     private void SummonBulletTracer(RaycastHit _path, Vector3 _dir)
     {
-        GameObject trailRef = Instantiate(bulletTrail, shootPos.transform.position, Quaternion.identity);
+        GameObject trailRef = Instantiate(bulletTrail, barrels[currBarrel].shootObj.position, Quaternion.identity);
         BulletTracer BT;
         if (trailRef.TryGetComponent<BulletTracer>(out BT))
         {
             if (playerGun)
             {
-                BT.SetPositions(shootPos.transform.position, _path.collider != null ? _path.point : Camera.main.transform.position + _dir * shootDist);
+                BT.SetPositions(barrels[currBarrel].shootObj.position, _path.collider != null ? _path.point : Camera.main.transform.position + _dir * shootDist);
             }
             else
             {
-                BT.SetDirection(shootPos.transform.position, _dir);
+                BT.SetDirection(barrels[currBarrel].shootObj.position, _dir);
             }
         }
     }
     private void OnDrawGizmos()
     {
-        Debug.DrawRay(shootPos.position,shootPos.forward * 10, UnityEngine.Color.red);
+        Debug.DrawRay(barrels[currBarrel].shootObj.position, barrels[currBarrel].shootObj.forward * 10, UnityEngine.Color.red);
     }
 
     public override void Attack()
@@ -327,8 +327,11 @@ public class BaseGun : Weapon
     {
         if (isReloading) yield break;
         isReloading = true;
+
+
         if (playerGun && !(AmmoInventory.instance.ammoCounts[(int)ammoType] > clipSizeMax))
         {
+            isReloading = false;
             yield break;
         }
 
@@ -346,7 +349,7 @@ public class BaseGun : Weapon
         }
         
         SetAmmo(clipSizeMax);
-        AmmoInventory.instance.updateAmmoInventory(ammoType, -clipSizeMax);
+        AmmoInventory.instance.UpdateAmmoInventory(ammoType, -clipSizeMax);
         isReloading = false;
     }
 }

@@ -125,12 +125,9 @@ MonoBehaviour:
   shootsounds:
   - {fileID: 8300000, guid: de4940667ce8b3740ba071e14384ae4d, type: 3}
   shotType: 2
+  ammoType: 0
   shootDamage: 40
   shootDist: 200
-  shootPos:
-  - _pos: {fileID: 0}
-    _muzzleFlash: {fileID: 0}
-    _sparks: []
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
   bulletHoleDecal: {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
   NP_bulletHoleMat:
@@ -153,6 +150,11 @@ MonoBehaviour:
   reloadSpeed: 1.5
   barrelDelay: 0
   muzzleFlashSize: 0.05
+  barrels:
+  - shootObj: {fileID: 2518076912031961564}
+    muzzleFlash: {fileID: 3324316952455392607}
+    sparks:
+    - {fileID: 7025216176303591079}
   penetratingDistance: 1
   penetratingDamageFalloff: 1
   FSAccuracy: 0.05
@@ -258,6 +260,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
+--- !u!198 &7025216176303591079 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8092779793813044356, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
+  m_PrefabInstance: {fileID: 1238983288157647395}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8124094706308244957 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7029931740142131198, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
@@ -320,6 +327,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
+--- !u!95 &3324316952455392607 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6497708398380427535, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
+  m_PrefabInstance: {fileID: 8362665517405701200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3796458336752793039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4657176410209153439, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}

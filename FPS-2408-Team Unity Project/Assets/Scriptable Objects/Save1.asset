@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88cd6efbed8bc75468c20c9a8f325f3f, type: 3}
   m_Name: Save1
   m_EditorClassIdentifier: 
-  S_Level: 0
-  S_Item: {fileID: 0}
+  S_Level: 5
+  S_Item: {fileID: 11400000, guid: ffcfbefaa3c5a2c4e8fcc3cc63e96ea7, type: 2}
   S_TotalDamage: 0
   S_TotallEnemiesKilled: 0
   S_TotalDeaths: 0
+  isActive: 1

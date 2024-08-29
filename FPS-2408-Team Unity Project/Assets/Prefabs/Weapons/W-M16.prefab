@@ -206,7 +206,6 @@ MonoBehaviour:
   ammoType: 3
   shootDamage: 40
   shootDist: 200
-  shootPos: {fileID: 5251786042946030810}
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
   bulletHoleDecal: {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
   NP_bulletHoleMat:
@@ -228,10 +227,12 @@ MonoBehaviour:
   clipSizeMax: 10
   reloadSpeed: 1.5
   barrelDelay: 0
-  muzzleFlash: {fileID: 6535592630840064571}
   muzzleFlashSize: 1
-  sparkParticles:
-  - {fileID: 1833320379406260343}
+  barrels:
+  - shootObj: {fileID: 5251786042946030810}
+    muzzleFlash: {fileID: 6535592630840064571}
+    sparks:
+    - {fileID: 1833320379406260343}
   penetratingDistance: 3
   penetratingDamageFalloff: 1
   FSAccuracy: 0.05

@@ -9,6 +9,7 @@ public class AmmoInventory : MonoBehaviour
     [Header("Inventory Variables")]
     [Space]
     public int[] ammoCounts = new int[5];
+    public Sprite[] typeIcons;
     public enum bulletType
     {
         Pistol,
@@ -38,8 +39,22 @@ public class AmmoInventory : MonoBehaviour
     {
         
     }
-
-    public void updateAmmoInventory(bulletType type, int amount)
+    public int GetAmmoAmount(bulletType type)
+    {
+        return ammoCounts[(int)type];
+    }
+    public Sprite GetAmmoIcon(bulletType type)
+    {
+        if ((int)type < typeIcons.Length)
+        {
+            return typeIcons[(int)type];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public void UpdateAmmoInventory(bulletType type, int amount)
     {
         ammoCounts[(int)type] += amount;
     }

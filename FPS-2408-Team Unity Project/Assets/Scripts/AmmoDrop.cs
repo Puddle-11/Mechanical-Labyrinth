@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ammoDrop : MonoBehaviour
+public class ammoDrop : MonoBehaviour, IInteractable
 {
     [SerializeField] AmmoInventory.bulletType type;
     [SerializeField] int ammoAmount;
 
-    private void OnTriggerEnter(Collider other)
+    public void TriggerInteraction()
     {
-        if (other.gameObject == GameManager.instance.playerRef)
-        {
-            AmmoInventory.instance.updateAmmoInventory(type, ammoAmount);
-            Destroy(gameObject);
-        }
+
+
+        AmmoInventory.instance.UpdateAmmoInventory(type, ammoAmount);
+        Destroy(gameObject);
+
     }
+
 }
