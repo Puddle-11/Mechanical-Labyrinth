@@ -361,25 +361,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 15
-  rendRef: {fileID: 6395860431322103640}
-  damageFlashTime: 0.1
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
-  drops: []
   healthBar: {fileID: 5584159247331382811}
-  DetectPlayerType: 1
+  damageFlashTime: 0.1
+  drops: []
   agent: {fileID: 8413223464130250078}
-  anim: {fileID: 7407986416529562274}
-  transitionSpeed: 6
   weaponScr: {fileID: 8806362038872373297}
-  target: {fileID: 0}
-  sightRadius: 90
-  detectionRange: 20
-  rotationSpeed: 5
   headPos: {fileID: 360672460825057538}
-  sneakDamageMultiplyer: 2
+  patrolPoints: []
+  contactDamage: 15
+  contactDamageFrequency: 0.5
+  stoppingDistance: 7
+  rotationSpeed: 5
   roamTimer: 3
   roamingDistance: 15
-  shootAngle: 0
+  sneakDamageMultiplyer: 2
+  attackRange: 7
+  sightRange: 13.5
+  hearingRange: 20
+  attackAngle: 50
+  sightAngle: 90
+  target: {fileID: 0}
+  senseType: 0
+  sightMask:
+    serializedVersion: 2
+    m_Bits: 0
+  alertMarker: {fileID: 0}
+  anim: {fileID: 7407986416529562274}
+  transitionSpeed: 6
+  Deathsounds:
+  - {fileID: 8300000, guid: cc501cf6ed754b94b9cb0d06f4420e7c, type: 3}
 --- !u!135 &2319109005129507512
 SphereCollider:
   m_ObjectHideFlags: 0

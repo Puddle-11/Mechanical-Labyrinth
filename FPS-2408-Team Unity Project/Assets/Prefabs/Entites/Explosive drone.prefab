@@ -163,6 +163,8 @@ MonoBehaviour:
   alertMarker: {fileID: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
+  Deathsounds:
+  - {fileID: 8300000, guid: ff2d4ab68a40bf142aa2602879aedeaa, type: 3}
 --- !u!65 &7568492905502799312
 BoxCollider:
   m_ObjectHideFlags: 0

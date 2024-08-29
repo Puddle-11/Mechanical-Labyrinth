@@ -7,17 +7,26 @@ public class Spring : MonoBehaviour
 {
     [SerializeField] Vector3 SpringDirection;
     [SerializeField] float Springforce;
+    bool onspring;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.tag == "Player")
+        {
+            onspring = true;
             other.GetComponent<PlayerController>();
-            if (other.GetComponent<PlayerController>() != null) {
-              GameManager.instance.playerControllerRef.SetPlayervel(SpringDirection.normalized * Springforce);  
-              
+            if (other.GetComponent<PlayerController>() != null)
+            {
+                GameManager.instance.playerControllerRef.SetPlayervel(SpringDirection.normalized * Springforce);
+
             }
-            
+           else {
+            onspring = false;
+           }
         }
+        
+
+
     }
 
 

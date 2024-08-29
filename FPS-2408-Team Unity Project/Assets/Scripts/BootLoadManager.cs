@@ -23,14 +23,14 @@ public class BootLoadManager : MonoBehaviour
         if(instance == null)instance = this;
         else
         {
+
+
             Debug.LogWarning("ERROR: Two boot loaders initialized, make sure the bootloader scene is only being run once on start");
             Destroy(this);
+
         }
     }
-    private void Update()
-    {
-        
-    }
+
     private void Start()
     {
         startLoadEvent += OpenLoadMenu;
@@ -92,6 +92,12 @@ public class BootLoadManager : MonoBehaviour
     {
         yield return null;
         LoadScene(_sceneName);
+    }
+    public void ReloadScene()
+    {
+        string name = SceneManager.GetActiveScene().name;
+        UnLoadScene(name);
+        LoadScene(name);
     }
     #endregion
 

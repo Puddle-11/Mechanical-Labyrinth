@@ -139,10 +139,10 @@ MonoBehaviour:
   dampeningForce: 8
   acceptableMargin: 0
   dynamic: 1
-  swaySpeed: 0
-  swayDir: {x: 0, y: 0, z: 0}
+  interactable: 0
   softCollForce: 0
-  collisionDetectorPrefab: {fileID: 0}
+  colliderSize: 0
+  currentControlPos: []
 --- !u!120 &2684594170053987105
 LineRenderer:
   serializedVersion: 2
@@ -381,6 +381,8 @@ MonoBehaviour:
   alertMarker: {fileID: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
+  Deathsounds:
+  - {fileID: 8300000, guid: 46a57546966768f428ff735764e741ed, type: 3}
   shoulderPos: {x: 0, y: 0.25, z: 0}
   legDistance: 0.45
   legs:
@@ -389,21 +391,29 @@ MonoBehaviour:
     legObj: {fileID: 6599964473670020775}
     currPos: {x: 0, y: 0, z: 0}
     isMoving: 0
+    kneeJoint: {fileID: 0}
+    upperLeg: {fileID: 0}
   - anchor: {fileID: 1669081784621448885}
     absolutePos: {x: 0, y: 0, z: 0}
     legObj: {fileID: 4874909088531433400}
     currPos: {x: 0, y: 0, z: 0}
     isMoving: 0
+    kneeJoint: {fileID: 0}
+    upperLeg: {fileID: 0}
   - anchor: {fileID: 3355802286819163415}
     absolutePos: {x: 0, y: 0, z: 0}
     legObj: {fileID: 6687460609577648810}
     currPos: {x: 0, y: 0, z: 0}
     isMoving: 0
+    kneeJoint: {fileID: 0}
+    upperLeg: {fileID: 0}
   - anchor: {fileID: 4057274630579545052}
     absolutePos: {x: 0, y: 0, z: 0}
     legObj: {fileID: 3957960152811301335}
     currPos: {x: 0, y: 0, z: 0}
     isMoving: 0
+    kneeJoint: {fileID: 0}
+    upperLeg: {fileID: 0}
   ground:
     serializedVersion: 2
     m_Bits: 72451

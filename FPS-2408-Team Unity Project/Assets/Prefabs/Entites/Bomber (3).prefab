@@ -1429,6 +1429,8 @@ MonoBehaviour:
   alertMarker: {fileID: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
+  Deathsounds:
+  - {fileID: 8300000, guid: cc501cf6ed754b94b9cb0d06f4420e7c, type: 3}
   shoulderPos: {x: 0, y: 1, z: 0}
   legDistance: 0.5
   legs:
@@ -1562,7 +1564,7 @@ MonoBehaviour:
     m_Bits: 64
   pickUp: {fileID: 0}
   gunDrop: {fileID: 0}
-  objName: 
+  shootsounds: []
   electricRopePrefab: {fileID: 439380383593716450, guid: 9b5873794d7ec854992fa2926a170bc2, type: 3}
   lineDecay: 5
   endAnchor: {fileID: 3482377078245023276, guid: 113b430d91416ed4d95102570656df3c, type: 3}

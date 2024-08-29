@@ -6,10 +6,11 @@ public class Weapon : MonoBehaviour, IUsable
 {
     protected bool usingItem;
     [SerializeField] protected float coolDown;
-    protected bool isAttacking;
+    [SerializeField] protected bool isAttacking;
     public LayerMask ignoreMask;
     [SerializeField] protected GameObject pickUp;
     [SerializeField] protected ItemType gunDrop;
+    [SerializeField] public AudioClip[] shootsounds;
 
     #region Getters Setters
     public virtual ItemType GetItemType() { return gunDrop; }
@@ -58,5 +59,8 @@ public class Weapon : MonoBehaviour, IUsable
         //begin attack
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
+    }
+    protected virtual void PlayAttacksound() {
+        AudioManager.instance.PlaySound(shootsounds[Random.Range(0, shootsounds.Length)],AudioManager.soundType.enemy);
     }
 }

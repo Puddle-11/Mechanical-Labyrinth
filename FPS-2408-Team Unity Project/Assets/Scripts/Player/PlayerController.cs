@@ -72,6 +72,7 @@ public class PlayerController : BaseEntity
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
         //SpawnPlayer();
         base.Start();
+        originalgravity = gravityStrength;
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
     }
     public void SetPlayervel(Vector3 Playervel)
@@ -87,8 +88,9 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
+        
 
- 
+
         if (GameManager.instance.GetStatePaused() || (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading()))
         {
             playerHandRef?.SetUseItem(false);
@@ -130,6 +132,7 @@ public class PlayerController : BaseEntity
 
         wallslide();
         Walljump();
+        
         momentum = mass * acceleration;
     }
     public ItemType GetCurrentItemType()
@@ -146,6 +149,7 @@ public class PlayerController : BaseEntity
     {
         if (isDashing) yield break;
         isDashing = true;
+        if (dashMod <= 0) yield break;
         acceleration = acceleration * dashMod;
         yield return new WaitForSeconds(0.5f);
         isDashing = false;
@@ -318,13 +322,14 @@ public class PlayerController : BaseEntity
             gravityStrength = gravityStrength /= wallgravity;
             gravityStrength = Mathf.Clamp(gravityStrength, 12, 26);
         }
-        else
-        {
-            //returnoriginalgravity();
+        else {
+            returnoriginalgravity();
         }
     }
     void returnoriginalgravity() {
-      originalgravity = gravityStrength;
+        if (gravityStrength != originalgravity ) {
+            gravityStrength = originalgravity;
+        }
     }
 
     public override void Death()
