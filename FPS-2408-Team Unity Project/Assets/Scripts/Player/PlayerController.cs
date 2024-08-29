@@ -249,9 +249,19 @@ public class PlayerController : BaseEntity
     {
         if (playingFootstepSound) yield break;
         playingFootstepSound = true;
-        AudioManager.instance.PlaySound(footstepSounds[Random.Range(0, footstepSounds.Length)], AudioManager.soundType.player);
-        footstepSoundRef?.TriggerSound(transform.position);
-        yield return new WaitForSeconds(1 / playerVel.magnitude * footstepDelay);
+        if(footstepSounds.Length > 0) AudioManager.instance.PlaySound(footstepSounds[Random.Range(0, footstepSounds.Length)], AudioManager.soundType.player);
+        if(footstepSoundRef != null) footstepSoundRef.TriggerSound(transform.position);
+        if (isSprinting)
+        {
+            yield return new WaitForSeconds(footstepDelay / sprintMod);
+
+
+        }
+        else
+        {
+
+        yield return new WaitForSeconds(footstepDelay);
+        }
         playingFootstepSound = false;
     }
     public void Jump(Vector3 _dir)

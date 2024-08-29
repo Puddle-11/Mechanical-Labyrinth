@@ -595,7 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef86f00bacb5cf740b14d187f9163672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 150
+  maxHealth: 1000
   damageMaterial: {fileID: 0}
   healthBar: {fileID: 0}
   damageFlashTime: 0.1
@@ -616,8 +616,11 @@ MonoBehaviour:
   WalljumpSpeed: 3
   wallgravity: 1
   gravityStrength: 21
-  footstepDelay: 0
-  footstepSounds: []
+  footstepDelay: 0.3
+  footstepSounds:
+  - {fileID: 8300000, guid: 60572617274ab6e43b9f8af9918043b0, type: 3}
+  - {fileID: 8300000, guid: 2fc9228299437ae4ca6b619fdaee4c4d, type: 3}
+  - {fileID: 8300000, guid: 508b1415ba3210748b6bae5b0bfcacf8, type: 3}
   damageSounds: []
   footstepvol: 0
 --- !u!114 &2174789186933504693
