@@ -153,7 +153,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1483318c768b2924483e1a43bdf2800d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpringVelocity: {x: 0, y: 10, z: 0}
   SpringDirection: {x: 0, y: 10, z: 0}
   Springforce: 5
 --- !u!1001 &872207180

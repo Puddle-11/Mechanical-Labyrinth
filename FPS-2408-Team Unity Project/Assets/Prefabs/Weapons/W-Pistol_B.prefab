@@ -107,16 +107,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coolDown: 0.05
+  isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
-  objName: 
+  shootsounds:
+  - {fileID: 8300000, guid: a5a5359097e62fe48a87665456f1dd54, type: 3}
   shotType: 2
   shootDamage: 40
   shootDist: 200
-  shootPos: {fileID: 4898204275461610101}
+  shootPos:
+  - _pos: {fileID: 0}
+    _muzzleFlash: {fileID: 0}
+    _sparks: []
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
   bulletHoleDecal: {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
   NP_bulletHoleMat:
@@ -138,10 +143,7 @@ MonoBehaviour:
   clipSizeMax: 15
   reloadSpeed: 1.5
   barrelDelay: 0
-  muzzleFlash: {fileID: 7239544539986985002}
   muzzleFlashSize: 0.05
-  sparkParticles:
-  - {fileID: 7670983049935914722}
   penetratingDistance: 1
   penetratingDamageFalloff: 1
   FSAccuracy: 0.05
@@ -252,11 +254,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
---- !u!198 &7670983049935914722 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 8092779793813044356, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
-  m_PrefabInstance: {fileID: 1890273968134716006}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8913977725241011608 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7029931740142131198, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
@@ -319,11 +316,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
---- !u!95 &7239544539986985002 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6497708398380427535, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
-  m_PrefabInstance: {fileID: 4491346926045931813}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9148470549966149818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4657176410209153439, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
