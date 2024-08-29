@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
-  m_Name: Pistol A
+  m_Name: Uzi
   m_EditorClassIdentifier: 
+  itemName: Uzi
+  itemID: 0
   Object: {fileID: 5944326923703619556, guid: 488e6521f9609c94f83f655578585f74, type: 3}
   Pickup: {fileID: 4282439237422998839, guid: 9a5ef60f98df70e489851b2252678b50, type: 3}

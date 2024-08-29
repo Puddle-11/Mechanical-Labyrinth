@@ -209,6 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 2ffabef03afc2704fab3fc11cab93bbd, type: 2}
+  stats: 
+  storedClip: 100
 --- !u!54 &-4127366497639763469
 Rigidbody:
   m_ObjectHideFlags: 0

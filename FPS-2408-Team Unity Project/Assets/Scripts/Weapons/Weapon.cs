@@ -4,12 +4,22 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour, IUsable
 {
+    [Space]
+    [Header("WEAPONS GENERAL")]
+    [Space]
     protected bool usingItem;
     [SerializeField] protected float coolDown;
     [SerializeField] protected bool isAttacking;
     public LayerMask ignoreMask;
     [SerializeField] protected GameObject pickUp;
     [SerializeField] protected ItemType gunDrop;
+
+
+    [Space]
+    [Header("Sound Variables")]
+    [Space]
+
+    [SerializeField] protected float attackVolume;
     [SerializeField] public AudioClip[] shootsounds;
 
     #region Getters Setters

@@ -29,13 +29,18 @@ public class LockOnDisplay : MonoBehaviour
         {
             Pickup pickupRef;
             IHealth healthRef;
+            IInteractable interactableRef;
             checkLineOfSight.collider.TryGetComponent<Pickup>(out pickupRef);
             checkLineOfSight.collider.TryGetComponent<IHealth>(out healthRef);
-            if (healthRef!=null || pickupRef != null)
+            checkLineOfSight.collider.TryGetComponent<IInteractable>(out interactableRef);
+
+            if (healthRef!=null || pickupRef != null || interactableRef != null)
             {
-
-
                 LockOnGUI.SetActive(true);
+
+
+
+
                 float distanceScale = relativeScale / Vector3.Distance(checkLineOfSight.collider.transform.position, CameraController.instance.mainCamera.transform.position);
                 Renderer rendRef = checkLineOfSight.collider.GetComponent<Renderer>();
 
@@ -53,6 +58,11 @@ public class LockOnDisplay : MonoBehaviour
                     UpdateInfo(pickupRef.GetStats(), new Vector2(objectScreenBounds.max.x, objectScreenBounds.max.y), distanceScale);
                     infoDisplay.transform.gameObject.SetActive(true);
 
+                }
+                else if(interactableRef != null)
+                {
+                    UpdateInfo(interactableRef.GetStats(), new Vector2(objectScreenBounds.max.x, objectScreenBounds.max.y), distanceScale);
+                    infoDisplay.transform.gameObject.SetActive(true);
                 }
                 //else if(healthRef != null)
                 //{

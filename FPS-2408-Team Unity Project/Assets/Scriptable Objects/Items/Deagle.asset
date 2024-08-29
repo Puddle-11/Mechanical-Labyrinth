@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
-  m_Name: Pistol C
+  m_Name: Deagle
   m_EditorClassIdentifier: 
-  Object: {fileID: 6627701735221695636, guid: f7ff71dab8db5c944ac2708765f1eebb, type: 3}
-  Pickup: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}
+  itemName: Deagle
+  itemID: 0
+  Object: {fileID: 6134170139699120558, guid: 50102a8bfdbb2bd4196b39b6c1d5f8e9, type: 3}
+  Pickup: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}

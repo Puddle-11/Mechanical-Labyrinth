@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8185329814615988246}
   - component: {fileID: 6596889103904784724}
   - component: {fileID: 2079438425581143198}
-  - component: {fileID: 3234653621185958397}
   - component: {fileID: 8019639114981962862}
+  - component: {fileID: -4513838365901580373}
   m_Layer: 8
-  m_Name: Pickup
+  m_Name: Pistol Ammo Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -107,19 +107,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3234653621185958397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5325792448802999737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b864f226e4973e4dbf2e3142494539d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
 --- !u!54 &8019639114981962862
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -147,3 +134,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-4513838365901580373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5325792448802999737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e82880ba3ab7fa4698d712d1334f4b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  amountRange: {x: 10, y: 40}

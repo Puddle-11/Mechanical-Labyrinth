@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Drone : MonoBehaviour
+public class Drone : MonoBehaviour, IInteractable
 {
     [SerializeField] private Vector3 magnitude;
     private Vector3 newPos;
@@ -16,7 +16,14 @@ public class Drone : MonoBehaviour
 
     [SerializeField] private bool inRange = false;
     [SerializeField] private Collider coll;
+    public void TriggerInteraction()
+    {
 
+    }
+    public string GetStats()
+    {
+        return "";
+    }
     private void Start()
     {
         originalHeight = drone.transform.position.y;
@@ -42,14 +49,16 @@ public class Drone : MonoBehaviour
             drone.SetActive(false);
             coll.enabled = false;
 
-            if (exploded == true) {
-                if (inRange == true)
+            if (exploded == true && inRange)
+            {
+
+                IHealth healthRef;
+                if (GameManager.instance.playerRef.TryGetComponent<IHealth>(out healthRef))
                 {
-                    IHealth healthRef = null;
-                    GameManager.instance.playerRef.TryGetComponent<IHealth>(out healthRef);
+
                     healthRef.UpdateHealth(-explosionDamage);
+                    Debug.Log(explosionDamage);
                 }
-                
                 Destroy(drone);
             }
             
@@ -60,6 +69,11 @@ public class Drone : MonoBehaviour
             drone.SetActive(true);
             coll.enabled = true;
         }
+    }
+    private void OnDisable()
+    {
+        GameManager.instance.updateGameGoal(-1);
+
     }
     private IEnumerator DroneExplodeDelay()
     {

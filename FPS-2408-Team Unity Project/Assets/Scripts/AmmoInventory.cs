@@ -8,8 +8,9 @@ public class AmmoInventory : MonoBehaviour
 
     [Header("Inventory Variables")]
     [Space]
+    [SerializeField] private int numOfAmmoTypes = 5;
     public int[] ammoCounts = new int[5];
-    public Sprite[] typeIcons;
+    public Sprite[] typeIcons = new Sprite[5];
     public enum bulletType
     {
         Pistol,
@@ -19,7 +20,23 @@ public class AmmoInventory : MonoBehaviour
         Explosive
     }
 
-
+    public string GetTypeName(bulletType _type)
+    {
+        switch (_type)
+        {
+            case bulletType.Pistol:
+                return "Pistol";
+            case bulletType.Assualt:
+                return "Assualt";
+            case bulletType.Shotgun:
+                return "Shotgun";
+            case bulletType.Sniper:
+                return "Sniper";
+            case bulletType.Explosive:
+                return "Explosive";
+        }
+        return "";
+    }
     // Start is called before the first frame update
     void Awake()
     {
@@ -33,7 +50,10 @@ public class AmmoInventory : MonoBehaviour
         }
         
     }
-
+    public int GetAmmoTypeCount()
+    {
+        return numOfAmmoTypes;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -41,21 +61,40 @@ public class AmmoInventory : MonoBehaviour
     }
     public int GetAmmoAmount(bulletType type)
     {
-        return ammoCounts[(int)type];
+        return GetAmmoAmount((int)type);
+    }
+    public int GetAmmoAmount(int _index)
+    {
+        return ammoCounts[_index];
+
     }
     public Sprite GetAmmoIcon(bulletType type)
     {
-        if ((int)type < typeIcons.Length)
+        return GetAmmoIcon((int)type);
+    }
+    public Sprite GetAmmoIcon(int _index)
+    {
+        if (_index < typeIcons.Length)
         {
-            return typeIcons[(int)type];
+            return typeIcons[_index];
         }
         else
         {
             return null;
         }
+
     }
     public void UpdateAmmoInventory(bulletType type, int amount)
     {
         ammoCounts[(int)type] += amount;
+        ItemType itRef = GameManager.instance.playerControllerRef.GetCurrentItemType();
+        if (itRef != null)
+        {
+            BaseGun basegRef = itRef.Object.GetComponent<BaseGun>();
+            if (basegRef.GetAmmoType() == type)
+            {
+                UIManager.instance.UpdateCurrInvAmmo(type);
+            }
+        }
     }
 }

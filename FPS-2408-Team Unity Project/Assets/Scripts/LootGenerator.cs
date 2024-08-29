@@ -9,6 +9,7 @@ public class LootGenerator : MonoBehaviour
     [SerializeField] private LootTable[] allLoot;
     [SerializeField] private float lootDensity;
     [SerializeField] private Vector3 lootSpawnOffset;
+    [SerializeField] private GameObject defaultLoot;
     private List<Vector3> allPositions = new List<Vector3>();
     [System.Serializable]
     public struct LootTable
@@ -47,6 +48,7 @@ public class LootGenerator : MonoBehaviour
                 }
             }
         }
+        Instantiate(defaultLoot, allPositions[Random.Range(0, allPositions.Count)], defaultLoot.transform.rotation);
         GenerateLoot(GameManager.instance.GetCurrentLevel());
     }
     public void GenerateLoot(int _level)

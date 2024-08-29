@@ -88,13 +88,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4195599869345402900}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0.043619405, z: 0, w: 0.9990483}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7711391776780774041}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 5, z: 0}
 --- !u!108 &7386352959993132693
 Light:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 524287
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -257,7 +257,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 237567
+    m_Bits: 761855
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -559,6 +559,7 @@ GameObject:
   - component: {fileID: 2385250308186476171}
   - component: {fileID: 1750312086539458527}
   - component: {fileID: 7812129156646002974}
+  - component: {fileID: 5370617233789152769}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -755,3 +756,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd08c427d2b0e644b41124bae007ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5370617233789152769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9109832186709042457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4125d694f35207946b05d711acec1586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numOfAmmoTypes: 5
+  ammoCounts: 0000000000000000000000000000000000000000
+  typeIcons:
+  - {fileID: 21300000, guid: 7d0e061f74c65574aad4cdef5353dcc9, type: 3}
+  - {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
+  - {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
+  - {fileID: 21300000, guid: 24b6cd2c8e96ff543a78d1c90afd3d12, type: 3}
+  - {fileID: 21300000, guid: ba09a36f0d73dba42873c79e424a3f08, type: 3}

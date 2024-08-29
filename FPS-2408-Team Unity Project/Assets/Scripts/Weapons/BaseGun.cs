@@ -11,6 +11,7 @@ public class BaseGun : Weapon
     [Space]
     [SerializeField] private GunType shotType;
     [SerializeField] private AmmoInventory.bulletType ammoType;
+
     [SerializeField] private int shootDamage;
     [SerializeField] private float shootDist;
     [SerializeField] private GameObject bulletTrail;
@@ -34,7 +35,7 @@ public class BaseGun : Weapon
     [SerializeField] private AnimationCurve FSAOverTime;
     [SerializeField] private float recoilCooldownFactor;
     [SerializeField] private float maxRecoil;
-
+    
     private float FSATimerMax;
     private float FSAtimer;
     private int currAmmo;
@@ -61,10 +62,23 @@ public class BaseGun : Weapon
         if (shotType == GunType.Burst) {size = burstSize;}
         FSATimerMax = barrelDelay * size * clipSizeMax + coolDown * (clipSizeMax / size);
     }
+   
     public void Start()
     {
-        SetAmmo(clipSizeMax);
+        OpenAmmoUI();
     }
+    public void OpenAmmoUI()
+    {
+        if (playerGun) UIManager.instance.OpenCurrInvAmmo(ammoType);
+
+    }
+
+
+    public int GetCurrAmmo()
+    {
+        return currAmmo;
+    }
+   
     public override string GetItemStats()
     {
         return "Speed: " + coolDown + "\nDamage: " + shootDamage;
@@ -91,7 +105,7 @@ public class BaseGun : Weapon
             if (playerGun) CameraController.instance.ResetOffset(false);
 
         }
-        UIManager.instance.UpdateCrosshairSpread(FSAccuracy * FSAOverTime.Evaluate(FSAtimer/ FSATimerMax));
+        if (playerGun) UIManager.instance.UpdateCrosshairSpread(FSAccuracy * FSAOverTime.Evaluate(FSAtimer/ FSATimerMax));
 
 
     }
@@ -99,6 +113,10 @@ public class BaseGun : Weapon
     public void SetShootPos(Transform _pos)
     {
         barrels[currBarrel].shootObj = _pos;
+    }
+    public AmmoInventory.bulletType GetAmmoType()
+    {
+        return ammoType;
     }
     public void SetPlayerGun(bool _val)
     {
@@ -137,7 +155,15 @@ public class BaseGun : Weapon
 
     private void OnEnable()
     {
+        BootLoadManager.instance.stopLoadEvent += OpenAmmoUI;
         if (isAttacking) isAttacking = false; //safegaurding against edgecases with the AttackDelay Ienumerator
+    }
+    private void OnDisable()
+    {
+        BootLoadManager.instance.stopLoadEvent -= OpenAmmoUI;
+
+        if (playerGun) UIManager.instance.CloseCurrInvAmmo();
+
     }
     //This is the only function that needs to be overridden for different types of weapons
 
@@ -168,6 +194,7 @@ public class BaseGun : Weapon
             {
                 currBarrel = 0;
             }
+            if (shootsounds.Length > 0) AudioManager.instance.PlaySound(shootsounds[UnityEngine.Random.Range(0, shootsounds.Length)], (playerGun ? AudioManager.soundType.player : AudioManager.soundType.enemy), attackVolume);
             UpdateAmmo(-1);
             StartMuzzleFlash();
             if (Physics.Raycast(playerGun ? Camera.main.transform.position : barrels[currBarrel].shootObj.position, shootDir, out hit, shootDist, ~ignoreMask))
@@ -284,7 +311,8 @@ public class BaseGun : Weapon
         currAmmo = _val;
         if (playerGun == true) {
             UIManager.instance.AmmoDisplay(currAmmo, clipSizeMax);
-            UIManager.instance.UpdateAmmoInInv(ammoType);
+            UIManager.instance.UpdateCurrInvAmmo(ammoType);
+
         }
     }
     private void SummonBulletTracer(RaycastHit _path, Vector3 _dir)
@@ -322,17 +350,21 @@ public class BaseGun : Weapon
             }
         }
     }
-
     public IEnumerator Reload()
     {
         if (isReloading) yield break;
         isReloading = true;
 
 
-        if (playerGun && !(AmmoInventory.instance.ammoCounts[(int)ammoType] > clipSizeMax))
+        if (playerGun )
         {
-            isReloading = false;
-            yield break;
+            if (!(AmmoInventory.instance.ammoCounts[(int)ammoType] >= clipSizeMax))
+            {
+                isReloading = false;
+                yield break;
+            }
+            UIManager.instance.UpdateCurrInvAmmo(ammoType);
+            AmmoInventory.instance.UpdateAmmoInventory(ammoType, -clipSizeMax);
         }
 
         float timer = 0;
@@ -349,7 +381,6 @@ public class BaseGun : Weapon
         }
         
         SetAmmo(clipSizeMax);
-        AmmoInventory.instance.UpdateAmmoInventory(ammoType, -clipSizeMax);
         isReloading = false;
     }
 }

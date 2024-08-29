@@ -90,8 +90,6 @@ public class PlayerController : BaseEntity
         base.Update();
         Movement();
         Sprint();
-
- 
         if (GameManager.instance.GetStatePaused() || (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading()))
         {
             playerHandRef?.SetUseItem(false);
@@ -225,8 +223,10 @@ public class PlayerController : BaseEntity
         if (controllerRef.isGrounded)
         {
             jumpCurr = 0;
-            if(playerVel.y < 0)
-            playerVel.y = 0;
+            if (playerVel.y < 0)
+            {
+                playerVel.y = 0;
+            }
         }
         else playerVel.y -= gravityStrength * Time.deltaTime;
 

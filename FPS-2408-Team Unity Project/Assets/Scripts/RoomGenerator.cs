@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.U2D;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class RoomGenerator : IGenerator
 {
@@ -39,7 +37,7 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public int baseBoardBlockID;
     [HideInInspector] public int topPlaceBlockID;
     [HideInInspector] public Texture2D roomTexture;
-
+    public Vector2Int TextureSize;
     private Color roomCol;
     private Vector2Int startPos;
     public override Texture2D GetRoomTexture()
@@ -86,11 +84,12 @@ public class RoomGenerator : IGenerator
         }
 
         roomTexture = new Texture2D(bounds.max.x + 1, bounds.max.z + 1);
+        TextureSize = new Vector2Int(bounds.max.x + 1, bounds.max.z + 1);
         //================================
         //Set Texture to all black
-        for (int x = 0; x < roomTexture.Size().x; x++)
+        for (int x = 0; x < TextureSize.x; x++)
         {
-            for (int y = 0; y < roomTexture.Size().y; y++)
+            for (int y = 0; y < TextureSize.y; y++)
             {
                 roomTexture.SetPixel(x,y,Color.black);
             }
@@ -213,7 +212,7 @@ private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
             RoomMarker tempRoom = new RoomMarker();
             tempRoom.R_Size = new Vector2Int((int)Random.Range(minRoomSize.x, maxRoomSize.x), (int)Random.Range(minRoomSize.y, maxRoomSize.y));
             Vector2Int Padding = new Vector2Int((tempRoom.R_Size.x / 2), (tempRoom.R_Size.y / 2));
-            tempRoom.R_Pos = new Vector2Int((int)Random.Range(0 + Padding.x, _texture.Size().x - Padding.x), (int)Random.Range(0 + Padding.y, _texture.Size().y - Padding.y));
+            tempRoom.R_Pos = new Vector2Int((int)Random.Range(0 + Padding.x, TextureSize.x - Padding.x), (int)Random.Range(0 + Padding.y, TextureSize.y - Padding.y));
             Vector2Int offset = new Vector2Int((tempRoom.R_Size.x / 2), (tempRoom.R_Size.y / 2));
 
             bool success = true;
@@ -314,7 +313,7 @@ private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
             {
                 tempRes[i].R_Size = new Vector2Int((int)Random.Range(minRoomSize.x, maxRoomSize.x), (int)Random.Range(minRoomSize.y, maxRoomSize.y));
                 Vector2Int Padding = new Vector2Int((tempRes[i].R_Size.x / 2), (tempRes[i].R_Size.y / 2));
-                tempRes[i].R_Pos = new Vector2Int((int)Random.Range(0 + Padding.x, _texture.Size().x - Padding.x), (int)Random.Range(0 + Padding.y, _texture.Size().y - Padding.y));
+                tempRes[i].R_Pos = new Vector2Int((int)Random.Range(0 + Padding.x, TextureSize.x - Padding.x), (int)Random.Range(0 + Padding.y, TextureSize.y - Padding.y));
 
                 Vector2Int currMinDist = GetMinDist(tempRes[i], res.ToArray());
              

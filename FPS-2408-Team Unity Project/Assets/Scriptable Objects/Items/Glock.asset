@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
-  m_Name: Pistol B
+  m_Name: Glock
   m_EditorClassIdentifier: 
-  Object: {fileID: 4287647226102483669, guid: 3b3d6e608950c9d489254c034510c767, type: 3}
-  Pickup: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
+  itemName: Glock
+  itemID: 0
+  Object: {fileID: 6627701735221695636, guid: f7ff71dab8db5c944ac2708765f1eebb, type: 3}
+  Pickup: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}

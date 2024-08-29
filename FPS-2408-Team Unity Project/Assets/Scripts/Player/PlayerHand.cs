@@ -17,7 +17,9 @@ public class PlayerHand : MonoBehaviour
 
 
     private bool isAiming = false;
-
+    private void Start()
+    {
+    }
     public void SetUseItem(bool _val)
     {
         IUsable itemRef;
@@ -110,6 +112,7 @@ public class PlayerHand : MonoBehaviour
             UIManager.instance.AmmoDisplay(0, 0);
             UIManager.instance.UpdateAmmoFill(1);
             CameraController.instance.ResetOffset(true);
+            UIManager.instance.UpdateCrosshairSpread(0);
             //======================================
 
             IUsable IRef;
@@ -117,8 +120,13 @@ public class PlayerHand : MonoBehaviour
             {
                 Pickup _pickup = Instantiate(IRef.GetPickup(), transform.position, IRef.GetPickup().transform.rotation).GetComponent<Pickup>();
                 _pickup.DropItem(transform.position + transform.forward * throwOffset.x + new Vector3(0, throwOffset.y, 0), Camera.main.transform.forward * throwSpeed.x + Vector3.up * throwSpeed.y, 1);
+                BaseGun tRef = CurrentEquiped.GetComponent<BaseGun>();
+                if (tRef != null)
+                {
+                    _pickup.storedClip = tRef.GetCurrAmmo();
+                }
             }
-
+            
             //======================================
             //Internal Resets
             Destroy(CurrentEquiped);
@@ -133,13 +141,21 @@ public class PlayerHand : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpDist, ~GameManager.instance.projectileIgnore))
         {
+            IInteractable interactionRef;
+            if(hit.transform.TryGetComponent<IInteractable>(out interactionRef))
+            {
+                interactionRef.TriggerInteraction();
+                return true;
+            }
             Pickup objectPickupRef;
             if (hit.transform.TryGetComponent<Pickup>(out objectPickupRef) && objectPickupRef.GetItem() != null)
             {
+
                 AttemptDrop(); //attempt a drop before picking up a new item
                 objectPickupRef.PickupItem(out CurrentEquiped, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
                 // CurrentEquiped = Instantiate(itemRef.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
                 IUsable iRef;
+
                 if (GetItem(out iRef)) {
                     GameManager.instance.playerControllerRef.playerUseEvent = iRef.UseItem;
                 }

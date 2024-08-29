@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4001013144905581867, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Name
-      value: Pistol_B Variant
+      value: P-Pistol-B
       objectReference: {fileID: 0}
     - target: {fileID: 4001013144905581867, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer
@@ -176,3 +176,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
+  stats: 
+  storedClip: 100

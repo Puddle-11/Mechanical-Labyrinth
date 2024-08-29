@@ -6,7 +6,6 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     [SerializeField] private AudioSource soundPlayer;
-    private float originalPitch;
     [SerializeField] private float generalVol = 1;
     [SerializeField] private float SXFVol = 1;
     [SerializeField] private float environmentalVol = 1;
@@ -60,28 +59,19 @@ public class AudioManager : MonoBehaviour
                 break;
         }
     }
-    private void Start()
-    {
-        originalPitch = soundPlayer.pitch;
-    }
+ 
     private void Awake()
     {
         if(instance == null) instance = this;
         else Destroy(instance);
     }
-    public void PlaySound(AudioClip _sound, float _volume, float _pitchVariance)
-    {
-        soundPlayer.pitch += Random.Range(-_pitchVariance, _pitchVariance);
-        soundPlayer.PlayOneShot(_sound, _volume * generalVol);
-        soundPlayer.pitch = originalPitch;
-    }
     public void PlaySound(AudioClip _sound, float _volume)
     {
-        PlaySound(_sound, _volume, 0);
+        soundPlayer.PlayOneShot(_sound, _volume * generalVol);
     }
     public void PlaySound(AudioClip _sound, soundType _type)
     {
-        PlaySound(_sound, GetTypeVolume(_type) * 1);
+        PlaySound(_sound, GetTypeVolume(_type));
     }
     public void PlaySound(AudioClip _sound, soundType _type, float _volMod)
     {

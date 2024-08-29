@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5381041961118329695, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_Name
-      value: Pickup Gun 1 Variant
+      value: P-Pistol-A
       objectReference: {fileID: 0}
     - target: {fileID: 5381041961118329695, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_Layer
@@ -188,3 +188,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: e8ba6ad58bbee274d81af0ec1a461c06, type: 2}
+  stats: 
+  storedClip: 100

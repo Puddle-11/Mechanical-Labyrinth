@@ -55,9 +55,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     [SerializeField] private Animator UIFadeAnim;
-    [SerializeField] private TMP_Text currAmmoInvAmount;
-    [SerializeField] private Image currAmmoInvIcon;
 
+    [Space]
+    [Header("Ammo")]
+    [Space]
+    [SerializeField] private TMP_Text currAmmoInvAmount;
+    [SerializeField] private GameObject currAmmoInvParent;
+    [SerializeField] private Image currAmmoInvIcon;
+    [SerializeField] private Image[] ammoInvIcons;
+    [SerializeField] private TMP_Text[] ammoInvAmount;
     public UIObj[] ConstUI;
 
     private bool showingControls = true;
@@ -77,10 +83,36 @@ public class UIManager : MonoBehaviour
         public GameObject[] horizontalLine;
         public GameObject[] verticalLine;
     }
-    public void UpdateAmmoInInv(AmmoInventory.bulletType _type)
+    public void UpdateCurrInvAmmo(AmmoInventory.bulletType _type)
     {
+        currAmmoInvAmount.text = AmmoInventory.instance.GetAmmoAmount(_type).ToString();
+        currAmmoInvIcon.sprite = AmmoInventory.instance.GetAmmoIcon(_type);
+    }
+    public void OpenCurrInvAmmo(AmmoInventory.bulletType _type)
+    {
+        currAmmoInvParent.SetActive(true);
         currAmmoInvAmount.text =  AmmoInventory.instance.GetAmmoAmount(_type).ToString();
         currAmmoInvIcon.sprite = AmmoInventory.instance.GetAmmoIcon(_type);
+    }
+    public void CloseCurrInvAmmo()
+    {
+        if (currAmmoInvParent != null)
+        {
+            currAmmoInvParent.SetActive(false);
+        }
+    }
+    private void UpdateAmmoInv()
+    {
+        for (int i = 0; i < ammoInvIcons.Length; i++)
+        {
+            if (i >= AmmoInventory.instance.GetAmmoTypeCount()) break; //Exit if reached end of list
+
+            ammoInvIcons[i].sprite = AmmoInventory.instance.GetAmmoIcon(i);
+
+            if (i >= ammoInvAmount.Length) continue; //skip over amount if undefined
+
+            ammoInvAmount[i].text = AmmoInventory.instance.GetAmmoAmount(i).ToString();
+        }
     }
     public void SetAttemptNumber(int _val)
     {
@@ -166,6 +198,7 @@ public class UIManager : MonoBehaviour
 
     public void StatePause()
     {
+        UpdateAmmoInv();
         runStatsObj.SetActive(true);
         UIFadeAnim.SetBool("InUI", true);
         GameManager.instance.SetPause(true);

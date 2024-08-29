@@ -1,12 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.AI.Navigation;
-using Unity.Properties;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+
 using UnityEngine;
-using UnityEngine.SocialPlatforms.GameCenter;
-using UnityEngine.XR;
 
 public class ChunkGrid : MonoBehaviour
 {
@@ -14,6 +9,7 @@ public class ChunkGrid : MonoBehaviour
     public int CubicChunkSize;
     public static ChunkGrid instance;
     [HideInInspector] public Vector3Int ChunkSize;
+    [SerializeField] private Vector3Int minGridSize;
     public Vector3Int GridSize;
     private GameObject[,,] GridObj;
     private float CellScale;
@@ -70,6 +66,11 @@ public class ChunkGrid : MonoBehaviour
     }
     private void Start()
     {
+        GridSize *= GameManager.instance.GetCurrentLevel();
+        GridSize.x = Mathf.Clamp(GridSize.x, minGridSize.x, int.MaxValue);
+        GridSize.y = Mathf.Clamp(GridSize.y, minGridSize.y, int.MaxValue);
+        GridSize.z = Mathf.Clamp(GridSize.z, minGridSize.z, int.MaxValue);
+
         bounds.min = Vector3Int.zero;
         bounds.max = GridSize * CubicChunkSize - Vector3Int.one;
         iGen.SetGeneratorBounds(bounds);

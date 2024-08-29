@@ -8,6 +8,7 @@ public class Pickup : MonoBehaviour
     [SerializeField] private ItemType Item;
     private Rigidbody rb;
     [SerializeField] private string stats;
+     public int storedClip;
     public string GetStats()
     {
         IUsable temp;
@@ -46,7 +47,11 @@ public class Pickup : MonoBehaviour
         {
             _ref.GetComponent<IUsable>().SetPickup(Item.Pickup);
         }
-
+        if (_ref.GetComponent<BaseGun>() != null)
+        {
+            _ref.GetComponent<BaseGun>().SetPlayerGun(true); 
+            _ref.GetComponent<BaseGun>().SetAmmo(storedClip);
+        }
 
         Destroy(gameObject);
     }

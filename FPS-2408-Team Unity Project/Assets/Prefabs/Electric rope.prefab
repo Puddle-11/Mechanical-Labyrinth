@@ -232,5 +232,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  damageAmount: 2
+  damageAmount: 8
   defaulltSpeed: 0.2

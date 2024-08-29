@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour
     private List<Vector3> allPositions = new List<Vector3>();
     private void Start()
     {
+        maxEnemyCount *= (GameManager.instance.currentStats.S_Level + 1);
         ChunkGrid.instance.EndLoad += RunSystem;
     }
     private void OnDisable()
