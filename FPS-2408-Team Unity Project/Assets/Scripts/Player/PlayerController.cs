@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Transactions;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -87,6 +88,20 @@ public class PlayerController : BaseEntity
    public Vector3 GetPlayervel()
     {
         return playerVel;
+    }
+    public PlayerHand GetPlayerHand()
+    {
+        return playerHandRef;
+    }
+    public void SetJumpAmount(int _val)
+    {
+        _val = Mathf.Clamp(_val, 0, jumpMax + 1);
+        Debug.Log("Hit set: " + _val);
+        jumpCurr = _val;
+    }
+    public void UpdateJumpAmount(int _val)
+    {
+        SetJumpAmount(jumpCurr + _val);
     }
     public override void Update()
     {
@@ -211,6 +226,7 @@ public class PlayerController : BaseEntity
 
     private void Movement()
     {
+        
         move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
         playerVel.x = 0;
         playerVel.z = 0;
@@ -241,7 +257,70 @@ public class PlayerController : BaseEntity
             Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));
         }
         controllerRef.Move(playerVel * Time.deltaTime);
+        
 
+
+
+
+
+
+
+
+
+
+        ////===================================================
+        ////Get raw input
+        //move = Input.GetAxisRaw("Vertical") * transform.forward + Input.GetAxisRaw("Horizontal") * transform.right;
+        ////===================================================
+
+
+        ////===================================================
+        ////Adjust gravity
+        //if (controllerRef.isGrounded)
+        //{
+        //    jumpCurr = 0;
+        //    playerVel.y = Mathf.Clamp(playerVel.y, 0, Mathf.Infinity);
+        //}
+        //else
+        //{
+        //    playerVel.y -= gravityStrength * Time.deltaTime;
+        //}
+        ////===================================================
+
+
+        ////===================================================
+        ////Play Sound Effects
+        //if (move.magnitude > 0.3 && controllerRef.isGrounded)
+        //{
+        //    StartCoroutine(playStepSound());
+        //}
+        ////===================================================
+
+
+        ////===================================================
+        ////Adjust Horizontal Velocities
+        //Vector2 tempVel = new Vector2(playerVel.x, playerVel.z) + new Vector2(move.x, move.z) * acceleration;
+        //if (tempVel.magnitude > maxSpeed) tempVel = tempVel.normalized * maxSpeed;
+        //if(move.magnitude < 0.3)
+        //{
+        //    tempVel /= friction;
+        //    //start slow down
+        //}
+        //playerVel = new Vector3(tempVel.x, playerVel.y, tempVel.y);
+        ////===================================================
+
+
+        ////===================================================
+        ////Adjust Vertical Velocities
+        //if (Input.GetButtonDown("Jump"))
+        //{
+        //    Jump(new Vector3(0, jumpHeight, 0));
+        //}
+        ////===================================================
+
+
+        ////Final
+        //controllerRef.Move(playerVel * Time.deltaTime);
     }
     public IEnumerator playStepSound()
     {
@@ -264,7 +343,7 @@ public class PlayerController : BaseEntity
         if (jumpCurr < jumpMax)
         {
             jumpCurr++;
-            playerVel = _dir;
+            playerVel += _dir;
         }
     }
     void Sprint()

@@ -91,7 +91,7 @@ public class UIManager : MonoBehaviour
     public void OpenCurrInvAmmo(AmmoInventory.bulletType _type)
     {
         currAmmoInvParent.SetActive(true);
-        currAmmoInvAmount.text =  AmmoInventory.instance.GetAmmoAmount(_type).ToString();
+        currAmmoInvAmount.text = AmmoInventory.instance.GetAmmoAmount(_type).ToString();
         currAmmoInvIcon.sprite = AmmoInventory.instance.GetAmmoIcon(_type);
     }
     public void CloseCurrInvAmmo()

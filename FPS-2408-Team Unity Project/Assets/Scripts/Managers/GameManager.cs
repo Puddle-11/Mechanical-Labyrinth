@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
     public void SetCurrentHealth(int _val) { currentStats.S_CurrentHealth = _val; }
     public int GetCurrentHealth()
     {
-        if (currentStats.S_CurrentHealth <= 0) return playerControllerRef.GetMaxHealth();
+        if (currentStats.S_CurrentHealth <= 0)     return int.MaxValue;
         return currentStats.S_CurrentHealth;
     }
     public bool TryFindPlayer(out GameObject _ref)

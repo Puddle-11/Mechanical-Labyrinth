@@ -18,6 +18,7 @@ public class Spring : MonoBehaviour
             
              GameManager.instance.playerControllerRef.GetPlayervel();
              GameManager.instance.playerControllerRef.SetPlayervel(SpringDirection.normalized * Springforce);
+             GameManager.instance.playerControllerRef.UpdateJumpAmount(1);
         }
            else 
            {

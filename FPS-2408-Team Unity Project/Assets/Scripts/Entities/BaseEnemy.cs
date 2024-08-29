@@ -56,7 +56,11 @@ public class BaseEnemy : BaseEntity
     protected bool isRoaming;
     protected Vector3 startingPos;
     protected bool runningContactDamage;
+
+
+    public Vector3 tempDebugPos;
     #region Custom Structs and Enums
+
     //=======================================
     //CUSTOM STRUCTS AND ENUMS
     public enum DetectionType
@@ -133,6 +137,7 @@ public class BaseEnemy : BaseEntity
     //-------------
     public override void Update()
     {
+        agent.SetDestination(target.transform.position);
         StateHandler();
         if (anim != null)
         {
@@ -161,15 +166,24 @@ public class BaseEnemy : BaseEntity
     {
         patrolPoints = _val;
     }
+    
     //-------------
+    protected void SetNavmeshTarget(Vector3 _pos, bool _Debug)
+    {
+
+        if (_Debug)
+        {
+            tempDebugPos = _pos;
+        }
+        //SetNavmeshTarget(_pos);
+    }
     protected void SetNavmeshTarget(Vector3 _pos)
     {
-       
-       agent.SetDestination(_pos);
+      // agent.SetDestination(_pos);
     }
     private void SetNavmeshTarget()
     {
-        SetNavmeshTarget(target.transform.position);
+       //SetNavmeshTarget(target.transform.position);
     }
     //-------------
     public void GetTarget()
@@ -278,7 +292,7 @@ public class BaseEnemy : BaseEntity
                 break;
             case EnemyState.Persue:
             case EnemyState.Attack:
-                SetNavmeshTarget(target.transform.position);
+               // SetNavmeshTarget(target.transform.position, true);
                 agent.stoppingDistance = stoppingDistance;
                 if (agent.remainingDistance <= stoppingDistance) FacePlayer();
                 break;
@@ -341,7 +355,7 @@ public class BaseEnemy : BaseEntity
         if ((currState == EnemyState.Patrol || currState == EnemyState.Investigate) && IsInRange())
         {
             currState = EnemyState.Investigate;
-            SetNavmeshTarget(_pos);
+           // SetNavmeshTarget(_pos);
         }
     }
     //-------------

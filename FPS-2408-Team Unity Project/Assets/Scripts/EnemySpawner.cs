@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         maxEnemyCount *= (GameManager.instance.currentStats.S_Level + 1);
-        maxEnemyCount = (int)Mathf.Clamp(maxEnemyCount, 2f, 50f);
+        maxEnemyCount = (int)Mathf.Clamp(maxEnemyCount, 2f, 1000000);
         ChunkGrid.instance.EndLoad += RunSystem;
     }
     private void OnDisable()

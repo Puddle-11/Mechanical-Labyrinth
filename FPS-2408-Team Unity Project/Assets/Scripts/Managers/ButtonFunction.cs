@@ -12,7 +12,11 @@ public class ButtonFunction : MonoBehaviour
     }
     public void restart()
     {
-        GameManager.instance?.ResetCurrentHealth();
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ResetCurrentHealth();
+            GameManager.instance.playerControllerRef.SetHealth(GameManager.instance.GetCurrentHealth());
+        }
         BootLoadManager.instance?.LoadGameScene(SceneManager.GetActiveScene().name);
         UIManager.instance?.StateUnpause();
     }

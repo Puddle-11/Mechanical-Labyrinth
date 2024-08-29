@@ -405,6 +405,7 @@ private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
   
     private int FromTexture(Vector3Int _pos)
     {
+
         Color temp = roomTexture.GetPixel(_pos.x, _pos.z);
         int greyCol =  Mathf.RoundToInt((float)temp.grayscale * (float)maxHeight);
         if (roomTexture.GetPixel(_pos.x + 1, _pos.z).grayscale != 0f || roomTexture.GetPixel(_pos.x - 1, _pos.z).grayscale != 0f || roomTexture.GetPixel(_pos.x, _pos.z + 1).grayscale != 0f || roomTexture.GetPixel(_pos.x, _pos.z - 1).grayscale != 0f)

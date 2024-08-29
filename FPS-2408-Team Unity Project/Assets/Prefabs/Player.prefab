@@ -602,11 +602,10 @@ MonoBehaviour:
   damageFlashTime: 0.1
   drops: []
   footstepSoundRef: {fileID: 7812129156646002974}
-  acceleration: 5
+  acceleration: 10
   sprintMod: 1.5
-  maxSpeed: 15
-  friction: 0
-  dashMod: 0
+  maxSpeed: 50
+  friction: 3
   mass: 0
   jumplayer:
     serializedVersion: 2

@@ -18,6 +18,10 @@ public class PlayerHand : MonoBehaviour
 
 
     private bool isAiming = false;
+    public bool GetIsAiming()
+    {
+        return isAiming;
+    }
     private void Start()
     {
         if(GameManager.instance != null)

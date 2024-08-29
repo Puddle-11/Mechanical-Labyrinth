@@ -156,9 +156,11 @@ public class BaseGun : Weapon
         int size = 1;
         if (shotType == GunType.Burst) { size = burstSize; }
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
-        FSAtimer += coolDown;
+       
+            FSAtimer += coolDown;
+        
 
-        for (int i = 0; i < size; i++)
+            for (int i = 0; i < size; i++)
         {
             if (currAmmo == 0) break;
 
@@ -168,7 +170,12 @@ public class BaseGun : Weapon
             bool penetrated = false;
             Vector3 tempForward = CameraController.instance.transform.forward;
             Vector3 shootDir = playerGun ? tempForward : barrels[currBarrel].shootObj.forward;
-            shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
+            if (!playerGun || (playerGun && !GameManager.instance.playerControllerRef.GetPlayerHand().GetIsAiming()))
+            {
+                shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
+            }
+
+
             RaycastHit hit;
             IHealth healthRef = null;
             #endregion
@@ -347,8 +354,8 @@ public class BaseGun : Weapon
                 isReloading = false;
                 yield break;
             }
-            UIManager.instance.UpdateCurrInvAmmo(ammoType);
             AmmoInventory.instance.UpdateAmmoInventory(ammoType, -clipSizeMax);
+            UIManager.instance.UpdateCurrInvAmmo(ammoType);
         }
 
         float timer = 0;
