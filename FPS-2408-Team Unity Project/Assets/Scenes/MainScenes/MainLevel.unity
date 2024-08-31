@@ -427,6 +427,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: safeDist
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -512,7 +516,7 @@ MonoBehaviour:
       _frequency: 10
     - _prefab: {fileID: 997498726686487678, guid: 5776d17cfb7722c43a8f86ee22e24e19, type: 3}
       _frequency: 20
-  - levelRange: {x: 6, y: 100}
+  - levelRange: {x: 5, y: 100}
     Loot:
     - _prefab: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}
       _frequency: 1

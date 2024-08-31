@@ -38,8 +38,6 @@ public class Pickup : MonoBehaviour
             _ref = null;
             return;
         }
-
-
         _ref = Instantiate(Item.Object, _pos, _rotation, _parent);
 
 

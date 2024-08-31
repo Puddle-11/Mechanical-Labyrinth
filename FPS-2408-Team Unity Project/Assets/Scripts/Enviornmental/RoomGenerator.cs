@@ -39,7 +39,6 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public Texture2D roomTexture;
     public Vector2Int TextureSize;
     private Color roomCol;
-    private Vector2Int startPos;
     public override Texture2D GetRoomTexture()
     {
         return roomTexture;
@@ -55,6 +54,7 @@ public class RoomGenerator : IGenerator
         FromTexture,
         FromAlgorithm,
     }
+
     public void Start()
     {
         
@@ -72,10 +72,7 @@ public class RoomGenerator : IGenerator
     {
         bounds = _bounds;
     }
-    public override Vector2Int GetStartingPoint()
-    {
-        return startPos;
-    }
+
     public override void GenerateMap()
     {
         roomCol = new Color((float)ceilingHeight / 10, (float)ceilingHeight / 10, (float)ceilingHeight / 10);
@@ -102,6 +99,7 @@ public class RoomGenerator : IGenerator
         //Draw Rooms
         RoomMarker[] Rooms = GeneratePrimaryRooms(roomTexture);
         startPos = Rooms[0].R_Pos;
+
         for (int i = 0; i < Rooms.Length; i++)
         {
             Vector2Int offset = new Vector2Int((Rooms[i].R_Size.x / 2), (Rooms[i].R_Size.y / 2));

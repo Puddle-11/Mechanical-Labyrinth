@@ -6,16 +6,21 @@ using UnityEngine;
 
 public class ExitDoor : MonoBehaviour
 {
-    public Collider triggerCollider;
-    private bool isRunning = false;
+    [SerializeField] private Collider triggerCollider;
     [SerializeField] private float elevatorDelay;
-    [SerializeField] private TMP_Text levelNum;
+    [SerializeField] private TMP_Text levelNumDisplay;
     [SerializeField] private GameObject elevatorCam;
-    private bool doorsOpen = true;
-    [SerializeField] private float doorSpeed;
     [SerializeField] private Door[] doors;
+    [SerializeField] private float doorSpeed;
     [SerializeField] private float distToLockout;
+
+    private bool primed = false;
+    private bool isRunning = false;
+    private bool doorsOpen = true;
+    #region Custom Structs and Enums
     [System.Serializable]
+
+
     public struct Door
     {
         public GameObject doorObj;
@@ -23,6 +28,10 @@ public class ExitDoor : MonoBehaviour
         public Vector3 closeLocalPos;
 
     }
+    #endregion
+
+    #region MonoBehavior Methods
+    private void Awake(){}
     private void OnEnable()
     {
         GameManager.instance.levelWon += EnableTrigg;
@@ -33,7 +42,7 @@ public class ExitDoor : MonoBehaviour
     }
     private void Start()
     {
-               levelNum.text = GameManager.instance.GetCurrentLevel().ToString();
+        levelNumDisplay.text = GameManager.instance.GetCurrentLevel().ToString();
 
         for (int i = 0; i < doors.Length; i++)
         {
@@ -42,11 +51,25 @@ public class ExitDoor : MonoBehaviour
         }
         
     }
-    // Start is called before the first frame update
-    public void EnableTrigg()
+    private void Update()
     {
-        triggerCollider.enabled = true;
+        if (Vector3.Distance(GameManager.instance.playerRef.transform.position, transform.position) > distToLockout && primed == false)
+        {
+            
+                doorsOpen = false;
+            
+
+        }
+        else if(primed == true)
+        {
+            doorsOpen = true;
+        }
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].doorObj.transform.localPosition = Vector3.MoveTowards(doors[i].doorObj.transform.localPosition, doorsOpen ? doors[i].openLocalPos : doors[i].closeLocalPos, doorSpeed * Time.deltaTime);
+        }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == GameManager.instance.playerRef)
@@ -54,13 +77,15 @@ public class ExitDoor : MonoBehaviour
             StartCoroutine(MoveToNextLevel());
         }
     }
-    private void Update()
+    #endregion
+
+    #region Getters and Setters
+    public void EnableTrigg()
     {
-        for (int i = 0; i < doors.Length; i++)
-        {
-            doors[i].doorObj.transform.localPosition = Vector3.MoveTowards(doors[i].doorObj.transform.localPosition, doorsOpen ? doors[i].openLocalPos : doors[i].closeLocalPos, doorSpeed * Time.deltaTime);
-        }
+        primed = true;
+        triggerCollider.enabled = true;
     }
+    #endregion
     public IEnumerator MoveToNextLevel()
     {
         if (isRunning) yield break;
@@ -70,7 +95,7 @@ public class ExitDoor : MonoBehaviour
         elevatorCam.SetActive(true);
 
         yield return new WaitForSeconds(elevatorDelay);
-        levelNum.text = GameManager.instance.GetCurrentLevel().ToString();
+        levelNumDisplay.text = GameManager.instance.GetCurrentLevel().ToString();
         yield return new WaitForSeconds(elevatorDelay);
         doorsOpen = false;
         yield return new WaitForSeconds(elevatorDelay);

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tazer : Weapon
 {
-    private GameObject currTazer;
     [SerializeField] private GameObject electricRopePrefab;
     [SerializeField] private float lineDecay;
     [SerializeField] private GameObject endAnchor;
@@ -15,28 +14,22 @@ public class Tazer : Weapon
     {
         isAttacking = true;
 
-       currTazer = Instantiate(electricRopePrefab, Vector3.zero, Quaternion.identity);
         ElectrifiedRope electricRopeRef;
+        GameObject currTazer = Instantiate(electricRopePrefab, Vector3.zero, Quaternion.identity);
         GameObject endAnchorInstance = Instantiate(endAnchor, shootPos.position + shootPos.position * 0.01f, Quaternion.identity);
         GameObject startAnchorInstance = Instantiate(endAnchor, shootPos.position, Quaternion.identity);
-
-        
-        if(currTazer.TryGetComponent<ElectrifiedRope>(out electricRopeRef))
+        if (currTazer.TryGetComponent<ElectrifiedRope>(out electricRopeRef))
         {
             electricRopeRef.SetDecay(lineDecay);
-            electricRopeRef.SetAnchors(new Transform[] { startAnchorInstance.transform, endAnchorInstance.transform});
+            electricRopeRef.SetAnchors(new Transform[] { startAnchorInstance.transform, endAnchorInstance.transform });
         }
         Rigidbody tempRef;
-        if(endAnchorInstance.TryGetComponent<Rigidbody>(out tempRef)){
-            tempRef.velocity = shootPos.forward * projectileSpeed;
-        }
+        if (endAnchorInstance.TryGetComponent<Rigidbody>(out tempRef)) tempRef.velocity = shootPos.forward * projectileSpeed;
+
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
     }
-    public void OnDisable()
-    {
-        Destroy(currTazer);
-    }
+
 
 
 }

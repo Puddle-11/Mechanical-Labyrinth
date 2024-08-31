@@ -7,7 +7,7 @@ public class Damage : MonoBehaviour
 
     [SerializeField] private damageType type;
     [SerializeField] private int damageAmount;
-    [SerializeField] private float defaulltSpeed;
+    [SerializeField] private float damageSpeed;
     private IHealth currRef;
     private float timer;
     public enum damageType
@@ -19,32 +19,23 @@ public class Damage : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.isTrigger) return;
-        IHealth healthRef;
-        if(other.TryGetComponent<IHealth>(out healthRef) && other.gameObject == GameManager.instance.playerRef)
+        if(other.gameObject == GameManager.instance.playerRef)
         {
             if (type == damageType.single)
-            {
-                healthRef.UpdateHealth(-damageAmount);
-            }
+                GameManager.instance.playerControllerRef.UpdateHealth(-damageAmount);
             else
-            {
-                currRef = healthRef;
-            }
+                currRef = GameManager.instance.playerControllerRef;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.isTrigger) return;
-        IHealth healthRef;
-        if (other.TryGetComponent<IHealth>(out healthRef) && other.gameObject == GameManager.instance.playerRef)
+        if (other.gameObject == GameManager.instance.playerRef)
         {
-            if (currRef == healthRef)
+            if (type == damageType.continuous)
             {
-                if (type == damageType.continuous)
-                {
-                    currRef = null;
-                }
+                currRef = null;
             }
         }
     }
@@ -63,7 +54,7 @@ public class Damage : MonoBehaviour
                 {
                     currRef.UpdateHealth(-damageAmount);
                 }
-                timer = defaulltSpeed;
+                timer = damageSpeed;
             }
         }
     }

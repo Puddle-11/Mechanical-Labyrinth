@@ -11,10 +11,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Vector3 offset;
     [SerializeField] private int patrolPointsCount;
     private List<Vector3> allPositions = new List<Vector3>();
+    [SerializeField] private float safeDist;
+
     private void Start()
     {
         maxEnemyCount *= (GameManager.instance.currentStats.S_Level + 1);
-        maxEnemyCount = (int)Mathf.Clamp(maxEnemyCount, 2f, 1000000);
+        maxEnemyCount = (int)Mathf.Clamp(maxEnemyCount, 2f, 50);
         ChunkGrid.instance.EndLoad += RunSystem;
     }
     private void OnDisable()
@@ -22,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
         ChunkGrid.instance.EndLoad -= RunSystem;
 
     }
+
     public void RunSystem()
     {
         Texture2D _texture = ChunkGrid.instance.GetRoomTexture();
@@ -33,7 +36,10 @@ public class EnemySpawner : MonoBehaviour
             {
                 if(_texture.GetPixel(x,y) != Color.black)
                 {
-                    allPositions.Add(ChunkGrid.instance.GridToWorld(new Vector3Int(x, 0, y)) + offset);
+                    if (Vector2.Distance(ChunkGrid.instance.GetRoomGenerator().GetStartPos(), new Vector2Int(x, y)) > safeDist)
+                    {
+                        allPositions.Add(ChunkGrid.instance.GridToWorld(new Vector3Int(x, 0, y)) + offset);
+                    }
                 }
             }
         }

@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class IGenerator :MonoBehaviour
+public class IGenerator : MonoBehaviour
 {
     [Header("IGENERATOR")]
     [Space]
     [SerializeField] protected bool enclose;
     public GameObject EndDoorPrefab;
     public Vector3 endDoorOffset;
+    protected Vector2Int startPos;
+    public virtual Vector2Int GetStartPos()
+    {
+        return startPos;
+    }
+
     public virtual int PlaceTile(Vector3Int _pos)
     {
         if(_pos.y == 0)return 1;
@@ -24,9 +30,5 @@ public class IGenerator :MonoBehaviour
     public virtual void GenerateMap()
     {
 
-    }
-    public virtual Vector2Int GetStartingPoint()
-    {
-        return Vector2Int.zero;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ammoDrop : MonoBehaviour, IInteractable
 {
+
     [SerializeField] private AmmoInventory.bulletType type;
     [SerializeField] private Vector2Int amountRange;
     private int ammoAmount;
@@ -22,7 +23,6 @@ public class ammoDrop : MonoBehaviour, IInteractable
     {
         AmmoInventory.instance.UpdateAmmoInventory(type, ammoAmount);
         Destroy(gameObject);
-
     }
 
 }

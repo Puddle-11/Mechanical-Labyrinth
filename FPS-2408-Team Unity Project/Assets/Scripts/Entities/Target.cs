@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Target : BaseEntity
 {
-    private Collider collRef;
     [SerializeField] private float RespawnTime;
-    
-
+    private Collider collRef;
     public override void Awake()
     {
         base.Awake();
@@ -16,10 +14,6 @@ public class Target : BaseEntity
             Debug.LogWarning("Failed to fetch Collider from " + gameObject.name);
         }
     }
-
-
-
-
     public override void Death()
     {
         StartCoroutine(RespawnDelay());
@@ -28,15 +22,13 @@ public class Target : BaseEntity
     {
         if (collRef == null || rendRef == null)
         {
-            Debug.LogWarning("Target Respawn delay failed \nCollider or Renderer were unassigned\ndestroyed object");
+            Debug.LogWarning("Target Respawn delay failed \nCollider or Renderer were unassigned\nDestroying object...");
             base.Death();
             yield break;
         }
-
         collRef.enabled = false;
         for (int i = 0; i < rendRef.Length; i++)
         {
-
             rendRef[i].currRenderer.enabled = false;
         }
         yield return new WaitForSeconds(RespawnTime);
@@ -44,11 +36,8 @@ public class Target : BaseEntity
         collRef.enabled = true;
         for (int i = 0; i < rendRef.Length; i++)
         {
-
             rendRef[i].currRenderer.enabled = true;
         }
-        healthBar.UpdateHealthBar((float)currentHealth, (float)maxHealth);
-
     }
 
 }

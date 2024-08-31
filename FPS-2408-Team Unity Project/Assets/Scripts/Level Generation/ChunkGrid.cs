@@ -28,6 +28,10 @@ public class ChunkGrid : MonoBehaviour
     private int totalChunks;
    
     [SerializeField] private NavMeshSurface navMeshSurfaceRef;
+    public IGenerator GetRoomGenerator()
+    {
+        return iGen;
+    }
     public Texture2D GetRoomTexture()
     {
         return iGen.GetRoomTexture();
@@ -97,12 +101,12 @@ public class ChunkGrid : MonoBehaviour
     }
     public Vector3 GetStartingPos()
     {
-        Vector2Int UPos = iGen.GetStartingPoint();
+        Vector2Int UPos = iGen.GetStartPos();
         return GridToWorld( new Vector3Int(UPos.x, 2, UPos.y));
     }
     private void SpawnEndDoor()
     {
-        Vector2Int UPos = iGen.GetStartingPoint();
+        Vector2Int UPos = iGen.GetStartPos();
         Vector3Int _gridPos = new Vector3Int(UPos.x, 2, UPos.y);
         Instantiate(iGen.EndDoorPrefab, GridToWorld(_gridPos) + iGen.endDoorOffset, Quaternion.LookRotation(new Vector3(0,0,1)));
     }

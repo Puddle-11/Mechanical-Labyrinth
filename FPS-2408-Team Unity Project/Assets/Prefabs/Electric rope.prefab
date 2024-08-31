@@ -51,14 +51,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   ropeLength: 25
-  lnRef: {fileID: 3718082361605845821}
   lineResolution: 15
+  collisionSpacing: 1
   springConstant: 0.25
   dampeningForce: 5
   acceptableMargin: 0.001
-  dynamic: 1
-  interactable: 1
-  softCollForce: 0.02
+  physicsType: 1
   colliderSize: 0.5
   currentControlPos: []
   colorOverLifetime:
@@ -233,4 +231,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   damageAmount: 8
-  defaulltSpeed: 0.2
+  damageSpeed: 0

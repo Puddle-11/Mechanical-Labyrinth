@@ -19,10 +19,8 @@ public class Drone : BaseEnemy
 
     public override void Update()
     {
+        timer = timer + (Time.deltaTime * speed) % (Mathf.PI * 2);
 
-        if (timer > Mathf.PI * 2) timer = 0;
-        else timer += Time.deltaTime * speed;
-        
         transform.position = new Vector3(transform.position.x, originalHeight + (Mathf.Sin(timer) * magnitude.y), transform.position.z);
         base.Update();
 
@@ -41,5 +39,4 @@ public class Drone : BaseEnemy
             SetHealth(0);
         }
     }
-
 }
