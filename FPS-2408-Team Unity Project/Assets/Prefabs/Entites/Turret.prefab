@@ -166,14 +166,12 @@ MonoBehaviour:
   - {fileID: 8034685555572478420}
   - {fileID: 5216720139057223241}
   ropeLength: 1.5
-  lnRef: {fileID: 2684594170053987105}
   lineResolution: 10
+  collisionSpacing: 1
   springConstant: 5
   dampeningForce: 8
   acceptableMargin: 0
-  dynamic: 1
-  interactable: 0
-  softCollForce: 0
+  physicsType: 1
   colliderSize: 0
   currentControlPos: []
 --- !u!120 &2684594170053987105
@@ -393,30 +391,29 @@ MonoBehaviour:
   maxHealth: 500
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
   healthBar: {fileID: 9197602804775642124}
+  deathParticles: []
+  hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops: []
-  agent: {fileID: 4556611165813591666}
-  weaponScr: {fileID: 8749161360340392136}
   headPos: {fileID: 2248800547951260438}
-  patrolPoints: []
-  contactDamage: 15
-  contactDamageFrequency: 0.5
+  sneakDamageMultiplyer: 2
   stoppingDistance: 7
   rotationSpeed: 15
   roamTimer: 2
   roamingDistance: 15
-  sneakDamageMultiplyer: 2
+  sightMask:
+    serializedVersion: 2
+    m_Bits: 64
   attackRange: 7
   sightRange: 13.5
   hearingRange: 20
   attackAngle: 50
   sightAngle: 90
   target: {fileID: 0}
+  weaponScr: {fileID: 8749161360340392136}
+  agent: {fileID: 4556611165813591666}
+  patrolPoints: []
   senseType: 3
-  sightMask:
-    serializedVersion: 2
-    m_Bits: 64
-  alertMarker: {fileID: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
@@ -494,6 +491,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  screen: {fileID: 0}
 --- !u!114 &8749161360340392136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,7 +941,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3803105857073661362
 Transform:
   m_ObjectHideFlags: 0

@@ -32,7 +32,6 @@ public class BaseEnemy : SharedEnemyBehavior
     [SerializeField] protected float transitionSpeed = 0.5f;
     [SerializeField] public AudioClip[] Deathsounds;
 
-
     protected EnemyState currState;
     protected bool isRoaming;
     protected Vector3 startingPos;

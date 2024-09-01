@@ -4,31 +4,43 @@ using UnityEngine;
 public class IGenerator : MonoBehaviour
 {
     [Header("IGENERATOR")]
+    [Header("_______________________________")]
     [Space]
-    [SerializeField] protected bool enclose;
-    public GameObject EndDoorPrefab;
-    public Vector3 endDoorOffset;
-    protected Vector2Int startPos;
-    public virtual Vector2Int GetStartPos()
-    {
-        return startPos;
-    }
+    // \/ Determins wether or not the algorithm will draw \/
+    // \/ a bounding wall around the map or leave it open \/
+    [SerializeField] protected bool enclose; 
 
-    public virtual int PlaceTile(Vector3Int _pos)
+
+    [SerializeField] protected GameObject EndDoorPrefab;
+    [SerializeField] protected Vector3 endDoorOffset;
+
+    protected List<Vector3> groundPositions;
+    protected List<Vector3> allPositions;
+    protected Vector2Int startPos;
+
+    #region Custom Structs and Enums
+    public struct RoomMarker
     {
-        if(_pos.y == 0)return 1;
-        return 0;
+        public Vector2Int R_Size;
+        public Vector2Int R_Pos;
     }
-    public virtual Texture2D GetRoomTexture()
+    #endregion
+
+    #region Getters and Setters
+    public virtual Vector3 GetDoorOffset() { return endDoorOffset; }
+    public virtual GameObject GetDoorPrefab() { return EndDoorPrefab; }
+    public virtual Vector2Int GetStartPos() { return startPos; }
+    public virtual Texture2D GetRoomTexture() {return null;}
+    public virtual void SetGeneratorBounds(ChunkGrid.GridBounds _bounds){ }
+    #endregion
+
+    #region Virtual Methods
+    public virtual void SetAllPositions(Texture2D _texture) { }
+    public virtual List<Vector3> GetPositions()
     {
         return null;
     }
-    public virtual void SetGeneratorBounds(ChunkGrid.GridBounds _bounds)
-    {
-
-    }
-    public virtual void GenerateMap()
-    {
-
-    }
+    public virtual void GenerateMap(){ }
+    public virtual int PlaceTile(Vector3Int _pos) { return _pos.y == 0 ? 1 : 0;}
+    #endregion
 }

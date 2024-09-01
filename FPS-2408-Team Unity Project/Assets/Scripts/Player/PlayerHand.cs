@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
+using static UnityEditor.Progress;
 
 public class PlayerHand : MonoBehaviour
 {
@@ -10,14 +12,27 @@ public class PlayerHand : MonoBehaviour
     [SerializeField] private float pickUpDist;
     private GameObject CurrentEquiped;
     [SerializeField] private LayerMask ignoreMask;
+
+
+    [SerializeField] private float throwRotationSpeed;
     [SerializeField] private Vector2 throwSpeed;
     [SerializeField] private Vector2 throwOffset;
-
 
     private bool isAiming = false;
     public bool GetIsAiming()
     {
         return isAiming;
+    }
+    public void SetCurrentEquipped(GameObject _obj)
+    {
+        if (CurrentEquiped == _obj) return;
+        if(CurrentEquiped != null)
+        {
+            Destroy(CurrentEquiped);
+        }
+
+        CurrentEquiped = _obj;
+
     }
     private void Start()
     {
@@ -26,7 +41,7 @@ public class PlayerHand : MonoBehaviour
           ItemType t =   GameManager.instance.GetCurrentItemType();
             if(t != null)
             {
-                ForcePickup(t);
+                PickupItem(t, null);
             }
         }
     }
@@ -56,6 +71,11 @@ public class PlayerHand : MonoBehaviour
         }
         return null;
     }
+
+
+
+
+
     //========================================================
     //I really hate the "chain" of methods from the player controller
     //all the way to the currently equiped item, there are to many points of failure
@@ -66,6 +86,10 @@ public class PlayerHand : MonoBehaviour
     public GameObject GetCurrentHand()
     {
         return CurrentEquiped;
+    }
+    public GameObject GetHandAnchor()
+    {
+        return handAnchor;
     }
     public ItemType GetCurrentItemType()
     {
@@ -112,7 +136,7 @@ public class PlayerHand : MonoBehaviour
         }
 
     }
-    private bool AttemptDrop()
+    public bool AttemptDrop()
     {
         if (CurrentEquiped != null)
         {
@@ -128,12 +152,24 @@ public class PlayerHand : MonoBehaviour
             IUsable IRef;
             if (GetItem(out IRef))
             {
-                Pickup _pickup = Instantiate(IRef.GetPickup(), transform.position, IRef.GetPickup().transform.rotation).GetComponent<Pickup>();
-                _pickup.DropItem(transform.position + transform.forward * throwOffset.x + new Vector3(0, throwOffset.y, 0), Camera.main.transform.forward * throwSpeed.x + Vector3.up * throwSpeed.y, 1);
-                BaseGun tRef = CurrentEquiped.GetComponent<BaseGun>();
-                if (tRef != null)
+                GameObject _pickup = Instantiate(IRef.GetPickup(), transform.position, IRef.GetPickup().transform.rotation);
+                Rigidbody rb;
+                Pickup pRef = _pickup.GetComponent<Pickup>();
+                _pickup.transform.position = transform.position + transform.forward * throwOffset.x + new Vector3(0, throwOffset.y, 0);
+                _pickup.SetActive(true);
+
+
+                if (_pickup.TryGetComponent<Rigidbody>(out rb))
                 {
-                    _pickup.storedClip = tRef.GetCurrAmmo();
+                    rb.velocity = Camera.main.transform.forward * throwSpeed.x + Vector3.up * throwSpeed.y;
+                    rb.angularVelocity = new Vector3(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)).normalized * throwRotationSpeed;
+                }
+
+                _pickup.transform.localEulerAngles = new Vector3(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180));
+
+                if (pRef != null)
+                {
+                    pRef.uses = IRef.GetUses();
                 }
             }
             
@@ -146,40 +182,8 @@ public class PlayerHand : MonoBehaviour
         }
         return false;
     }
-    public void ForcePickup(ItemType _item)
-    {
-        AttemptDrop();
-
-        GameObject _ref = Instantiate(_item.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
 
 
-        if (_ref.GetComponent<IUsable>() != null)
-        {
-            _ref.GetComponent<IUsable>().SetPickup(_item.Pickup);
-        }
-        BaseGun bgref;
-        if (_ref.TryGetComponent<BaseGun>(out bgref))
-        {
-            bgref.SetPlayerGun(true);
-            bgref.SetAmmo(bgref.GetMaxClipSize());
-        }
-        CurrentEquiped = _ref;
-        IUsable iRef;
-
-        if (GetItem(out iRef))
-        {
-            PlayerController r = GameManager.instance.playerControllerRef;
-            if (r != null)
-            {
-                r.playerUseEvent = iRef.UseItem;
-            }
-        }
-            BaseGun BGref;
-        if (CurrentEquiped.TryGetComponent<BaseGun>(out BGref))
-        {
-            BGref.SetPlayerGun(true);
-        }
-    }
     private bool AttemptPickup()
     {
         RaycastHit hit;
@@ -191,30 +195,50 @@ public class PlayerHand : MonoBehaviour
                 interactionRef.TriggerInteraction();
                 return true;
             }
+
+
+            //Drop before picking up a new item
             Pickup objectPickupRef;
-            if (hit.transform.TryGetComponent<Pickup>(out objectPickupRef) && objectPickupRef.GetItem() != null)
+            if (hit.transform.TryGetComponent(out objectPickupRef) && objectPickupRef.GetItem() != null)
             {
-
-                AttemptDrop(); //attempt a drop before picking up a new item
-                objectPickupRef.PickupItem(out CurrentEquiped, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
-                // CurrentEquiped = Instantiate(itemRef.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
-                IUsable iRef;
-
-                if (GetItem(out iRef)) {
-                    GameManager.instance.playerControllerRef.playerUseEvent = iRef.UseItem;
-                }
-                BaseGun BGref;
-                if(CurrentEquiped.TryGetComponent<BaseGun>(out BGref))
-                {
-                    BGref.SetPlayerGun(true);
-                }
-
                 return true;
             }
         }
         return false;
     }
+    public void PickupItem(ItemType t, Pickup p)
+    {
+        if (CurrentEquiped != null)
+        {
+            if (!AttemptDrop()) return;
+        }
 
+
+        if (t == null)
+        {
+            Debug.LogWarning("Failed to pickup\n ItemType variable on " + p.gameObject.name + " Unassigned");
+            GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(null);
+            return;
+        }
+        GameObject _ref = Instantiate(t.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
+
+        BaseGun bgRef;
+        if (_ref.TryGetComponent(out bgRef)) bgRef.SetPlayerGun(true);
+
+        IUsable useRef;
+        if (_ref.TryGetComponent(out useRef))
+        {
+            useRef.SetPickup(t.Pickup);
+            if (p != null && p.uses >= 0)
+                useRef.SetUses(p.uses);
+            else
+                useRef.SetUses(t.maxUses);
+        }
+
+        SetCurrentEquipped(_ref);
+        if (p != null) Destroy(p.gameObject);
+
+    }
     public void toggleADS()
     {
         if (CurrentEquiped != null)

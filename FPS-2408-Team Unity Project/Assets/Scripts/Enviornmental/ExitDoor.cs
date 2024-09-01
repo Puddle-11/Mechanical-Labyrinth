@@ -7,10 +7,11 @@ using UnityEngine;
 public class ExitDoor : MonoBehaviour
 {
     [SerializeField] private Collider triggerCollider;
-    [SerializeField] private float elevatorDelay;
     [SerializeField] private TMP_Text levelNumDisplay;
     [SerializeField] private GameObject elevatorCam;
     [SerializeField] private Door[] doors;
+    [Space]
+    [SerializeField] private float elevatorDelay;
     [SerializeField] private float doorSpeed;
     [SerializeField] private float distToLockout;
 
@@ -31,7 +32,6 @@ public class ExitDoor : MonoBehaviour
     #endregion
 
     #region MonoBehavior Methods
-    private void Awake(){}
     private void OnEnable()
     {
         GameManager.instance.levelWon += EnableTrigg;
@@ -49,18 +49,14 @@ public class ExitDoor : MonoBehaviour
             doors[i].openLocalPos = doors[i].doorObj.transform.localPosition;
             doors[i].doorObj.transform.localPosition = doors[i].closeLocalPos;
         }
-        
     }
     private void Update()
     {
         if (Vector3.Distance(GameManager.instance.playerRef.transform.position, transform.position) > distToLockout && primed == false)
         {
-            
-                doorsOpen = false;
-            
-
+            doorsOpen = false;
         }
-        else if(primed == true)
+        else if (primed == true)
         {
             doorsOpen = true;
         }
@@ -86,12 +82,18 @@ public class ExitDoor : MonoBehaviour
         triggerCollider.enabled = true;
     }
     #endregion
+
     public IEnumerator MoveToNextLevel()
     {
         if (isRunning) yield break;
         isRunning = true;
+
+
+
         GameManager.instance.UpdateCurrentLevel(1);
         GameManager.instance.playerRef.SetActive(false);
+
+
         elevatorCam.SetActive(true);
 
         yield return new WaitForSeconds(elevatorDelay);
@@ -102,11 +104,4 @@ public class ExitDoor : MonoBehaviour
         BootLoadManager.instance.ReloadScene();
         isRunning = false;
     }
-
-    public IEnumerator OpenDoorDelay()
-    {
-        yield return new WaitForSeconds(elevatorDelay);
-        doorsOpen = true;
-    }
-
 }

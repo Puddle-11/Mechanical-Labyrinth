@@ -87,8 +87,20 @@ public class BaseEntity : MonoBehaviour, IHealth
     }
     #endregion
 
+    #region Getters and Setters
+    public void SetRenderMaterials(Material _mat) { SetRenderMaterials(new Material[] { _mat }); }
+    public void SetRenderMaterials(Material[] _mats)
+    {
+        for (int i = 0; i < rendRef.Length; i++)
+        {
+            if (_mats.Length == 1) rendRef[i].SetMaterials(_mats[0]);
+            else rendRef[i].SetMaterials(_mats);
+        }
+    }
+    #endregion
+
     #region Virtual Methods
-  public virtual void Update() { }
+    public virtual void Update() { }
     public virtual void Death()
     {
         if (gameObject != null)
@@ -131,6 +143,7 @@ public class BaseEntity : MonoBehaviour, IHealth
             rendRef[i].currRenderer = tempArr[i];
         }
     }
+
     public IEnumerator ChangeIndicator(Material _flashMat)
     {
         if (rendRef == null) yield break;
@@ -152,17 +165,6 @@ public class BaseEntity : MonoBehaviour, IHealth
         takingDamage = false;
     }
 
-
-    public void SetRenderMaterials(Material _mat) {SetRenderMaterials(new Material[] { _mat});}
-    public void SetRenderMaterials(Material[] _mats)
-    {
-        for (int i = 0; i < rendRef.Length; i++)
-        {
-            if (_mats.Length == 1) rendRef[i].SetMaterials(_mats[0]);
-            else rendRef[i].SetMaterials(_mats);
-        }
-    }
-    
     public void DropItem(GameObject _drop)
     {
         Instantiate(_drop, transform.position, Quaternion.Euler(_drop.transform.rotation.eulerAngles.x, Random.Range(0, 180), _drop.transform.rotation.eulerAngles.z));

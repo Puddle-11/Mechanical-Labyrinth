@@ -32,6 +32,14 @@ public class Weapon : MonoBehaviour, IUsable
     public void SetUsingItem(bool _val) { usingItem = _val; }
     public bool GetIsAttacking() { return isAttacking; }
     #endregion
+    public virtual int GetUses()
+    {
+        return -1;
+    }
+    public virtual void SetUses(int _val)
+    {
+
+    }
     public void UseItem() { Attack(); }
     public GameObject GetPickup()
     {

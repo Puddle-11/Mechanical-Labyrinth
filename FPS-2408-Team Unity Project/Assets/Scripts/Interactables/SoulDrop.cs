@@ -5,6 +5,8 @@ using UnityEngine;
 public class SoulDrop : MonoBehaviour, IInteractable
 {
     [SerializeField] int healAmount;
+
+    #region IInteractable Methods
     public string GetStats()
     {
         return "Heal: " + healAmount;
@@ -15,4 +17,5 @@ public class SoulDrop : MonoBehaviour, IInteractable
         GameManager.instance.playerControllerRef.UpdateHealth(healAmount);
         Destroy(gameObject);
     }
+    #endregion
 }

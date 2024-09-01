@@ -76,7 +76,6 @@ public class PlayerController : BaseEntity
     {
         SetHealth(GameManager.instance.GetCurrentHealth());
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
-        //SpawnPlayer();
         originalgravity = gravityStrength;
         base.Start();
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);

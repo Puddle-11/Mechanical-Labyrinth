@@ -67,6 +67,17 @@ public class BaseGun : Weapon
     {
         OpenAmmoUI();
     }
+
+    public override int GetUses()
+    {
+        return currAmmo;
+    }
+    public override void SetUses(int _val)
+    {
+        Debug.Log("");
+        SetAmmo(_val);
+    }
+
     public void OpenAmmoUI()
     {
         if (playerGun) UIManager.instance.OpenCurrInvAmmo(ammoType);

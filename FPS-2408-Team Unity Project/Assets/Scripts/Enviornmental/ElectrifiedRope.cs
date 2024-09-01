@@ -8,9 +8,13 @@ public class ElectrifiedRope : Rope
 {
     [SerializeField] private Gradient colorOverLifetime;
     [SerializeField] private float decayTime;
-    private float timer;
     [SerializeField] private float hangDist;
+    [SerializeField] private bool destroyAnchors = false;
 
+
+    private float timer;
+
+    #region MonoBehavior Methods
     public override void Start()
     {
         timer = decayTime;
@@ -18,20 +22,35 @@ public class ElectrifiedRope : Rope
     }
     public override void Update()
     {
-        if (timer > 0)
+        //  \/ Update Timer \/
+        timer = Mathf.Clamp(timer - Time.deltaTime, 0, decayTime);
+
+        if(timer == 0)
         {
-            timer -= Time.deltaTime;
-            SetColor(colorOverLifetime.Evaluate((timer / decayTime) * -1 + 1));
-        }
-        else
-        {
-            timer = decayTime;
-            for (int i = 0; i < anchors.Length; i++)
+            if (destroyAnchors)
             {
-                Destroy(anchors[i].gameObject);
+                for (int i = 0; i < anchors.Length; i++)
+                {
+                    Destroy(anchors[i].gameObject);
+                }
             }
             Destroy(gameObject);
         }
+
+
+        SetColor(colorOverLifetime.Evaluate((timer / decayTime) * -1 + 1));
+        SetRopeLength(hangDist);
+        base.Update();
+    }
+    #endregion
+
+    #region Getters and Setters
+    public void SetDecay(float _val) { decayTime = _val; }
+
+
+
+    public override void SetRopeLength(float _length)
+    {
         float avgDist = 0;
         for (int i = 0; i < currentControlPos.Length; i++)
         {
@@ -40,8 +59,7 @@ public class ElectrifiedRope : Rope
                 avgDist += Vector3.Distance(anchors[i].position, anchors[i + 1].position);
             }
         }
-        SetRopeLength(avgDist / anchors.Length  + hangDist);
-        base.Update();
+        base.SetRopeLength(avgDist / anchors.Length  + _length);
     }
-    public void SetDecay(float _val) { decayTime = _val; }
+    #endregion
 }

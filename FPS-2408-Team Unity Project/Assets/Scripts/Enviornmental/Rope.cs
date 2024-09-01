@@ -20,12 +20,10 @@ public class Rope : MonoBehaviour
     [Space]
     [Header("PHYSICS")]
     [Space]
-
+    [SerializeField] protected PhysType physicsType;
     [SerializeField] protected float springConstant = 0.25f;
     [SerializeField] protected float dampeningForce = 5f;
     [SerializeField] protected float acceptableMargin = 0.001f;
-    [Space]
-    [SerializeField] protected PhysType physicsType;
     [SerializeField] private float colliderSize;
 
 
@@ -198,6 +196,7 @@ public class Rope : MonoBehaviour
     }
 
     #endregion
+
 
     public void InitializeRope()
     {

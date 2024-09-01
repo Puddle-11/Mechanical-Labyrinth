@@ -37,17 +37,16 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public int baseBoardBlockID;
     [HideInInspector] public int topPlaceBlockID;
     [HideInInspector] public Texture2D roomTexture;
+    [SerializeField] private float safeDist;
+    [SerializeField] private Vector3 blockCenterOffset;
+
     public Vector2Int TextureSize;
     private Color roomCol;
     public override Texture2D GetRoomTexture()
     {
         return roomTexture;
     }
-    private struct RoomMarker
-    {
-        public Vector2Int R_Size;
-        public Vector2Int R_Pos;
-    }
+
     private ChunkGrid.GridBounds bounds;
     public enum GenerationType
     {
@@ -57,7 +56,6 @@ public class RoomGenerator : IGenerator
 
     public void Start()
     {
-        
         ChunkGrid.instance.EndLoad += GenerateDecorations;
         maxNumOfPrimaryRooms *= GameManager.instance.GetCurrentLevel() + 1;
         maxNumOfSecondaryRooms += GameManager.instance.GetCurrentLevel() + 1;
@@ -111,8 +109,6 @@ public class RoomGenerator : IGenerator
                 }
             }
         }
-        
-       
         //================================
 
         GenerateSecondaryRooms(roomTexture, 2);
@@ -135,11 +131,28 @@ public class RoomGenerator : IGenerator
             roomTexture.SetPixel(roomTexture.height - 1, y, Color.black);
             roomTexture.SetPixel(0, y, Color.black);
         }
-        //miniMap = GetComponent<Image>();
-        //Debug.Log("got component");
-        //miniMap.sprite = roomMap;
-        //Debug.Log("Not set");
+
+        SetAllPositions(roomTexture);
     }
+
+    public override void SetAllPositions(Texture2D _texture)
+    {
+        groundPositions = new List<Vector3>();
+        for (int x = 0; x < _texture.width; x++)
+        {
+            for (int y = 0; y < _texture.height; y++)
+            {
+                if (_texture.GetPixel(x, y) != Color.black)
+                {
+                    if (Vector2.Distance(ChunkGrid.instance.GetRoomGenerator().GetStartPos(), new Vector2Int(x, y)) > safeDist)
+                    {
+                        groundPositions.Add(ChunkGrid.instance.GridToWorld(new Vector3Int(x, 0, y)) + blockCenterOffset);
+                    }
+                }
+            }
+        }
+    }
+    public override List<Vector3> GetPositions() { return groundPositions; }
     private void GenerateDecorations()
     {
         roomTexture.wrapMode = TextureWrapMode.Clamp;

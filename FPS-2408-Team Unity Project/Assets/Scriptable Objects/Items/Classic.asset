@@ -16,3 +16,4 @@ MonoBehaviour:
   itemID: 0
   Object: {fileID: 4287647226102483669, guid: 3b3d6e608950c9d489254c034510c767, type: 3}
   Pickup: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
+  maxUses: 15

@@ -20,6 +20,8 @@ public class RoamingTurret : BaseEnemy
     [SerializeField] protected float legMoveSpeed;
     [SerializeField] protected float legLiftHeight;
     [SerializeField] protected AnimationCurve legLiftCurve;
+
+    #region Custom Structs and Enum
     [System.Serializable]
     public struct Leg
     {
@@ -35,6 +37,9 @@ public class RoamingTurret : BaseEnemy
             return Vector3.Distance(currPos, absolutePos);
         }
     }
+    #endregion
+
+    #region MonoBehavior Methods
     public override void Start()
     {
         base.Start();
@@ -43,9 +48,11 @@ public class RoamingTurret : BaseEnemy
     }
     public override void Update()
     {
+      
         base.Update();
         UpdateLegs();
     }
+    #endregion
     private void UpdateLegs()
     {
 
@@ -117,6 +124,9 @@ public class RoamingTurret : BaseEnemy
                legs[i].absolutePos = rayPos + Vector3.down * groundSearchDist;
         }
     }
+
+
+
     public override void OnDrawGizmosSelected()
     {
         if (legs == null) return;

@@ -11,6 +11,8 @@ public class LootGenerator : MonoBehaviour
     [SerializeField] private Vector3 lootSpawnOffset;
     [SerializeField] private GameObject defaultLoot;
     private List<Vector3> allPositions = new List<Vector3>();
+
+    #region Custom Structs and Enums
     [System.Serializable]
     public struct LootTable
     {
@@ -24,6 +26,10 @@ public class LootGenerator : MonoBehaviour
         public GameObject _prefab;
         public int _frequency;
     }
+    #endregion
+
+
+    #region MonoBehavior Methods
     private void Start()
     {
         ChunkGrid.instance.EndLoad += RunSystem;
@@ -33,21 +39,10 @@ public class LootGenerator : MonoBehaviour
         ChunkGrid.instance.EndLoad -= RunSystem;
 
     }
+    #endregion
     public void RunSystem()
     {
-        Texture2D _texture = ChunkGrid.instance.GetRoomTexture();
-        _texture.wrapMode = TextureWrapMode.Clamp;
-        allPositions = new List<Vector3>();
-        for (int x = 0; x < _texture.width; x++)
-        {
-            for (int y = 0; y < _texture.height; y++)
-            {
-                if (_texture.GetPixel(x, y) != Color.black)
-                {
-                    allPositions.Add(ChunkGrid.instance.GridToWorld(new Vector3Int(x, 0, y)) + lootSpawnOffset);
-                }
-            }
-        }
+        allPositions = ChunkGrid.instance.GetRoomGenerator().GetPositions();
         Instantiate(defaultLoot, allPositions[Random.Range(0, allPositions.Count)], defaultLoot.transform.rotation);
         GenerateLoot(GameManager.instance.GetCurrentLevel());
     }
@@ -55,23 +50,24 @@ public class LootGenerator : MonoBehaviour
     {
         int amount = (int)(lootDensity * allPositions.Count);
         int currentLootTableIndex = 0;
-        bool foundIndex = false;
         List<GameObject> FilteredLootTable = new List<GameObject>();
+        //===================================
+        //Get Loot Table of current level
         for (int i = 0; i < allLoot.Length; i++)
         {
             if (_level <= allLoot[i].levelRange.y && _level >= allLoot[i].levelRange.x)
             {
                 currentLootTableIndex = i;
-                foundIndex = true;
                 break;
             }
+            else if(i == allLoot.Length - 1)
+            {
+                Debug.LogWarning("Couldnt find a sutable loot table for level " + _level);
+                return;
+            }
         }
+        //===================================
 
-        if (!foundIndex)
-        {
-            Debug.LogWarning("Couldnt find a sutable loot table for level " + _level);
-            return;
-        }
         for (int i = 0; i < allLoot[currentLootTableIndex].Loot.Length; i++)
         {
             for (int j = 0; j < allLoot[currentLootTableIndex].Loot[i]._frequency; j++)
@@ -86,7 +82,6 @@ public class LootGenerator : MonoBehaviour
             int positionindex = Random.Range(0, allPositions.Count);
             int lootIndex = Random.Range(0, FilteredLootTable.Count);
             Instantiate(FilteredLootTable[lootIndex], allPositions[positionindex],FilteredLootTable[lootIndex].transform.rotation);
-
             allPositions.RemoveAt(positionindex);
         }
     }

@@ -6,8 +6,11 @@ public class LineRendererFog : MonoBehaviour
 {
     [SerializeField] private Gradient colGradient;
     [SerializeField] private float maxDistance;
+
     private LineRenderer lineRendRef;
     private float currDistance = 1;
+
+    #region MonoBehavior Methods
     private void Awake()
     {
         if(!TryGetComponent<LineRenderer>(out lineRendRef))
@@ -19,18 +22,19 @@ public class LineRendererFog : MonoBehaviour
     {
         if (GameManager.instance != null && GameManager.instance.playerRef != null)
         {
-
             currDistance = Vector3.Distance(GameManager.instance.playerRef.transform.position, transform.position);
         }
-        if (lineRendRef != null)
-        {
-            GradientAlphaKey[] gradientAlphaKeys = new GradientAlphaKey[1];
-            GradientColorKey[] gradientColorKeys = new GradientColorKey[1];
-            gradientColorKeys[0] = new GradientColorKey(colGradient.Evaluate(currDistance/maxDistance),0f);
-            gradientAlphaKeys[0] = new GradientAlphaKey(1f,0f);
-            Gradient tempGrad = new Gradient();
-            tempGrad.SetKeys(gradientColorKeys, gradientAlphaKeys);
-            lineRendRef.colorGradient=tempGrad;
-        }
+        SetLineColor(colGradient.Evaluate(currDistance / maxDistance));
     }
+    #endregion
+
+    #region Getters and Setters
+    public void SetLineColor(Color _col)
+    {
+        if (lineRendRef == null) return;
+        Gradient tempGrad = new Gradient();
+        tempGrad.SetKeys(new GradientColorKey[] { new GradientColorKey(colGradient.Evaluate(currDistance / maxDistance), 0f) }, new GradientAlphaKey[] { new GradientAlphaKey(1f, 0f) });
+        lineRendRef.colorGradient = tempGrad;
+    }
+    #endregion
 }

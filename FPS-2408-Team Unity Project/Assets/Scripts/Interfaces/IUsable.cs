@@ -4,6 +4,9 @@ using UnityEngine;
 
 public interface IUsable
 {
+
+    public int GetUses();
+    public void SetUses(int _val);
     public GameObject GetPickup();
     public void SetPickup(GameObject _val);
     public bool GetUsingItem();

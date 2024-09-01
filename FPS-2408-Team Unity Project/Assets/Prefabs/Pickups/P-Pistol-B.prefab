@@ -177,4 +177,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
   stats: 
-  storedClip: 100
+  uses: -1

@@ -5,50 +5,17 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private int maxEnemyCount;
+    [SerializeField] private int enemyDensity;
+    [SerializeField] private Vector2Int minMaxEnemies;
     [SerializeField] private EnemyType[] enemyList;
-    private int currentEnemyCount;
-    [SerializeField] private Vector3 offset;
     [SerializeField] private int patrolPointsCount;
+    private int currentEnemyCount;
+
+
     private List<Vector3> allPositions = new List<Vector3>();
-    [SerializeField] private float safeDist;
 
-    private void Start()
-    {
-        maxEnemyCount *= (GameManager.instance.currentStats.S_Level + 1);
-        maxEnemyCount = (int)Mathf.Clamp(maxEnemyCount, 2f, 50);
-        ChunkGrid.instance.EndLoad += RunSystem;
-    }
-    private void OnDisable()
-    {
-        ChunkGrid.instance.EndLoad -= RunSystem;
 
-    }
-
-    public void RunSystem()
-    {
-        Texture2D _texture = ChunkGrid.instance.GetRoomTexture();
-        _texture.wrapMode = TextureWrapMode.Clamp;
-        allPositions = new List<Vector3>();
-        for (int x = 0; x < _texture.width; x++)
-        {
-            for (int y = 0; y < _texture.height; y++)
-            {
-                if(_texture.GetPixel(x,y) != Color.black)
-                {
-                    if (Vector2.Distance(ChunkGrid.instance.GetRoomGenerator().GetStartPos(), new Vector2Int(x, y)) > safeDist)
-                    {
-                        allPositions.Add(ChunkGrid.instance.GridToWorld(new Vector3Int(x, 0, y)) + offset);
-                    }
-                }
-            }
-        }
-        while (currentEnemyCount < maxEnemyCount)
-        {
-            int index = UnityEngine.Random.Range(0, allPositions.Count);
-            SpawnEnemy(allPositions[index], 1);
-        }
-    }
+    #region Custom Structs and Enums
     [System.Serializable]
     private struct EnemyType
     {
@@ -56,9 +23,40 @@ public class EnemySpawner : MonoBehaviour
         public GameObject enemyPrefab;
         public float frequency;
     }
+    #endregion
+
+
+
+    private void OnDisable()
+    {
+        ChunkGrid.instance.EndLoad -= RunSystem;
+
+    }
+    private void Start()
+    {
+        enemyDensity *= (GameManager.instance.currentStats.S_Level + 1);
+        enemyDensity = (int)Mathf.Clamp(enemyDensity, minMaxEnemies.x, minMaxEnemies.y);
+
+        ChunkGrid.instance.EndLoad += RunSystem;
+    }
+
+
+
+
+    public void RunSystem()
+    {
+        allPositions = ChunkGrid.instance.GetRoomGenerator().GetPositions();
+        
+        while (currentEnemyCount < enemyDensity)
+        {
+            int index = UnityEngine.Random.Range(0, allPositions.Count);
+            SpawnEnemy(allPositions[index], 1);
+        }
+    }
+
     public void SpawnEnemy(Vector3 _pos, float _probability)
     {
-        if (currentEnemyCount >= maxEnemyCount) return;
+        if (currentEnemyCount >= enemyDensity) return;
         if (UnityEngine.Random.Range(0.0f, 1.0f) < _probability)
         {
             EnemyType ET = enemyList[UnityEngine.Random.Range(0, enemyList.Length)];

@@ -9,4 +9,5 @@ public class ItemType : ScriptableObject
     public int itemID;
     public GameObject Object;
     public GameObject Pickup;
+    public int maxUses;
 }
