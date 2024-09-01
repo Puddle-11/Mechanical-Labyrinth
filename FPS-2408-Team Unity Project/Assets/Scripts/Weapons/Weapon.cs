@@ -21,6 +21,7 @@ public class Weapon : MonoBehaviour, IUsable
 
     [SerializeField] protected float attackVolume;
     [SerializeField] public AudioClip[] shootsounds;
+    protected bool playerWeapon = false;
 
     #region Getters Setters
     public virtual ItemType GetItemType() { return gunDrop; }
@@ -32,6 +33,8 @@ public class Weapon : MonoBehaviour, IUsable
     public void SetUsingItem(bool _val) { usingItem = _val; }
     public bool GetIsAttacking() { return isAttacking; }
     #endregion
+    public virtual void SetPlayerWeapon(bool _val) {playerWeapon = _val;}
+
     public virtual int GetUses()
     {
         return -1;

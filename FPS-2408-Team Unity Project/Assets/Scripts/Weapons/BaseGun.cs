@@ -40,7 +40,6 @@ public class BaseGun : Weapon
     private float FSAtimer;
     private int currAmmo;
     private bool isReloading = false;
-    private bool playerGun = false;
     private bool offTrigger;
     private int currBarrel;
     [System.Serializable]
@@ -74,14 +73,12 @@ public class BaseGun : Weapon
     }
     public override void SetUses(int _val)
     {
-        Debug.Log("");
         SetAmmo(_val);
     }
 
     public void OpenAmmoUI()
     {
-        if (playerGun) UIManager.instance.OpenCurrInvAmmo(ammoType);
-
+        if (playerWeapon) UIManager.instance.OpenCurrInvAmmo(ammoType);
     }
 
 
@@ -91,7 +88,7 @@ public class BaseGun : Weapon
 
         if (!isAttacking)
         {
-            if (playerGun)
+            if (playerWeapon)
             {
                 CameraController.instance.ResetOffset(true);
 
@@ -100,10 +97,10 @@ public class BaseGun : Weapon
         }
         else
         {
-            if (playerGun) CameraController.instance.ResetOffset(false);
+            if (playerWeapon) CameraController.instance.ResetOffset(false);
 
         }
-        if (playerGun) UIManager.instance.UpdateCrosshairSpread(FSAccuracy * FSAOverTime.Evaluate(FSAtimer/ FSATimerMax));
+        if (playerWeapon) UIManager.instance.UpdateCrosshairSpread(FSAccuracy * FSAOverTime.Evaluate(FSAtimer/ FSATimerMax));
 
 
     }
@@ -115,7 +112,8 @@ public class BaseGun : Weapon
     public override bool CanAttack() { return !(isAttacking || isReloading); }
     public void SetShootPos(Transform _pos){barrels[currBarrel].shootObj = _pos;}
     public AmmoInventory.bulletType GetAmmoType(){return ammoType;}
-    public void SetPlayerGun(bool _val){playerGun = _val;}
+    public void SetPlayerGun(bool _val){ playerWeapon = _val;}
+
     #endregion
     private bool ShootConditional()
     {
@@ -156,7 +154,7 @@ public class BaseGun : Weapon
     {
         if(BootLoadManager.instance!=null)BootLoadManager.instance.stopLoadEvent -= OpenAmmoUI;
 
-        if (playerGun) UIManager.instance.CloseCurrInvAmmo();
+        if (playerWeapon) UIManager.instance.CloseCurrInvAmmo();
 
     }
     //This is the only function that needs to be overridden for different types of weapons
@@ -180,8 +178,8 @@ public class BaseGun : Weapon
             FSAtimer += barrelDelay;
             bool penetrated = false;
             Vector3 tempForward = CameraController.instance.transform.forward;
-            Vector3 shootDir = playerGun ? tempForward : barrels[currBarrel].shootObj.forward;
-            if (!playerGun || (playerGun && !GameManager.instance.playerControllerRef.GetPlayerHand().GetIsAiming()))
+            Vector3 shootDir = playerWeapon ? tempForward : barrels[currBarrel].shootObj.forward;
+            if (!playerWeapon || (playerWeapon && !GameManager.instance.playerControllerRef.GetPlayerHand().GetIsAiming()))
             {
                 shootDir += new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)) * FSAccuracy * FSAOverTime.Evaluate(normalizedTimer);
             }
@@ -195,15 +193,15 @@ public class BaseGun : Weapon
             {
                 currBarrel = 0;
             }
-            if (shootsounds.Length > 0) AudioManager.instance.PlaySound(shootsounds[UnityEngine.Random.Range(0, shootsounds.Length)], (playerGun ? AudioManager.soundType.player : AudioManager.soundType.enemy), attackVolume);
+            if (shootsounds.Length > 0) AudioManager.instance.PlaySound(shootsounds[UnityEngine.Random.Range(0, shootsounds.Length)], (playerWeapon ? AudioManager.soundType.player : AudioManager.soundType.enemy), attackVolume);
             UpdateAmmo(-1);
             StartMuzzleFlash();
-            if (Physics.Raycast(playerGun ? Camera.main.transform.position : barrels[currBarrel].shootObj.position, shootDir, out hit, shootDist, ~ignoreMask))
+            if (Physics.Raycast(playerWeapon ? Camera.main.transform.position : barrels[currBarrel].shootObj.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
                 if (hit.collider.TryGetComponent<IHealth>(out healthRef))
                 {
 
-                    if (playerGun)  GameManager.instance.UpdateDamageDealt(shootDamage);
+                    if (playerWeapon)  GameManager.instance.UpdateDamageDealt(shootDamage);
                     healthRef.UpdateHealth(-shootDamage);
                 }
                 RaycastHit penetratingHit;
@@ -230,7 +228,7 @@ public class BaseGun : Weapon
                         {
                             int shootDamagecalc = (int)(shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
 
-                            if (playerGun) GameManager.instance.UpdateDamageDealt(shootDamagecalc);
+                            if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamagecalc);
                             healthRef.UpdateHealth(-shootDamagecalc);
                         }
                     }
@@ -252,7 +250,7 @@ public class BaseGun : Weapon
             }
             SummonBulletTracer(hit, shootDir);
 
-            if (playerGun && barrelDelay > 0)
+            if (playerWeapon && barrelDelay > 0)
             {
                 CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
                 CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
@@ -261,7 +259,7 @@ public class BaseGun : Weapon
         }
         float nTimer = FSAtimer / FSATimerMax;
 
-        if (playerGun && barrelDelay <= 0)
+        if (playerWeapon && barrelDelay <= 0)
         {
             CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
             CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * nTimer));
@@ -310,7 +308,7 @@ public class BaseGun : Weapon
         if(_val < 0) _val = 0;
         
         currAmmo = _val;
-        if (playerGun == true) {
+        if (playerWeapon == true) {
             UIManager.instance.AmmoDisplay(currAmmo, clipSizeMax);
             UIManager.instance.UpdateCurrInvAmmo(ammoType);
 
@@ -322,7 +320,7 @@ public class BaseGun : Weapon
         BulletTracer BT;
         if (trailRef.TryGetComponent<BulletTracer>(out BT))
         {
-            if (playerGun)
+            if (playerWeapon)
             {
                 BT.SetPositions(barrels[currBarrel].shootObj.position, _path.collider != null ? _path.point : Camera.main.transform.position + _dir * shootDist);
             }
@@ -358,7 +356,7 @@ public class BaseGun : Weapon
         isReloading = true;
 
 
-        if (playerGun )
+        if (playerWeapon)
         {
             if (!(AmmoInventory.instance.ammoCounts[(int)ammoType] >= clipSizeMax))
             {
@@ -374,7 +372,7 @@ public class BaseGun : Weapon
         timer = currAmmo * perBullVal;
         while (timer < reloadSpeed)
         {
-            if (playerGun)
+            if (playerWeapon)
             {
                 UIManager.instance.UpdateAmmoFill(timer / reloadSpeed);
             }
