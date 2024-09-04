@@ -79,6 +79,15 @@ public class PlayerController : BaseEntity
         originalgravity = gravityStrength;
         base.Start();
         UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
+        GameObject currHandObj = playerHandRef.GetCurrentHand();
+        if(currHandObj != null)
+        {
+            BaseGun bref;
+            if(currHandObj.TryGetComponent(out bref))
+            {
+                UIManager.instance.UpdateExternalAmmoInv(true, (int)bref.GetAmmoType());
+            }
+        }
     }
     public void SetPlayervel(Vector3 Playervel)
     {

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
-
+//====================================
+//REWORKED
+//====================================
 public class LootGenerator : MonoBehaviour
 {
     [SerializeField] private LootTable[] allLoot;
     [SerializeField] private float lootDensity;
-    [SerializeField] private Vector3 lootSpawnOffset;
+    [SerializeField] private int minLoot;
     [SerializeField] private GameObject defaultLoot;
     private List<Vector3> allPositions = new List<Vector3>();
 
@@ -75,7 +77,7 @@ public class LootGenerator : MonoBehaviour
                 FilteredLootTable.Add(allLoot[currentLootTableIndex].Loot[i]._prefab);
             }
         }
-
+        if (amount < minLoot) amount = minLoot;
         for (int i = 0; i < amount; i++)
         {
             if (allPositions.Count <= 0) break;

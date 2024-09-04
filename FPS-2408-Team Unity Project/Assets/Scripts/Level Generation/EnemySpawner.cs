@@ -25,8 +25,7 @@ public class EnemySpawner : MonoBehaviour
     }
     #endregion
 
-
-
+    #region MonoBehavior Methods
     private void OnDisable()
     {
         ChunkGrid.instance.EndLoad -= RunSystem;
@@ -34,12 +33,12 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-        enemyDensity *= (GameManager.instance.currentStats.S_Level + 1);
+       if(GameManager.instance != null) enemyDensity *= (GameManager.instance.GetCurrentLevel() + 1);
         enemyDensity = (int)Mathf.Clamp(enemyDensity, minMaxEnemies.x, minMaxEnemies.y);
 
         ChunkGrid.instance.EndLoad += RunSystem;
     }
-
+    #endregion
 
 
 
@@ -61,15 +60,15 @@ public class EnemySpawner : MonoBehaviour
         {
             EnemyType ET = enemyList[UnityEngine.Random.Range(0, enemyList.Length)];
 
-           GameObject enemyObj = Instantiate(ET.enemyPrefab, _pos, Quaternion.identity);
+            GameObject enemyObj = Instantiate(ET.enemyPrefab, _pos, Quaternion.identity);
             BaseEnemy baseEnRef;
-            if(enemyObj.TryGetComponent<BaseEnemy>(out baseEnRef))
+            if (enemyObj.TryGetComponent(out baseEnRef))
             {
                 List<Vector3> enemyPatrolPoints = new List<Vector3>();
                 for (int i = 0; i < patrolPointsCount; i++)
                 {
                     int index = UnityEngine.Random.Range(0, allPositions.Count);
-                   enemyPatrolPoints.Add( allPositions[index]);
+                    enemyPatrolPoints.Add(allPositions[index]);
                     allPositions.RemoveAt(index);
                 }
                 baseEnRef.SetPatrolPoints(enemyPatrolPoints.ToArray());

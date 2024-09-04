@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//====================================
+//REWORKED
+//====================================
 public class IGenerator : MonoBehaviour
 {
     [Header("IGENERATOR")]
@@ -35,7 +38,7 @@ public class IGenerator : MonoBehaviour
     #endregion
 
     #region Virtual Methods
-    public virtual void SetAllPositions(Texture2D _texture) { }
+    public virtual void GenerateAllPositions(Texture2D _texture) { }
     public virtual List<Vector3> GetPositions()
     {
         return null;

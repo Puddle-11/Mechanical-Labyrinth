@@ -651,6 +651,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 864158115438447835, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4140144624859787384, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1489,30 +1493,29 @@ MonoBehaviour:
   maxHealth: 100
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
   healthBar: {fileID: 5954874342914856447}
+  deathParticles: []
+  hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops: []
-  agent: {fileID: 6587216154067788657}
-  weaponScr: {fileID: 6660931601901886988}
   headPos: {fileID: 0}
-  patrolPoints: []
-  contactDamage: 15
-  contactDamageFrequency: 0.5
+  sneakDamageMultiplyer: 2
   stoppingDistance: 10
   rotationSpeed: 180
   roamTimer: 2
   roamingDistance: 15
-  sneakDamageMultiplyer: 2
+  sightMask:
+    serializedVersion: 2
+    m_Bits: 64
   attackRange: 10
   sightRange: 15
   hearingRange: 20
   attackAngle: 50
   sightAngle: 90
   target: {fileID: 0}
-  senseType: 0
-  sightMask:
-    serializedVersion: 2
-    m_Bits: 64
-  alertMarker: {fileID: 0}
+  weaponScr: {fileID: 6660931601901886988}
+  agent: {fileID: 6587216154067788657}
+  patrolPoints: []
+  senseType: 3
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:

@@ -101,15 +101,7 @@ public class AmmoInventory : MonoBehaviour
     public void UpdateAmmoInventory(bulletType type, int amount)
     {
         ammoCounts[(int)type] += amount;
-        ItemType itRef = GameManager.instance.playerControllerRef.GetCurrentItemType();
-        if (itRef != null)
-        {
-            BaseGun basegRef = itRef.Object.GetComponent<BaseGun>();
-            if (basegRef.GetAmmoType() == type)
-            {
-                UIManager.instance.UpdateCurrInvAmmo(type);
-            }
-        }
+        UIManager.instance.UpdateInternalAmmoInv(type);
         if (GameManager.instance != null) GameManager.instance.SetAmmoInventory(ammoCounts);
     }
 }

@@ -395,6 +395,10 @@ PrefabInstance:
       value: Level generator
       objectReference: {fileID: 0}
     - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: safeDist
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: ropeLength.x
       value: 0.75
       objectReference: {fileID: 0}
@@ -419,6 +423,10 @@ PrefabInstance:
       value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: blockCenterOffset.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: maxNumOfPrimaryRooms
       value: 2
       objectReference: {fileID: 0}
@@ -435,8 +443,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: enemyDensity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: maxEnemyCount
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: minMaxEnemies.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: minMaxEnemies.y
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.size
@@ -486,7 +506,7 @@ MonoBehaviour:
       _frequency: 1
     - _prefab: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
       _frequency: 1
-    - _prefab: {fileID: 2729555954413337297, guid: 01fca0010a775aa498d7e8fc9b5f5370, type: 3}
+    - _prefab: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
       _frequency: 1
     - _prefab: {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
       _frequency: 10
@@ -498,7 +518,7 @@ MonoBehaviour:
       _frequency: 1
     - _prefab: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
       _frequency: 1
-    - _prefab: {fileID: 2729555954413337297, guid: 01fca0010a775aa498d7e8fc9b5f5370, type: 3}
+    - _prefab: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
       _frequency: 1
     - _prefab: {fileID: 4017666822207980650, guid: 5bc1038690561184ebe92d362ad752d1, type: 3}
       _frequency: 6
@@ -522,7 +542,7 @@ MonoBehaviour:
       _frequency: 1
     - _prefab: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
       _frequency: 1
-    - _prefab: {fileID: 2729555954413337297, guid: 01fca0010a775aa498d7e8fc9b5f5370, type: 3}
+    - _prefab: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
       _frequency: 1
     - _prefab: {fileID: 4017666822207980650, guid: 5bc1038690561184ebe92d362ad752d1, type: 3}
       _frequency: 6
@@ -543,7 +563,7 @@ MonoBehaviour:
     - _prefab: {fileID: 5325792448802999737, guid: 0a45896ebb1b19a49a522c7dfa9e8d30, type: 3}
       _frequency: 20
   lootDensity: 0.005
-  lootSpawnOffset: {x: 0, y: 1, z: 0}
+  minLoot: 10
   defaultLoot: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

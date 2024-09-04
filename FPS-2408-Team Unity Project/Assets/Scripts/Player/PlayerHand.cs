@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
-using static UnityEditor.Progress;
 
 public class PlayerHand : MonoBehaviour
 {
@@ -67,7 +66,7 @@ public class PlayerHand : MonoBehaviour
     {
         if (CurrentEquiped != null)
         {
-            CurrentEquiped.GetComponent<IUsable>();
+            return CurrentEquiped.GetComponent<IUsable>();
         }
         return null;
     }
@@ -75,11 +74,12 @@ public class PlayerHand : MonoBehaviour
 
     public ItemType GetCurrentItemType()
     {
+        Debug.Log( "currEquiped " + CurrentEquiped);
         if(CurrentEquiped != null)
         {
             IUsable temp = GetIUsable();
-
-            if(temp != null)
+            
+            if (temp != null)
                 return temp.GetItemType();
         }
         return null;
@@ -184,6 +184,7 @@ public class PlayerHand : MonoBehaviour
         }
 
         SetCurrentEquipped(_ref);
+        GameManager.instance.SetCurrentItem(t);
         if (p != null) Destroy(p.gameObject);
     }
 

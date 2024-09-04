@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+//====================================
+//REWORKED
+//====================================
 public class ExitDoor : MonoBehaviour
 {
     [SerializeField] private Collider triggerCollider;

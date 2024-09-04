@@ -163,6 +163,8 @@ GameObject:
   - component: {fileID: 864158115438447835}
   - component: {fileID: 4006563966920186669}
   - component: {fileID: 5853340910402863666}
+  - component: {fileID: 4629149436048588184}
+  - component: {fileID: 7118019697064303313}
   m_Layer: 5
   m_Name: Enemy Health
   m_TagString: Untagged
@@ -208,7 +210,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -267,3 +269,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 414541893488336264}
+--- !u!114 &4629149436048588184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498036204269501764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c4be37fc21d4a4aa54b59ffdff4cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  parent: {fileID: 0}
+  offset: {x: 0, y: 2, z: 0}
+  rotation: {x: 0, y: 0, z: 0}
+--- !u!114 &7118019697064303313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7498036204269501764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e022e7a91e3bcbc4b84c883ce9386c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  lookType: 0

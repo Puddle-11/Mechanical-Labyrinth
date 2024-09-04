@@ -264,35 +264,32 @@ MonoBehaviour:
   maxHealth: 100
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
   healthBar: {fileID: 2548521708779764410}
+  deathParticles: []
+  hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops: []
-  agent: {fileID: 8589487485629443617}
-  weaponScr: {fileID: 0}
   headPos: {fileID: 6753962329535431369}
-  patrolPoints: []
-  contactDamage: 15
-  contactDamageFrequency: 0.5
+  sneakDamageMultiplyer: 2
   stoppingDistance: 0
   rotationSpeed: 180
   roamTimer: 2
   roamingDistance: 15
-  sneakDamageMultiplyer: 2
+  sightMask:
+    serializedVersion: 2
+    m_Bits: 64
   attackRange: 7
   sightRange: 13.5
   hearingRange: 20
   attackAngle: 50
   sightAngle: 90
   target: {fileID: 0}
-  senseType: 0
-  sightMask:
-    serializedVersion: 2
-    m_Bits: 64
-  alertMarker: {fileID: 0}
+  weaponScr: {fileID: 0}
+  agent: {fileID: 8589487485629443617}
+  patrolPoints: []
+  senseType: 3
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds: []
-  magnitude: {x: 0, y: 0.2, z: 0}
-  speed: 2
   explosionDamage: 100
 --- !u!65 &4527273249660388099
 BoxCollider:

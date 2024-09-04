@@ -1,23 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//====================================
+//REWORKED
+//====================================
 public class Target : BaseEntity
 {
     [SerializeField] private float RespawnTime;
     private Collider collRef;
+
+    #region MonoBehavior Methods
     public override void Awake()
     {
-        base.Awake();
-        if (!TryGetComponent<Collider>(out collRef))
+        if (!TryGetComponent(out collRef))
         {
             Debug.LogWarning("Failed to fetch Collider from " + gameObject.name);
         }
+        base.Awake();
     }
+    #endregion
+
+    #region Override Methods
     public override void Death()
     {
         StartCoroutine(RespawnDelay());
     }
+    #endregion
+
     public IEnumerator RespawnDelay()
     {
         if (collRef == null || rendRef == null)

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
-
+//====================================
+//REWORKED
+//====================================
 public class ElectrifiedRope : Rope
 {
     [SerializeField] private Gradient colorOverLifetime;

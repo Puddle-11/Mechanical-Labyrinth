@@ -78,7 +78,7 @@ public class BaseGun : Weapon
 
     public void OpenAmmoUI()
     {
-        if (playerWeapon) UIManager.instance.OpenCurrInvAmmo(ammoType);
+        if (playerWeapon) UIManager.instance.UpdateExternalAmmoInv(true, (int)ammoType);
     }
 
 
@@ -149,12 +149,14 @@ public class BaseGun : Weapon
     {
         if (BootLoadManager.instance != null) BootLoadManager.instance.stopLoadEvent += OpenAmmoUI;
         if (isAttacking) isAttacking = false; //safegaurding against edgecases with the AttackDelay Ienumerator
+        if (playerWeapon) UIManager.instance.UpdateExternalAmmoInv(true, (int)GetAmmoType());
+
     }
     private void OnDisable()
     {
         if(BootLoadManager.instance!=null)BootLoadManager.instance.stopLoadEvent -= OpenAmmoUI;
 
-        if (playerWeapon) UIManager.instance.CloseCurrInvAmmo();
+        if (playerWeapon) UIManager.instance.UpdateExternalAmmoInv(false);
 
     }
     //This is the only function that needs to be overridden for different types of weapons
@@ -310,7 +312,7 @@ public class BaseGun : Weapon
         currAmmo = _val;
         if (playerWeapon == true) {
             UIManager.instance.AmmoDisplay(currAmmo, clipSizeMax);
-            UIManager.instance.UpdateCurrInvAmmo(ammoType);
+            UIManager.instance.UpdateExternalAmmoInv(true,(int)ammoType);
 
         }
     }
@@ -364,7 +366,7 @@ public class BaseGun : Weapon
                 yield break;
             }
             AmmoInventory.instance.UpdateAmmoInventory(ammoType, -clipSizeMax);
-            UIManager.instance.UpdateCurrInvAmmo(ammoType);
+            UIManager.instance.UpdateExternalAmmoInv(true, (int)ammoType);
         }
 
         float timer = 0;

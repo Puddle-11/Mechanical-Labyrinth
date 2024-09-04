@@ -42,34 +42,45 @@ public class RoomGenerator : IGenerator
 
     public Vector2Int TextureSize;
     private Color roomCol;
-    public override Texture2D GetRoomTexture()
-    {
-        return roomTexture;
-    }
-
     private ChunkGrid.GridBounds bounds;
+
+    #region Custom Structs and Enums
     public enum GenerationType
     {
         FromTexture,
         FromAlgorithm,
     }
+    #endregion
 
+    #region Getters and Settters
+    public override Texture2D GetRoomTexture() {return roomTexture;}
+    public override void SetGeneratorBounds(ChunkGrid.GridBounds _bounds) {bounds = _bounds;}
+    #endregion
+
+    #region MonoBehavior Methods
     public void Start()
     {
         ChunkGrid.instance.EndLoad += GenerateDecorations;
-        maxNumOfPrimaryRooms *= GameManager.instance.GetCurrentLevel() + 1;
-        maxNumOfSecondaryRooms += GameManager.instance.GetCurrentLevel() + 1;
+        if (GameManager.instance != null)
+        {
+            maxNumOfPrimaryRooms *= GameManager.instance.GetCurrentLevel() + 1;
+            maxNumOfSecondaryRooms += GameManager.instance.GetCurrentLevel() + 1;
+        }
     }
 
-    private void OnDisable()
+        private void OnDisable()
     {
         ChunkGrid.instance.EndLoad -= GenerateDecorations;
 
     }
-    public override void SetGeneratorBounds(ChunkGrid.GridBounds _bounds)
+    #endregion
+
+    #region Override Methods
+    public override int PlaceTile(Vector3Int _pos)
     {
-        bounds = _bounds;
+        return FromTexture(_pos);
     }
+
 
     public override void GenerateMap()
     {
@@ -132,10 +143,10 @@ public class RoomGenerator : IGenerator
             roomTexture.SetPixel(0, y, Color.black);
         }
 
-        SetAllPositions(roomTexture);
+        GenerateAllPositions(roomTexture);
     }
 
-    public override void SetAllPositions(Texture2D _texture)
+    public override void GenerateAllPositions(Texture2D _texture)
     {
         groundPositions = new List<Vector3>();
         for (int x = 0; x < _texture.width; x++)
@@ -152,7 +163,16 @@ public class RoomGenerator : IGenerator
             }
         }
     }
+
+
     public override List<Vector3> GetPositions() { return groundPositions; }
+
+    #endregion
+
+
+
+
+
     private void GenerateDecorations()
     {
         roomTexture.wrapMode = TextureWrapMode.Clamp;
@@ -190,7 +210,6 @@ public class RoomGenerator : IGenerator
                 {
                     anchorPositions.Add(hit.point);
                 }
-                Debug.DrawRay(rayoriginPos + Vector3.down, raycastDir * maxRopeAnchorDistance, Color.red, 1000);
             }
             //==============================================
             //GET AVERAGE DISTANCE
@@ -217,8 +236,8 @@ public class RoomGenerator : IGenerator
             }
         }
     }
-private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
-    { 
+    private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
+    {
         int successfulRooms = 0;
         for (int i = 0; i < 1000; i++)
         {
@@ -260,7 +279,7 @@ private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
 
                         }
                     }
-                successfulRooms++;
+                    successfulRooms++;
                 }
             }
             if (successfulRooms >= maxNumOfSecondaryRooms) break;
@@ -402,18 +421,8 @@ private void GenerateSecondaryRooms(Texture2D _texture, int _padding)
                 continue;
             }
         }
-       
-
-
-    }
-    public override int PlaceTile(Vector3Int _pos)
-    {
-        return FromTexture(_pos);
-
     }
 
-
-  
     private int FromTexture(Vector3Int _pos)
     {
 

@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     private bool isPause = false;
     public delegate void OnWin();
     public OnWin levelWon;
-
+    [SerializeField] private ItemType defaultItem;
     private void Awake()
     {
         if (instance == null)
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
         currentStats.S_AmmoInventory = new int[0];
         currentStats.S_TotalDamage = 0;
         currentStats.S_TotallEnemiesKilled = 0;
-        currentStats.S_Item = null;
+        currentStats.S_Item = defaultItem;
         currentStats.isActive = false;
         currentStats.S_Level = 0;
     }
@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour
             if (GetChunkGrid() == null) BootLoadManager.instance.stopLoadEvent.Invoke();
             else
             {
-                if (GetChunkGrid().progress == 1)BootLoadManager.instance.stopLoadEvent.Invoke();
-                else BootLoadManager.instance.UpdateLoadingBar(GetChunkGrid().progress);
+                if (GetChunkGrid().GetProgress() == 1)BootLoadManager.instance.stopLoadEvent.Invoke();
+                else BootLoadManager.instance.UpdateLoadingBar(GetChunkGrid().GetProgress());
             }
             //=====================================================
         }
@@ -143,7 +143,11 @@ public class GameManager : MonoBehaviour
     public int GetCurrentLevel(){ return currentStats.S_Level;}
     public void SetCurrentLevel(int _val) { currentStats.S_Level = _val; }
     public void UpdateCurrentLevel(int _val){SetCurrentLevel(GetCurrentLevel() + _val);}
-    public void UpdateCurrentItem(ItemType _item){currentStats.S_Item = _item;}
+    public void SetCurrentItem(ItemType _item){
+
+        Debug.Log(_item);
+        currentStats.S_Item = _item;
+    }
     public void SetAmmoInventory(int[] _arr){ currentStats.S_AmmoInventory = _arr;}
     public int[] GetAmmoInventory(){return currentStats.S_AmmoInventory; }
     public ItemType GetCurrentItemType(){return currentStats.S_Item;}
@@ -173,8 +177,8 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetDamageDealt(currentStats.S_TotalDamage);
         UIManager.instance.SetEnemiesKilled(currentStats.S_TotallEnemiesKilled);
         UIManager.instance.SetAttemptNumber(currentStats.S_TotalDeaths);
-
-        if (currentStats.isActive) UpdateCurrentItem(playerControllerRef.GetCurrentItemType());
+        Debug.Log("PLAYER HAND = " + playerControllerRef.GetCurrentItemType());
+        if (currentStats.isActive) SetCurrentItem(playerControllerRef.GetCurrentItemType());
         enemyCount = 0;
         UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);

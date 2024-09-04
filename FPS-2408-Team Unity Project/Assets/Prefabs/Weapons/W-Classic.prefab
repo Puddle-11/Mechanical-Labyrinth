@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDown: 0
+  coolDown: 0.05
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
@@ -188,8 +188,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
+      time: -0.012500763
+      value: 0.014160156
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//====================================
+//REWORKED
+//====================================
 public class LineRendererFog : MonoBehaviour
 {
     [SerializeField] private Gradient colGradient;

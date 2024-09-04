@@ -12,8 +12,7 @@ using UnityEngine.UI;
 
 public class BaseEnemy : SharedEnemyBehavior
 {
-    //NEW VARIABLES
-    //===========================
+    
     [Space]
     [Header("BASE ENEMY GENERAL")]
     [Header("_______________________________")]
@@ -100,8 +99,8 @@ public class BaseEnemy : SharedEnemyBehavior
     //GETTERS AND SETTERS
     public void SetPatrolPoints(Vector3[] _val) { patrolPoints = _val;}
     protected void SetNavmeshTarget(Vector3 _pos) { agent.SetDestination(_pos); }
-    private void SetNavmeshTarget(){SetNavmeshTarget(target.transform.position);}
-    public void GetTarget(){if (target == null) target = GameManager.instance.playerRef;}
+    private void SetNavmeshTarget() { if (target != null) SetNavmeshTarget(target.transform.position); }
+        public void GetTarget(){if (target == null) target = GameManager.instance.playerRef;}
     private float DistanceToDestination() { return agent != null ? agent.remainingDistance : 0; }
     //=======================================
     #endregion
@@ -149,7 +148,7 @@ public class BaseEnemy : SharedEnemyBehavior
                 break;
             case EnemyState.Persue:
             case EnemyState.Attack:
-                SetNavmeshTarget(target.transform.position);
+              if(target != null)  SetNavmeshTarget(target.transform.position);
                 agent.stoppingDistance = stoppingDistance;
                 if (agent.remainingDistance <= stoppingDistance) FaceTarget();
                 break;
@@ -226,7 +225,7 @@ public class BaseEnemy : SharedEnemyBehavior
         if (currState == EnemyState.Patrol || currState == EnemyState.Investigate)
         {
             _amount = _amount * sneakDamageMultiplyer;
-            EnterInvestigate(target.transform.position);
+           if(target != null) EnterInvestigate(target.transform.position);
         }
         base.UpdateHealth(_amount);
 

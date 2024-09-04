@@ -192,7 +192,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 24840
   pickUp: {fileID: 0}
-  gunDrop: {fileID: 0}
+  gunDrop: {fileID: 11400000, guid: 777b1000345f76a469ef24355880d8a1, type: 2}
   attackVolume: 0.25
   shootsounds:
   - {fileID: 8300000, guid: de4940667ce8b3740ba071e14384ae4d, type: 3}

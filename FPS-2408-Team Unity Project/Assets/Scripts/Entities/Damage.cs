@@ -2,61 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+//====================================
+//REWORKED
+//====================================
 public class Damage : MonoBehaviour
 {
 
     [SerializeField] private damageType type;
     [SerializeField] private int damageAmount;
     [SerializeField] private float damageSpeed;
-    private IHealth currRef;
-    private float timer;
+    private bool dealingDamage;
+
+    #region Custom Structs and Enums
     public enum damageType
     {
         single,
         continuous,
     }
+    #endregion
 
+    #region MonoBehavior Methods
     private void OnTriggerEnter(Collider other)
     {
         if (other.isTrigger) return;
-        if(other.gameObject == GameManager.instance.playerRef)
+        if (type == damageType.single)
         {
-            if (type == damageType.single)
-                GameManager.instance.playerControllerRef.UpdateHealth(-damageAmount);
-            else
-                currRef = GameManager.instance.playerControllerRef;
+            other.GetComponent<IHealth>()?.UpdateHealth(-damageAmount);
         }
     }
-
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.isTrigger) return;
-        if (other.gameObject == GameManager.instance.playerRef)
-        {
-            if (type == damageType.continuous)
-            {
-                currRef = null;
-            }
-        }
+        StartCoroutine(DamageDelay(other.GetComponent<IHealth>()));
     }
 
-    private void Update()
+    #endregion
+    public IEnumerator DamageDelay(IHealth _ref)
     {
-        if (type == damageType.continuous)
-        {
-            if (timer > 0)
-            {
-                timer -= Time.deltaTime;
-            }
-            if (timer <= 0)
-            {
-                if (currRef != null)
-                {
-                    currRef.UpdateHealth(-damageAmount);
-                }
-                timer = damageSpeed;
-            }
-        }
-    }
+        if (dealingDamage || _ref == null) yield break;
+        dealingDamage = true;
+        _ref.UpdateHealth(-damageAmount);
+        yield return new WaitForSeconds(damageSpeed);
+        dealingDamage = false;
 
     }
+}

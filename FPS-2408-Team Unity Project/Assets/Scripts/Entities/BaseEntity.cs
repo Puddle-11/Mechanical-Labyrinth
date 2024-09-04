@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+//====================================
+//REWORKED
+//====================================
 public class BaseEntity : MonoBehaviour, IHealth
 {
     [Space]
@@ -62,7 +64,7 @@ public class BaseEntity : MonoBehaviour, IHealth
         _amount = Mathf.Clamp(_amount, 0, maxHealth);
 
 
-        if(_amount < currentHealth && !takingDamage) StartCoroutine(ChangeIndicator(damageMaterial));
+        if(_amount < currentHealth && !takingDamage && damageMaterial != null) StartCoroutine(ChangeIndicator(damageMaterial));
 
         if(healthBar != null) healthBar.UpdateHealthBar((float)_amount, (float)maxHealth);
 

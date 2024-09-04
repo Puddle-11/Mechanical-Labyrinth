@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -64,12 +66,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image currAmmoInvIcon;
     [SerializeField] private Image[] ammoInvIcons;
     [SerializeField] private TMP_Text[] ammoInvAmount;
+   
     public UIObj[] ConstUI;
-
     private bool showingControls = true;
-
-
-
+    private int currExternalAmmoInv;
+    #region Custom Structs and Enums
     [System.Serializable]
     public struct UIObj
     { public bool CUI_currentState;
@@ -83,28 +84,39 @@ public class UIManager : MonoBehaviour
         public GameObject[] horizontalLine;
         public GameObject[] verticalLine;
     }
-    public void UpdateCurrInvAmmo(AmmoInventory.bulletType _type)
+    #endregion
+
+
+
+    public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
     {
+        if(currAmmoInvParent != null) currAmmoInvParent.SetActive(_active);
+        currExternalAmmoInv = _active ? _type : -1;
         currAmmoInvAmount.text = AmmoInventory.instance.GetAmmoAmount(_type).ToString();
         currAmmoInvIcon.sprite = AmmoInventory.instance.GetAmmoIcon(_type);
     }
-    public void OpenCurrInvAmmo(AmmoInventory.bulletType _type)
+    public void UpdateInternalAmmoInv(AmmoInventory.bulletType _type)
     {
-        currAmmoInvParent.SetActive(true);
-        currAmmoInvAmount.text = AmmoInventory.instance.GetAmmoAmount(_type).ToString();
-        currAmmoInvIcon.sprite = AmmoInventory.instance.GetAmmoIcon(_type);
-    }
-    public void CloseCurrInvAmmo()
-    {
-        if (currAmmoInvParent != null)
+
+        if ((int)_type == currExternalAmmoInv)
         {
-            currAmmoInvParent.SetActive(false);
+            UpdateExternalAmmoInv(true, (int)_type);
         }
+
+        if ((int)_type >= AmmoInventory.instance.GetAmmoTypeCount()) return;
+        ammoInvIcons[(int)_type].sprite = AmmoInventory.instance.GetAmmoIcon((int)_type);
+        if ((int)_type < ammoInvAmount.Length) ammoInvAmount[(int)_type].text = AmmoInventory.instance.GetAmmoAmount((int)_type).ToString();
     }
-    private void UpdateAmmoInv()
+    public void UpdateInternalAmmoInv()
     {
         for (int i = 0; i < ammoInvIcons.Length; i++)
         {
+            
+                if(i == (int)currExternalAmmoInv)
+                {
+                    UpdateExternalAmmoInv(true,i);
+                }
+            
             if (i >= AmmoInventory.instance.GetAmmoTypeCount()) break; //Exit if reached end of list
 
             ammoInvIcons[i].sprite = AmmoInventory.instance.GetAmmoIcon(i);
@@ -114,28 +126,13 @@ public class UIManager : MonoBehaviour
             ammoInvAmount[i].text = AmmoInventory.instance.GetAmmoAmount(i).ToString();
         }
     }
-    public void SetAttemptNumber(int _val)
-    {
-        attemptNumber.text = _val.ToString();
-    }
 
-    public void SetEnemiesKilled(int _val)
-    {
-        enemiesKilled.text = "Enemies Killed: " + _val.ToString();
-    }
-    public void SetDamageDealt(ulong _val)
-    {
-        damageDealt.text = "Damage Dealt: " + _val.ToString();
-    }
-    public void ToggleEnemyCount(bool _val)
-    {
-        enemyCountObj.SetActive(_val);
-    }
-    
-    public void SetEnemyCount(int _val)
-    {
-        enemyCountField.text = _val.ToString();
-    }
+    public void SetAttemptNumber(int _val){attemptNumber.text = _val.ToString();}
+    public void SetEnemiesKilled(int _val) {enemiesKilled.text = "Enemies Killed: " + _val.ToString();}
+    public void SetDamageDealt(ulong _val){ damageDealt.text = "Damage Dealt: " + _val.ToString();}
+    public void ToggleEnemyCount(bool _val){ enemyCountObj.SetActive(_val); }
+    public void ResetTempUI() { flashDamageRef.SetActive(false); }
+    public void SetEnemyCount(int _val) { enemyCountField.text = _val.ToString();}
     public void UpdateHealthBar(float _val) //Takes a NORMALIZED value
     {
         if (playerHealth != null)
@@ -151,10 +148,8 @@ public class UIManager : MonoBehaviour
         flashDamageRef.SetActive(false);
 
     }
-    public void ResetTempUI()
-    {
-        flashDamageRef.SetActive(false);
-    }
+
+
     private void Awake()
     {
         if(instance == null)
@@ -198,12 +193,12 @@ public class UIManager : MonoBehaviour
 
     public void StatePause()
     {
-        UpdateAmmoInv();
+        UpdateInternalAmmoInv();
         runStatsObj.SetActive(true);
         UIFadeAnim.SetBool("InUI", true);
         GameManager.instance.SetPause(true);
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         if (menuActive != null && menuActive.activeInHierarchy) menuActive.SetActive(false);
         menuActive = menuPause;
         menuActive.SetActive(true);

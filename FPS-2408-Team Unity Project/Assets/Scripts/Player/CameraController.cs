@@ -44,13 +44,13 @@ public class CameraController : MonoBehaviour
     }
     public void Start()
     {
-        GetMainCamera();
+        mainCamera =  GetMainCamera();
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
-    private void GetMainCamera()
+    public Camera GetMainCamera()
     {
-        if (mainCamera != null) return;
+        if (mainCamera != null) return mainCamera;
         GameObject[] camList = GameObject.FindGameObjectsWithTag("MainCamera");
         if (camList.Length != 0)
         {
@@ -63,17 +63,18 @@ public class CameraController : MonoBehaviour
             Camera camRef;
             if (camList[0].TryGetComponent<Camera>(out camRef))
             {
-                mainCamera = camRef;
+                return camRef;
             }
             else
             {
                 Debug.LogWarning("Gameobject: " + camList[0].name + " Marked with 'MainCamera' but doesnt contain a camera component");
+                return null;
             }
         }
         else
         {
             Debug.Log("no Camera with 'MainCamera' tag found in scene");
-
+            return null;
         }
     }
     public void StartCamShake()

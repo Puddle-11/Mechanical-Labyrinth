@@ -599,10 +599,12 @@ MonoBehaviour:
   maxHealth: 1000
   damageMaterial: {fileID: 0}
   healthBar: {fileID: 0}
+  deathParticles: []
+  hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops: []
   footstepSoundRef: {fileID: 7812129156646002974}
-  acceleration: 10
+  acceleration: 5
   sprintMod: 1.5
   maxSpeed: 50
   friction: 3
@@ -642,6 +644,7 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
+  throwRotationSpeed: 0
   throwSpeed: {x: 4, y: 0}
   throwOffset: {x: 1, y: 1}
 --- !u!33 &4445708568870916686

@@ -20,22 +20,20 @@ public class ChunkGrid : MonoBehaviour
     public GridBounds bounds;
     public int textureAtlasSize;
     private MeshCell[,,] GridCells;
+
+
     public delegate void ChunkGenProgress();
     public ChunkGenProgress StartLoad;
     public ChunkGenProgress EndLoad;
-    public float progress;
+
+
+    private float progress;
     private int chunkLoaded;
     private int totalChunks;
    
     [SerializeField] private NavMeshSurface navMeshSurfaceRef;
-    public IGenerator GetRoomGenerator()
-    {
-        return iGen;
-    }
-    public Texture2D GetRoomTexture()
-    {
-        return iGen.GetRoomTexture();
-    }
+
+    #region Custom Structs and Enums
     public struct GridBounds
     {
         public Vector3Int min;
@@ -46,6 +44,25 @@ public class ChunkGrid : MonoBehaviour
         public Vector3 min;
         public Vector3 max;
     }
+    #endregion
+
+    #region Getters and Setters
+    public IGenerator GetRoomGenerator(){return iGen;}
+    public Texture2D GetRoomTexture() {return iGen.GetRoomTexture(); }
+
+    public Vector3 GetStartingPos()
+    {
+        Vector2Int UPos = iGen.GetStartPos();
+        return GridToWorld(new Vector3Int(UPos.x, 2, UPos.y));
+    }
+
+    public float GetProgress()
+    {
+        return progress;
+    }
+    #endregion
+
+    #region MonoBehavior Methods
     private void Awake()
     {
         if(instance == null) instance = this;
@@ -58,52 +75,48 @@ public class ChunkGrid : MonoBehaviour
     }
     private void OnEnable()
     {
-        BootLoadManager.instance.stopLoadEvent += SpawnEndDoor;
-        BootLoadManager.instance.startLoadEvent += removeListeners;
-    }
-    private void OnDisable()
+        if (BootLoadManager.instance != null)
+        {
+            BootLoadManager.instance.stopLoadEvent += SpawnEndDoor;
+            BootLoadManager.instance.startLoadEvent += removeListeners;
+        }
+        }
+        private void OnDisable()
     {
         removeListeners();
     }
-    private void removeListeners() //Since the chunk grid changes from scene to scene we need to make sure we remove the listeners before the next scene is loaded
-    {
 
-        BootLoadManager.instance.stopLoadEvent -= SpawnEndDoor;
-    }
+
     private void Start()
     {
-        GridSize *= GameManager.instance.GetCurrentLevel();
+        GridSize *= GameManager.instance != null ? GameManager.instance.GetCurrentLevel() : 1;
         GridSize.x = Mathf.Clamp(GridSize.x, minGridSize.x, maxGridSize.x);
         GridSize.y = Mathf.Clamp(GridSize.y, minGridSize.y, maxGridSize.y);
         GridSize.z = Mathf.Clamp(GridSize.z, minGridSize.z, maxGridSize.z);
 
         bounds.min = Vector3Int.zero;
         bounds.max = GridSize * CubicChunkSize - Vector3Int.one;
+
+
         iGen.SetGeneratorBounds(bounds);
         iGen.GenerateMap();
 
 
         //FAULTY CODE
         //============================
-        if (GameManager.instance != null)
+        if (GameManager.instance != null && GameManager.instance.playerControllerRef != null)
         {
-            if (GameManager.instance.playerControllerRef != null)
-            {
-                GameManager.instance.playerControllerRef.SetPlayerSpawnPos(GetStartingPos());
-                GameManager.instance.playerControllerRef.spawnPlayer();
-            }
+            GameManager.instance.playerControllerRef.SetPlayerSpawnPos(GetStartingPos());
+            GameManager.instance.playerControllerRef.spawnPlayer();
         }
-            //============================
-            InstantiateGrid();
+        //============================
+        InstantiateGrid();
         GenerateGrid();
         StartCoroutine(RenderGrid());
 
     }
-    public Vector3 GetStartingPos()
-    {
-        Vector2Int UPos = iGen.GetStartPos();
-        return GridToWorld( new Vector3Int(UPos.x, 2, UPos.y));
-    }
+    #endregion
+   
     private void SpawnEndDoor()
     {
         Vector2Int UPos = iGen.GetStartPos();
@@ -111,8 +124,17 @@ public class ChunkGrid : MonoBehaviour
         Instantiate(iGen.GetDoorPrefab(), GridToWorld(_gridPos) + iGen.GetDoorOffset(), Quaternion.LookRotation(new Vector3(0,0,1)));
     }
 
-    #region MainGeneration
-    private void InstantiateGrid()
+    //remove listeners gets called in OnDissable
+    private void removeListeners()
+    {
+        if (BootLoadManager.instance != null)
+        {
+            BootLoadManager.instance.stopLoadEvent -= SpawnEndDoor;
+        }
+    }
+
+        #region MainGeneration
+        private void InstantiateGrid()
     {
         //This method takes all the values given and instantiates a grid of chunks to work with
         GridObj = new GameObject[GridSize.x, GridSize.y, GridSize.z];
