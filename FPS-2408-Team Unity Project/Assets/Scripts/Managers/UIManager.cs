@@ -92,8 +92,10 @@ public class UIManager : MonoBehaviour
     {
         if(currAmmoInvParent != null) currAmmoInvParent.SetActive(_active);
         currExternalAmmoInv = _active ? _type : -1;
-        currAmmoInvAmount.text = AmmoInventory.instance.GetAmmoAmount(_type).ToString();
-        currAmmoInvIcon.sprite = AmmoInventory.instance.GetAmmoIcon(_type);
+        if(currAmmoInvAmount != null)
+            currAmmoInvAmount.text = AmmoInventory.instance.GetAmmoAmount(_type).ToString();
+        if (currAmmoInvIcon != null)
+            currAmmoInvIcon.sprite = AmmoInventory.instance.GetAmmoIcon(_type);
     }
     public void UpdateInternalAmmoInv(AmmoInventory.bulletType _type)
     {
