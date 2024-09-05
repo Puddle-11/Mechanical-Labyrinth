@@ -6,46 +6,26 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    [SerializeField] GameObject shop;
-    [SerializeField] GameObject scrapObj;
-    [SerializeField] TMP_Text scrapText;
+    public static ShopManager instance;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        shop.SetActive(true);
-    }
-
-    // Update is called once per frame
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        if (instance == null)
         {
-            OpenShop();
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
         }
     }
-
-    public void OnTriggerExit(Collider other)
-    {
-
-        if (other.CompareTag("Player"))
-        {
-            CloseShop();
-        }
-    }
-
-
-
     public void OpenShop()
     {
-        UIManager.instance.FadeUI(true);
-        shop.SetActive(true);
+        UIManager.instance.OpenShop();
     }
 
     public void CloseShop() 
     {
-        UIManager.instance.FadeUI(false);
-        shop.SetActive(false);
+        UIManager.instance.CloseShop();
     }
 }

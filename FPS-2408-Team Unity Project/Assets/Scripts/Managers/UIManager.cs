@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuActive;
+    [SerializeField] GameObject menuShop;
     [SerializeField] GameObject menuControlsLegend;
     [Space]
     [Header("Damage Indicator")]
@@ -314,5 +315,32 @@ public class UIManager : MonoBehaviour
             menuControlsLegend.SetActive(true);
             showingControls = true;
         }
+    }
+
+    public void OpenShop()
+    {
+        FadeUI(true);
+        GameManager.instance.SetPause(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = menuShop;
+        menuActive.SetActive(true);
+    }
+
+    public void CloseShop() 
+    {
+        FadeUI(false);
+        GameManager.instance.SetPause(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = null;
     }
 }
