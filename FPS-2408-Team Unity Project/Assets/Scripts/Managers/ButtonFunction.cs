@@ -34,6 +34,11 @@ public class ButtonFunction : MonoBehaviour
         GameManager.instance?.MoveToRespawn();
     }
 
+    public void closeShop()
+    {
+        UIManager.instance?.StateUnpause();
+    }
+
     // Start is called before the first frame update
 
 }
