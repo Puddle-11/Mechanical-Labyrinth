@@ -279,7 +279,7 @@ MonoBehaviour:
     m_Bits: 64
   attackRange: 7
   sightRange: 13.5
-  hearingRange: 20
+  hearingRange: 15
   attackAngle: 50
   sightAngle: 90
   target: {fileID: 0}

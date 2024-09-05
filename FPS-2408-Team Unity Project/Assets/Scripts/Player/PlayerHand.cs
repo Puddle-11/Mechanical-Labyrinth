@@ -74,7 +74,6 @@ public class PlayerHand : MonoBehaviour
 
     public ItemType GetCurrentItemType()
     {
-        Debug.Log( "currEquiped " + CurrentEquiped);
         if(CurrentEquiped != null)
         {
             IUsable temp = GetIUsable();

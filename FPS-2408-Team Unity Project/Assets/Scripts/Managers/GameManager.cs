@@ -171,7 +171,6 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetDamageDealt(currentStats.S_TotalDamage);
         UIManager.instance.SetEnemiesKilled(currentStats.S_TotallEnemiesKilled);
         UIManager.instance.SetAttemptNumber(currentStats.S_TotalDeaths);
-        Debug.Log("PLAYER HAND = " + playerControllerRef.GetCurrentItemType());
         if (currentStats.isActive) SetCurrentItem(playerControllerRef.GetCurrentItemType());
         enemyCount = 0;
         UIManager.instance.ToggleWinMenu(false);

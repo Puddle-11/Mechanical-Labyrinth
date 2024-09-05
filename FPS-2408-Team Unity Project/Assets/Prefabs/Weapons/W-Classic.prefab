@@ -36,6 +36,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.024
       objectReference: {fileID: 0}
+    - target: {fileID: 1114390539673304637, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1514127728024050230, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3461555378997285921, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -92,9 +100,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5055628451696500055, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6333045142131451576, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6468353909579731006, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7041160445066535667, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8185480284559812924, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer
@@ -148,8 +168,6 @@ MonoBehaviour:
   attackVolume: 0.25
   shootsounds:
   - {fileID: 8300000, guid: a5a5359097e62fe48a87665456f1dd54, type: 3}
-  - {fileID: 8300000, guid: de4940667ce8b3740ba071e14384ae4d, type: 3}
-  - {fileID: 8300000, guid: 9677cd0d5d4074a4ab856ecef8fea3d7, type: 3}
   shotType: 2
   ammoType: 0
   shootDamage: 20

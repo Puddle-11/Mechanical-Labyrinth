@@ -1506,9 +1506,9 @@ MonoBehaviour:
   sightMask:
     serializedVersion: 2
     m_Bits: 64
-  attackRange: 10
-  sightRange: 15
-  hearingRange: 20
+  attackRange: 9
+  sightRange: 10
+  hearingRange: 13
   attackAngle: 50
   sightAngle: 90
   target: {fileID: 0}
