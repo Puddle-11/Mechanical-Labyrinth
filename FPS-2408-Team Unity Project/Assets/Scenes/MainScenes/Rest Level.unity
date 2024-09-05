@@ -277,6 +277,10 @@ PrefabInstance:
       value: Level generator
       objectReference: {fileID: 0}
     - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: roomMap
+      value: 
+      objectReference: {fileID: 21300000, guid: 0ea0d76b6938d8e4c99f198660a3f712, type: 3}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: safeDist
       value: 15
       objectReference: {fileID: 0}
@@ -292,6 +296,10 @@ PrefabInstance:
       propertyPath: EndDoorPrefab
       value: 
       objectReference: {fileID: 5607771420141801015, guid: ca80fbc208a597a489fcec984d340aab, type: 3}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: generatorType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: minRoomSize.x
       value: 12

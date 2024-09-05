@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     }
     public void MoveToRespawn()
     {
-        playerControllerRef.spawnPlayer();
+        playerControllerRef.SpawnPlayer();
     }
     private void OnEnable()
     {
@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
             {
                 playerRef.SetActive(true);
             }
+            currentStats.S_currentTime += Time.deltaTime;
         }
     }
     public bool GetStatePaused(){return isPause;}
@@ -143,21 +144,13 @@ public class GameManager : MonoBehaviour
     public int GetCurrentLevel(){ return currentStats.S_Level;}
     public void SetCurrentLevel(int _val) { currentStats.S_Level = _val; }
     public void UpdateCurrentLevel(int _val){SetCurrentLevel(GetCurrentLevel() + _val);}
-    public void SetCurrentItem(ItemType _item){
-
-        Debug.Log(_item);
-        currentStats.S_Item = _item;
-    }
-    public void SetAmmoInventory(int[] _arr){ currentStats.S_AmmoInventory = _arr;}
-    public int[] GetAmmoInventory(){return currentStats.S_AmmoInventory; }
-    public ItemType GetCurrentItemType(){return currentStats.S_Item;}
-    private ChunkGrid GetChunkGrid(){return ChunkGrid.instance;}
-    public void SetCurrentHealth(int _val) { currentStats.S_CurrentHealth = _val; }
-    public int GetCurrentHealth()
-    {
-        if (currentStats.S_CurrentHealth <= 0)     return int.MaxValue;
-        return currentStats.S_CurrentHealth;
-    }
+    public void SetCurrentItem(ItemType _item) {currentStats.S_Item = _item;}
+    public void SetAmmoInventory(int[] _arr) {currentStats.S_AmmoInventory = _arr;}
+    public int[] GetAmmoInventory() {return currentStats.S_AmmoInventory; }
+    public ItemType GetCurrentItemType() {return currentStats.S_Item;}
+    private ChunkGrid GetChunkGrid() {return ChunkGrid.instance;}
+    public void SetCurrentHealth(int _val) {currentStats.S_CurrentHealth = _val; }
+    public int GetCurrentHealth() {return currentStats.S_CurrentHealth <= 0 ? int.MaxValue : currentStats.S_CurrentHealth;}
     public bool TryFindPlayer(out GameObject _ref)
     {
         GameObject tempref = GameObject.FindWithTag("Player");

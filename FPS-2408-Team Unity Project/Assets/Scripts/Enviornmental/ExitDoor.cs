@@ -40,7 +40,9 @@ public class ExitDoor : MonoBehaviour
     }
     public void OnDisable()
     {
+    
         GameManager.instance.levelWon -= EnableTrigg;
+    
     }
     private void Start()
     {

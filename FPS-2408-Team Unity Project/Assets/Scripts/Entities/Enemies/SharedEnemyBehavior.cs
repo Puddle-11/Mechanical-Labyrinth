@@ -41,6 +41,7 @@ public class SharedEnemyBehavior : BaseEntity
 
     public bool InAngleRange(float _range)
     {
+        if (target == null) return false;
         Vector3 dPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
         Vector3 targetDir = (dPos - transform.position).normalized;
 

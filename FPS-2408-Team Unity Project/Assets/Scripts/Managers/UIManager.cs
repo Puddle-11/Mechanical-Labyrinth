@@ -195,20 +195,23 @@ public class UIManager : MonoBehaviour
     {
         UpdateInternalAmmoInv();
         runStatsObj.SetActive(true);
-        UIFadeAnim.SetBool("InUI", true);
+        FadeUI(true);
         GameManager.instance.SetPause(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         if (menuActive != null && menuActive.activeInHierarchy) menuActive.SetActive(false);
         menuActive = menuPause;
         menuActive.SetActive(true);
-        
+    }
+    public void FadeUI(bool _val)
+    {
+        UIFadeAnim.SetBool("InUI", _val);
     }
     public void StateUnpause()
     {
         runStatsObj.SetActive(false);
 
-        UIFadeAnim.SetBool("InUI", false);
+        FadeUI(false);
 
         GameManager.instance.SetPause(false);
         Cursor.visible = false;

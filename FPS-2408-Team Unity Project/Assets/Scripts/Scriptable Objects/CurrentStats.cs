@@ -14,4 +14,5 @@ public class CurrentStats : ScriptableObject
     public int S_TotalDeaths;
     public bool isActive = false;
     public int S_CurrentHealth;
+    public float S_currentTime;
 }

@@ -46,6 +46,7 @@ public class EnemySpawner : MonoBehaviour
     {
         allPositions = ChunkGrid.instance.GetRoomGenerator().GetPositions();
         
+       
         while (currentEnemyCount < enemyDensity)
         {
             int index = UnityEngine.Random.Range(0, allPositions.Count);

@@ -107,7 +107,7 @@ public class ChunkGrid : MonoBehaviour
         if (GameManager.instance != null && GameManager.instance.playerControllerRef != null)
         {
             GameManager.instance.playerControllerRef.SetPlayerSpawnPos(GetStartingPos());
-            GameManager.instance.playerControllerRef.spawnPlayer();
+            GameManager.instance.playerControllerRef.SpawnPlayer();
         }
         //============================
         InstantiateGrid();

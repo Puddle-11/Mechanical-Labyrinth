@@ -20,3 +20,4 @@ MonoBehaviour:
   S_TotalDeaths: 0
   isActive: 1
   S_CurrentHealth: 1000
+  S_currentTime: 0

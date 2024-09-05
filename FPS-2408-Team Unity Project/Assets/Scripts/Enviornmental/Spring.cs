@@ -12,8 +12,7 @@ public class Spring : MonoBehaviour
     {
         if (other.gameObject == GameManager.instance.playerRef)
         {   
-             GameManager.instance.playerControllerRef.SetPlayervel(SpringDirection.normalized * Springforce);
-             GameManager.instance.playerControllerRef.UpdateJumpAmount(1);
+             GameManager.instance.playerControllerRef.SetForce(SpringDirection.normalized * Springforce);
         }
     }
     #endregion

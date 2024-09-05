@@ -5,42 +5,36 @@ using System.Transactions;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
-
+//====================================
+//REWORKED
+//====================================
 public class PlayerController : BaseEntity
 {
-    private Vector3 move;
 
 
     private CharacterController controllerRef;
     [Header("Walk Variables")]
     [Space]
     [SerializeField] private SoundSenseSource footstepSoundRef;
+    [SerializeField] private float baseSpeed;
     [SerializeField] private float acceleration;
     [SerializeField] private float sprintMod;
+    [SerializeField] private float externalForceDampening;
+    [SerializeField] private float speedBonus;
+    [SerializeField] private float maxSpeedBonus;
     private bool isSprinting;
-    [SerializeField] private float maxSpeed;
-    [SerializeField] private float friction;
-    //[SerializeField] private float timer;
-    [SerializeField] private float mass;
+
 
     [Header("Jump Variables")]
     [Space]
     [SerializeField] private LayerMask jumplayer;
     [SerializeField] private float jumpHeight;
     [SerializeField] private int jumpMax;
-    private int jumpCurr;
-    [SerializeField] private Vector3 Walljumpdir;
-    [SerializeField] private int WalljumpSpeed;
-    [SerializeField] private int wallgravity;
-    private bool onWall;
+
 
     [Header("Physics Variables")]
     [Space]
     [SerializeField] private float gravityStrength;
-    float originalgravity;
-    private Vector3 playerVel;
-    private PlayerHand playerHandRef;
-    private GameObject playerSpawnPos;
     [Header("Sounds")]
     [Space]
     [SerializeField] private float footstepDelay;
@@ -48,29 +42,33 @@ public class PlayerController : BaseEntity
     public AudioClip[] damageSounds;
     public delegate void PlayerUsed();
     public PlayerUsed playerUseEvent;
+    [Range(0,1)][SerializeField] float footstepvol;
+
+
+
+    private int jumpCurr;
+    private bool onWall;
+
+    public Vector3 externalForce;
+    private Vector3 filteredMove;
+    private Vector3 finalVel;
+    private float originalgravity;
+    private PlayerHand playerHandRef;
+    private GameObject playerSpawnPos;
     private bool playingFootstepSound;
-   [Range(0,1)][SerializeField] float footstepvol;
-    private float momentum;
-
-
     private bool isDead;
+    private Vector3 frameNormals;
+    private float moveTimer;
+
+
+
+
+    #region MonoBehavior Methods
     public override void Awake()
     {
-        if (!TryGetComponent<PlayerHand>(out playerHandRef))
-        {
-            Debug.LogWarning("No player hand component found on " + gameObject.name);
-        }
-        if (!TryGetComponent<CharacterController>(out controllerRef))
-        {
-            Debug.LogWarning("No character controller found on " + gameObject.name);
-        }
-        Renderer[] tempArr = GetComponentsInChildren<Renderer>();
-        rendRef = new RenderContainer[tempArr.Length];
-        for (int i = 0; i < rendRef.Length; i++)
-        {
-            rendRef[i].currRenderer = tempArr[i];
-        }
+        FetchComponents();
     }
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -89,89 +87,98 @@ public class PlayerController : BaseEntity
             }
         }
     }
-    public void SetPlayervel(Vector3 Playervel)
-    {
-        playerVel = Playervel;
-    }
-   public Vector3 GetPlayervel()
-    {
-        return playerVel;
-    }
-    public PlayerHand GetPlayerHand()
-    {
-        return playerHandRef;
-    }
-    public void SetJumpAmount(int _val)
-    {
-        _val = Mathf.Clamp(_val, 0, jumpMax + 1);
-        Debug.Log("Hit set: " + _val);
-        jumpCurr = _val;
-    }
-    public void UpdateJumpAmount(int _val)
-    {
-        SetJumpAmount(jumpCurr + _val);
-    }
+
+
+
     public override void Update()
     {
-        base.Update();
-        Movement();
-        Sprint();
-        if (GameManager.instance.GetStatePaused() || (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading()))
+        frameNormals = Vector3.zero;
+        #region Button Handling
+        //-----------------------------------------
+        //Button Handling
+        if (playerHandRef != null)
         {
-            playerHandRef?.SetUseItem(false);
-        }
-        else
-        {
-            if (Input.GetButtonDown("Pick Up"))
+            if (GameManager.instance.GetStatePaused() || (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading()))
             {
-
-                playerHandRef?.ClickPickUp();
-
+                playerHandRef.SetUseItem(false);
             }
-            if (Input.GetButtonDown("Shoot"))
+            else
             {
-                //playerUseEvent?.Invoke();
-                playerHandRef?.SetUseItem(true);
-            }
-            if (Input.GetButtonUp("Shoot"))
-            {
-                playerHandRef?.SetUseItem(false);
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                BaseGun tempOut;
-                if (playerHandRef != null && playerHandRef.GetCurrentHand().TryGetComponent<BaseGun>(out tempOut))
+                if (Input.GetButtonDown("Pick Up"))
                 {
-                    StartCoroutine(tempOut.Reload());
+                    playerHandRef.ClickPickUp();
+                }
+                if (Input.GetButtonDown("Shoot"))
+                {
+                    playerHandRef.SetUseItem(true);
+                }
+                if (Input.GetButtonUp("Shoot"))
+                {
+                    playerHandRef.SetUseItem(false);
+                }
+                if (Input.GetKeyDown(KeyCode.R))
+                {
+                    if (playerHandRef.GetCurrentHand().TryGetComponent(out BaseGun tempOut))
+                    {
+                        StartCoroutine(tempOut.Reload());
+                    }
+                }
+                if (Input.GetMouseButtonDown(1))
+                {
+                    playerHandRef.toggleADS();
                 }
             }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                playerHandRef?.toggleADS();
-            }
         }
-        
-        wallslide();
-        Walljump();
-        momentum = mass * acceleration;
+        //-----------------------------------------
+        #endregion
+
+
+        base.Update();
     }
-    public ItemType GetCurrentItemType()
+    public void LateUpdate()
     {
- 
-            return playerHandRef.GetCurrentItemType();
+        Movement();
+    }
+    #endregion
+
+    #region Getters and Setters
+    public ItemType GetCurrentItemType() { return playerHandRef.GetCurrentItemType(); }
+    public void UpdatePlayerSpeed(float _mod) { acceleration *= _mod; }
+    public void SetForce(Vector3 _newForce) { externalForce = _newForce; }
+
+    public Vector3 GetForce() { return externalForce; }
+    public PlayerHand GetPlayerHand() { return playerHandRef; }
+    public void SetJumpAmount(int _val) { jumpCurr = Mathf.Clamp(_val, 0, jumpMax + 1); }
+    public void UpdateJumpAmount(int _val) { SetJumpAmount(jumpCurr + _val); }
+    #endregion
+
+    #region Helper Methods
+    //Get Components is called in awake
+    public void FetchComponents()
+    {
+        if (!TryGetComponent(out playerHandRef))
+        {
+            Debug.LogWarning("No player hand component found on " + gameObject.name);
+        }
+
+        if (!TryGetComponent(out controllerRef))
+        {
+            Debug.LogWarning("No character controller found on " + gameObject.name);
+        }
+
+        Renderer[] tempArr = GetComponentsInChildren<Renderer>();
+        rendRef = new RenderContainer[tempArr.Length];
+        for (int i = 0; i < rendRef.Length; i++)
+        {
+            rendRef[i].currRenderer = tempArr[i];
+        }
     }
 
-    public void UpdatePlayerSpeed(float _mod)
-    {
-        acceleration *= _mod;
-    }
 
     private bool TryFindPlayerSpawnPos(out GameObject _ref)
     {
-
-            GameObject temp = GameObject.FindGameObjectWithTag("Player Spawn Pos");
-        if(temp != null)
+        GameObject temp = GameObject.FindGameObjectWithTag("Player Spawn Pos");
+        if (temp != null)
         {
 
             _ref = temp;
@@ -183,14 +190,49 @@ public class PlayerController : BaseEntity
 
         return false;
     }
+
+    #endregion
+
+    #region IHealth Methods
+
+
+
     public override void ResetHealth()
     {
         isDead = false;
         base.ResetHealth();
     }
-    public bool spawnPlayer()
+    public override void SetHealth(int _amount)
     {
+        if (_amount < currentHealth)
+        {
+            if (CameraController.instance != null) CameraController.instance.StartCamShake();
 
+            if (UIManager.instance != null)
+            {
+                StartCoroutine(UIManager.instance.flashDamage());
+            }
+        }
+
+        GameManager.instance.SetCurrentHealth(currentHealth);
+        if(UIManager.instance != null) UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
+        base.SetHealth(_amount);
+    }
+    #endregion
+
+    #region Override Methods
+    public override void Death()
+    {
+        if (isDead) return;
+        isDead = true;
+        GameManager.instance.ResetAllStats();
+        GameManager.instance.UpdateDeathCounter(1);
+        UIManager.instance.OpenLoseMenu();
+    }
+    #endregion
+
+    public bool SpawnPlayer()
+    {
         if (TryFindPlayerSpawnPos(out playerSpawnPos))
         {
             controllerRef.enabled = false;
@@ -203,6 +245,7 @@ public class PlayerController : BaseEntity
         }
         return false;
     }
+
     public void SetPlayerSpawnPos(Vector3 _pos)
     {
         if (TryFindPlayerSpawnPos(out playerSpawnPos))
@@ -210,127 +253,65 @@ public class PlayerController : BaseEntity
             playerSpawnPos.transform.position = _pos;
         }
     }
-    public override void SetHealth(int _amount)
+
+    public void OnControllerColliderHit(ControllerColliderHit hit)
     {
 
-
-        if (_amount < currentHealth)
-        {
-            if (CameraController.instance != null) CameraController.instance.StartCamShake();
-
-            if (UIManager.instance != null)
-            {
-                StartCoroutine(UIManager.instance.flashDamage());
-            }
-        }
-
-        base.SetHealth(_amount);
-        GameManager.instance.SetCurrentHealth(currentHealth);
-        UIManager.instance?.UpdateHealthBar((float)currentHealth / maxHealth);
+        frameNormals += hit.normal;
     }
-    // Update is called once per frame
-
-
-
     private void Movement()
     {
-        
-        move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
-        playerVel.x = 0;
-        playerVel.z = 0;
+        Vector3 move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
+        //Apply gravity
+        filteredMove = move * baseSpeed + move * moveTimer;
+        externalForce = Vector3.MoveTowards(externalForce, new Vector3(0,externalForce.y, 0), externalForceDampening * Time.deltaTime);
+        finalVel =  filteredMove + externalForce;
 
         if (controllerRef.isGrounded)
         {
-            jumpCurr = 0;
-            if (playerVel.y < 0)
+
+            jumpCurr = jumpMax;
+            externalForce.y = Mathf.Clamp(externalForce.y, 0, Mathf.Infinity);
+        }
+        else
+        {
+            externalForce.y -= gravityStrength * Time.deltaTime;
+        }
+        if (move.magnitude > 0.3)
+        {
+
+            moveTimer = Mathf.Clamp(moveTimer + Time.deltaTime * speedBonus, 0, maxSpeedBonus);
+
+            if (controllerRef.isGrounded)
             {
-                playerVel.y = 0;
+                StartCoroutine(PlayStepSound());
             }
         }
-        else playerVel.y -= gravityStrength * Time.deltaTime;
-
-
-        if (move.magnitude > 0.3 && controllerRef.isGrounded)
+        else
         {
-            StartCoroutine(playStepSound());
+            moveTimer = 0;
         }
-
-        Vector2 tempVel = new Vector2(playerVel.x, playerVel.z) + new Vector2(move.x, move.z) * acceleration;
-        if (tempVel.magnitude > maxSpeed) tempVel = tempVel.normalized * maxSpeed;
         
-        playerVel = new Vector3(tempVel.x, playerVel.y, tempVel.y);
-        controllerRef.Move(playerVel * Time.deltaTime);
+
+        controllerRef.Move(finalVel * Time.deltaTime);
         if (Input.GetButtonDown("Jump"))
         {
-            Jump(new Vector3(playerVel.x, jumpHeight, playerVel.z));
+            Jump(new Vector3(0, jumpHeight, 0));
         }
-        controllerRef.Move(playerVel * Time.deltaTime);
-        
-
-
-
-
-
-
-
-
-
-
-        ////===================================================
-        ////Get raw input
-        //move = Input.GetAxisRaw("Vertical") * transform.forward + Input.GetAxisRaw("Horizontal") * transform.right;
-        ////===================================================
-
-
-        ////===================================================
-        ////Adjust gravity
-        //if (controllerRef.isGrounded)
-        //{
-        //    jumpCurr = 0;
-        //    playerVel.y = Mathf.Clamp(playerVel.y, 0, Mathf.Infinity);
-        //}
-        //else
-        //{
-        //    playerVel.y -= gravityStrength * Time.deltaTime;
-        //}
-        ////===================================================
-
-
-        ////===================================================
-        ////Play Sound Effects
-        //if (move.magnitude > 0.3 && controllerRef.isGrounded)
-        //{
-        //    StartCoroutine(playStepSound());
-        //}
-        ////===================================================
-
-
-        ////===================================================
-        ////Adjust Horizontal Velocities
-        //Vector2 tempVel = new Vector2(playerVel.x, playerVel.z) + new Vector2(move.x, move.z) * acceleration;
-        //if (tempVel.magnitude > maxSpeed) tempVel = tempVel.normalized * maxSpeed;
-        //if(move.magnitude < 0.3)
-        //{
-        //    tempVel /= friction;
-        //    //start slow down
-        //}
-        //playerVel = new Vector3(tempVel.x, playerVel.y, tempVel.y);
-        ////===================================================
-
-
-        ////===================================================
-        ////Adjust Vertical Velocities
-        //if (Input.GetButtonDown("Jump"))
-        //{
-        //    Jump(new Vector3(0, jumpHeight, 0));
-        //}
-        ////===================================================
-
-
-        ////Final
-        //controllerRef.Move(playerVel * Time.deltaTime);
+        controllerRef.Move(externalForce * Time.deltaTime);
     }
-    public IEnumerator playStepSound()
+
+    public void Jump(Vector3 _dir)
+    {
+        if (jumpCurr > 0)
+        {
+            jumpCurr--;
+            externalForce += _dir;
+        }
+    }
+
+
+    public IEnumerator PlayStepSound()
     {
         if (playingFootstepSound) yield break;
         playingFootstepSound = true;
@@ -346,88 +327,81 @@ public class PlayerController : BaseEntity
         }
         playingFootstepSound = false;
     }
-    public void Jump(Vector3 _dir)
-    {
-        if (jumpCurr < jumpMax)
-        {
-            jumpCurr++;
-            playerVel += _dir;
-        }
-    }
-    void Sprint()
-    {
-        if (Input.GetButton("Sprint") && !isSprinting)
-        {
-            acceleration *= sprintMod;
-            isSprinting = true;
-        }
-        else if (!Input.GetButton("Sprint") && isSprinting)
-        {
-            acceleration /= sprintMod;
-            isSprinting = false;
-        }
-    }
-    void Walljump()
-    {
-        RaycastHit hit;
-        Walljumpdir = new Vector3(0, jumpHeight, 0);
-        if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 0.6f, jumplayer))
-        {
-            jumpCurr = 0;
-            onWall = true;
-            if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
-            {
-                Walljumpdir = new Vector3(-playerVel.x, jumpHeight, -playerVel.z);
-            }
-        }
-        else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 0.6f, jumplayer))
-        {
-            jumpCurr = 0;
-            onWall = true;
-            if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
-            {
-                Walljumpdir = new Vector3(-playerVel.x, jumpHeight, -playerVel.z);
-            }
-            else if (Input.GetButtonDown("Jump") && controllerRef.isGrounded) { 
-            
-            
-            }
-        }
-        else
-        {
-            onWall = false;
-        }
-        if (Input.GetButtonDown("Jump"))
-        {
-            Jump(Walljumpdir);
-        }
-    }
 
-    void wallslide()
-    {
+  
 
-        if (onWall == true)
-        {
-            playerVel.y = 0;
-            gravityStrength = gravityStrength /= wallgravity;
-            gravityStrength = Mathf.Clamp(gravityStrength, 12, 26);
-        }
-        else {
-            returnoriginalgravity();
-        }
-    }
-    void returnoriginalgravity() {
-        if (gravityStrength != originalgravity) {
-            gravityStrength = originalgravity;
-        }
-    }
 
-    public override void Death()
-    {
-        if (isDead) return;
-        isDead = true;
-        GameManager.instance.ResetAllStats();
-        GameManager.instance.UpdateDeathCounter(1);
-        UIManager.instance.OpenLoseMenu();
-    }
+
+
+    #region Obsolete (Temporary for rework)
+    //void Sprint()
+    //{
+    //    if (Input.GetButton("Sprint") && !isSprinting)
+    //    {
+    //        acceleration *= sprintMod;
+    //        isSprinting = true;
+    //    }
+    //    else if (!Input.GetButton("Sprint") && isSprinting)
+    //    {
+    //        acceleration /= sprintMod;
+    //        isSprinting = false;
+    //    }
+    //}
+
+    //void Walljump()
+    //{
+    //    RaycastHit hit;
+    //    Walljumpdir = new Vector3(0, jumpHeight, 0);
+    //    if (Physics.Raycast(GameManager.instance.playerRef.transform.position, GameManager.instance.playerRef.transform.right, out hit, 0.6f, jumplayer))
+    //    {
+    //        jumpCurr = 0;
+    //        onWall = true;
+    //        if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
+    //        {
+    //            Walljumpdir = new Vector3(-playerVel.x, jumpHeight, -playerVel.z);
+    //        }
+    //    }
+    //    else if (Physics.Raycast(GameManager.instance.playerRef.transform.position, -GameManager.instance.playerRef.transform.right, out hit, 0.6f, jumplayer))
+    //    {
+    //        jumpCurr = 0;
+    //        onWall = true;
+    //        if (Input.GetButtonDown("Jump") && !controllerRef.isGrounded)
+    //        {
+    //            Walljumpdir = new Vector3(-playerVel.x, jumpHeight, -playerVel.z);
+    //        }
+    //        else if (Input.GetButtonDown("Jump") && controllerRef.isGrounded) { 
+
+
+    //        }
+    //    }
+    //    else
+    //    {
+    //        onWall = false;
+    //    }
+    //    if (Input.GetButtonDown("Jump"))
+    //    {
+    //        Jump(Walljumpdir);
+    //    }
+    //}
+
+    //void wallslide()
+    //{
+
+    //    if (onWall == true)
+    //    {
+    //        playerVel.y = 0;
+    //        gravityStrength = gravityStrength /= wallgravity;
+    //        gravityStrength = Mathf.Clamp(gravityStrength, 12, 26);
+    //    }
+    //    else {
+    //        returnoriginalgravity();
+    //    }
+    //}
+    //void returnoriginalgravity() {
+    //    if (gravityStrength != originalgravity) {
+    //        gravityStrength = originalgravity;
+    //    }
+    //}
+
+    #endregion
 }

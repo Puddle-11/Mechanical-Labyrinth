@@ -11,7 +11,7 @@ public class RoomGenerator : IGenerator
     public GenerationType generatorType;
     [HideInInspector] public int maxHeight; //This value will cap out at bounds height 
     //Specific to FromTexture && FromGenerator
-    [HideInInspector] public Sprite roomMap;
+    [SerializeField] public Sprite roomMap;
     //Specific to FromVariables
     [HideInInspector] public int RoomSize;
      public int DoorHeight;
@@ -88,6 +88,8 @@ public class RoomGenerator : IGenerator
         if (generatorType == GenerationType.FromTexture)
         {
             roomTexture = roomMap.texture;
+            GenerateAllPositions(roomTexture);
+
             return;
         }
 
