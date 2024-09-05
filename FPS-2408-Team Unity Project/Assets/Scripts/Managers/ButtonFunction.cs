@@ -33,6 +33,7 @@ public class ButtonFunction : MonoBehaviour
         GameManager.instance?.respawn();
         GameManager.instance?.MoveToRespawn();
     }
+
     // Start is called before the first frame update
 
 }
