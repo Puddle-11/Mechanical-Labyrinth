@@ -1208,7 +1208,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 761855
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2233,6 +2233,8 @@ MonoBehaviour:
   maxHealth: 5
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
   healthBar: {fileID: 0}
+  deathParticles: []
+  hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops: []
   footstepSoundRef: {fileID: 0}
@@ -2240,7 +2242,6 @@ MonoBehaviour:
   sprintMod: 1.5
   maxSpeed: 50
   friction: 1
-  dashMod: 5
   mass: 10
   jumplayer:
     serializedVersion: 2
@@ -2251,6 +2252,10 @@ MonoBehaviour:
   WalljumpSpeed: 10
   wallgravity: 5
   gravityStrength: 21
+  footstepDelay: 0
+  footstepSounds: []
+  damageSounds: []
+  footstepvol: 0
 --- !u!114 &1743493806311950691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2264,10 +2269,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handAnchor: {fileID: 3626193771759497168}
+  adsAnchor: {fileID: 0}
+  adsSpeed: 0
   pickUpDist: 5
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
+  throwRotationSpeed: 0
   throwSpeed: {x: 4, y: 0}
   throwOffset: {x: 1, y: 1}
 --- !u!136 &1765897192917416764

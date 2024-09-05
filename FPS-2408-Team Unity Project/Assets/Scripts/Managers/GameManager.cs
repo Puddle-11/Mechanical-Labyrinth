@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
 
-        currentStats.isActive = true;
+        if(currentStats != null) currentStats.isActive = true;
         if (TryFindPlayer(out playerRef))
         {
             playerRef.TryGetComponent<PlayerController>(out playerControllerRef);
@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
     private ChunkGrid GetChunkGrid() {return ChunkGrid.instance;}
     public void SetCurrentHealth(int _val) {currentStats.S_CurrentHealth = _val; }
     public int GetCurrentHealth() {return currentStats.S_CurrentHealth <= 0 ? int.MaxValue : currentStats.S_CurrentHealth;}
+
     public bool TryFindPlayer(out GameObject _ref)
     {
         GameObject tempref = GameObject.FindWithTag("Player");
