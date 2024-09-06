@@ -147,6 +147,13 @@ public class GameManager : MonoBehaviour
     public void SetCurrentItem(ItemType _item) {currentStats.S_Item = _item;}
     public void SetAmmoInventory(int[] _arr) {currentStats.S_AmmoInventory = _arr;}
     public int[] GetAmmoInventory() { return  currentStats.S_AmmoInventory; }
+
+    //in progress
+    public void SetGeneralInventory(int[] _arr) { currentStats.S_AmmoInventory = _arr; }
+    public int[] GetGeneralInventory() { return currentStats.S_AmmoInventory; }
+    //not complete yet
+
+
     public ItemType GetCurrentItemType() {return currentStats.S_Item;}
     private ChunkGrid GetChunkGrid() {return ChunkGrid.instance;}
     public void SetCurrentHealth(int _val) {currentStats.S_CurrentHealth = _val; }

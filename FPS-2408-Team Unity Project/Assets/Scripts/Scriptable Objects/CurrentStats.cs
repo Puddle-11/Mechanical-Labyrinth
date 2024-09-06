@@ -15,4 +15,6 @@ public class CurrentStats : ScriptableObject
     public bool isActive = false;
     public int S_CurrentHealth;
     public float S_currentTime;
+
+
 }
