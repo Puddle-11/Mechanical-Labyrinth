@@ -41,23 +41,23 @@ public class GeneralInventory : MonoBehaviour
         else
             Destroy(this);
     }
-    //private void Start()
-    //{
-    ////Getting save if there is one
-    //    if (GameManager.instance != null)
-    //    {
-    //        int[] temp = GameManager.instance.GetAmmoInventory();
-    //        if (temp != null && temp.Length > 0)
-    //        {
-    //            for (int i = 0; i < temp.Length; i++)
-    //            {
-    //                if (i >= ammoCounts.Length) break;
-    //                ammoCounts[i] = temp[i];
-    //            }
-    //        }
-    //    }
+    private void Start()
+    {
+        //Getting save if there is one
+        if (GameManager.instance != null)
+        {
+            ItemSlot[] temp = GameManager.instance.GetGeneralInventory();
+            if (temp != null && temp.Length > 0)
+            {
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    if (i >= Hotbar.Length) break;
+                    Hotbar[i] = temp[i];
+                }
+            }
+        }
 
-    //}
+    }
 
     public void Update()
     {
@@ -94,8 +94,6 @@ public class GeneralInventory : MonoBehaviour
 
         //heal items
 
-        //gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].gunModel.GetComponent<MeshFilter>().sharedMesh;
-        //gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     //public int GetAmmoTypeCount()

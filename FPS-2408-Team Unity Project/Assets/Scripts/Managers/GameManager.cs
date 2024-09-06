@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
     }
     public void ResetAllStats()
     {
+        //GeneralInventory.ItemSlot[]
+        currentStats.S_GeneralInventory = new GeneralInventory.ItemSlot[0];
         currentStats.S_AmmoInventory = new int[0];
         currentStats.S_TotalDamage = 0;
         currentStats.S_TotallEnemiesKilled = 0;
@@ -150,6 +152,13 @@ public class GameManager : MonoBehaviour
     public void SetAmmoInventory(int[] _arr) {currentStats.S_AmmoInventory = _arr;}
     public int[] GetAmmoInventory() { return currentStats != null ? currentStats.S_AmmoInventory : new int[0]; }
     public ItemType GetCurrentItemType() {return currentStats != null ? currentStats.S_Item : null;}
+
+    //in progress
+    public void SetGeneralInventory(GeneralInventory.ItemSlot[] _arr) { currentStats.S_GeneralInventory = _arr; }
+    public GeneralInventory.ItemSlot[] GetGeneralInventory() { return currentStats.S_GeneralInventory; }
+    //not complete yet
+
+
     private ChunkGrid GetChunkGrid() {return ChunkGrid.instance;}
     public void SetCurrentHealth(int _val) { if (currentStats != null) currentStats.S_CurrentHealth = _val; }
     public int GetCurrentHealth()
