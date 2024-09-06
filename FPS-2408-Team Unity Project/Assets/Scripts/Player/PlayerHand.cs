@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 
 public class PlayerHand : MonoBehaviour
 {
     [SerializeField] private GameObject handAnchor;
-    [SerializeField] private GameObject adsAnchor;
+    [SerializeField] private GameObject centerAnchor;
+    [SerializeField] private Transform sideAnchor;
     [SerializeField] private float adsSpeed;
+    [SerializeField] private float handAnchorMoveMargin;
     [SerializeField] private float pickUpDist;
     private GameObject CurrentEquiped;
     [SerializeField] private LayerMask ignoreMask;
@@ -18,7 +21,7 @@ public class PlayerHand : MonoBehaviour
     [SerializeField] private Vector2 throwOffset;
 
     private bool isAiming = false;
-
+    private bool movingHandAnchor;
     #region MonoBehavior Methods
     private void Start()
     {
@@ -77,7 +80,6 @@ public class PlayerHand : MonoBehaviour
         if(CurrentEquiped != null)
         {
             IUsable temp = GetIUsable();
-            
             if (temp != null)
                 return temp.GetItemType();
         }
@@ -189,22 +191,46 @@ public class PlayerHand : MonoBehaviour
 
     public void toggleADS()
     {
-        if (CurrentEquiped != null)
+        if (!GetIUsable().CanAim()) return;
+        if (CurrentEquiped != null && movingHandAnchor == false)
         {
             isAiming = !isAiming;
-
+            float zoomAmnt = 0;
+            if (GetCurrentHand().TryGetComponent(out BaseGun tempOut))
+            {
+                zoomAmnt = tempOut.GetZoomAmount();
+            }
             if (isAiming)
             {
-                //CurrentEquiped.transform.position = adsAnchor.transform.position;
-                CurrentEquiped.transform.parent = adsAnchor.transform;
-                CurrentEquiped.transform.localPosition = Vector3.zero;
+                CameraController.instance.SetFOV(CameraController.instance.GetDefaultFOV() - zoomAmnt);
+                StartCoroutine(MoveHandAnchor(sideAnchor.transform.localPosition, centerAnchor.transform.localPosition, adsSpeed));
             }
             else
             {
-                //CurrentEquiped.transform.position = handAnchor.transform.position;
-                CurrentEquiped.transform.parent = handAnchor.transform;
-                CurrentEquiped.transform.localPosition = Vector3.zero;
+                CameraController.instance.ResetFOV();
+                StartCoroutine(MoveHandAnchor(centerAnchor.transform.localPosition, sideAnchor.transform.localPosition, adsSpeed));
             }
         }
+    }
+    public IEnumerator MoveHandAnchor(Vector3 _localStartPos, Vector3 _localEndPos, float _speed)
+    {
+        if (movingHandAnchor) yield break;
+        movingHandAnchor = true;
+        float timer = 0;
+        while (timer < _speed)
+        {
+            if(Vector3.Distance(handAnchor.transform.localPosition, _localEndPos) < handAnchorMoveMargin)
+            {
+                handAnchor.transform.localPosition = _localEndPos;
+                break;
+            }
+
+            handAnchor.transform.localPosition = Vector3.Lerp(handAnchor.transform.localPosition, _localEndPos, timer / _speed);
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        movingHandAnchor = false;
+
     }
 }

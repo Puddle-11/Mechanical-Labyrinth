@@ -13,8 +13,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float miny, maxy;
     [SerializeField] private bool invert;
     [SerializeField] private Transform cameraAnchor;
-
-
+    private float originalFOV;
+    [SerializeField] private float zoomInSpeed;
+    private float targetFOV;
     [Space]
     [Header("Camera Offset variables")]
     [Space]
@@ -45,6 +46,8 @@ public class CameraController : MonoBehaviour
     public void Start()
     {
         mainCamera =  GetMainCamera();
+        originalFOV = mainCamera.fieldOfView;
+        targetFOV = originalFOV;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -76,6 +79,19 @@ public class CameraController : MonoBehaviour
             Debug.Log("no Camera with 'MainCamera' tag found in scene");
             return null;
         }
+    }
+    public void SetFOV(float _FOV)
+    {
+        targetFOV = _FOV;
+    }
+    public float GetDefaultFOV()
+    {
+        return originalFOV;
+    }
+    public void ResetFOV()
+    {
+        targetFOV = originalFOV;
+
     }
     public void StartCamShake()
     {
@@ -115,6 +131,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mainCamera.fieldOfView = Mathf.MoveTowards(mainCamera.fieldOfView, targetFOV, zoomInSpeed * Time.deltaTime);
         if (UIManager.instance == null || (UIManager.instance != null && !GameManager.instance.GetStatePaused()))
         {
             UpdateCamPos();

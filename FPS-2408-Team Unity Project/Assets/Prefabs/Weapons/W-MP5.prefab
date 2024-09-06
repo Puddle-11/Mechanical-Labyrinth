@@ -257,11 +257,13 @@ MonoBehaviour:
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: 777b1000345f76a469ef24355880d8a1, type: 2}
+  canAim: 1
   attackVolume: 0.25
   shootsounds:
   - {fileID: 8300000, guid: 6f04aaaeffa032146858103f09c05393, type: 3}
   shotType: 0
   ammoType: 1
+  scopeInZoom: 20
   shootDamage: 40
   shootDist: 200
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}

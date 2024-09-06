@@ -11,7 +11,7 @@ public class BaseGun : Weapon
     [Space]
     [SerializeField] private GunType shotType;
     [SerializeField] private AmmoInventory.bulletType ammoType;
-
+    [SerializeField] private float scopeInZoom;
     [SerializeField] private int shootDamage;
     [SerializeField] private float shootDist;
     [SerializeField] private GameObject bulletTrail;
@@ -105,7 +105,7 @@ public class BaseGun : Weapon
 
     }
     #region Getters Setters
-
+    public float GetZoomAmount(){ return scopeInZoom;}
     public int GetMaxClipSize() { return clipSizeMax; }
     public int GetCurrAmmo() { return currAmmo; }
     public override string GetItemStats() { return "Speed: " + coolDown + "\nDamage: " + shootDamage; }
