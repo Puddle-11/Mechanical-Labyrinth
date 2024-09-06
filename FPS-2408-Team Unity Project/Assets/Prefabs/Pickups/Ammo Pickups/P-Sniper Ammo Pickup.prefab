@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8019639114981962862}
   - component: {fileID: -4513838365901580373}
   m_Layer: 8
-  m_Name: Pistol Ammo Pickup
+  m_Name: P-Sniper Ammo Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c43fd5330a31376498fa78256b55e58a, type: 2}
+  - {fileID: 2100000, guid: 2ca3a3e335e807244ba8ea6528a417b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,5 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e82880ba3ab7fa4698d712d1334f4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 3
   amountRange: {x: 10, y: 40}

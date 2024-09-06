@@ -326,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyDensity
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: maxEnemyCount

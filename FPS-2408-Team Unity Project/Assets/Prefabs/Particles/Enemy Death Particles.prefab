@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1581865307736247688}
   - component: {fileID: 6687291838805378239}
   - component: {fileID: 3131305261414528800}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy Death Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,9 +115,9 @@ ParticleSystem:
     enabled: 1
     startLifetime:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 5
-      minScalar: 5
+      minMaxState: 3
+      scalar: 15
+      minScalar: 12
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -446,7 +446,7 @@ ParticleSystem:
     startRotationX:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6.283185
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -552,7 +552,7 @@ ParticleSystem:
     startRotation:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 6.283185
+      scalar: 0
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -976,7 +976,7 @@ ParticleSystem:
     m_BurstCount: 1
     m_Bursts:
     - serializedVersion: 2
-      time: 0
+      time: 0.01
       countCurve:
         serializedVersion: 2
         minMaxState: 0
@@ -1046,20 +1046,29 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0
           value: 1
-          inSlope: -2
-          outSlope: -2
+          inSlope: -0.065986745
+          outSlope: -0.065986745
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.20479302
+        - serializedVersion: 3
+          time: 0.9191623
+          value: 0.9686798
+          inSlope: 0.04274038
+          outSlope: 0.04274038
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.10802889
+          outWeight: 1
         - serializedVersion: 3
           time: 1
           value: 0
-          inSlope: 0
-          outSlope: 0
+          inSlope: -15.017061
+          outSlope: -15.017061
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.55721176
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2

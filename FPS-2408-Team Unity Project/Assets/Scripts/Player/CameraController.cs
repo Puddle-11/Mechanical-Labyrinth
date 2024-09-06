@@ -80,29 +80,15 @@ public class CameraController : MonoBehaviour
             return null;
         }
     }
-    public void SetFOV(float _FOV)
-    {
-        targetFOV = _FOV;
-    }
-    public float GetDefaultFOV()
-    {
-        return originalFOV;
-    }
-    public void ResetFOV()
-    {
-        targetFOV = originalFOV;
+    public void SetFOV(float _FOV) { targetFOV = _FOV;}
+    public float GetDefaultFOV() { return originalFOV;}
+    public void ResetFOV() { targetFOV = originalFOV;}
 
-    }
-    public void StartCamShake()
-    {
-        StartCoroutine(StartCamShakeEnum(camShakeDurration, camShakeScalar, camShakeIntensity));
-    }
 
-    public void StartCamShake(float _durr, float _scalar)
-    {
-        StartCoroutine(StartCamShakeEnum(_durr, _scalar, camShakeIntensity));
-    }
 
+
+    public void StartCamShake() { StartCoroutine(StartCamShakeEnum(camShakeDurration, camShakeScalar, camShakeIntensity));}
+    public void StartCamShake(float _durr, float _scalar){ StartCoroutine(StartCamShakeEnum(_durr, _scalar, camShakeIntensity));}
     private IEnumerator StartCamShakeEnum(float _durr,  float _scalar, AnimationCurve _intensity)
     {
         if (camShaking) yield break;
@@ -125,10 +111,7 @@ public class CameraController : MonoBehaviour
         transform.localPosition = originPos;
         camShaking = false;
     }
-    // Start is called before the first frame update
-  
 
-    // Update is called once per frame
     void Update()
     {
         mainCamera.fieldOfView = Mathf.MoveTowards(mainCamera.fieldOfView, targetFOV, zoomInSpeed * Time.deltaTime);
@@ -142,9 +125,10 @@ public class CameraController : MonoBehaviour
        if(resettingOffset) ResetOffsetPos();
     }
 
+
+
     public void UpdateCamPos()
     {
-
         float yaw = Input.GetAxis("Mouse X") * sens;
         float pitch = Input.GetAxis("Mouse Y") * sens;
         rotX = invert ? rotX + pitch: rotX - pitch;
@@ -153,17 +137,21 @@ public class CameraController : MonoBehaviour
         cameraAnchor.localRotation = Quaternion.Euler(rotX + offset.y, 0, 0);
         GameManager.instance.playerRef.transform.Rotate(Vector3.up * yaw);
     }
+
+
+
     public void UpdateOffsetPos(Vector2 _offset)
     {
         SetOffsetPos(offset + _offset);
     }
-    public void SetOffsetPos(Vector2 _offset)
-    {
+    public void SetOffsetPos(Vector2 _offset){
         offset = _offset;
     }
     public void ResetOffset(bool _val)
     {
+
         resettingOffset = _val;
+
     }
     private void ResetOffsetPos()
     {

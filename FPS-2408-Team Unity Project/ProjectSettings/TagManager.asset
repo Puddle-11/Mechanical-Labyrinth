@@ -15,7 +15,7 @@ TagManager:
   - Water
   - UI
   - Enemy
-  - Enemy Bullet
+  - Particles
   - Pickup
   - Player Bullet
   - NPC
