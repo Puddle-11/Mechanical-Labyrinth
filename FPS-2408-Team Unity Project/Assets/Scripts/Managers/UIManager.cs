@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuShop;
     [SerializeField] GameObject gunMenuShop;
+    [SerializeField] GameObject primaryGunMenuShop;
+    [SerializeField] GameObject secondaryGunMenuShop;
     [SerializeField] GameObject ammoMenuShop;
     [SerializeField] GameObject itemMenuShop;
     [SerializeField] GameObject menuControlsLegend;
@@ -374,6 +376,36 @@ public class UIManager : MonoBehaviour
             menuActive.SetActive(false);
         }
         menuActive = itemMenuShop;
+        menuActive.SetActive(true);
+    }
+
+    public void Back(GameObject menu)
+    {
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = menu;
+        menuActive.SetActive(true);
+    }
+
+    public void PrimaryShop()
+    {
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = primaryGunMenuShop;
+        menuActive.SetActive(true);
+    }
+
+    public void SecondaryShop() 
+    {
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = secondaryGunMenuShop;
         menuActive.SetActive(true);
     }
 }

@@ -54,9 +54,19 @@ public class ButtonFunction : MonoBehaviour
         ShopManager.instance?.ItemShop();
     }
 
-    public void back()
+    public void back(GameObject menu)
     {
+        UIManager.instance?.Back(menu);
+    }
 
+    public void openPrimaryShop()
+    {
+        ShopManager.instance?.PrimaryShop();
+    }
+
+    public void openSecondaryShop() 
+    {
+        ShopManager.instance?.SecondaryShop();
     }
 
     // Start is called before the first frame update

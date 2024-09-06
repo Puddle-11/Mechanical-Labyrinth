@@ -43,4 +43,14 @@ public class ShopManager : MonoBehaviour
     {
         UIManager.instance.ItemShop();
     }
+
+    public void PrimaryShop()
+    {
+        UIManager.instance.PrimaryShop();
+    }
+
+    public void SecondaryShop() 
+    {
+        UIManager.instance.SecondaryShop();
+    }
 }
