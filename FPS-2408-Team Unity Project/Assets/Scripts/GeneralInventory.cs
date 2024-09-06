@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UIElements;
 using UnityEngine;
 
 public class GeneralInventory : MonoBehaviour
 {
-    public struct Itemslot {
+    public struct ItemSlot {
         public ItemType item;
         public int postion;
     }
@@ -12,6 +13,13 @@ public class GeneralInventory : MonoBehaviour
     //item name, item id, pickup object, actual object, and max uses.
 
     //make list of ItemSlot names Hotbar.
+    public int selectedSlot;
+
+
+
+    //List of ItemSlots
+
+    //array of hotbar UI elements
 
 
     public static GeneralInventory instance;
@@ -21,19 +29,21 @@ public class GeneralInventory : MonoBehaviour
     [SerializeField] private int numOfslots;
 
 
-    public Itemslot[] Hotbar = new Itemslot[10];
+    public ItemSlot[] Hotbar = new ItemSlot[10];
+
+    public Image[] HotBarImages = new Image[10];
 
     // Start is called before the first frame update
-    //void Awake()
-    //{
-    //    if (instance == null)
-    //        instance = this;
-    //    else
-    //        Destroy(this);
-
-    //}
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
     //private void Start()
     //{
+    ////Getting save if there is one
     //    if (GameManager.instance != null)
     //    {
     //        int[] temp = GameManager.instance.GetAmmoInventory();
@@ -48,6 +58,46 @@ public class GeneralInventory : MonoBehaviour
     //    }
 
     //}
+
+    public void Update()
+    {
+        selectItem();
+    }
+    void selectItem()
+    {
+        //scrolling up
+        if (Input.GetAxis("Mouse ScrollWheel") > 0 && selectedSlot < Hotbar.Length - 1)
+        {
+            selectedSlot++;
+            changeItem();
+        }
+        //going down
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && selectedSlot > 0)
+        {
+            selectedSlot--;
+            changeItem();
+        }
+    }
+    void changeItem()
+    {
+        ItemType item = Hotbar[selectedSlot].item;
+        //guns
+        if ((int)item.type == 0)
+        {
+           GameManager.instance.playerControllerRef.GetPlayerHand().PickupItem(item ,null);
+
+        }
+
+
+        //useable items
+
+
+        //heal items
+
+        //gunModel.GetComponent<MeshFilter>().sharedMesh = gunList[selectedGun].gunModel.GetComponent<MeshFilter>().sharedMesh;
+        //gunModel.GetComponent<MeshRenderer>().sharedMaterial = gunList[selectedGun].gunModel.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
     //public int GetAmmoTypeCount()
     //{
     //    return numOfAmmoTypes;
@@ -79,10 +129,10 @@ public class GeneralInventory : MonoBehaviour
     //    }
 
     //}
-    //public void UpdateAmmoInventory(bulletType type, int amount)
+    //public void UpdateGeneralInventory(ItemSlot item)
     //{
-    //    ammoCounts[(int)type] += amount;
-    //    UIManager.instance.UpdateInternalAmmoInv(type);
-    //    if (GameManager.instance != null) GameManager.instance.SetAmmoInventory(ammoCounts);
+    //    //Hotbar[(int)type] += amount;
+    //    //UIManager.instance.UpdateInternalAmmoInv(type);
+    //    //if (GameManager.instance != null) GameManager.instance.SetAmmoInventory(ammoCounts);
     //}
 }

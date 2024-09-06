@@ -12,4 +12,12 @@ public class ItemType : ScriptableObject
     public GameObject Pickup;
     public int maxUses;
     public Sprite Icon;
+    public typeOfItem type;
+
+    [System.Serializable]
+    public enum typeOfItem
+    {
+        Gun,
+        Respawn
+    }
 }
