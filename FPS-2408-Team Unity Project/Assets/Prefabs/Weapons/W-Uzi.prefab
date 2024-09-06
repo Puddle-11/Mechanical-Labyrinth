@@ -20,6 +20,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 3413490756435708478, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462603041910962047, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3680762525660442941, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -27,6 +35,10 @@ PrefabInstance:
     - target: {fileID: 4411382812783014313, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4733880091528922586, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4748656080913805797, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_LocalPosition.x
@@ -80,6 +92,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 5994569453519540255, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6236372897720409014, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -103,6 +119,14 @@ PrefabInstance:
     - target: {fileID: 7047998300855148184, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442052666882737580, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983845261247181238, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7986224807636447373, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_Layer
@@ -157,11 +181,13 @@ MonoBehaviour:
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: e8ba6ad58bbee274d81af0ec1a461c06, type: 2}
+  canAim: 0
   attackVolume: 0.25
   shootsounds:
   - {fileID: 8300000, guid: ac4752f1877c1a145a68addd0dcf69a0, type: 3}
   shotType: 1
   ammoType: 0
+  scopeInZoom: 0
   shootDamage: 40
   shootDist: 200
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}

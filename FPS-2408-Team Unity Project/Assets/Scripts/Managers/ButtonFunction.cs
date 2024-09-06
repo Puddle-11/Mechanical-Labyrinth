@@ -34,6 +34,31 @@ public class ButtonFunction : MonoBehaviour
         GameManager.instance?.MoveToRespawn();
     }
 
+    public void closeShop()
+    {
+        ShopManager.instance?.CloseShop();
+    }
+
+    public void openGunShop()
+    {
+        ShopManager.instance?.GunShop();
+    }
+
+    public void openAmmoShop()
+    {
+        ShopManager.instance?.AmmoShop();
+    }
+
+    public void openItemShop()
+    {
+        ShopManager.instance?.ItemShop();
+    }
+
+    public void back()
+    {
+
+    }
+
     // Start is called before the first frame update
 
 }

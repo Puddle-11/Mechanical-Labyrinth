@@ -16,7 +16,6 @@ public class RoomGenerationCustomEditor : Editor
         RoomGenerator _target = (RoomGenerator)target;
         if (_target == null) return;
         Undo.RecordObject(_target, "Change RoomGeneration");
-
         DrawFields(_target);
     }
     static void DrawFields(RoomGenerator _targetCast)
@@ -25,8 +24,6 @@ public class RoomGenerationCustomEditor : Editor
 
         switch (_targetCast.generatorType)
         {
-
-
             case RoomGenerator.GenerationType.FromAlgorithm:
                 DrawFromAlgoithm(_targetCast);
                 break;
@@ -39,6 +36,7 @@ public class RoomGenerationCustomEditor : Editor
         EditorGUILayout.LabelField("GENERAL", EditorStyles.boldLabel);
         EditorGUILayout.Space();
         _targetCast.maxHeight = EditorGUILayout.IntField("Max Height", _targetCast.maxHeight);
+
         _targetCast.baseBoardHeight = EditorGUILayout.IntField("Base Board Height", _targetCast.baseBoardHeight);
         _targetCast.topPlateHeight = EditorGUILayout.IntField("Top Plate Height", _targetCast.topPlateHeight);
         _targetCast.floorBlockID = EditorGUILayout.IntField("Floor Block ID", _targetCast.floorBlockID);

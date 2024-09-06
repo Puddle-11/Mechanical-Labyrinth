@@ -18,7 +18,7 @@ public class ammoDrop : MonoBehaviour, IInteractable
     #region IInteractable Methods
     public string GetStats()
     {
-        return "Type: " + AmmoInventory.instance.GetTypeName(type) + "\n" + "Amount: " + ammoAmount.ToString();
+        return "Ammo Type: " + AmmoInventory.instance.GetTypeName(type) + "\n\nAmount: " + ammoAmount.ToString();
     }
     public void TriggerInteraction()
     {

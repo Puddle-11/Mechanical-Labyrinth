@@ -13,7 +13,7 @@ public class Weapon : MonoBehaviour, IUsable
     public LayerMask ignoreMask;
     [SerializeField] protected GameObject pickUp;
     [SerializeField] protected ItemType gunDrop;
-
+    [SerializeField] protected bool canAim;
 
     [Space]
     [Header("Sound Variables")]
@@ -24,6 +24,10 @@ public class Weapon : MonoBehaviour, IUsable
     protected bool playerWeapon = false;
 
     #region Getters Setters
+    public virtual bool CanAim()
+    {
+        return canAim;
+    }
     public virtual ItemType GetItemType() { return gunDrop; }
     public virtual bool CanAttack() { return !isAttacking; }
     public virtual string GetItemName() { return gunDrop.name; }

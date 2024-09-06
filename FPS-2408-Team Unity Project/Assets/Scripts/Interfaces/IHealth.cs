@@ -5,7 +5,8 @@ using UnityEngine;
 public interface IHealth
 {
 
-
+    public void SetHealthAfterDelay(int _newHealth, float _delay);
+    public void UpdateHealthAfterDelay(int _newHealth, float _delay);
     public int GetCurrentHealth();
     public int GetMaxHealth();
     public void SetMaxHealth(int _val);

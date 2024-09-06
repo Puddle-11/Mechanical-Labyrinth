@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IUsable
 {
-
+    public bool CanAim();
     public int GetUses();
     public void SetUses(int _val);
     public GameObject GetPickup();

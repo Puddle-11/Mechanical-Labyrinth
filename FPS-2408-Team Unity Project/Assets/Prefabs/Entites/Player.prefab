@@ -116,6 +116,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3449304082374285243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5708704043136531338}
+  m_Layer: 0
+  m_Name: Side Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5708704043136531338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3449304082374285243}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.5, y: -0.55, z: 0.61899996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7711391776780774041}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3873057162320397268
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8310039565815959205}
   m_Layer: 0
-  m_Name: ADS Anchor
+  m_Name: Center Anchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,7 +203,7 @@ Transform:
   m_GameObject: {fileID: 4030075119805172922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.02999997, y: -0.4400001, z: 0.7}
+  m_LocalPosition: {x: -0.02999997, y: -0.65, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -330,6 +361,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5770769711534027013}
+  - {fileID: 5708704043136531338}
   - {fileID: 7068166063733780066}
   - {fileID: 8310039565815959205}
   m_Father: {fileID: 5547648098177187298}
@@ -410,6 +442,7 @@ MonoBehaviour:
   maxy: 90
   invert: 0
   cameraAnchor: {fileID: 5547648098177187298}
+  zoomInSpeed: 100
   offsetResetSpeed: 0.2
   offsetResetDampening: 0.005
   camShakeIntensity:
@@ -529,6 +562,7 @@ GameObject:
   - component: {fileID: 3171956104164039815}
   - component: {fileID: 6280407459343709001}
   - component: {fileID: 3357709615950047693}
+  - component: {fileID: 2918599248946391076}
   m_Layer: 0
   m_Name: Minimap Cam
   m_TagString: Untagged
@@ -659,6 +693,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AbsoluteHeight: 30
+--- !u!114 &2918599248946391076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243290589362345652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c4be37fc21d4a4aa54b59ffdff4cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  parent: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
+  rotation: {x: 90, y: 0, z: 0}
 --- !u!1 &7122226075844014694
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +806,6 @@ GameObject:
   - component: {fileID: 2385250308186476171}
   - component: {fileID: 1750312086539458527}
   - component: {fileID: 7812129156646002974}
-  - component: {fileID: 5370617233789152769}
   - component: {fileID: 2579658609705549584}
   - component: {fileID: 2207298348825309542}
   m_Layer: 3
@@ -803,11 +852,14 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops: []
+  rendRef: []
   footstepSoundRef: {fileID: 7812129156646002974}
   baseSpeed: 15
   acceleration: 50
   sprintMod: 1.5
   externalForceDampening: 15
+  speedBonus: 0
+  maxSpeedBonus: 0
   jumplayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -836,8 +888,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handAnchor: {fileID: 3873057162320397268}
-  adsAnchor: {fileID: 4030075119805172922}
-  adsSpeed: 0
+  centerAnchor: {fileID: 4030075119805172922}
+  sideAnchor: {fileID: 5708704043136531338}
+  adsSpeed: 1
+  handAnchorMoveMargin: 0.05
   pickUpDist: 15
   ignoreMask:
     serializedVersion: 2
@@ -906,26 +960,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd08c427d2b0e644b41124bae007ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5370617233789152769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9109832186709042457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4125d694f35207946b05d711acec1586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numOfAmmoTypes: 5
-  ammoCounts: 0000000000000000000000000000000000000000
-  typeIcons:
-  - {fileID: 21300000, guid: 7d0e061f74c65574aad4cdef5353dcc9, type: 3}
-  - {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
-  - {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
-  - {fileID: 21300000, guid: 24b6cd2c8e96ff543a78d1c90afd3d12, type: 3}
-  - {fileID: 21300000, guid: ba09a36f0d73dba42873c79e424a3f08, type: 3}
 --- !u!114 &2579658609705549584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,7 +975,7 @@ MonoBehaviour:
   numOfAmmoTypes: 5
   ammoCounts: 0000000000000000000000000000000000000000
   typeIcons:
-  - {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
+  - {fileID: 21300000, guid: ce52a1509300a8447a202f2623b3a98f, type: 3}
   - {fileID: 21300000, guid: 24b6cd2c8e96ff543a78d1c90afd3d12, type: 3}
   - {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
   - {fileID: 21300000, guid: 7d0e061f74c65574aad4cdef5353dcc9, type: 3}

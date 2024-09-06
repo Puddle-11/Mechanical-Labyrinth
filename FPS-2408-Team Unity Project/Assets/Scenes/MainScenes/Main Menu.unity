@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 184996923}
   - component: {fileID: 184996925}
   - component: {fileID: 184996926}
+  - component: {fileID: 184996927}
   m_Layer: 0
   m_Name: Shooting Range
   m_TagString: Untagged
@@ -170,7 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d3cd8ae379b3043b1376f80fa0e39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 184996927}
   sceneName: Gun Range
+  save: {fileID: 11400000, guid: 3b3603acfac885048ba10ad1e8a4fb54, type: 2}
 --- !u!61 &184996926
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -216,6 +219,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8.238665, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &184996927
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184996921}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82b824ea4c0d525438a6d680a28297fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &213850410
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +251,7 @@ GameObject:
   - component: {fileID: 213850412}
   - component: {fileID: 213850414}
   - component: {fileID: 213850415}
+  - component: {fileID: 213850416}
   m_Layer: 0
   m_Name: Play button
   m_TagString: Untagged
@@ -263,7 +288,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d3cd8ae379b3043b1376f80fa0e39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 213850416}
   sceneName: MainLevel
+  save: {fileID: 11400000, guid: f3620776c30b41946a776ca178845ce8, type: 2}
 --- !u!61 &213850415
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -309,6 +336,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8.238665, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &213850416
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213850410}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82b824ea4c0d525438a6d680a28297fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &327328013
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +452,7 @@ GameObject:
   - component: {fileID: 351661152}
   - component: {fileID: 351661154}
   - component: {fileID: 351661155}
+  - component: {fileID: 351661156}
   m_Layer: 0
   m_Name: Quit
   m_TagString: Untagged
@@ -440,6 +489,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1383bdb618682143a5ae4c81ad46c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 351661156}
 --- !u!61 &351661155
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -485,6 +535,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 8.238665, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &351661156
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351661150}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82b824ea4c0d525438a6d680a28297fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &356113717
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fb940a9daa52e458cb5065748037a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainMenuManager: {fileID: 1904262334}
   mainCamera: {fileID: 356113718}
   zOffset: 0
   DisplayDefaultCursor: 1
@@ -781,7 +853,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FPS Demo
+  m_text: MechMaze
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7cb907e73e7e9fd4c9161c392bb69716, type: 2}
   m_sharedMaterial: {fileID: -558623201887933714, guid: 7cb907e73e7e9fd4c9161c392bb69716, type: 2}

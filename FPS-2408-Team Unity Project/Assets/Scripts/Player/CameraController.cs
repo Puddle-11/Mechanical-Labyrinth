@@ -13,8 +13,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float miny, maxy;
     [SerializeField] private bool invert;
     [SerializeField] private Transform cameraAnchor;
-
-
+    private float originalFOV;
+    [SerializeField] private float zoomInSpeed;
+    private float targetFOV;
     [Space]
     [Header("Camera Offset variables")]
     [Space]
@@ -45,6 +46,8 @@ public class CameraController : MonoBehaviour
     public void Start()
     {
         mainCamera =  GetMainCamera();
+        originalFOV = mainCamera.fieldOfView;
+        targetFOV = originalFOV;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -77,16 +80,15 @@ public class CameraController : MonoBehaviour
             return null;
         }
     }
-    public void StartCamShake()
-    {
-        StartCoroutine(StartCamShakeEnum(camShakeDurration, camShakeScalar, camShakeIntensity));
-    }
+    public void SetFOV(float _FOV) { targetFOV = _FOV;}
+    public float GetDefaultFOV() { return originalFOV;}
+    public void ResetFOV() { targetFOV = originalFOV;}
 
-    public void StartCamShake(float _durr, float _scalar)
-    {
-        StartCoroutine(StartCamShakeEnum(_durr, _scalar, camShakeIntensity));
-    }
 
+
+
+    public void StartCamShake() { StartCoroutine(StartCamShakeEnum(camShakeDurration, camShakeScalar, camShakeIntensity));}
+    public void StartCamShake(float _durr, float _scalar){ StartCoroutine(StartCamShakeEnum(_durr, _scalar, camShakeIntensity));}
     private IEnumerator StartCamShakeEnum(float _durr,  float _scalar, AnimationCurve _intensity)
     {
         if (camShaking) yield break;
@@ -109,12 +111,10 @@ public class CameraController : MonoBehaviour
         transform.localPosition = originPos;
         camShaking = false;
     }
-    // Start is called before the first frame update
-  
 
-    // Update is called once per frame
     void Update()
     {
+        mainCamera.fieldOfView = Mathf.MoveTowards(mainCamera.fieldOfView, targetFOV, zoomInSpeed * Time.deltaTime);
         if (UIManager.instance == null || (UIManager.instance != null && !GameManager.instance.GetStatePaused()))
         {
             UpdateCamPos();
@@ -125,9 +125,10 @@ public class CameraController : MonoBehaviour
        if(resettingOffset) ResetOffsetPos();
     }
 
+
+
     public void UpdateCamPos()
     {
-
         float yaw = Input.GetAxis("Mouse X") * sens;
         float pitch = Input.GetAxis("Mouse Y") * sens;
         rotX = invert ? rotX + pitch: rotX - pitch;
@@ -136,17 +137,21 @@ public class CameraController : MonoBehaviour
         cameraAnchor.localRotation = Quaternion.Euler(rotX + offset.y, 0, 0);
         GameManager.instance.playerRef.transform.Rotate(Vector3.up * yaw);
     }
+
+
+
     public void UpdateOffsetPos(Vector2 _offset)
     {
         SetOffsetPos(offset + _offset);
     }
-    public void SetOffsetPos(Vector2 _offset)
-    {
+    public void SetOffsetPos(Vector2 _offset){
         offset = _offset;
     }
     public void ResetOffset(bool _val)
     {
+
         resettingOffset = _val;
+
     }
     private void ResetOffsetPos()
     {

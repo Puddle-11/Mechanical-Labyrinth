@@ -11,7 +11,7 @@ public class BaseGun : Weapon
     [Space]
     [SerializeField] private GunType shotType;
     [SerializeField] private AmmoInventory.bulletType ammoType;
-
+    [SerializeField] private float scopeInZoom;
     [SerializeField] private int shootDamage;
     [SerializeField] private float shootDist;
     [SerializeField] private GameObject bulletTrail;
@@ -105,10 +105,10 @@ public class BaseGun : Weapon
 
     }
     #region Getters Setters
-
+    public float GetZoomAmount(){ return scopeInZoom;}
     public int GetMaxClipSize() { return clipSizeMax; }
     public int GetCurrAmmo() { return currAmmo; }
-    public override string GetItemStats() { return "Speed: " + coolDown + "\nDamage: " + shootDamage; }
+    public override string GetItemStats() { return "\nSpeed: " + coolDown + "\n\nDamage: " + shootDamage + "\n\nAmmo Type: " + ammoType; }
     public override bool CanAttack() { return !(isAttacking || isReloading); }
     public void SetShootPos(Transform _pos){barrels[currBarrel].shootObj = _pos;}
     public AmmoInventory.bulletType GetAmmoType(){return ammoType;}
@@ -195,16 +195,16 @@ public class BaseGun : Weapon
             {
                 currBarrel = 0;
             }
-            if (shootsounds.Length > 0) AudioManager.instance.PlaySound(shootsounds[UnityEngine.Random.Range(0, shootsounds.Length)], (playerWeapon ? AudioManager.soundType.player : AudioManager.soundType.enemy), attackVolume);
+            if (shootsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(shootsounds[UnityEngine.Random.Range(0, shootsounds.Length)], (playerWeapon ? AudioManager.soundType.player : AudioManager.soundType.enemy), attackVolume);
             UpdateAmmo(-1);
             StartMuzzleFlash();
             if (Physics.Raycast(playerWeapon ? Camera.main.transform.position : barrels[currBarrel].shootObj.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
-                if (hit.collider.TryGetComponent<IHealth>(out healthRef))
+                if (hit.collider.TryGetComponent(out healthRef))
                 {
 
                     if (playerWeapon)  GameManager.instance.UpdateDamageDealt(shootDamage);
-                    healthRef.UpdateHealth(-shootDamage);
+                    healthRef.UpdateHealthAfterDelay(-shootDamage, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, hit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed());
                 }
                 RaycastHit penetratingHit;
 
@@ -231,7 +231,7 @@ public class BaseGun : Weapon
                             int shootDamagecalc = (int)(shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
 
                             if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamagecalc);
-                            healthRef.UpdateHealth(-shootDamagecalc);
+                            healthRef.UpdateHealthAfterDelay(-shootDamagecalc, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, postPenetrateHit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed());
                         }
                     }
                 }

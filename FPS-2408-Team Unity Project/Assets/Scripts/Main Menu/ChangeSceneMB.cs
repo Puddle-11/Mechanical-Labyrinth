@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class ChangeSceneMB : BaseMenuButton, IMenuButton
 {
     [SerializeField] private string sceneName;
-    public void Click()
+    [SerializeField] private CurrentStats save;
+    public override void Click()
     {
         BootLoadManager.instance.LoadGameScene(sceneName);
+        BootLoadManager.instance.SetSave(save);
 
     }
+
 }

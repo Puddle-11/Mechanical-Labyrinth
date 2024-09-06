@@ -89,7 +89,7 @@ public class ChunkGrid : MonoBehaviour
 
     private void Start()
     {
-        GridSize *= GameManager.instance != null ? GameManager.instance.GetCurrentLevel() : 1;
+        GridSize = Vector3Int.one * minGridSize + Vector3Int.one * (GameManager.instance != null ? GameManager.instance.GetCurrentLevel() : 1);
         GridSize.x = Mathf.Clamp(GridSize.x, minGridSize.x, maxGridSize.x);
         GridSize.y = Mathf.Clamp(GridSize.y, minGridSize.y, maxGridSize.y);
         GridSize.z = Mathf.Clamp(GridSize.z, minGridSize.z, maxGridSize.z);

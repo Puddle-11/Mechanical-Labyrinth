@@ -150,6 +150,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 58106308604682951, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 706360716385791557, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1125481237323256018, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -157,6 +165,10 @@ PrefabInstance:
     - target: {fileID: 1590686433285608611, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651487884631197613, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1669822915027932016, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
       propertyPath: m_LocalScale.x
@@ -177,6 +189,10 @@ PrefabInstance:
     - target: {fileID: 1669822915027932016, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3139410528493895309, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3499666310617351588, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -238,6 +254,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 6291066781999440159, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6300561616893827697, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7266008761236907042, guid: 5ff9ca79c157aed4caa369b916fc376b, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -296,11 +320,13 @@ MonoBehaviour:
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: c1fcbbb334a4b2d44be73088e7faad2e, type: 2}
+  canAim: 0
   attackVolume: 0.1
   shootsounds:
   - {fileID: 8300000, guid: ac4752f1877c1a145a68addd0dcf69a0, type: 3}
   shotType: 1
   ammoType: 0
+  scopeInZoom: 0
   shootDamage: 30
   shootDist: 200
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}

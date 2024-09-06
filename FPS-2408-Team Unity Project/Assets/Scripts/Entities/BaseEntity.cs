@@ -19,17 +19,25 @@ public class BaseEntity : MonoBehaviour, IHealth
     [Range(0.1f, 10f)] [SerializeField] private float damageFlashTime;
     [SerializeField] private GameObject[] drops;   
     
-    protected RenderContainer[] rendRef;
+    [SerializeField] protected RenderContainer[] rendRef;
     protected int currentHealth;
     private bool takingDamage;
 
     #region Custom Structs
+    [System.Serializable]
     public struct RenderContainer
     {
         public Renderer currRenderer;
         [HideInInspector] public Material[] renderOriginMaterial;
         [HideInInspector] public Material damageMaterial;
-        public void InitializeMaterials() { renderOriginMaterial = currRenderer.materials;}
+        public void InitializeMaterials() {
+            if(currRenderer == null)
+            {
+                Debug.LogWarning("No Renderer found");
+                return;
+            }
+            renderOriginMaterial = currRenderer.materials;
+        }
         public void InitializeMaterials(Material[] _val) {
             currRenderer.materials = _val;
             InitializeMaterials();
@@ -71,17 +79,26 @@ public class BaseEntity : MonoBehaviour, IHealth
         currentHealth = _amount;
         if (_amount == 0) Death();
     }
+
+    public void SetHealthAfterDelay(int _newHealth, float _delay)
+    {
+        StartCoroutine(SetHealthDelay(_newHealth, _delay));
+    }
+    public void UpdateHealthAfterDelay(int _newHealth, float _delay)
+    {
+        SetHealthAfterDelay(currentHealth+ _newHealth, _delay);
+    }
     //=================================
     #endregion
 
     #region MonoBehvaior Methods
     public virtual void Awake()
     {
-        InitializeRenderers();
         ResetHealth();
     }
     public virtual void Start()
     {
+        
         for (int i = 0; i < rendRef.Length; i++)
         {
             rendRef[i].InitializeMaterials();
@@ -136,15 +153,13 @@ public class BaseEntity : MonoBehaviour, IHealth
     }
     #endregion
 
-    public void InitializeRenderers()
+
+    private IEnumerator SetHealthDelay(int _amount, float _time)
     {
-        Renderer[] tempArr = GetComponentsInChildren<Renderer>();
-        rendRef = new RenderContainer[tempArr.Length];
-        for (int i = 0; i < rendRef.Length; i++)
-        {
-            rendRef[i].currRenderer = tempArr[i];
-        }
+        yield return new WaitForSeconds(_time);
+        SetHealth(_amount);
     }
+
 
     public IEnumerator ChangeIndicator(Material _flashMat)
     {

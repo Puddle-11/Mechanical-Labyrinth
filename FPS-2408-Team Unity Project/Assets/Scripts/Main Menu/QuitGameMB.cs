@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuitGameMB : BaseMenuButton, IMenuButton
 {
-    public void Click()
+    public override void Click()
     {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -14,4 +14,5 @@ public class QuitGameMB : BaseMenuButton, IMenuButton
 
 #endif
     }
+  
 }
