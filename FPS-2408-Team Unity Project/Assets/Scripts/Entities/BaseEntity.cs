@@ -19,11 +19,12 @@ public class BaseEntity : MonoBehaviour, IHealth
     [Range(0.1f, 10f)] [SerializeField] private float damageFlashTime;
     [SerializeField] private GameObject[] drops;   
     
-    protected RenderContainer[] rendRef;
+    [SerializeField] protected RenderContainer[] rendRef;
     protected int currentHealth;
     private bool takingDamage;
 
     #region Custom Structs
+    [System.Serializable]
     public struct RenderContainer
     {
         public Renderer currRenderer;
@@ -86,7 +87,6 @@ public class BaseEntity : MonoBehaviour, IHealth
     #region MonoBehvaior Methods
     public virtual void Awake()
     {
-        InitializeRenderers();
         ResetHealth();
     }
     public virtual void Start()
@@ -145,20 +145,14 @@ public class BaseEntity : MonoBehaviour, IHealth
     }
     #endregion
 
-    public void InitializeRenderers()
-    {
-        Renderer[] tempArr = GetComponentsInChildren<Renderer>();
-        rendRef = new RenderContainer[tempArr.Length];
-        for (int i = 0; i < rendRef.Length; i++)
-        {
-            rendRef[i].currRenderer = tempArr[i];
-        }
-    }
+
     private IEnumerator SetHealthDelay(int _amount, float _time)
     {
         yield return new WaitForSeconds(_time);
         SetHealth(_amount);
     }
+
+
     public IEnumerator ChangeIndicator(Material _flashMat)
     {
         if (rendRef == null) yield break;
