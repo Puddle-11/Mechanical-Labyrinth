@@ -25,6 +25,8 @@ public class LockOnDisplay : MonoBehaviour
     public void CheckLOS()
     {
         RaycastHit checkLineOfSight;
+        float gunAmmoRange = 3.0f;
+
         if(Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward,out checkLineOfSight ,Mathf.Infinity, ~GameManager.instance.projectileIgnore))
         {
             Pickup pickupRef;
@@ -34,11 +36,15 @@ public class LockOnDisplay : MonoBehaviour
             checkLineOfSight.collider.TryGetComponent<IHealth>(out healthRef);
             checkLineOfSight.collider.TryGetComponent<IInteractable>(out interactableRef);
 
-            if (healthRef!=null || pickupRef != null || interactableRef != null)
+            if (healthRef == null && checkLineOfSight.distance > gunAmmoRange)
+            {
+                return;
+            }
+
+
+            if (healthRef != null || pickupRef != null || interactableRef != null)
             {
                 LockOnGUI.SetActive(true);
-
-
 
 
                 float distanceScale = relativeScale / Vector3.Distance(checkLineOfSight.collider.transform.position, CameraController.instance.mainCamera.transform.position);

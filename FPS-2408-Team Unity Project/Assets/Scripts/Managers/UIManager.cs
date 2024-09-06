@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuShop;
+    [SerializeField] GameObject gunMenuShop;
+    [SerializeField] GameObject ammoMenuShop;
+    [SerializeField] GameObject itemMenuShop;
     [SerializeField] GameObject menuControlsLegend;
     [Space]
     [Header("Damage Indicator")]
@@ -342,5 +345,35 @@ public class UIManager : MonoBehaviour
             menuActive.SetActive(false);
         }
         menuActive = null;
+    }
+
+    public void GunShop()
+    {
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = gunMenuShop;
+        menuActive.SetActive(true);
+    }
+
+    public void AmmoShop()
+    {
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = ammoMenuShop;
+        menuActive.SetActive(true);
+    }
+
+    public void ItemShop()
+    {
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = itemMenuShop;
+        menuActive.SetActive(true);
     }
 }

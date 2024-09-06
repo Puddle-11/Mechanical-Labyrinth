@@ -28,4 +28,19 @@ public class ShopManager : MonoBehaviour
     {
         UIManager.instance.CloseShop();
     }
+
+    public void GunShop()
+    {
+        UIManager.instance.GunShop();
+    }
+
+    public void AmmoShop()
+    {
+        UIManager.instance.AmmoShop();
+    }
+
+    public void ItemShop()
+    {
+        UIManager.instance.ItemShop();
+    }
 }

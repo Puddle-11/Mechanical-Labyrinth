@@ -108,7 +108,7 @@ public class BaseGun : Weapon
     public float GetZoomAmount(){ return scopeInZoom;}
     public int GetMaxClipSize() { return clipSizeMax; }
     public int GetCurrAmmo() { return currAmmo; }
-    public override string GetItemStats() { return "Speed: " + coolDown + "\nDamage: " + shootDamage; }
+    public override string GetItemStats() { return "\nSpeed: " + coolDown + "\n\nDamage: " + shootDamage + "\n\nAmmo Type: " + ammoType; }
     public override bool CanAttack() { return !(isAttacking || isReloading); }
     public void SetShootPos(Transform _pos){barrels[currBarrel].shootObj = _pos;}
     public AmmoInventory.bulletType GetAmmoType(){return ammoType;}
