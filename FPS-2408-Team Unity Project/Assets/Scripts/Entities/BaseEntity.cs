@@ -71,6 +71,15 @@ public class BaseEntity : MonoBehaviour, IHealth
         currentHealth = _amount;
         if (_amount == 0) Death();
     }
+
+    public void SetHealthAfterDelay(int _newHealth, float _delay)
+    {
+        StartCoroutine(SetHealthDelay(_newHealth, _delay));
+    }
+    public void UpdateHealthAfterDelay(int _newHealth, float _delay)
+    {
+        SetHealthAfterDelay(currentHealth+ _newHealth, _delay);
+    }
     //=================================
     #endregion
 
@@ -145,7 +154,11 @@ public class BaseEntity : MonoBehaviour, IHealth
             rendRef[i].currRenderer = tempArr[i];
         }
     }
-
+    private IEnumerator SetHealthDelay(int _amount, float _time)
+    {
+        yield return new WaitForSeconds(_time);
+        SetHealth(_amount);
+    }
     public IEnumerator ChangeIndicator(Material _flashMat)
     {
         if (rendRef == null) yield break;

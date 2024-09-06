@@ -41,6 +41,7 @@ public class AmmoInventory : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        Debug.Log(gameObject.name);
         if(instance == null)
         {
             instance = this;

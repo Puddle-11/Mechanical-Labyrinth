@@ -204,7 +204,7 @@ public class BaseGun : Weapon
                 {
 
                     if (playerWeapon)  GameManager.instance.UpdateDamageDealt(shootDamage);
-                    healthRef.UpdateHealth(-shootDamage);
+                    healthRef.UpdateHealthAfterDelay(-shootDamage, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, hit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed());
                 }
                 RaycastHit penetratingHit;
 
@@ -231,7 +231,7 @@ public class BaseGun : Weapon
                             int shootDamagecalc = (int)(shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
 
                             if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamagecalc);
-                            healthRef.UpdateHealth(-shootDamagecalc);
+                            healthRef.UpdateHealthAfterDelay(-shootDamagecalc, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, postPenetrateHit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed());
                         }
                     }
                 }

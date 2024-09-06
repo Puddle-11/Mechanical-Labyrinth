@@ -12,7 +12,10 @@ public class BulletTracer : MonoBehaviour
     [SerializeField] private float speed;
     private Vector3 dir;
     private bool useEnd = false;
-
+    public float GetSpeed()
+    {
+        return speed;
+    }
     public void SetPositions(Vector3 _start, Vector3 _end)
     {
        
