@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(menuName ="Custom Assets/SaveFile")]
 public class CurrentStats : ScriptableObject
 {
+    public GeneralInventory.ItemSlot[] S_GeneralInventory;
     public int[] S_AmmoInventory;
     public int S_Level;
     public ItemType S_Item;
@@ -15,6 +16,4 @@ public class CurrentStats : ScriptableObject
     public bool isActive = false;
     public int S_CurrentHealth;
     public float S_currentTime;
-
-
 }

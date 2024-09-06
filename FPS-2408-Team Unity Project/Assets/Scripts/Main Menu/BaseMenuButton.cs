@@ -1,26 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.IO.LowLevel.Unsafe;
 using UnityEngine;
 
-public class BaseMenuButton : MonoBehaviour
+public class BaseMenuButton : MonoBehaviour, IMenuButton
 {
+    [SerializeField] private Animator anim;
+    public virtual void Click(){}
 
-    private Vector3 scale;
-    private void Awake()
+    public void Select()
     {
-        scale = transform.localScale;
+        anim.SetBool("Selected", true);
     }
-    // Update is called once per frame
-    void Update()
+    public void Deselect()
     {
-        if(MainSceneManager.instance.currentButton == this.GetComponent<IMenuButton>())
-        {
-            transform.localScale = scale * MainSceneManager.instance.buttonHoverScale;
-        }
-        else
-        {
-            transform.localScale = scale;
-
-        }
+        anim.SetBool("Selected", false);
     }
 }

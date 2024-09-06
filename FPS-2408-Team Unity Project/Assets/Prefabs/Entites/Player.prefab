@@ -806,7 +806,6 @@ GameObject:
   - component: {fileID: 2385250308186476171}
   - component: {fileID: 1750312086539458527}
   - component: {fileID: 7812129156646002974}
-  - component: {fileID: 5370617233789152769}
   - component: {fileID: 2579658609705549584}
   - component: {fileID: 2207298348825309542}
   m_Layer: 3
@@ -853,6 +852,7 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops: []
+  rendRef: []
   footstepSoundRef: {fileID: 7812129156646002974}
   baseSpeed: 15
   acceleration: 50
@@ -960,26 +960,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd08c427d2b0e644b41124bae007ac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5370617233789152769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9109832186709042457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4125d694f35207946b05d711acec1586, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numOfAmmoTypes: 5
-  ammoCounts: 0000000000000000000000000000000000000000
-  typeIcons:
-  - {fileID: 21300000, guid: 7d0e061f74c65574aad4cdef5353dcc9, type: 3}
-  - {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
-  - {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
-  - {fileID: 21300000, guid: 24b6cd2c8e96ff543a78d1c90afd3d12, type: 3}
-  - {fileID: 21300000, guid: ba09a36f0d73dba42873c79e424a3f08, type: 3}
 --- !u!114 &2579658609705549584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,10 +975,10 @@ MonoBehaviour:
   numOfAmmoTypes: 5
   ammoCounts: 0000000000000000000000000000000000000000
   typeIcons:
-  - {fileID: 21300000, guid: 7d0e061f74c65574aad4cdef5353dcc9, type: 3}
-  - {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
-  - {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
+  - {fileID: 21300000, guid: ce52a1509300a8447a202f2623b3a98f, type: 3}
   - {fileID: 21300000, guid: 24b6cd2c8e96ff543a78d1c90afd3d12, type: 3}
+  - {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
+  - {fileID: 21300000, guid: 7d0e061f74c65574aad4cdef5353dcc9, type: 3}
   - {fileID: 21300000, guid: ba09a36f0d73dba42873c79e424a3f08, type: 3}
 --- !u!114 &2207298348825309542
 MonoBehaviour:

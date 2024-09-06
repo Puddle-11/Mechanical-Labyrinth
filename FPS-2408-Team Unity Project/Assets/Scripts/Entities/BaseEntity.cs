@@ -30,7 +30,14 @@ public class BaseEntity : MonoBehaviour, IHealth
         public Renderer currRenderer;
         [HideInInspector] public Material[] renderOriginMaterial;
         [HideInInspector] public Material damageMaterial;
-        public void InitializeMaterials() { renderOriginMaterial = currRenderer.materials;}
+        public void InitializeMaterials() {
+            if(currRenderer == null)
+            {
+                Debug.LogWarning("No Renderer found");
+                return;
+            }
+            renderOriginMaterial = currRenderer.materials;
+        }
         public void InitializeMaterials(Material[] _val) {
             currRenderer.materials = _val;
             InitializeMaterials();
@@ -91,6 +98,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     }
     public virtual void Start()
     {
+        
         for (int i = 0; i < rendRef.Length; i++)
         {
             rendRef[i].InitializeMaterials();

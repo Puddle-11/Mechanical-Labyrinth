@@ -138,6 +138,7 @@ public class UIManager : MonoBehaviour
     public void SetAttemptNumber(int _val){attemptNumber.text = _val.ToString();}
     public void SetEnemiesKilled(int _val) {enemiesKilled.text = "Enemies Killed: " + _val.ToString();}
     public void SetDamageDealt(ulong _val){ damageDealt.text = "Damage Dealt: " + _val.ToString();}
+
     public void ToggleEnemyCount(bool _val){ enemyCountObj.SetActive(_val); }
     public void ResetTempUI() { flashDamageRef.SetActive(false); }
     public void SetEnemyCount(int _val) { enemyCountField.text = _val.ToString();}
