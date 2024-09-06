@@ -36,12 +36,12 @@ public class LockOnDisplay : MonoBehaviour
             checkLineOfSight.collider.TryGetComponent<IHealth>(out healthRef);
             checkLineOfSight.collider.TryGetComponent<IInteractable>(out interactableRef);
 
+
+
             if (healthRef == null && checkLineOfSight.distance > gunAmmoRange)
             {
-                return;
+                DissableLockon();
             }
-
-
             if (healthRef != null || pickupRef != null || interactableRef != null)
             {
                 LockOnGUI.SetActive(true);
@@ -65,7 +65,7 @@ public class LockOnDisplay : MonoBehaviour
                     infoDisplay.transform.gameObject.SetActive(true);
 
                 }
-                else if(interactableRef != null)
+                else if (interactableRef != null)
                 {
                     UpdateInfo(interactableRef.GetStats(), new Vector2(objectScreenBounds.max.x, objectScreenBounds.max.y), distanceScale);
                     infoDisplay.transform.gameObject.SetActive(true);
@@ -80,6 +80,10 @@ public class LockOnDisplay : MonoBehaviour
                 return;
             }
         }
+        DissableLockon();
+    }
+    private void DissableLockon()
+    {
         infoDisplay.transform.gameObject.SetActive(false);
 
         LockOnGUI.SetActive(false);
