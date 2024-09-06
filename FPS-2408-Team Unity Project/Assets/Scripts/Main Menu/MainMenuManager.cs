@@ -2,22 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainSceneManager : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
+
 
     public IMenuButton currentButton;
     public float buttonHoverScale;
-    public static MainSceneManager instance;
-    private void Awake()
+
+    public void ChangeButton(IMenuButton _nextButton)
     {
-      if(instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
+        if(currentButton != null) currentButton.Deselect();
+        currentButton = _nextButton;
+        if (currentButton != null) currentButton.Select();
     }
     // Update is called once per frame
     void Update()

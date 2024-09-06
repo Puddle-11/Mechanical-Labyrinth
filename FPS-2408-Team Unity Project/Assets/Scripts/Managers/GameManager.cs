@@ -18,11 +18,14 @@ public class GameManager : MonoBehaviour
     public delegate void OnWin();
     public OnWin levelWon;
     [SerializeField] private ItemType defaultItem;
+
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            if (BootLoadManager.instance != null) currentStats = BootLoadManager.instance.GetSave();
         }
         else
         {
@@ -106,13 +109,12 @@ public class GameManager : MonoBehaviour
             {
                 playerRef.SetActive(true);
             }
-            currentStats.S_currentTime += Time.deltaTime;
+           if(currentStats != null) currentStats.S_currentTime += Time.deltaTime;
         }
     }
     public bool GetStatePaused(){return isPause;}
     public void SetPause(bool _val)
     {
-
         isPause = _val;
         Time.timeScale = _val ? 0 : 1;
         if (_val != true) return;
@@ -138,26 +140,24 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateDamageDealt(int _val)
     {
-        currentStats.S_TotalDamage += (UInt64)_val;
-        UIManager.instance.SetDamageDealt(currentStats.S_TotalDamage);
+       if(currentStats != null) currentStats.S_TotalDamage += (UInt64)_val;
+       if(UIManager.instance != null) UIManager.instance.SetDamageDealt(currentStats != null ? currentStats.S_TotalDamage : 0);
     }
-    public int GetCurrentLevel(){ return currentStats.S_Level;}
-    public void SetCurrentLevel(int _val) { currentStats.S_Level = _val; }
+    public int GetCurrentLevel(){ return currentStats != null ? currentStats.S_Level : 0;}
+    public void SetCurrentLevel(int _val) { if (currentStats != null) currentStats.S_Level = _val; }
     public void UpdateCurrentLevel(int _val){SetCurrentLevel(GetCurrentLevel() + _val);}
     public void SetCurrentItem(ItemType _item) {currentStats.S_Item = _item;}
     public void SetAmmoInventory(int[] _arr) {currentStats.S_AmmoInventory = _arr;}
-    public int[] GetAmmoInventory() { return  currentStats.S_AmmoInventory; }
-
-    //in progress
-    public void SetGeneralInventory(int[] _arr) { currentStats.S_AmmoInventory = _arr; }
-    public int[] GetGeneralInventory() { return currentStats.S_AmmoInventory; }
-    //not complete yet
-
-
-    public ItemType GetCurrentItemType() {return currentStats.S_Item;}
+    public int[] GetAmmoInventory() { return currentStats != null ? currentStats.S_AmmoInventory : new int[0]; }
+    public ItemType GetCurrentItemType() {return currentStats != null ? currentStats.S_Item : null;}
     private ChunkGrid GetChunkGrid() {return ChunkGrid.instance;}
-    public void SetCurrentHealth(int _val) {currentStats.S_CurrentHealth = _val; }
-    public int GetCurrentHealth() {return currentStats.S_CurrentHealth <= 0 ? int.MaxValue : currentStats.S_CurrentHealth;}
+    public void SetCurrentHealth(int _val) { if (currentStats != null) currentStats.S_CurrentHealth = _val; }
+    public int GetCurrentHealth()
+    {
+        if (currentStats == null) return int.MaxValue;
+        return currentStats.S_CurrentHealth <= 0 ? int.MaxValue : currentStats.S_CurrentHealth;
+    
+    }
 
     public bool TryFindPlayer(out GameObject _ref)
     {
@@ -175,10 +175,10 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         UIManager.instance.ResetTempUI();
-        UIManager.instance.SetDamageDealt(currentStats.S_TotalDamage);
-        UIManager.instance.SetEnemiesKilled(currentStats.S_TotallEnemiesKilled);
-        UIManager.instance.SetAttemptNumber(currentStats.S_TotalDeaths);
-        if (currentStats.isActive) SetCurrentItem(playerControllerRef.GetCurrentItemType());
+        UIManager.instance.SetDamageDealt(currentStats != null? currentStats.S_TotalDamage:0);
+        UIManager.instance.SetEnemiesKilled(currentStats != null ? currentStats.S_TotallEnemiesKilled: 0);
+        UIManager.instance.SetAttemptNumber(currentStats != null ? currentStats.S_TotalDeaths: 0);
+        if (currentStats != null && currentStats.isActive) SetCurrentItem(playerControllerRef.GetCurrentItemType());
         enemyCount = 0;
         UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);

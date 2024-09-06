@@ -13,10 +13,15 @@ public class BootLoadManager : MonoBehaviour
     public SceneEvent startLoadEvent;
     public SceneEvent stopLoadEvent;
     private bool inLoadScreen;
-
-    public bool IsLoading()
+    private CurrentStats currentStats;
+    public bool IsLoading() {return inLoadScreen;}
+    public CurrentStats GetSave()
     {
-        return inLoadScreen;
+        return currentStats;
+    }
+    public void SetSave(CurrentStats _save)
+    {
+        currentStats = _save;
     }
     private void Awake()
     {

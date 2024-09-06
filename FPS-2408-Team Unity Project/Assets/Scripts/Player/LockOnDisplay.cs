@@ -70,11 +70,6 @@ public class LockOnDisplay : MonoBehaviour
                     UpdateInfo(interactableRef.GetStats(), new Vector2(objectScreenBounds.max.x, objectScreenBounds.max.y), distanceScale);
                     infoDisplay.transform.gameObject.SetActive(true);
                 }
-                //else if(healthRef != null)
-                //{
-                //    UpdateInfo(healthRef.GetCurrentHealth() + "/"+ healthRef.GetMaxHealth(), new Vector2(objectScreenBounds.max.x, objectScreenBounds.max.y), distanceScale);
-                //    infoDisplay.transform.gameObject.SetActive(true);
-                //}
                 else
                 {
                     UpdateInfo("", Vector3.zero, distanceScale);

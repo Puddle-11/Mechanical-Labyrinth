@@ -195,12 +195,12 @@ public class BaseGun : Weapon
             {
                 currBarrel = 0;
             }
-            if (shootsounds.Length > 0) AudioManager.instance.PlaySound(shootsounds[UnityEngine.Random.Range(0, shootsounds.Length)], (playerWeapon ? AudioManager.soundType.player : AudioManager.soundType.enemy), attackVolume);
+            if (shootsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(shootsounds[UnityEngine.Random.Range(0, shootsounds.Length)], (playerWeapon ? AudioManager.soundType.player : AudioManager.soundType.enemy), attackVolume);
             UpdateAmmo(-1);
             StartMuzzleFlash();
             if (Physics.Raycast(playerWeapon ? Camera.main.transform.position : barrels[currBarrel].shootObj.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
-                if (hit.collider.TryGetComponent<IHealth>(out healthRef))
+                if (hit.collider.TryGetComponent(out healthRef))
                 {
 
                     if (playerWeapon)  GameManager.instance.UpdateDamageDealt(shootDamage);
