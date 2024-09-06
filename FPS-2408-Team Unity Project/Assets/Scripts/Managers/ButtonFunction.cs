@@ -36,7 +36,7 @@ public class ButtonFunction : MonoBehaviour
 
     public void closeShop()
     {
-        UIManager.instance?.StateUnpause();
+        ShopManager.instance?.CloseShop();
     }
 
     // Start is called before the first frame update
