@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
 
-        if(currentStats != null) currentStats.isActive = true;
         if (TryFindPlayer(out playerRef))
         {
             playerRef.TryGetComponent<PlayerController>(out playerControllerRef);
@@ -77,14 +76,7 @@ public class GameManager : MonoBehaviour
     }
     public void ResetAllStats()
     {
-        //GeneralInventory.ItemSlot[]
-        currentStats.S_GeneralInventory = new GeneralInventory.ItemSlot[0];
-        currentStats.S_AmmoInventory = new int[0];
-        currentStats.S_TotalDamage = 0;
-        currentStats.S_TotallEnemiesKilled = 0;
-        currentStats.S_Item = defaultItem;
-        currentStats.isActive = false;
-        currentStats.S_Level = 0;
+        currentStats.ResetPerRunStats();
     }
     private void Update()
     {
@@ -184,7 +176,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetDamageDealt(currentStats != null? currentStats.S_TotalDamage:0);
         UIManager.instance.SetEnemiesKilled(currentStats != null ? currentStats.S_TotallEnemiesKilled: 0);
         UIManager.instance.SetAttemptNumber(currentStats != null ? currentStats.S_TotalDeaths: 0);
-        if (currentStats != null && currentStats.isActive) SetCurrentItem(playerControllerRef.GetCurrentItemType());
+        if (currentStats != null) SetCurrentItem(playerControllerRef.GetCurrentItemType());
         enemyCount = 0;
         UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);

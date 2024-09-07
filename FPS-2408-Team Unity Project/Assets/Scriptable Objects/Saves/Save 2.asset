@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   S_AmmoInventory: 
   S_Level: 0
+  S_DefaultItem: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
   S_Item: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
   S_TotalDamage: 0
   S_TotallEnemiesKilled: 0
   S_TotalDeaths: 0
-  isActive: 1
+  S_DefaultHealth: 1000
   S_CurrentHealth: 1000
   S_currentTime: 0
