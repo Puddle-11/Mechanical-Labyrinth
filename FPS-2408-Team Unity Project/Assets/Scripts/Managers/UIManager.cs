@@ -37,6 +37,8 @@ public class UIManager : MonoBehaviour
     [Space]
     [Header("Crosshair Settings")]
     [Space]
+    [SerializeField] private GameObject crosshairObjRef;
+    [SerializeField] private GameObject ADSCrosshairObjRef;
     [SerializeField] private int C_maxSpread;
     [SerializeField] private int C_spreadFactor;
     [SerializeField] private Color C_crosshairColor;
@@ -142,6 +144,7 @@ public class UIManager : MonoBehaviour
     public void ToggleEnemyCount(bool _val){ enemyCountObj.SetActive(_val); }
     public void ResetTempUI() { flashDamageRef.SetActive(false); }
     public void SetEnemyCount(int _val) { enemyCountField.text = _val.ToString();}
+
     public void UpdateHealthBar(float _val) //Takes a NORMALIZED value
     {
         if (playerHealth != null)
@@ -150,12 +153,12 @@ public class UIManager : MonoBehaviour
             playerHealth.fillAmount = _val;
         }
     }
+
     public IEnumerator flashDamage()
     {
         flashDamageRef.SetActive(true);
         yield return new WaitForSeconds(flashDamageTime);
         flashDamageRef.SetActive(false);
-
     }
 
 
@@ -263,7 +266,6 @@ public class UIManager : MonoBehaviour
     public void UpdateAmmoFill(float val)
     {
         ammoFillup.fillAmount = val;
-
     }
     public void UpdateCrosshair()
     {
@@ -277,18 +279,24 @@ public class UIManager : MonoBehaviour
             Vector2 normDir = new Vector2(curr.transform.localPosition.normalized.x,0);
             curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.x / 2) + normDir * C_centerDotSize/2;
             curr.transform.localScale = new Vector2(C_lineLength, C_lineThickness);
-
         }
 
         for (int i = 0; i < crosshairRef.verticalLine.Length; i++)
         {
             GameObject curr = crosshairRef.verticalLine[i];
-
             curr.GetComponent<Image>().color = C_crosshairColor;
             Vector2 normDir = new Vector2(0,curr.transform.localPosition.normalized.y);
             curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.y / 2) + normDir * C_centerDotSize / 2;
             curr.transform.localScale = new Vector2(C_lineThickness, C_lineLength);
         }
+    }
+    public void ToggleADS(bool _val)
+    {
+       
+            ADSCrosshairObjRef.SetActive(_val);
+        crosshairObjRef.SetActive(!_val);
+
+        
     }
     public void UpdateCrosshairSpread(float _val)
     {
@@ -297,7 +305,6 @@ public class UIManager : MonoBehaviour
             GameObject curr = crosshairRef.horizontalLine[i];
             Vector2 normDir = new Vector2(curr.transform.localPosition.normalized.x, 0);
             curr.transform.localPosition = normDir * C_lineDistance + normDir * (curr.transform.localScale.x / 2) + normDir * C_centerDotSize / 2 + normDir *Mathf.Clamp( _val * C_spreadFactor, 0, C_maxSpread);
-
         }
 
         for (int i = 0; i < crosshairRef.verticalLine.Length; i++)

@@ -47,12 +47,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccfdcf8ee76ed2f4b9cde33f109b4c25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  rendRef: {fileID: 4733184183905362029}
-  damageFlashTime: 0.1
+  maxHealth: 500
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
-  drops: []
   healthBar: {fileID: 2332200302774726011}
+  deathParticles: []
+  hitParticles: {fileID: 0}
+  damageFlashTime: 0.1
+  drops: []
+  rendRef:
+  - currRenderer: {fileID: 4733184183905362029}
+    renderOriginMaterial: []
+    damageMaterial: {fileID: 0}
   RespawnTime: 2
 --- !u!65 &6729510989963063161
 BoxCollider:

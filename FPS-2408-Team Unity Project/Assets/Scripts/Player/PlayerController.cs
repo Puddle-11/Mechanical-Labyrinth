@@ -213,8 +213,8 @@ public class PlayerController : BaseEntity
             }
         }
 
-        GameManager.instance.SetCurrentHealth(currentHealth);
-        if(UIManager.instance != null) UIManager.instance.UpdateHealthBar((float)currentHealth / maxHealth);
+        GameManager.instance.SetCurrentHealth(_amount);
+        if(UIManager.instance != null) UIManager.instance.UpdateHealthBar((float)_amount / maxHealth);
         base.SetHealth(_amount);
     }
     #endregion
@@ -224,6 +224,7 @@ public class PlayerController : BaseEntity
     {
         if (isDead) return;
         isDead = true;
+
         GameManager.instance.ResetAllStats();
         GameManager.instance.UpdateDeathCounter(1);
         UIManager.instance.OpenLoseMenu();

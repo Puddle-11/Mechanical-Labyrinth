@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88cd6efbed8bc75468c20c9a8f325f3f, type: 3}
   m_Name: Save 1
   m_EditorClassIdentifier: 
-  S_AmmoInventory: 
-  S_Level: 0
-  S_Item: {fileID: 11400000, guid: 47ac05cec19e901448ef7f69360d4bb3, type: 2}
-  S_TotalDamage: 760
-  S_TotallEnemiesKilled: 9
+  S_AmmoInventory: 5c00000000000000000000000000000000000000
+  S_Level: 2
+  S_Item: {fileID: 11400000, guid: ffcfbefaa3c5a2c4e8fcc3cc63e96ea7, type: 2}
+  S_TotalDamage: 4780
+  S_TotallEnemiesKilled: 11
   S_TotalDeaths: 4
   isActive: 1
-  S_CurrentHealth: 910
-  S_currentTime: 576.24634
+  S_CurrentHealth: 194
+  S_currentTime: 657.5548

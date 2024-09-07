@@ -24,7 +24,7 @@ TagManager:
   - MainCamera
   - Downscale Renderer
   - Entity
-  - Cover/Wall/Door
+  - Cover/Wall/Door Door2
   - MiniMapIgnore
   - MiniMapExclusive
   - Weapon

@@ -22,8 +22,10 @@ public class ButtonFunction : MonoBehaviour
     }
     public void quit()
     {
-        if(GameManager.instance?.GetCurrentHealth() == 0) GameManager.instance?.ResetCurrentHealth();
-
+        if (GameManager.instance != null)
+        {
+            if (GameManager.instance.GetCurrentHealth() == 0) GameManager.instance.ResetCurrentHealth();
+        }
         Time.timeScale = 1;
         BootLoadManager.instance?.ExitGameMode();
     }

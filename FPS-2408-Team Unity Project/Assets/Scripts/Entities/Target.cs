@@ -35,18 +35,22 @@ public class Target : BaseEntity
             base.Death();
             yield break;
         }
+        healthBar.gameObject.SetActive(false);
+
         collRef.enabled = false;
         for (int i = 0; i < rendRef.Length; i++)
         {
             rendRef[i].currRenderer.enabled = false;
         }
         yield return new WaitForSeconds(RespawnTime);
+        healthBar.gameObject.SetActive(true);
         ResetHealth();
         collRef.enabled = true;
         for (int i = 0; i < rendRef.Length; i++)
         {
             rendRef[i].currRenderer.enabled = true;
         }
+
     }
 
 }

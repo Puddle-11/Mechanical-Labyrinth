@@ -68,7 +68,7 @@ public class RoomGenerator : IGenerator
         }
     }
 
-        private void OnDisable()
+    private void OnDisable()
     {
         ChunkGrid.instance.EndLoad -= GenerateDecorations;
 

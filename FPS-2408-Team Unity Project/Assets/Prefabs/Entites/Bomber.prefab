@@ -1228,6 +1228,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Death Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 9163887737959573936, guid: 8e9653211efac6946bd7b70ed40ab2f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1502,7 +1506,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 0056ac50fa2bba94589b572e80bd12dc, type: 2}
     - target: {fileID: 919132149155446097, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
       propertyPath: m_Name
-      value: Bomber (3)
+      value: Bomber
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
       propertyPath: m_Layer
@@ -1662,7 +1666,7 @@ MonoBehaviour:
   weaponScr: {fileID: 6660931601901886988}
   agent: {fileID: 6587216154067788657}
   patrolPoints: []
-  senseType: 3
+  senseType: 0
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
