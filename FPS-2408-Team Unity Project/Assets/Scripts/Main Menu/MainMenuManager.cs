@@ -8,7 +8,14 @@ public class MainMenuManager : MonoBehaviour
 
     public IMenuButton currentButton;
     public float buttonHoverScale;
-
+    [SerializeField] private GameObject currMenu;
+    public void ChangeMenu(GameObject _newMenu)
+    {
+        if (_newMenu == null) return;
+        if (currMenu != null) currMenu.SetActive(false);
+        currMenu = _newMenu;
+        currMenu.SetActive(true);
+    }
     public void ChangeButton(IMenuButton _nextButton)
     {
         if(currentButton != null) currentButton.Deselect();

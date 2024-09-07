@@ -12,6 +12,7 @@ public class LockOnDisplay : MonoBehaviour
     [SerializeField] private float boundSize;
     [SerializeField] private GameObject test;
     [SerializeField] private TMP_Text infoDisplay;
+
     struct ssBounds
     {
        public Vector3 min;
@@ -25,7 +26,7 @@ public class LockOnDisplay : MonoBehaviour
     public void CheckLOS()
     {
         RaycastHit checkLineOfSight;
-        float gunAmmoRange = 3.0f;
+        
 
         if(Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward,out checkLineOfSight ,Mathf.Infinity, ~GameManager.instance.projectileIgnore))
         {
@@ -38,9 +39,10 @@ public class LockOnDisplay : MonoBehaviour
 
 
 
-            if (healthRef == null && checkLineOfSight.distance > gunAmmoRange)
+            if (healthRef == null && checkLineOfSight.distance > GameManager.instance.playerControllerRef.GetPlayerHand().GetPickupDist())
             {
                 DissableLockon();
+                return;
             }
             if (healthRef != null || pickupRef != null || interactableRef != null)
             {

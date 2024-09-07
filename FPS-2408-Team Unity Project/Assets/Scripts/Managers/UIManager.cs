@@ -290,14 +290,7 @@ public class UIManager : MonoBehaviour
             curr.transform.localScale = new Vector2(C_lineThickness, C_lineLength);
         }
     }
-    public void ToggleADS(bool _val)
-    {
-       
-            ADSCrosshairObjRef.SetActive(_val);
-        crosshairObjRef.SetActive(!_val);
-
-        
-    }
+    public void ToggleADS(bool _val) {ADSCrosshairObjRef.SetActive(_val);}
     public void UpdateCrosshairSpread(float _val)
     {
         for (int i = 0; i < crosshairRef.horizontalLine.Length; i++)

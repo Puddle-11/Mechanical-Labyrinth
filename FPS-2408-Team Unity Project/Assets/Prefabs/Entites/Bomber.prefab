@@ -1650,16 +1650,16 @@ MonoBehaviour:
     damageMaterial: {fileID: 0}
   headPos: {fileID: 0}
   sneakDamageMultiplyer: 2
-  stoppingDistance: 10
+  stoppingDistance: 9
   rotationSpeed: 180
   roamTimer: 2
   roamingDistance: 15
   sightMask:
     serializedVersion: 2
     m_Bits: 64
-  attackRange: 9
-  sightRange: 10
-  hearingRange: 13
+  attackRange: 10
+  sightRange: 15
+  hearingRange: 16
   attackAngle: 50
   sightAngle: 90
   target: {fileID: 0}

@@ -163,13 +163,7 @@ public class GameManager : MonoBehaviour
     public void SetCurrentHealth(int _val) { if (currentStats != null) currentStats.S_CurrentHealth = _val; }
     public int GetCurrentHealth()
     {
-        Debug.Log("Hit GetCurrHealth");
-        int res = 0;
-        if (currentStats == null) res = int.MaxValue;
-        res = currentStats.S_CurrentHealth <= 0 ? int.MaxValue : currentStats.S_CurrentHealth;
-        Debug.Log("Actual:" + currentStats.S_CurrentHealth + " Return: " + currentStats.S_CurrentHealth);
-
-        return res;
+        return (currentStats == null || currentStats.S_CurrentHealth <= 0) ? int.MaxValue : currentStats.S_CurrentHealth;
     }
 
     public bool TryFindPlayer(out GameObject _ref)
@@ -182,7 +176,6 @@ public class GameManager : MonoBehaviour
         }
         _ref = null;
         return false;
-
     }
 
     public void ResetGame()
