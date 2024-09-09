@@ -102,16 +102,7 @@ public class PlayerHand : MonoBehaviour
             IInteractable interactionRef;
             if(hit.transform.TryGetComponent<IInteractable>(out interactionRef))
             {
-                Pickup item;
-                if (hit.transform.TryGetComponent<Pickup>(out item))
-                {
-                    GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = item.GetItem();
-                }
-                else
-                {
-                    interactionRef.TriggerInteraction();
-                }
-
+                interactionRef.TriggerInteraction();
                 return true;
             }
 
@@ -119,19 +110,32 @@ public class PlayerHand : MonoBehaviour
         }
         return false;
     }
+
+    public void DropItem()
+    {
+        //======================================
+        //External Resets
+        UIManager.instance.AmmoDisplay(0, 0);
+        UIManager.instance.UpdateAmmoFill(1);
+        CameraController.instance.ResetOffset(true);
+        UIManager.instance.UpdateCrosshairSpread(0);
+        //======================================
+
+
+        //======================================
+        //Internal Resets
+        GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = null;
+        Destroy(CurrentEquiped);
+        CurrentEquiped = null;
+        //======================================
+
+    }
+
     public bool AttemptDrop()
     {
+        GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = null;
         if (CurrentEquiped != null)
         {
-            //======================================
-            //External Resets
-            UIManager.instance.AmmoDisplay(0, 0);
-            UIManager.instance.UpdateAmmoFill(1);
-            CameraController.instance.ResetOffset(true);
-            UIManager.instance.UpdateCrosshairSpread(0);
-            //======================================
-
-
             //======================================
             //Generate Dropped Item
             IUsable IRef;
@@ -155,16 +159,11 @@ public class PlayerHand : MonoBehaviour
                 if (pRef != null) pRef.uses = IRef.GetUses();
             }
             //======================================
-
-            //======================================
-            //Internal Resets
-            GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = null;
-            Destroy(CurrentEquiped);
-            CurrentEquiped = null;
-
-            //======================================
+            DropItem();
             return true;
         }
+        DropItem();
+
         return false;
     }
     public void PickupItem(ItemType t, Pickup p)
@@ -180,6 +179,7 @@ public class PlayerHand : MonoBehaviour
             return;
         }
 
+        GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = t;
 
         //Instantiate item in hand
         GameObject _ref = Instantiate(t.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);

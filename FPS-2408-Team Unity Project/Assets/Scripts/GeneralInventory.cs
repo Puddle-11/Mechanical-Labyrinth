@@ -71,7 +71,7 @@ public class GeneralInventory : MonoBehaviour
         //going down
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            selectedSlot = (selectedSlot + 1) % Hotbar.Length;
+            selectedSlot = selectedSlot <= 0 ? Hotbar.Length - 1 : selectedSlot - 1;
             changeItem();
         }
     }
@@ -82,10 +82,11 @@ public class GeneralInventory : MonoBehaviour
 
         if (item == null)
         {
+            GameManager.instance.playerControllerRef.GetPlayerHand().DropItem();
             return;
         }
         //guns
-        if ((int)item.type == 0)
+        if ((int)item.type != 0)
         {
            GameManager.instance.playerControllerRef.GetPlayerHand().PickupItem(item, null);
         }
