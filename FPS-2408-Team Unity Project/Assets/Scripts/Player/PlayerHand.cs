@@ -102,6 +102,8 @@ public class PlayerHand : MonoBehaviour
             IInteractable interactionRef;
             if(hit.transform.TryGetComponent<IInteractable>(out interactionRef))
             {
+
+
                 interactionRef.TriggerInteraction();
                 return true;
             }

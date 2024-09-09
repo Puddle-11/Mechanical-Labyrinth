@@ -86,6 +86,6 @@ public class Weapon : MonoBehaviour, IUsable
         isAttacking = false;
     }
     protected virtual void PlayAttacksound() {
-        AudioManager.instance.PlaySound(shootsounds[Random.Range(0, shootsounds.Length)],AudioManager.soundType.enemy);
+        AudioManager.instance.PlaySound(shootsounds[Random.Range(0, shootsounds.Length)], SettingsController.soundType.enemy);
     }
 }

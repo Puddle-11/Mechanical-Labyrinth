@@ -120,6 +120,7 @@ public class UIManager : MonoBehaviour
         ammoInvIcons[(int)_type].sprite = AmmoInventory.instance.GetAmmoIcon((int)_type);
         if ((int)_type < ammoInvAmount.Length) ammoInvAmount[(int)_type].text = AmmoInventory.instance.GetAmmoAmount((int)_type).ToString();
     }
+
     public void UpdateInternalAmmoInv()
     {
         for (int i = 0; i < ammoInvIcons.Length; i++)
@@ -129,6 +130,7 @@ public class UIManager : MonoBehaviour
                 {
                     UpdateExternalAmmoInv(true,i);
                 }
+
             
             if (i >= AmmoInventory.instance.GetAmmoTypeCount()) break; //Exit if reached end of list
 
@@ -139,7 +141,6 @@ public class UIManager : MonoBehaviour
             ammoInvAmount[i].text = AmmoInventory.instance.GetAmmoAmount(i).ToString();
         }
     }
-
     public void SetAttemptNumber(int _val){attemptNumber.text = _val.ToString();}
     public void SetEnemiesKilled(int _val) {enemiesKilled.text = "Enemies Killed: " + _val.ToString();}
     public void SetDamageDealt(ulong _val){ damageDealt.text = "Damage Dealt: " + _val.ToString();}
@@ -413,9 +414,9 @@ public class UIManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    public void ToggleScrapCount(bool _val) 
-    { 
-        scrapCountObj.SetActive(_val); 
+    public void ToggleScrapCount(bool _val)
+    {
+        scrapCountObj.SetActive(_val);
     }
 
     public void UpdateScrapCount(int _val)

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5579074951367543165}
   - component: {fileID: 8784826018999248502}
   - component: {fileID: 7672495625900177833}
+  - component: {fileID: 861394338031158872}
   m_Layer: 0
   m_Name: Level Mesh generator
   m_TagString: ChunkGrid
@@ -50,11 +51,12 @@ MonoBehaviour:
   VoxelSize: 1
   CubicChunkSize: 10
   ChunkSize: {x: 0, y: 0, z: 0}
-  GridSize: {x: 10, y: 1, z: 10}
+  minGridSize: {x: 5, y: 2, z: 5}
+  maxGridSize: {x: 30, y: 2, z: 30}
+  GridSize: {x: 2, y: 2, z: 2}
   MeshPrefab: {fileID: 311105137664234863, guid: b43e02eeb4de8ee4e933d6efb707800a, type: 3}
   iGen: {fileID: 5579074951367543165}
   textureAtlasSize: 2
-  progress: 0
   navMeshSurfaceRef: {fileID: 7672495625900177833}
 --- !u!114 &5579074951367543165
 MonoBehaviour:
@@ -69,7 +71,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enclose: 1
-  EndDoorPrefab: {fileID: 1645875506255807876, guid: 975e3317141584143836ba5ddef09a1c, type: 3}
+  EndDoorPrefab: {fileID: 5607771420141801015, guid: ca80fbc208a597a489fcec984d340aab, type: 3}
+  endDoorOffset: {x: 0, y: -1.5, z: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -83,12 +86,12 @@ MonoBehaviour:
   ropePrefab: {fileID: 5163827342326432378, guid: 37bbb55b989437042a31c9d76c2b0634, type: 3}
   numberOfRopes: 25
   numberOfRopeAnchors: 3
-  ropeLength: {x: 0.5, y: 0.75}
-  maxNumOfPrimaryRooms: 5
-  maxNumOfSecondaryRooms: 5
-  ceilingHeight: 8
+  ropeLength: {x: 0.75, y: 0.9}
+  maxNumOfPrimaryRooms: 2
+  maxNumOfSecondaryRooms: 2
+  ceilingHeight: 18
   minRoomDist: 0
-  minRoomSize: {x: 8, y: 8}
+  minRoomSize: {x: 12, y: 12}
   maxRoomSize: {x: 25, y: 25}
   baseBoardHeight: 1
   topPlateHeight: 1
@@ -98,6 +101,9 @@ MonoBehaviour:
   baseBoardBlockID: 3
   topPlaceBlockID: 1
   roomTexture: {fileID: 0}
+  safeDist: 15
+  blockCenterOffset: {x: 0, y: 1, z: 0}
+  TextureSize: {x: 0, y: 0}
 --- !u!114 &8784826018999248502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,12 +116,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62fd4c356e0e5d94ba1d2f95a179b2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemyCount: 7
+  enemyDensity: 3
+  minMaxEnemies: {x: 2, y: 50}
   enemyList:
+  - enemyScale: {x: 0, y: 0, z: 0}
+    enemyPrefab: {fileID: 7586437197726000631, guid: cc3cde6338e4615418879b70068d765c, type: 3}
+    frequency: 0
   - enemyScale: {x: 0, y: 0, z: 0}
     enemyPrefab: {fileID: 2466940318331819860, guid: 50e14811848cb804e8afaf38e357d186, type: 3}
     frequency: 0
-  offset: {x: 0, y: 2, z: 0}
+  - enemyScale: {x: 0, y: 0, z: 0}
+    enemyPrefab: {fileID: 2919294226157067530, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
+    frequency: 0
   patrolPointsCount: 10
 --- !u!114 &7672495625900177833
 MonoBehaviour:
@@ -148,3 +160,81 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
+--- !u!114 &861394338031158872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929931634702836277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5011a3ece09afe64bb7358a98e8be95b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allLoot:
+  - levelRange: {x: 0, y: 2}
+    Loot:
+    - _prefab: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
+      _frequency: 10
+    - _prefab: {fileID: 4282439237422998839, guid: 9a5ef60f98df70e489851b2252678b50, type: 3}
+      _frequency: 2
+  - levelRange: {x: 3, y: 4}
+    Loot:
+    - _prefab: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4017666822207980650, guid: 5bc1038690561184ebe92d362ad752d1, type: 3}
+      _frequency: 6
+    - _prefab: {fileID: 3388937891742639473, guid: 1db890cf10f4efa4f89136d8e366a51c, type: 3}
+      _frequency: 6
+    - _prefab: {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
+      _frequency: 20
+    - _prefab: {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
+      _frequency: 50
+    - _prefab: {fileID: 4282439237422998839, guid: 9a5ef60f98df70e489851b2252678b50, type: 3}
+      _frequency: 2
+    - _prefab: {fileID: 4056696687141167334, guid: 3461b63634e4f8945b141ad60e46510a, type: 3}
+      _frequency: 10
+    - _prefab: {fileID: 6171256380922855838, guid: 20b378ea970850b419e00e45dc9c693b, type: 3}
+      _frequency: 10
+    - _prefab: {fileID: 997498726686487678, guid: 5776d17cfb7722c43a8f86ee22e24e19, type: 3}
+      _frequency: 20
+  - levelRange: {x: 5, y: 100}
+    Loot:
+    - _prefab: {fileID: 1921030823039983623, guid: b75efe7afe346aa42985a41f0fc95baa, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4032414044866835810, guid: bb2305a8ffff02944bff39b024c33b03, type: 3}
+      _frequency: 1
+    - _prefab: {fileID: 4017666822207980650, guid: 5bc1038690561184ebe92d362ad752d1, type: 3}
+      _frequency: 6
+    - _prefab: {fileID: 3388937891742639473, guid: 1db890cf10f4efa4f89136d8e366a51c, type: 3}
+      _frequency: 6
+    - _prefab: {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
+      _frequency: 50
+    - _prefab: {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
+      _frequency: 100
+    - _prefab: {fileID: 4282439237422998839, guid: 9a5ef60f98df70e489851b2252678b50, type: 3}
+      _frequency: 2
+    - _prefab: {fileID: 4056696687141167334, guid: 3461b63634e4f8945b141ad60e46510a, type: 3}
+      _frequency: 10
+    - _prefab: {fileID: 6171256380922855838, guid: 20b378ea970850b419e00e45dc9c693b, type: 3}
+      _frequency: 10
+    - _prefab: {fileID: 997498726686487678, guid: 5776d17cfb7722c43a8f86ee22e24e19, type: 3}
+      _frequency: 20
+    - _prefab: {fileID: 5325792448802999737, guid: 0a45896ebb1b19a49a522c7dfa9e8d30, type: 3}
+      _frequency: 20
+  lootDensity: 0.005
+  minLoot: 10
+  defaultLoot: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}

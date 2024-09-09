@@ -24,7 +24,4 @@ public class Pickup : MonoBehaviour, IInteractable
     }
 
     public ItemType GetItem() { return Item;}
-
-
-
 }

@@ -238,7 +238,7 @@ public class BaseEnemy : SharedEnemyBehavior
     {
         int scrapDrop = UnityEngine.Random.Range(minmaxScrap.x, minmaxScrap.y);
         if (ScrapInventory.instance != null) ScrapInventory.instance.AddScrap(scrapDrop);
-        if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], AudioManager.soundType.enemy);
+        if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], SettingsController.soundType.enemy);
         GameManager.instance?.updateGameGoal(-1);
         GameManager.instance.UpdateKillCounter(1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());

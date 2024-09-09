@@ -33,10 +33,8 @@ public class CameraController : MonoBehaviour
     public Camera mainCamera;
     public void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
+
+        if(instance == null) instance = this;
         else
         {
             Debug.LogWarning("Found two Camera Controllers in scene\nDestroyed at " + gameObject.name);
@@ -129,8 +127,8 @@ public class CameraController : MonoBehaviour
 
     public void UpdateCamPos()
     {
-        float yaw = Input.GetAxis("Mouse X") * sens;
-        float pitch = Input.GetAxis("Mouse Y") * sens;
+        float yaw = Input.GetAxis("Mouse X") * (SettingsController.instance != null ? SettingsController.instance.GetSettings().S_cameraSensitivity : sens);
+        float pitch = Input.GetAxis("Mouse Y") * (SettingsController.instance != null ? SettingsController.instance.GetSettings().S_cameraSensitivity:sens);
         rotX = invert ? rotX + pitch: rotX - pitch;
         rotX = Mathf.Clamp(rotX, miny, maxy);
 

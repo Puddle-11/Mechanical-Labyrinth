@@ -976,9 +976,9 @@ MonoBehaviour:
   ammoCounts: 0000000000000000000000000000000000000000
   typeIcons:
   - {fileID: 21300000, guid: ce52a1509300a8447a202f2623b3a98f, type: 3}
-  - {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
-  - {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
   - {fileID: 21300000, guid: 24b6cd2c8e96ff543a78d1c90afd3d12, type: 3}
+  - {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
+  - {fileID: 21300000, guid: 7d0e061f74c65574aad4cdef5353dcc9, type: 3}
   - {fileID: 21300000, guid: ba09a36f0d73dba42873c79e424a3f08, type: 3}
 --- !u!114 &2207298348825309542
 MonoBehaviour:

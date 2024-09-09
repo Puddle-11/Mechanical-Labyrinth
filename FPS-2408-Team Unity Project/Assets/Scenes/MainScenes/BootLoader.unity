@@ -185,12 +185,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundPlayer: {fileID: 2008974028}
-  generalVol: 1
-  SXFVol: 1
-  environmentalVol: 1
-  enemyVol: 1
-  playerVol: 1
-  uiSFXVol: 1
 --- !u!82 &2008974028
 AudioSource:
   m_ObjectHideFlags: 0

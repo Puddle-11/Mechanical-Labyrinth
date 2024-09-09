@@ -34,6 +34,7 @@ public class SharedEnemyBehavior : BaseEntity
     [SerializeField] protected GameObject target;
     public Vector3 DirectionToTarget()
     {
+        if (target == null) return Vector3.zero;
         Vector3 targetDir = (target.transform.position - transform.position).normalized;
         return targetDir;
     }
@@ -89,6 +90,7 @@ public class SharedEnemyBehavior : BaseEntity
 
     public float DistanceToTarget()
     {
+        if (target == null) return 0; 
         return Vector3.Distance(target.transform.position, transform.position);
     }
 }

@@ -8,8 +8,6 @@ public class GeneralInventory : MonoBehaviour
     //make list of ItemSlot names Hotbar.
     public int selectedSlot;
 
-
-
     //List of ItemSlots
 
     //array of hotbar UI elements
