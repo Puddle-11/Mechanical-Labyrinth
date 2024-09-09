@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
 using static UnityEditor.Progress;
@@ -211,7 +212,7 @@ public class PlayerHand : MonoBehaviour
 
     public void toggleADS(bool Aiming)
     {
-        if (!GetIUsable().CanAim()) return;
+        if (GetIUsable() != null && !GetIUsable().CanAim()) return;
         if (CurrentEquiped != null && movingHandAnchor == false)
         {
             isAiming = Aiming;
