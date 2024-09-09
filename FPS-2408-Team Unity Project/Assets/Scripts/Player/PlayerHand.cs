@@ -166,10 +166,14 @@ public class PlayerHand : MonoBehaviour
 
         return false;
     }
-    public void PickupItem(ItemType t, Pickup p)
+    public void PickupItem(ItemType t, Pickup p, bool dontDrop = false)
     {
-        //if we are holding an item and we cant drop it, then break away
-        if (CurrentEquiped != null && !AttemptDrop()) return;
+        if (!dontDrop)
+        {
+            //if we are holding an item and we cant drop it, then break away
+            if (CurrentEquiped != null && !AttemptDrop()) return;
+        }
+        
 
         //Check if item passed is actually an item
         if (t == null)

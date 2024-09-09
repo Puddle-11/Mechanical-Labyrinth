@@ -88,7 +88,7 @@ public class GeneralInventory : MonoBehaviour
         //guns
         if ((int)item.type != 0)
         {
-           GameManager.instance.playerControllerRef.GetPlayerHand().PickupItem(item, null);
+           GameManager.instance.playerControllerRef.GetPlayerHand().PickupItem(item, null, true);
         }
     }
 }
