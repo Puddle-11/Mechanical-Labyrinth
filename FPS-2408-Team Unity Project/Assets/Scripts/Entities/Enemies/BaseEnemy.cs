@@ -237,7 +237,7 @@ public class BaseEnemy : SharedEnemyBehavior
     public override void Death()
     {
         int scrapDrop = UnityEngine.Random.Range(minmaxScrap.x, minmaxScrap.y);
-        ScrapInventory.instance.AddScrap(scrapDrop);
+        if (ScrapInventory.instance != null) ScrapInventory.instance.AddScrap(scrapDrop);
         if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], AudioManager.soundType.enemy);
         GameManager.instance?.updateGameGoal(-1);
         GameManager.instance.UpdateKillCounter(1);
