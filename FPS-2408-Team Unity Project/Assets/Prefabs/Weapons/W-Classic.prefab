@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 294855074444081085, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 702892921889066931, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -48,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 3461555378997285921, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4001013144905581867, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Name
       value: W-Classic
@@ -59,6 +67,10 @@ PrefabInstance:
     - target: {fileID: 4011834019176120723, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4011834019176120723, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4381339351682146193, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -104,9 +116,17 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5764421673725154699, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.075
+      objectReference: {fileID: 0}
     - target: {fileID: 6333045142131451576, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6333045142131451576, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6468353909579731006, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_CastShadows
@@ -119,6 +139,10 @@ PrefabInstance:
     - target: {fileID: 8185480284559812924, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8185480284559812924, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8468170498165004823, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer

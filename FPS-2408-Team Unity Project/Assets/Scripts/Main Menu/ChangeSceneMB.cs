@@ -10,13 +10,11 @@ public class ChangeSceneMB : BaseMenuButton, IMenuButton
     [SerializeField] private CurrentStats save;
     [SerializeField] private TMP_Text levelField;
     [SerializeField] private TMP_Text deathField;
-
+     
     public void Update()
     {
-        
        if(levelField != null) levelField.text = save.S_Level.ToString();
        if(deathField != null)  deathField.text = save.S_TotalDeaths.ToString();
-
     }
     public override void Click()
     {
