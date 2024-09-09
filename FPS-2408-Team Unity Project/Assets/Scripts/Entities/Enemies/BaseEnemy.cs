@@ -21,6 +21,7 @@ public class BaseEnemy : SharedEnemyBehavior
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected Vector3[] patrolPoints;
     [SerializeField] protected DetectionType senseType;
+    [SerializeField] private Vector2Int minmaxScrap;
 
 
     [Space]
@@ -35,6 +36,8 @@ public class BaseEnemy : SharedEnemyBehavior
     protected bool isRoaming;
     protected Vector3 startingPos;
     protected bool runningContactDamage;
+
+    public object UnityEninge { get; private set; }
 
 
     #region Custom Structs and Enums
@@ -233,7 +236,9 @@ public class BaseEnemy : SharedEnemyBehavior
     //-------------
     public override void Death()
     {
-       if(Deathsounds.Length > 0) AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], AudioManager.soundType.enemy);
+        int scrapDrop = UnityEngine.Random.Range(minmaxScrap.x, minmaxScrap.y);
+        ScrapInventory.instance.AddScrap(scrapDrop);
+        if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], AudioManager.soundType.enemy);
         GameManager.instance?.updateGameGoal(-1);
         GameManager.instance.UpdateKillCounter(1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());

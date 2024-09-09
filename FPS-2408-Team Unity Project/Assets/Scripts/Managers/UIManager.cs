@@ -65,6 +65,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     [SerializeField] private Animator UIFadeAnim;
+    [SerializeField] private GameObject scrapCountObj;
+    [SerializeField] private TMP_Text scrapCount;
 
     [Space]
     [Header("Ammo")]
@@ -408,5 +410,15 @@ public class UIManager : MonoBehaviour
         }
         menuActive = secondaryGunMenuShop;
         menuActive.SetActive(true);
+    }
+
+    public void ToggleScrapCount(bool _val) 
+    { 
+        scrapCountObj.SetActive(_val); 
+    }
+
+    public void UpdateScrapCount(int _scrap)
+    {
+        scrapCount.text = _scrap.ToString();
     }
 }
