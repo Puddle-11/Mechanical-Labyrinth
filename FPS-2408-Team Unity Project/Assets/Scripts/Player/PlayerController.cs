@@ -124,7 +124,7 @@ public class PlayerController : BaseEntity
                 }
                 if (Input.GetMouseButtonDown(1))
                 {
-                    playerHandRef.toggleADS();
+                    playerHandRef.toggleADS(!playerHandRef.GetIsAiming());
                 }
             }
         }

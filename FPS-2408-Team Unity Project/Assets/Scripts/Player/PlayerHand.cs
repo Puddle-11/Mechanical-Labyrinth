@@ -207,12 +207,12 @@ public class PlayerHand : MonoBehaviour
         if (p != null) Destroy(p.gameObject);
     }
 
-    public void toggleADS()
+    public void toggleADS(bool Aiming)
     {
         if (!GetIUsable().CanAim()) return;
         if (CurrentEquiped != null && movingHandAnchor == false)
         {
-            isAiming = !isAiming;
+            isAiming = Aiming;
             UIManager.instance.ToggleADS(isAiming);
             float zoomAmnt = 0;
             if (GetCurrentHand().TryGetComponent(out BaseGun tempOut))
