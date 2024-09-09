@@ -64,15 +64,15 @@ public class GeneralInventory : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             selectedSlot = (selectedSlot + 1) % Hotbar.Length;
-            changeItem();
             GameManager.instance.playerControllerRef.GetPlayerHand().toggleADS(false);
+            changeItem();
         }
         //going down
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             selectedSlot = selectedSlot <= 0 ? Hotbar.Length - 1 : selectedSlot - 1;
-            changeItem();
             GameManager.instance.playerControllerRef.GetPlayerHand().toggleADS(false);
+            changeItem();
         }
     }
     void changeItem()
