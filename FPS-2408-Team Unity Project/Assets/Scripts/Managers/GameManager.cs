@@ -146,8 +146,8 @@ public class GameManager : MonoBehaviour
     public ItemType GetCurrentItemType() {return currentStats != null ? currentStats.S_Item : null;}
 
     //in progress
-    public void SetGeneralInventory(GeneralInventory.ItemSlot[] _arr) { currentStats.S_GeneralInventory = _arr; }
-    public GeneralInventory.ItemSlot[] GetGeneralInventory() { return currentStats.S_GeneralInventory; }
+    public void SetGeneralInventory(ItemType[] _arr) { currentStats.S_GeneralInventory = _arr; }
+    public ItemType[] GetGeneralInventory() { return currentStats.S_GeneralInventory; }
     //not complete yet
 
 

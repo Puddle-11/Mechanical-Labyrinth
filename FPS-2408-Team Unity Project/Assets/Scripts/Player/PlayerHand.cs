@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering.UI;
+using static UnityEditor.Progress;
 
 public class PlayerHand : MonoBehaviour
 {
@@ -91,6 +92,7 @@ public class PlayerHand : MonoBehaviour
     {
         if (!AttemptPickup())
             AttemptDrop();
+
     }
     private bool AttemptPickup()
     {
@@ -100,7 +102,16 @@ public class PlayerHand : MonoBehaviour
             IInteractable interactionRef;
             if(hit.transform.TryGetComponent<IInteractable>(out interactionRef))
             {
-                interactionRef.TriggerInteraction();
+                Pickup item;
+                if (hit.transform.TryGetComponent<Pickup>(out item))
+                {
+                    GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = item.GetItem();
+                }
+                else
+                {
+                    interactionRef.TriggerInteraction();
+                }
+
                 return true;
             }
 
@@ -147,8 +158,10 @@ public class PlayerHand : MonoBehaviour
 
             //======================================
             //Internal Resets
+            GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = null;
             Destroy(CurrentEquiped);
             CurrentEquiped = null;
+
             //======================================
             return true;
         }

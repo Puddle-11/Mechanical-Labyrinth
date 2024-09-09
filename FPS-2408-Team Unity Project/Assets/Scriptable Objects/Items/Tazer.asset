@@ -17,3 +17,5 @@ MonoBehaviour:
   Object: {fileID: 0}
   Pickup: {fileID: 0}
   maxUses: 0
+  Icon: {fileID: 0}
+  type: 1

@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(menuName = "Custom Assets/SaveFile")]
 public class CurrentStats : ScriptableObject
 {
-    public GeneralInventory.ItemSlot[] S_GeneralInventory;
+    public ItemType[] S_GeneralInventory;
     public int[] S_AmmoInventory;
     public int S_Level;
     [SerializeField] private ItemType S_DefaultItem;
@@ -21,7 +21,7 @@ public class CurrentStats : ScriptableObject
 
     public void ResetStats()
     {
-        S_GeneralInventory = new GeneralInventory.ItemSlot[0];
+        S_GeneralInventory = new ItemType[0];
         S_AmmoInventory = new int[0];
         S_Level = 0;
         S_Item = S_DefaultItem;
@@ -33,7 +33,7 @@ public class CurrentStats : ScriptableObject
     }
     public void ResetPerRunStats()
     {
-        S_GeneralInventory = new GeneralInventory.ItemSlot[0];
+        S_GeneralInventory = new ItemType[0];
         S_AmmoInventory = new int[0];
         S_Level = 0;
         S_Item = S_DefaultItem;

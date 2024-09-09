@@ -17,6 +17,7 @@ public class ItemType : ScriptableObject
     [System.Serializable]
     public enum typeOfItem
     {
+        Nnull,
         Gun,
         Respawn
     }

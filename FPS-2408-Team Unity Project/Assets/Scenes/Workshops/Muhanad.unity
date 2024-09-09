@@ -2966,7 +2966,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9109832186709042457, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1226522107}
   m_SourcePrefab: {fileID: 100100000, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
 --- !u!1001 &945769209
 PrefabInstance:
@@ -4426,6 +4429,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9109832186709042457, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
   m_PrefabInstance: {fileID: 907782200}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1226522107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226522098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f829d51e48806e43bab21b8fa3a7b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedSlot: 0
+  numOfslots: 10
+  Hotbar:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &1236355135
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6885,6 +6913,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 522724191}
   - {fileID: 343883660}
+  - {fileID: 907782200}
   - {fileID: 7704980243413194277}
   - {fileID: 1160351865}
   - {fileID: 1524441619}
@@ -6897,5 +6926,4 @@ SceneRoots:
   - {fileID: 173377233}
   - {fileID: 992777013}
   - {fileID: 387767680}
-  - {fileID: 907782200}
   - {fileID: 82330122}
