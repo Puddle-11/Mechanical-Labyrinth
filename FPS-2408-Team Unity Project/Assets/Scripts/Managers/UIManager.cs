@@ -68,6 +68,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject scrapCountObj;
     [SerializeField] private TMP_Text scrapCount;
     [SerializeField] private TMP_Text pauseScrapCount;
+    [SerializeField] private TMP_Text shopScrapCount;
 
     [Space]
     [Header("Ammo")]
@@ -427,5 +428,10 @@ public class UIManager : MonoBehaviour
     public void UpdatePauseMenuScrapCount(int _val)
     {
         pauseScrapCount.text = _val.ToString();
+    }
+
+    public void UpdateShopMenuScrapCount(int _val)
+    {
+        shopScrapCount.text = _val.ToString();
     }
 }
