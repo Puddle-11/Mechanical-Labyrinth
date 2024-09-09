@@ -25,11 +25,13 @@ public class ScrapInventory : MonoBehaviour
     {
         currentScrap = 0;
         UIManager.instance.UpdateScrapCount(currentScrap);
+        UIManager.instance.UpdatePauseMenuScrapCount(currentScrap);
     }
 
     public void AddScrap(int _amount)
     {
         currentScrap += _amount;
         UIManager.instance.UpdateScrapCount(currentScrap);
+        UIManager.instance.UpdatePauseMenuScrapCount(currentScrap);
     }
 }
