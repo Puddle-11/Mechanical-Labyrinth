@@ -299,7 +299,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
   stats: 
-  uses: -1
+  currPStats:
+    uses: -1
 --- !u!4 &4376887067245096920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4381339351682146193, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}

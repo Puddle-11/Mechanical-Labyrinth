@@ -39,11 +39,11 @@ public class Weapon : MonoBehaviour, IUsable
     #endregion
     public virtual void SetPlayerWeapon(bool _val) {playerWeapon = _val;}
 
-    public virtual int GetUses()
+    public virtual Pickup.PStats GetPStats()
     {
-        return -1;
+        return new Pickup.PStats();
     }
-    public virtual void SetUses(int _val)
+    public virtual void SetPStats(Pickup.PStats _val)
     {
 
     }

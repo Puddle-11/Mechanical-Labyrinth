@@ -373,4 +373,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: e8ba6ad58bbee274d81af0ec1a461c06, type: 2}
   stats: 
-  uses: -1
+  currPStats:
+    uses: -1

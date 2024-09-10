@@ -5,8 +5,8 @@ using UnityEngine;
 public interface IUsable
 {
     public bool CanAim();
-    public int GetUses();
-    public void SetUses(int _val);
+    public Pickup.PStats GetPStats();
+    public void SetPStats(Pickup.PStats _val);
     public GameObject GetPickup();
     public void SetPickup(GameObject _val);
     public bool GetUsingItem();

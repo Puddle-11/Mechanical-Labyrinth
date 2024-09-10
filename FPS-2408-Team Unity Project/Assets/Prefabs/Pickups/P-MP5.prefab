@@ -428,7 +428,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 777b1000345f76a469ef24355880d8a1, type: 2}
   stats: 
-  uses: -1
+  currPStats:
+    uses: -1
 --- !u!54 &3231288301283663746
 Rigidbody:
   m_ObjectHideFlags: 0

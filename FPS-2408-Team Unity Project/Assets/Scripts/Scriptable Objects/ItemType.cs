@@ -13,6 +13,7 @@ public class ItemType : ScriptableObject
     public int maxUses;
     public Sprite Icon;
     public typeOfItem type;
+    public Pickup.PStats defaultStats;
 
     [System.Serializable]
     public enum typeOfItem

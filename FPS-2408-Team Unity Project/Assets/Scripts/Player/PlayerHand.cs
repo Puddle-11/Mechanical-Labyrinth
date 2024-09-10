@@ -159,7 +159,7 @@ public class PlayerHand : MonoBehaviour
                     rb.angularVelocity = new Vector3(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)).normalized * throwRotationSpeed;
                 }
 
-                if (pRef != null) pRef.uses = IRef.GetUses();
+                if (pRef != null) pRef.currPStats = IRef.GetPStats();
             }
             //======================================
             DropItem();
@@ -199,10 +199,12 @@ public class PlayerHand : MonoBehaviour
         if (_ref.TryGetComponent(out useRef))
         {
             useRef.SetPickup(t.Pickup);
-            if (p != null && p.uses >= 0)
-                useRef.SetUses(p.uses);
+            if (p != null)
+                useRef.SetPStats(p.currPStats);
             else
-                useRef.SetUses(t.maxUses);
+            {
+                useRef.SetPStats(t.defaultStats);
+            }
         }
 
         SetCurrentEquipped(_ref);

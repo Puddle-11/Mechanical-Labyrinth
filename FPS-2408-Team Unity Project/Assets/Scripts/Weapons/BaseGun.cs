@@ -75,13 +75,21 @@ public class BaseGun : Weapon
         OpenAmmoUI();
     }
 
-    public override int GetUses()
+    public override Pickup.PStats GetPStats()
     {
-        return currAmmo;
+        return new Pickup.PStats(currAmmo);
     }
-    public override void SetUses(int _val)
+    public override void SetPStats(Pickup.PStats _val)
     {
-        SetAmmo(_val);
+        if (_val.uses < 0)
+        {
+
+            SetAmmo(GetMaxClipSize());
+        }
+        else
+        {
+            SetAmmo(_val.uses);
+        }
     }
 
     public void OpenAmmoUI()

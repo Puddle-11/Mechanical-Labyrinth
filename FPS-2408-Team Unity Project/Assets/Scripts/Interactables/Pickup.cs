@@ -7,7 +7,16 @@ public class Pickup : MonoBehaviour, IInteractable
 {
     [SerializeField] private ItemType Item;
     [SerializeField] private string stats;
-     public int uses = -1;
+    public PStats currPStats;
+    [System.Serializable]
+    public struct PStats
+    {
+        public PStats(int _uses = -1)
+        {
+            uses = _uses;
+        }
+        public int uses;
+    }
     public string GetStats()
     {
         IUsable temp;
