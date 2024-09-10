@@ -20,9 +20,15 @@ public class GeneralInventory : MonoBehaviour
     [SerializeField] private int numOfslots;
 
 
-    public ItemType[] Hotbar;
+    public HotbarSlot[] Hotbar;
 
-    public Image[] HotBarImages;
+
+    public struct HotbarSlot
+    {
+        public ItemType t;
+        public Image UIImage;
+        public GameObject obj;
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -32,9 +38,7 @@ public class GeneralInventory : MonoBehaviour
         else
             Destroy(this);
 
-        Hotbar = new ItemType[numOfslots];
-
-        HotBarImages = new Image[numOfslots];
+        Hotbar = new HotbarSlot[numOfslots];
     }
     private void Start()
     {
@@ -47,7 +51,7 @@ public class GeneralInventory : MonoBehaviour
                 for (int i = 0; i < temp.Length; i++)
                 {
                     if (i >= Hotbar.Length) break;
-                    Hotbar[i] = temp[i];
+                    Hotbar[i].t = temp[i];
                 }
             }
         }
@@ -58,27 +62,28 @@ public class GeneralInventory : MonoBehaviour
     {
         selectItem();
     }
+
     void selectItem()
     {
         //scrolling up
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             selectedSlot = (selectedSlot + 1) % Hotbar.Length;
-            GameManager.instance.playerControllerRef.GetPlayerHand().toggleADS(false);
+            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
             changeItem();
         }
         //going down
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             selectedSlot = selectedSlot <= 0 ? Hotbar.Length - 1 : selectedSlot - 1;
-            GameManager.instance.playerControllerRef.GetPlayerHand().toggleADS(false);
+            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
             changeItem();
         }
     }
     void changeItem()
     {
         //
-        ItemType item = Hotbar[selectedSlot];
+        ItemType item = Hotbar[selectedSlot].t;
 
         if (item == null)
         {
@@ -90,5 +95,13 @@ public class GeneralInventory : MonoBehaviour
         {
            GameManager.instance.playerControllerRef.GetPlayerHand().PickupItem(item, null, true);
         }
+    }
+    public void SetSlot(int _index, ItemType t)
+    {
+        Hotbar[_index].t = t;
+    }
+    public void SetSlot(ItemType t)
+    {
+        SetSlot(selectedSlot, t);
     }
 }

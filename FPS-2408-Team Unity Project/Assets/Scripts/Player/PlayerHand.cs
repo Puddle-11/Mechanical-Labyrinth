@@ -127,7 +127,8 @@ public class PlayerHand : MonoBehaviour
 
         //======================================
         //Internal Resets
-        GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = null;
+        // GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = null;
+        GeneralInventory.instance.SetSlot(null);
         Destroy(CurrentEquiped);
         CurrentEquiped = null;
         //======================================
@@ -136,7 +137,7 @@ public class PlayerHand : MonoBehaviour
 
     public bool AttemptDrop()
     {
-        GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = null;
+        GeneralInventory.instance.SetSlot(null);
         if (CurrentEquiped != null)
         {
             //======================================
@@ -186,7 +187,7 @@ public class PlayerHand : MonoBehaviour
             return;
         }
 
-        GeneralInventory.instance.Hotbar[GeneralInventory.instance.selectedSlot] = t;
+        GeneralInventory.instance.SetSlot(t);
 
         //Instantiate item in hand
         GameObject _ref = Instantiate(t.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
@@ -202,17 +203,17 @@ public class PlayerHand : MonoBehaviour
             if (p != null)
                 useRef.SetPStats(p.currPStats);
             else
-            {
                 useRef.SetPStats(t.defaultStats);
-            }
         }
 
         SetCurrentEquipped(_ref);
         GameManager.instance.SetCurrentItem(t);
+
         if (p != null) Destroy(p.gameObject);
+
     }
 
-    public void toggleADS(bool Aiming)
+    public void ToggleADS(bool Aiming)
     {
         if (GetIUsable() != null && !GetIUsable().CanAim()) return;
         if (CurrentEquiped != null && movingHandAnchor == false)
