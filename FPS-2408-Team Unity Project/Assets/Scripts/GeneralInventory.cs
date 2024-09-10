@@ -60,29 +60,26 @@ public class GeneralInventory : MonoBehaviour
 
     public void Update()
     {
-        selectItem();
+        SelectItem();
     }
 
-    void selectItem()
+    void SelectItem()
     {
-        //scrolling up
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
+            //if at top of list, loop to bottom
             selectedSlot = (selectedSlot + 1) % Hotbar.Length;
-            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
-            changeItem();
         }
-        //going down
         else if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
+            //if at bottom of list, loop to top
             selectedSlot = selectedSlot <= 0 ? Hotbar.Length - 1 : selectedSlot - 1;
-            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
-            changeItem();
         }
+            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
+        ChangeItem();
     }
-    void changeItem()
+    void ChangeItem()
     {
-        //
         ItemType item = Hotbar[selectedSlot].t;
 
         if (item == null)
@@ -91,10 +88,7 @@ public class GeneralInventory : MonoBehaviour
             return;
         }
         //guns
-        if ((int)item.type != 0)
-        {
-           GameManager.instance.playerControllerRef.GetPlayerHand().PickupItem(item, null, true);
-        }
+        GameManager.instance.playerControllerRef.GetPlayerHand().PickupItem(item, null, true);
     }
     public void SetSlot(int _index, ItemType t)
     {
