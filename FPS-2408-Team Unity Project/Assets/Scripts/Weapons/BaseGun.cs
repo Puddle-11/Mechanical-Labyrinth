@@ -14,20 +14,17 @@ public class BaseGun : Weapon
     [SerializeField] private float scopeInZoom;
     [SerializeField] private int shootDamage;
     [SerializeField] private float shootDist;
-    [SerializeField] private GameObject bulletTrail;
-    [SerializeField] private GameObject bulletHoleDecal;
-    [SerializeField] private Material[] NP_bulletHoleMat;
-    [SerializeField] private Material[] P_bulletHoleMat;
-    [SerializeField] private Material[] E_bulletHoleMat;
 
     [SerializeField] protected int burstSize;
     [SerializeField] protected int clipSizeMax;
     [SerializeField] protected float reloadSpeed;
     [SerializeField] protected float barrelDelay;
-    [SerializeField] protected float muzzleFlashSize;
     [SerializeField] protected Barrel[] barrels;
     [SerializeField] protected float penetratingDistance;
     [SerializeField] protected float penetratingDamageFalloff;
+
+
+    [SerializeField] protected float shieldPenetration;
     [Space]
     [Header("Accuracy Variables")]
     [Space]
@@ -40,6 +37,12 @@ public class BaseGun : Weapon
     [Space]
     [Header("Cosmetics")]
     [Space]
+    [SerializeField] protected float muzzleFlashSize;
+    [SerializeField] private GameObject bulletTrail;
+    [SerializeField] private GameObject bulletHoleDecal;
+    [SerializeField] private Material[] NP_bulletHoleMat;
+    [SerializeField] private Material[] P_bulletHoleMat;
+    [SerializeField] private Material[] E_bulletHoleMat;
     [SerializeField] private Animator GunAnimator;
     private float FSATimerMax;
     private float FSAtimer;
@@ -211,7 +214,7 @@ public class BaseGun : Weapon
                 {
 
                     if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamage);
-                    healthRef.UpdateHealthAfterDelay(-shootDamage, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, hit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed());
+                    healthRef.UpdateHealthAfterDelay(-shootDamage, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, hit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed(), shieldPenetration);
                 }
                 RaycastHit penetratingHit;
 
@@ -239,7 +242,7 @@ public class BaseGun : Weapon
 
                             if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamagecalc);
 
-                            healthRef.UpdateHealthAfterDelay(-shootDamagecalc, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, postPenetrateHit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed());
+                            healthRef.UpdateHealthAfterDelay(-shootDamagecalc, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, postPenetrateHit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed(), shieldPenetration);
                         }
                     }
                 }

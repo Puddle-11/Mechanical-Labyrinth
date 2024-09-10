@@ -223,7 +223,7 @@ public class BaseEnemy : SharedEnemyBehavior
     #endregion
 
     #region IHealth Methods
-    public override void UpdateHealth(int _amount)
+    public override void UpdateHealth(int _amount, float _shieldPen = 1)
     {
         Debug.Log("Hit base enemy");
         base.UpdateHealth(_amount);

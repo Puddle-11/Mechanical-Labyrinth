@@ -82,9 +82,9 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         maxShield = _amount;
     }
-    public void UpdateShield(int _amount)
+    public void UpdateShield(int _amount, float _shieldPen)
     {
-        SetCurrentShield(GetCurrentShield() + _amount);
+        SetCurrentShield(GetCurrentShield() + (int)(_amount * _shieldPen));
     }
     public void ResetShield()
     {
@@ -96,13 +96,13 @@ public class BaseEntity : MonoBehaviour, IHealth
     public int GetMaxHealth() { return maxHealth;}
     public void SetMaxHealth(int _val) { maxHealth = _val;}
     public virtual void ResetHealth() {  SetHealth(maxHealth);}
-    public virtual void UpdateHealth(int _amount)
+    public virtual void UpdateHealth(int _amount, float _shieldPen = 1)
     {
         Debug.Log("Update Health: " + _amount);
         if (_amount < 0 && GetCurrentShield() > 0)
         {
 
-            UpdateShield(_amount);
+            UpdateShield(_amount, _shieldPen);
 
         }
         else
@@ -131,9 +131,9 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         StartCoroutine(SetHealthDelay(_newHealth, _delay));
     }
-    public void UpdateHealthAfterDelay(int _newHealth, float _delay)
+    public void UpdateHealthAfterDelay(int _newHealth, float _delay, float _shieldPen = 1)
     {
-        StartCoroutine(UpdateHealthDelay(_newHealth, _delay));
+        StartCoroutine(UpdateHealthDelay(_newHealth, _delay, _shieldPen));
     }
     //=================================
     #endregion
@@ -207,10 +207,10 @@ public class BaseEntity : MonoBehaviour, IHealth
         yield return new WaitForSeconds(_time);
         SetHealth(_amount);
     }
-    private IEnumerator UpdateHealthDelay(int _amount, float _time)
+    private IEnumerator UpdateHealthDelay(int _amount, float _time, float _shieldPen)
     {
         yield return new WaitForSeconds(_time);
-        UpdateHealth(_amount);
+        UpdateHealth(_amount, _shieldPen);
 
     }
 
