@@ -99,6 +99,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 594508479503084395, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 778771533587495464, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.03
@@ -294,6 +298,10 @@ PrefabInstance:
     - target: {fileID: 4868201842449256157, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4896875562623513901, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 4902659541840613829, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
       propertyPath: m_CastShadows
@@ -650,6 +658,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6ac8d0690058d45458eea1e1e1c4d22b, type: 3}
       propertyPath: m_Name
       value: famas_ps1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6ac8d0690058d45458eea1e1e1c4d22b, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148817236446094103, guid: 6ac8d0690058d45458eea1e1e1c4d22b, type: 3}
+      propertyPath: m_Layer
+      value: 19
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
