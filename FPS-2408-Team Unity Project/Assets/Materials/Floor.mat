@@ -150,7 +150,7 @@ Material:
     - _Scale_X: 0.1
     - _Scale_X_1: 1
     - _Scale_X_2: 1
-    - _Scale_Y: 0.1
+    - _Scale_Y: 0.05
     - _Scale_Z: 0.1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0

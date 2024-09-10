@@ -18,9 +18,9 @@ public class Destructable : BaseEntity
     {
 
         if (_amount < maxHealth)
-            healthBar?.gameObject?.SetActive(true);
+          if(healthBar != null)  healthBar.gameObject?.SetActive(true);
         else
-            healthBar?.gameObject?.SetActive(false);
+           if (healthBar != null) healthBar.gameObject.SetActive(false);
 
         base.SetHealth(_amount);
     }

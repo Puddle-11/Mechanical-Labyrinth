@@ -14,5 +14,11 @@ public interface IHealth
     public void SetHealth(int _amount);
     public void ResetHealth();
 
+    public void SetCurrentShield(int _amount);
+    public int GetCurrentShield();
+    public int GetMaxShield();
+    public void SetMaxShield(int _amount);
+    public void UpdateShield(int _amount);
+    public void ResetShield();
 
 }

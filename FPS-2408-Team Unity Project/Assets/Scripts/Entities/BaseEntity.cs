@@ -12,15 +12,17 @@ public class BaseEntity : MonoBehaviour, IHealth
     [Header("_______________________________")]
 
     [SerializeField] protected int maxHealth;
+    [SerializeField] protected int maxShield;
     [SerializeField] protected Material damageMaterial;
     [SerializeField] protected EntityHealthBar healthBar;
     [SerializeField] protected ParticleSystem[] deathParticles;
     [SerializeField] protected GameObject hitParticles;
-    [Range(0.1f, 10f)] [SerializeField] private float damageFlashTime;
+    [Range(0.1f, 10f)][SerializeField] private float damageFlashTime;
     [SerializeField] private GameObject[] drops;
-    
+
     [SerializeField] protected RenderContainer[] rendRef;
     protected int currentHealth;
+    protected int currentShield;
     private bool takingDamage;
 
     #region Custom Structs
@@ -31,7 +33,7 @@ public class BaseEntity : MonoBehaviour, IHealth
         [HideInInspector] public Material[] renderOriginMaterial;
         [HideInInspector] public Material damageMaterial;
         public void InitializeMaterials() {
-            if(currRenderer == null)
+            if (currRenderer == null)
             {
                 Debug.LogWarning("No Renderer found");
                 return;
@@ -42,8 +44,8 @@ public class BaseEntity : MonoBehaviour, IHealth
             currRenderer.materials = _val;
             InitializeMaterials();
         }
-        public void ResetMaterials() {currRenderer.materials  = renderOriginMaterial;}
-        public void SetMaterials(Material[] _newMats) { currRenderer.materials = _newMats;}
+        public void ResetMaterials() { currRenderer.materials = renderOriginMaterial; }
+        public void SetMaterials(Material[] _newMats) { currRenderer.materials = _newMats; }
         public void SetMaterials(Material _newMat)
         {
             Material[] tempArr = new Material[currRenderer.materials.Length];
@@ -61,20 +63,65 @@ public class BaseEntity : MonoBehaviour, IHealth
 
     //=================================
     //IHealth interface functions
+    public void SetCurrentShield(int _amount)
+    {
+        _amount = Mathf.Clamp(_amount, 0, GetMaxShield());
+        if (healthBar != null) healthBar.UpdateShieldBar((float)_amount / maxShield);
+
+        currentShield = _amount;
+    }
+    public int GetCurrentShield()
+    {
+        return currentShield;
+    }
+    public int GetMaxShield()
+    {
+        return maxShield;
+    }
+    public void SetMaxShield(int _amount)
+    {
+        maxShield = _amount;
+    }
+    public void UpdateShield(int _amount)
+    {
+        SetCurrentShield(GetCurrentShield() + _amount);
+    }
+    public void ResetShield()
+    {
+        SetCurrentShield(GetMaxShield());
+    }
+
+
     public int GetCurrentHealth() { return currentHealth; }
     public int GetMaxHealth() { return maxHealth;}
     public void SetMaxHealth(int _val) { maxHealth = _val;}
     public virtual void ResetHealth() {  SetHealth(maxHealth);}
-    public virtual void UpdateHealth(int _amount) { SetHealth(currentHealth + _amount); }
+    public virtual void UpdateHealth(int _amount)
+    {
+        Debug.Log("Update Health: " + _amount);
+        if (_amount < 0 && GetCurrentShield() > 0)
+        {
+
+            UpdateShield(_amount);
+
+        }
+        else
+        {
+
+            SetHealth(currentHealth + _amount);
+        }
+    }
     public virtual void SetHealth(int _amount)
     {
-
         _amount = Mathf.Clamp(_amount, 0, maxHealth);
+        if (_amount < currentHealth)
+        {
+            if (!takingDamage && damageMaterial != null) StartCoroutine(ChangeIndicator(damageMaterial));
+        }
 
 
-        if(_amount < currentHealth && !takingDamage && damageMaterial != null) StartCoroutine(ChangeIndicator(damageMaterial));
 
-        if(healthBar != null) healthBar.UpdateHealthBar((float)_amount, (float)maxHealth);
+        if(healthBar != null) healthBar.UpdateHealthBar((float)_amount / maxHealth);
 
         currentHealth = _amount;
         if (_amount == 0) Death();
@@ -86,7 +133,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     }
     public void UpdateHealthAfterDelay(int _newHealth, float _delay)
     {
-        SetHealthAfterDelay(currentHealth+ _newHealth, _delay);
+        StartCoroutine(UpdateHealthDelay(_newHealth, _delay));
     }
     //=================================
     #endregion
@@ -95,6 +142,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void Awake()
     {
         ResetHealth();
+        ResetShield();
     }
     public virtual void Start()
     {
@@ -159,7 +207,12 @@ public class BaseEntity : MonoBehaviour, IHealth
         yield return new WaitForSeconds(_time);
         SetHealth(_amount);
     }
+    private IEnumerator UpdateHealthDelay(int _amount, float _time)
+    {
+        yield return new WaitForSeconds(_time);
+        UpdateHealth(_amount);
 
+    }
 
     public IEnumerator ChangeIndicator(Material _flashMat)
     {

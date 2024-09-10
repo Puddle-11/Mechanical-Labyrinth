@@ -6,10 +6,15 @@ using UnityEngine.UI;
 public class EntityHealthBar : MonoBehaviour
 {
     [SerializeField] private Image HealthBar;
+    [SerializeField] private Image ShieldBar;
 
-    public void UpdateHealthBar(float curr, float max)
+    public void UpdateShieldBar(float _val)
     {
-        HealthBar.fillAmount = curr / max;
+        if (ShieldBar != null) ShieldBar.fillAmount = _val;
+    }
+    public void UpdateHealthBar(float _val)
+    {
+        HealthBar.fillAmount = _val;
     }
 
 

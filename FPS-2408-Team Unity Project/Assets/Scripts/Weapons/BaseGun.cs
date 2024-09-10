@@ -35,7 +35,12 @@ public class BaseGun : Weapon
     [SerializeField] private AnimationCurve FSAOverTime;
     [SerializeField] private float recoilCooldownFactor;
     [SerializeField] private float maxRecoil;
-    
+
+
+    [Space]
+    [Header("Cosmetics")]
+    [Space]
+    [SerializeField] private Animator GunAnimator;
     private float FSATimerMax;
     private float FSAtimer;
     private int currAmmo;
@@ -169,9 +174,9 @@ public class BaseGun : Weapon
         WaitForSeconds wfs = new WaitForSeconds(barrelDelay);
        
             FSAtimer += coolDown;
-        
 
-            for (int i = 0; i < size; i++)
+
+        for (int i = 0; i < size; i++)
         {
             if (currAmmo == 0) break;
 
@@ -191,19 +196,21 @@ public class BaseGun : Weapon
             IHealth healthRef = null;
             #endregion
             currBarrel++;
-            if(currBarrel > barrels.Length - 1)
+            if (currBarrel > barrels.Length - 1)
             {
                 currBarrel = 0;
             }
             if (shootsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(shootsounds[UnityEngine.Random.Range(0, shootsounds.Length)], (playerWeapon ? SettingsController.soundType.player : SettingsController.soundType.enemy), attackVolume);
             UpdateAmmo(-1);
             StartMuzzleFlash();
+            if(GunAnimator != null) GunAnimator.SetTrigger("Shoot");
+
             if (Physics.Raycast(playerWeapon ? Camera.main.transform.position : barrels[currBarrel].shootObj.position, shootDir, out hit, shootDist, ~ignoreMask))
             {
                 if (hit.collider.TryGetComponent(out healthRef))
                 {
 
-                    if (playerWeapon)  GameManager.instance.UpdateDamageDealt(shootDamage);
+                    if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamage);
                     healthRef.UpdateHealthAfterDelay(-shootDamage, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, hit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed());
                 }
                 RaycastHit penetratingHit;
@@ -231,6 +238,7 @@ public class BaseGun : Weapon
                             int shootDamagecalc = (int)(shootDamage / ((1 + penetratingHit.distance) * penetratingDamageFalloff));
 
                             if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamagecalc);
+
                             healthRef.UpdateHealthAfterDelay(-shootDamagecalc, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, postPenetrateHit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed());
                         }
                     }
@@ -257,9 +265,12 @@ public class BaseGun : Weapon
                 CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
                 CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
             }
-            yield return wfs;
+            if (barrelDelay != 0)
+            {
+                yield return wfs;
+            }
         }
-        float nTimer = FSAtimer / FSATimerMax;
+            float nTimer = FSAtimer / FSATimerMax;
 
         if (playerWeapon && barrelDelay <= 0)
         {

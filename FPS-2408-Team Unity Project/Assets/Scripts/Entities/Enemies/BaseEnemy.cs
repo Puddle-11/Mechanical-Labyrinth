@@ -225,12 +225,13 @@ public class BaseEnemy : SharedEnemyBehavior
     #region IHealth Methods
     public override void UpdateHealth(int _amount)
     {
+        Debug.Log("Hit base enemy");
+        base.UpdateHealth(_amount);
         if (currState == EnemyState.Patrol || currState == EnemyState.Investigate)
         {
             _amount = _amount * sneakDamageMultiplyer;
            if(target != null) EnterInvestigate(target.transform.position);
         }
-        base.UpdateHealth(_amount);
 
     }
     //-------------
