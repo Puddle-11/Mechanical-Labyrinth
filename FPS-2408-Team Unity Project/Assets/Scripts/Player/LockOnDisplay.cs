@@ -12,6 +12,9 @@ public class LockOnDisplay : MonoBehaviour
     [SerializeField] private float boundSize;
     [SerializeField] private GameObject test;
     [SerializeField] private TMP_Text infoDisplay;
+    [SerializeField] private Image compareRef;
+    [SerializeField] private Sprite betterCompare;
+    [SerializeField] private Sprite worseCompare;
 
     struct ssBounds
     {
@@ -20,15 +23,15 @@ public class LockOnDisplay : MonoBehaviour
     }
     public void Update()
     {
-
         CheckLOS();
     }
     public void CheckLOS()
     {
         RaycastHit checkLineOfSight;
-        
 
-        if(Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward,out checkLineOfSight ,Mathf.Infinity, ~GameManager.instance.projectileIgnore))
+        if (GameManager.instance == null || GameManager.instance.playerRef == null) return;
+        bool compareRefActive = false;
+        if (Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward,out checkLineOfSight ,Mathf.Infinity, ~GameManager.instance.projectileIgnore))
         {
             Pickup pickupRef;
             IHealth healthRef;
@@ -39,13 +42,11 @@ public class LockOnDisplay : MonoBehaviour
 
 
 
-            if (healthRef == null && checkLineOfSight.distance > GameManager.instance.playerControllerRef.GetPlayerHand().GetPickupDist())
+            if ((healthRef != null || checkLineOfSight.distance < GameManager.instance.playerControllerRef.GetPlayerHand().GetPickupDist()) && (healthRef != null || pickupRef != null || interactableRef != null))
             {
-                DissableLockon();
-                return;
-            }
-            if (healthRef != null || pickupRef != null || interactableRef != null)
-            {
+
+
+
                 LockOnGUI.SetActive(true);
 
 
@@ -62,6 +63,24 @@ public class LockOnDisplay : MonoBehaviour
 
                 if (pickupRef != null)
                 {
+                    //if we are looking at a gun
+                    if(pickupRef.GetItem().Object.TryGetComponent(out BaseGun bgRef))
+                    {
+                        Debug.Log("Obj is gun");
+
+                        //if we have a gun in our hand
+                        if (GameManager.instance.playerControllerRef.GetPlayerHand().GetCurrentEquipped() != null)
+                        {
+                            Debug.Log("Hand not null");
+                            if (GameManager.instance.playerControllerRef.GetPlayerHand().GetCurrentEquipped().TryGetComponent(out BaseGun bgRef2))
+                            {
+                                Debug.Log("Hand not null and gun");
+                                compareRef.sprite = BaseGun.Compare(bgRef, bgRef2) ? betterCompare : worseCompare;
+
+                                compareRefActive = true;
+                            }
+                        }
+                    }
 
                     UpdateInfo(pickupRef.GetStats(), new Vector2(objectScreenBounds.max.x, objectScreenBounds.max.y), distanceScale);
                     infoDisplay.transform.gameObject.SetActive(true);
@@ -79,9 +98,12 @@ public class LockOnDisplay : MonoBehaviour
                 }
                 LockOnGUI.transform.position = (objectScreenBounds.min + objectScreenBounds.max) / 2;
                 LockOnGUI.transform.localScale = Vector3.one * distanceScale;
+                compareRef.gameObject.SetActive(compareRefActive);
                 return;
             }
+
         }
+
         DissableLockon();
     }
     private void DissableLockon()

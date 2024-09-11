@@ -84,6 +84,7 @@ public class BaseEnemy : SharedEnemyBehavior
     //-------------
     public override void Update()
     {
+
         StateHandler();
         if (anim != null)
         {
@@ -158,32 +159,41 @@ public class BaseEnemy : SharedEnemyBehavior
         }
         if (currState == EnemyState.Attack)
         {
-            weaponScr?.Attack();
+            if(weaponScr != null) weaponScr.Attack();
         }
     }
     //-------------
     protected void EnemyStatus(ref EnemyState _enemyStateRef)
     {
+       
+        bool inAttackRange = IsInRange(attackRange);
+        bool inRange = IsInRange();
+
         if (senseType == DetectionType.InRange)
         {
-            if (IsInRange(attackRange)) {_enemyStateRef = EnemyState.Attack;}
+            if (inAttackRange) {_enemyStateRef = EnemyState.Attack;}
             else if(IsInRange()) {_enemyStateRef = EnemyState.Persue;}
             else { _enemyStateRef = EnemyState.Patrol;}
         }
         else if (senseType == DetectionType.Continuous)
         {
-            if (IsInRange(attackRange)) _enemyStateRef = EnemyState.Attack;
+            if (inAttackRange) _enemyStateRef = EnemyState.Attack;
             else _enemyStateRef = EnemyState.Persue;
         }
         if (senseType == DetectionType.Vision || senseType == DetectionType.Vision_Sound)
         {
-            if (InAngleRange())
+            bool inAngleRange = InAngleRange();
+            float angle = GetAngle();
+            if (inRange)
             {
-                if (IsInRange(attackRange) && InAngleRange(attackAngle)) {_enemyStateRef = EnemyState.Attack;}
-                else{_enemyStateRef = EnemyState.Persue;}
+                if (angle < sightAngle / 2)
+                {
+                    if (inAttackRange && angle < attackAngle / 2) { _enemyStateRef = EnemyState.Attack; }
+                    else { _enemyStateRef = EnemyState.Persue; }
+                }
+                else if (!inAngleRange && currState != EnemyState.Investigate) { _enemyStateRef = EnemyState.Patrol; }
+                else if (currState == EnemyState.Investigate && DistanceToDestination() < 0.01f) currState = EnemyState.Patrol;
             }
-            else if (!InAngleRange() && currState != EnemyState.Investigate) { _enemyStateRef = EnemyState.Patrol;}
-            else if (currState == EnemyState.Investigate && DistanceToDestination() < 0.01f) currState = EnemyState.Patrol;
         }
     }
     //-------------

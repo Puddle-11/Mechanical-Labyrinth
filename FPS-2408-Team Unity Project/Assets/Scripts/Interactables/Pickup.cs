@@ -11,11 +11,22 @@ public class Pickup : MonoBehaviour, IInteractable
     [System.Serializable]
     public struct PStats
     {
-        public PStats(int _uses = -1)
+        public PStats(int _uses = -1, int _maxUses = 1)
         {
             uses = _uses;
+            maxUses = _maxUses;
         }
         public int uses;
+        public int maxUses;
+    }
+    public int GetUses()
+    {
+        return currPStats.uses;
+
+    }
+    public int GetMaxUses()
+    {
+        return currPStats.maxUses;
     }
     public string GetStats()
     {

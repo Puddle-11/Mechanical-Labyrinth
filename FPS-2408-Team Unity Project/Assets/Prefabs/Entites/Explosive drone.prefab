@@ -264,7 +264,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 300
+  maxShield: 0
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
+  shieldMaterial: {fileID: 2100000, guid: 0f0b95a8eea82bf40b333ae516e6eb39, type: 2}
   healthBar: {fileID: 2548521708779764410}
   deathParticles:
   - {fileID: 5351632513365847532}
@@ -302,11 +304,13 @@ MonoBehaviour:
   hearingRange: 15
   attackAngle: 50
   sightAngle: 90
+  cullingDist: 30
   target: {fileID: 0}
   weaponScr: {fileID: 0}
   agent: {fileID: 8589487485629443617}
   patrolPoints: []
   senseType: 0
+  minmaxScrap: {x: 0, y: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds: []
@@ -1088,6 +1092,10 @@ PrefabInstance:
     - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

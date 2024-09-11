@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
             playerRef.TryGetComponent<PlayerController>(out playerControllerRef);
             if (playerControllerRef != null) respawn();
         }
+        playerControllerRef.GetPlayerHand().PickupItem(GetCurrentItemType(), null);
     }
     public void ResetAllStats()
     {

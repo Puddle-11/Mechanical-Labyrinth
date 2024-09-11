@@ -81,7 +81,6 @@ public class RoamingTurret : BaseEnemy
 
             if (legs[i].kneeJoint != null && legs[i].upperLeg != null)
             {
-                Quaternion rotUpper = Quaternion.LookRotation(legs[i].kneeJoint.position - legs[i].upperLeg.transform.position);
                 legs[i].upperLeg.transform.rotation = rot;
 
             }
@@ -127,21 +126,5 @@ public class RoamingTurret : BaseEnemy
 
 
 
-    public override void OnDrawGizmosSelected()
-    {
-        if (legs == null) return;
-        for (int i = 0; i < legs.Length; i++)
-        {
-            Gizmos.color = Color.yellow;
 
-            Gizmos.DrawWireSphere( legs[i].absolutePos, 0.2f);
-            Gizmos.color = Color.cyan;
-
-            Gizmos.DrawWireSphere(legs[i].currPos, 0.1f);
-            Gizmos.color = Color.magenta;
-
-            Gizmos.DrawWireSphere(shoulderPos + new Vector3(legs[i].anchor.position.x, transform.position.y, legs[i].anchor.position.z), 0.3f);
-        }
-        base.OnDrawGizmosSelected();
-    }
 }

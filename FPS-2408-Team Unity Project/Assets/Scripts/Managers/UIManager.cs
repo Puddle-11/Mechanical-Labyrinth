@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -65,10 +62,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     [SerializeField] private Animator UIFadeAnim;
+
+    [Space]
+    [Header("Scrap")]
+    [Space]
     [SerializeField] private GameObject scrapCountObj;
     [SerializeField] private TMP_Text scrapCount;
     [SerializeField] private TMP_Text pauseScrapCount;
     [SerializeField] private TMP_Text shopScrapCount;
+    [SerializeField] private TMP_Text gunShopScrapCount;
+    [SerializeField] private TMP_Text ammoShopScrapCount;
+    [SerializeField] private TMP_Text itemShopScrapCount;
+    [SerializeField] private TMP_Text primaryGunShopScrapCount;
+    [SerializeField] private TMP_Text secondaryGunShopScrapCount;
 
     [Space]
     [Header("Ammo")]
@@ -78,7 +84,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image currAmmoInvIcon;
     [SerializeField] private Image[] ammoInvIcons;
     [SerializeField] private TMP_Text[] ammoInvAmount;
-   
+    
     public UIObj[] ConstUI;
     private bool showingControls = true;
     private int currExternalAmmoInv;
@@ -98,7 +104,30 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    [Space]
+    [Header("Inventory")]
+    [Space]
+    [SerializeField] private Image[] currItem;
+    [SerializeField] private GameObject Slot;
+    [SerializeField] private int offset;
+    [SerializeField] private GameObject inventoryAnchor;
 
+    public void InitializeInventory()
+    {
+        //incomplete, will need to add math for position.
+        int size = GeneralInventory.instance.GetInventorySize();
+        for (int i = 0; i < size; ++i)
+        {
+            Vector3 pos = new Vector3(inventoryAnchor.transform.position.x + i * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x), inventoryAnchor.transform.position.y, 0);
+            GameObject temp = Instantiate(Slot, pos, Quaternion.identity, gameObject.transform);
+            currItem[i] = temp.gameObject.GetComponentInChildren<Image>();
+        }
+    }
+
+    public void SetSlotIcon(Sprite icon, int index)
+    {
+        currItem[index].sprite = icon;
+    }
 
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
     {
@@ -181,7 +210,9 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
+        currItem = new Image[GeneralInventory.instance.GetInventorySize()];
         UpdateCrosshair();
+        InitializeInventory();
 
     }
     private void Update()
@@ -328,6 +359,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    #region Shop Settings
     public void OpenShop()
     {
         FadeUI(true);
@@ -423,15 +455,23 @@ public class UIManager : MonoBehaviour
     public void UpdateScrapCount(int _val)
     {
         scrapCount.text = _val.ToString();
-    }
-
-    public void UpdatePauseMenuScrapCount(int _val)
-    {
         pauseScrapCount.text = _val.ToString();
+        shopScrapCount.text = _val.ToString();
+        gunShopScrapCount.text = _val.ToString();
+        ammoShopScrapCount.text = _val.ToString();
+        itemShopScrapCount.text = _val.ToString();
+        ammoShopScrapCount.text = _val.ToString();
+        primaryGunShopScrapCount.text = _val.ToString();
+        secondaryGunShopScrapCount.text = _val.ToString();
     }
 
-    public void UpdateShopMenuScrapCount(int _val)
+    public IEnumerator YouArePoor(GameObject text)
     {
-        shopScrapCount.text = _val.ToString();
+        menuActive.SetActive(false);
+        text.SetActive(true);
+        yield return new WaitForSeconds(1);
+        text.SetActive(false);
+        menuActive.SetActive(true);
     }
+    #endregion
 }

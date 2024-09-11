@@ -40,6 +40,10 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1362852595686274784, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1746148460025998611, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -116,6 +120,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 5572045782243459032, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5649395138876505972, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -123,6 +131,10 @@ PrefabInstance:
     - target: {fileID: 5649395138876505972, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5698124018720698731, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5783979506642164443, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -172,6 +184,10 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5926315026519110839, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5992805250109905926, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -180,6 +196,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6518254011690557561, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6561465501170253921, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
       propertyPath: m_Name
       value: W-Deagle
@@ -187,6 +207,10 @@ PrefabInstance:
     - target: {fileID: 6561465501170253921, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875738114739117845, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7288855047008317139, guid: 43161db6823d19b48afc4db46c8b53a8, type: 3}
       propertyPath: m_Layer
@@ -253,14 +277,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  stats:
+    uses: 0
+    maxUses: 0
   coolDown: 0.05
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 24840
-  pickUp: {fileID: 0}
-  gunDrop: {fileID: 11400000, guid: ffcfbefaa3c5a2c4e8fcc3cc63e96ea7, type: 2}
-  canAim: 0
+  canAim: 1
   attackVolume: 0.25
   shootsounds:
   - {fileID: 8300000, guid: a5a5359097e62fe48a87665456f1dd54, type: 3}

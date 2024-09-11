@@ -13,7 +13,10 @@ public class BaseEntity : MonoBehaviour, IHealth
 
     [SerializeField] protected int maxHealth;
     [SerializeField] protected int maxShield;
+
     [SerializeField] protected Material damageMaterial;
+    [SerializeField] protected Material shieldMaterial;
+
     [SerializeField] protected EntityHealthBar healthBar;
     [SerializeField] protected ParticleSystem[] deathParticles;
     [SerializeField] protected GameObject hitParticles;
@@ -67,6 +70,10 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         _amount = Mathf.Clamp(_amount, 0, GetMaxShield());
         if (healthBar != null) healthBar.UpdateShieldBar((float)_amount / maxShield);
+        if (_amount < currentShield)
+        {
+            if (!takingDamage && shieldMaterial != null) StartCoroutine(ChangeIndicator(shieldMaterial));
+        }
 
         currentShield = _amount;
     }
@@ -211,7 +218,6 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         yield return new WaitForSeconds(_time);
         UpdateHealth(_amount, _shieldPen);
-
     }
 
     public IEnumerator ChangeIndicator(Material _flashMat)
@@ -222,7 +228,7 @@ public class BaseEntity : MonoBehaviour, IHealth
 
         for (int i = 0; i < rendRef.Length; i++)
         {
-            rendRef[i].SetMaterials(damageMaterial);
+            rendRef[i].SetMaterials(_flashMat);
         }
 
         yield return new WaitForSeconds(damageFlashTime);
