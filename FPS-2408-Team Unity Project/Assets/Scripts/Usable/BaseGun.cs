@@ -74,7 +74,29 @@ public class BaseGun : Weapon
     {
         OpenAmmoUI();
     }
-
+    public static bool Compare(BaseGun _gun1, BaseGun _gun2)
+    {
+        if(_gun1.shotType < _gun2.shotType)
+        {
+            return true;
+        }
+        else if(_gun1.shotType > _gun2.shotType)
+        {
+            return false;
+        }
+        else if(_gun1.shotType == _gun2.shotType)
+        {
+            if(_gun1.GetFireRate() * _gun1.shootDamage != _gun2.GetFireRate() * _gun2.shootDamage)
+            {
+                return _gun1.GetFireRate() * _gun1.shootDamage > _gun2.GetFireRate() * _gun2.shootDamage;
+            }
+            else
+            {
+                return _gun1.GetMaxClipSize() > _gun2.GetMaxClipSize();
+            }
+        }
+        return true;
+    }
     public override Pickup.PStats GetPStats()
     {
         return new Pickup.PStats(currAmmo);
@@ -121,7 +143,15 @@ public class BaseGun : Weapon
 
     }
     #region Getters Setters
-    public float GetFireRate() {return 1 / barrelDelay; }
+    public float GetFireRate() 
+    {
+       if(barrelDelay == 0)
+        {
+            return 1 / coolDown;
+
+        }
+        return 1 / barrelDelay;
+    }
     public int GetDamage() {return shootDamage; }
     public float GetZoomAmount(){ return scopeInZoom;}
     public int GetMaxClipSize() { return clipSizeMax; }

@@ -208,16 +208,7 @@ public class GeneralInventory : MonoBehaviour
         GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
 
     }
-    public ItemType GetSlot(int _index)
-    {
-        return Hotbar[_index].t;
-    }
-    public void SetSlot(int _index, ItemType t)
-    {
-        Hotbar[_index].t = t;
-    }
-    public void SetSlot(ItemType t)
-    {
-        SetSlot(selectedSlot, t);
-    }
+    public ItemType GetSlot(int _index) { return Hotbar[_index].t;}
+    public void SetSlot(int _index, ItemType t) { Hotbar[_index].t = t;}
+    public void SetSlot(ItemType t) { SetSlot(selectedSlot, t);}
 }

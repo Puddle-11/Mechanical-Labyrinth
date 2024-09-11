@@ -75,16 +75,7 @@ public class LockOnDisplay : MonoBehaviour
                             if (GameManager.instance.playerControllerRef.GetPlayerHand().GetCurrentEquipped().TryGetComponent(out BaseGun bgRef2))
                             {
                                 Debug.Log("Hand not null and gun");
-
-                                if (bgRef.GetDamage() * bgRef.GetFireRate() > bgRef2.GetDamage() * bgRef2.GetFireRate())
-                                {
-                                    compareRef.sprite = betterCompare;
-                                }
-                                else
-                                {
-                                    compareRef.sprite = worseCompare;
-
-                                }
+                                compareRef.sprite = BaseGun.Compare(bgRef, bgRef2) ? betterCompare : worseCompare;
 
                                 compareRefActive = true;
                             }

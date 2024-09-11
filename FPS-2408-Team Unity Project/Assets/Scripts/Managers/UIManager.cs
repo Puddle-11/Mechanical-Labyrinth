@@ -105,7 +105,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image[] currItem;
     [SerializeField] private GameObject Slot;
 
-
     public void InitializeInventory()
     {
         int size = GeneralInventory.instance.GetInventorySize();
@@ -114,7 +113,6 @@ public class UIManager : MonoBehaviour
             Vector3 pos = Vector3.zero;
             Instantiate(Slot, pos, Quaternion.identity, gameObject.transform);
         }
-
     }
 
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
