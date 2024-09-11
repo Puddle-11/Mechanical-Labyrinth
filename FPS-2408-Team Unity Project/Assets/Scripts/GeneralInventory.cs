@@ -30,6 +30,11 @@ public class GeneralInventory : MonoBehaviour
         public GameObject obj;
     }
 
+    public int GetInventorySize()
+    {
+        return numOfslots;
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
