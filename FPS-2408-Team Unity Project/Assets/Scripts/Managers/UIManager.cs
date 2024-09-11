@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image currAmmoInvIcon;
     [SerializeField] private Image[] ammoInvIcons;
     [SerializeField] private TMP_Text[] ammoInvAmount;
-   
+    
     public UIObj[] ConstUI;
     private bool showingControls = true;
     private int currExternalAmmoInv;
@@ -112,7 +112,7 @@ public class UIManager : MonoBehaviour
     [Header("Inventory")]
     [Space]
     [SerializeField] private Image[] currItem;
-
+    [SerializeField] private GameObject Slot;
 
 
     public void InitializeInventory()
@@ -120,9 +120,8 @@ public class UIManager : MonoBehaviour
         int size = GeneralInventory.instance.GetInventorySize();
         for (int i = 0; i < size; ++i)
         {
-            Instantiate(Slot, UI);
-
-
+            Vector3 pos = Vector3.zero;
+            Instantiate(Slot, pos, Quaternion.identity, gameObject.transform);
         }
 
     }

@@ -98,7 +98,7 @@ public class BaseGun : Weapon
     }
 
 
-    private void Update()
+    public override void Update()
     {   
         if (ShootConditional()) Attack();
 
@@ -121,6 +121,8 @@ public class BaseGun : Weapon
 
     }
     #region Getters Setters
+    public float GetFireRate() {return 1 / barrelDelay; }
+    public int GetDamage() {return shootDamage; }
     public float GetZoomAmount(){ return scopeInZoom;}
     public int GetMaxClipSize() { return clipSizeMax; }
     public int GetCurrAmmo() { return currAmmo; }

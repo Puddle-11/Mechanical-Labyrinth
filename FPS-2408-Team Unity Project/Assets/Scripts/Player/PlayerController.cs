@@ -60,9 +60,6 @@ public class PlayerController : BaseEntity
     private Vector3 frameNormals;
     private float moveTimer;
 
-
-
-
     #region MonoBehavior Methods
     public override void Awake()
     {
@@ -196,8 +193,6 @@ public class PlayerController : BaseEntity
 
     #region IHealth Methods
 
-
-
     public override void ResetHealth()
     {
         isDead = false;
@@ -224,6 +219,16 @@ public class PlayerController : BaseEntity
     #region Override Methods
     public override void Death()
     {
+
+        if (GeneralInventory.instance.Contains(GeneralInventory.instance.GetRespawnItemType(), out int index))
+        {
+            if (GeneralInventory.instance.GetSlot(index).Object.TryGetComponent(out RespawnModule rmRef))
+            {
+                SetHealth((int)(maxHealth * rmRef.GetRegenPercent()));
+                GeneralInventory.instance.ResetSlot(index);
+                return;
+            }
+        }
         if (isDead) return;
         isDead = true;
 
@@ -258,7 +263,6 @@ public class PlayerController : BaseEntity
 
     public void OnControllerColliderHit(ControllerColliderHit hit)
     {
-
         frameNormals += hit.normal;
     }
     private void Movement()

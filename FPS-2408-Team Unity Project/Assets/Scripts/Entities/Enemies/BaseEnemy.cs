@@ -84,18 +84,15 @@ public class BaseEnemy : SharedEnemyBehavior
     //-------------
     public override void Update()
     {
- 
-            StateHandler();
-            if (anim != null)
-            {
-                float agentSpeed = agent.velocity.normalized.magnitude;
-                float lerpedSpeed = Mathf.Lerp(anim.GetFloat("Speed"), agentSpeed, Time.deltaTime * transitionSpeed);
-                anim.SetFloat("Speed", lerpedSpeed);
-            }
-            base.Update();
 
-        
-    
+        StateHandler();
+        if (anim != null)
+        {
+            float agentSpeed = agent.velocity.normalized.magnitude;
+            float lerpedSpeed = Mathf.Lerp(anim.GetFloat("Speed"), agentSpeed, Time.deltaTime * transitionSpeed);
+            anim.SetFloat("Speed", lerpedSpeed);
+        }
+        base.Update();
     }
 
     //=======================================

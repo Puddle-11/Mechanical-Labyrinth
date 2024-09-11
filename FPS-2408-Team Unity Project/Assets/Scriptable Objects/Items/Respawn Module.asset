@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
   m_Name: Respawn Module
   m_EditorClassIdentifier: 
-  itemName: Uzi
+  itemName: Health Pack
   itemID: 0
-  Object: {fileID: 5944326923703619556, guid: 488e6521f9609c94f83f655578585f74, type: 3}
-  Pickup: {fileID: 7553280451175241873, guid: f883ca876d01de24390a6898579cec35, type: 3}
-  maxUses: 25
+  Object: {fileID: 1810660675594123733, guid: f9a0d750836467d4e9c4b5991c383008, type: 3}
+  Pickup: {fileID: 8728914310344857947, guid: ba07565e5746c1446acd5580846728bb, type: 3}
+  maxUses: 1
   Icon: {fileID: 0}
   defaultStats:
     uses: 1
+    maxUses: 2

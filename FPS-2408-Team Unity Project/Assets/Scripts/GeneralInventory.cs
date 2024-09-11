@@ -19,7 +19,7 @@ public class GeneralInventory : MonoBehaviour
     [SerializeField] private float throwRotationSpeed;
     [SerializeField] private Vector2 throwSpeed;
     [SerializeField] private Vector2 throwOffset;
-
+    [SerializeField] private ItemType respawnItem;
     public HotbarSlot[] Hotbar;
 
     [System.Serializable]
@@ -29,11 +29,11 @@ public class GeneralInventory : MonoBehaviour
         public Image UIImage;
         public GameObject obj;
     }
-
-    public int GetInventorySize()
+    public ItemType GetRespawnItemType()
     {
-        return numOfslots;
+        return respawnItem;
     }
+    public int GetInventorySize() { return numOfslots;}
 
     // Start is called before the first frame update
     void Awake()
@@ -106,13 +106,22 @@ public class GeneralInventory : MonoBehaviour
     public void DropItem(int _index)
     {
         SpawnDrop(Hotbar[_index].obj);
-        UIManager.instance.AmmoDisplay(0, 0);
-        UIManager.instance.UpdateAmmoFill(1);
-        CameraController.instance.ResetOffset(true);
-        UIManager.instance.UpdateCrosshairSpread(0);
+        if (_index == selectedSlot)
+        {
+            UIManager.instance.AmmoDisplay(0, 0);
+            UIManager.instance.UpdateAmmoFill(1);
+            CameraController.instance.ResetOffset(true);
+            UIManager.instance.UpdateCrosshairSpread(0);
+        }
+        ResetSlot(_index);
+    }
+    public void ResetSlot(int _index)
+    {
+
         Destroy(Hotbar[_index].obj);
         Hotbar[_index].obj = null;
         Hotbar[_index].t = null;
+
     }
     public void SpawnDrop(GameObject _obj)
     {
@@ -158,6 +167,25 @@ public class GeneralInventory : MonoBehaviour
         GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
         UpdateSelectedObj();
     }
+    public bool Contains(ItemType t, out int _index)
+    {
+        for (int i = 0; i < numOfslots; i++)
+        {
+            if (Hotbar[i].t == t)
+            {
+
+                _index = i;
+                return true;
+            }
+        }
+        _index = 0;
+        return false;
+
+    }
+    public bool Contains(ItemType t)
+    {
+        return Contains(t, out _);
+    }
     void UpdateSelectedObj()
     {
 
@@ -179,6 +207,10 @@ public class GeneralInventory : MonoBehaviour
         }
         GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
 
+    }
+    public ItemType GetSlot(int _index)
+    {
+        return Hotbar[_index].t;
     }
     public void SetSlot(int _index, ItemType t)
     {
