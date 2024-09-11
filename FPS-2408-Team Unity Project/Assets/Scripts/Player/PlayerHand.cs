@@ -51,6 +51,10 @@ public class PlayerHand : MonoBehaviour
     #region Getters and Setters
     public float GetPickupDist(){ return pickUpDist;}
     public bool GetIsAiming() { return isAiming; }
+    public GameObject GetCurrentEquipped()
+    {
+        return CurrentEquiped;
+    }
     public void SetCurrentEquipped(GameObject _obj)
     {
 
