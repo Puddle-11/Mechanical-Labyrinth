@@ -7,7 +7,7 @@ public class ScrapInventory : MonoBehaviour
 
     public static ScrapInventory instance;
 
-    private int currentScrap;
+    public int currentScrap;
 
     private void Awake()
     {
@@ -25,15 +25,17 @@ public class ScrapInventory : MonoBehaviour
     {
         currentScrap = 0;
         UIManager.instance.UpdateScrapCount(currentScrap);
-        UIManager.instance.UpdatePauseMenuScrapCount(currentScrap);
-        UIManager.instance.UpdateShopMenuScrapCount(currentScrap);
     }
 
     public void AddScrap(int _amount)
     {
         currentScrap += _amount;
         UIManager.instance.UpdateScrapCount(currentScrap);
-        UIManager.instance.UpdatePauseMenuScrapCount(currentScrap);
-        UIManager.instance.UpdateShopMenuScrapCount(currentScrap);
+    }
+
+    public void RemoveScrap(int _amount)
+    { 
+        currentScrap -= _amount;
+        UIManager.instance.UpdateScrapCount(currentScrap);
     }
 }

@@ -66,10 +66,19 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     [SerializeField] private Animator UIFadeAnim;
+
+    [Space]
+    [Header("Scrap")]
+    [Space]
     [SerializeField] private GameObject scrapCountObj;
     [SerializeField] private TMP_Text scrapCount;
     [SerializeField] private TMP_Text pauseScrapCount;
     [SerializeField] private TMP_Text shopScrapCount;
+    [SerializeField] private TMP_Text gunShopScrapCount;
+    [SerializeField] private TMP_Text ammoShopScrapCount;
+    [SerializeField] private TMP_Text itemShopScrapCount;
+    [SerializeField] private TMP_Text primaryGunShopScrapCount;
+    [SerializeField] private TMP_Text secondaryGunShopScrapCount;
 
     [Space]
     [Header("Ammo")]
@@ -346,6 +355,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    #region Shop Settings
     public void OpenShop()
     {
         FadeUI(true);
@@ -441,15 +451,23 @@ public class UIManager : MonoBehaviour
     public void UpdateScrapCount(int _val)
     {
         scrapCount.text = _val.ToString();
-    }
-
-    public void UpdatePauseMenuScrapCount(int _val)
-    {
         pauseScrapCount.text = _val.ToString();
+        shopScrapCount.text = _val.ToString();
+        gunShopScrapCount.text = _val.ToString();
+        ammoShopScrapCount.text = _val.ToString();
+        itemShopScrapCount.text = _val.ToString();
+        ammoShopScrapCount.text = _val.ToString();
+        primaryGunShopScrapCount.text = _val.ToString();
+        secondaryGunShopScrapCount.text = _val.ToString();
     }
 
-    public void UpdateShopMenuScrapCount(int _val)
+    public IEnumerator YouArePoor(GameObject text)
     {
-        shopScrapCount.text = _val.ToString();
+        menuActive.SetActive(false);
+        text.SetActive(true);
+        yield return new WaitForSeconds(1);
+        text.SetActive(false);
+        menuActive.SetActive(true);
     }
+    #endregion
 }
