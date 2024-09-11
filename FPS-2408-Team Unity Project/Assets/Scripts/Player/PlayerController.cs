@@ -117,9 +117,12 @@ public class PlayerController : BaseEntity
                 }
                 if (Input.GetKeyDown(KeyCode.R))
                 {
-                    if (playerHandRef.GetCurrentHand().TryGetComponent(out BaseGun tempOut))
+                    if (playerHandRef.GetCurrentHand() != null)
                     {
-                        StartCoroutine(tempOut.Reload());
+                        if (playerHandRef.GetCurrentHand().TryGetComponent(out BaseGun tempOut))
+                        {
+                            StartCoroutine(tempOut.Reload());
+                        }
                     }
                 }
                 if (Input.GetMouseButtonDown(1))
@@ -130,7 +133,6 @@ public class PlayerController : BaseEntity
         }
         //-----------------------------------------
         #endregion
-
 
         base.Update();
     }

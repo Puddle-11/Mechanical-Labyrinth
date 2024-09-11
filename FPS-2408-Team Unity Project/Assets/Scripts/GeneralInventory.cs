@@ -15,14 +15,14 @@ public class GeneralInventory : MonoBehaviour
 
     public static GeneralInventory instance;
 
-    [Header("Inventory Variables")]
-    [Space]
     [SerializeField] private int numOfslots;
-
+    [SerializeField] private float throwRotationSpeed;
+    [SerializeField] private Vector2 throwSpeed;
+    [SerializeField] private Vector2 throwOffset;
 
     public HotbarSlot[] Hotbar;
 
-
+    [System.Serializable]
     public struct HotbarSlot
     {
         public ItemType t;
@@ -60,41 +60,115 @@ public class GeneralInventory : MonoBehaviour
 
     public void Update()
     {
-        selectItem();
+        SelectItem();
     }
-
-    void selectItem()
+    public void AddItemToInventory(ItemType t, Pickup p = null)
     {
-        //scrolling up
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            selectedSlot = (selectedSlot + 1) % Hotbar.Length;
-            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
-            changeItem();
-        }
-        //going down
-        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            selectedSlot = selectedSlot <= 0 ? Hotbar.Length - 1 : selectedSlot - 1;
-            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
-            changeItem();
-        }
-    }
-    void changeItem()
-    {
-        //
-        ItemType item = Hotbar[selectedSlot].t;
+        Debug.Log("Add to inventory\n"+t.name + " Pickup " + p);
 
-        if (item == null)
+        if (t == null)
         {
-            GameManager.instance.playerControllerRef.GetPlayerHand().DropItem();
+            Debug.LogWarning("Failed to pickup\n ItemType variable Unassigned");
+            GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(null);
             return;
         }
-        //guns
-        if ((int)item.type != 0)
+
+        SetSlot(t);
+        GameObject handAnchor = GameManager.instance.playerControllerRef.GetPlayerHand().GetHandAnchor();
+        //Instantiate item in hand
+        GameObject _ref = Instantiate(t.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
+        Hotbar[selectedSlot].obj = _ref;
+        //If item is a gun or a weapon set weapon to player weapon
+        BaseGun bgRef;
+        if (_ref.TryGetComponent(out bgRef)) bgRef.SetPlayerGun(true);
+
+        //if item is usable set its stats
+        IUsable useRef;
+        if (_ref.TryGetComponent(out useRef))
         {
-           GameManager.instance.playerControllerRef.GetPlayerHand().PickupItem(item, null, true);
+            useRef.SetPickup(t.Pickup);
+            if (p != null)
+                useRef.SetPStats(p.currPStats);
+            else
+                useRef.SetPStats(t.defaultStats);
         }
+
+        if (p != null) Destroy(p.gameObject);
+    }
+    public void DropItem()
+    {
+        DropItem(selectedSlot);
+    }
+    public void DropItem(int _index)
+    {
+        SpawnDrop(Hotbar[_index].obj);
+        UIManager.instance.AmmoDisplay(0, 0);
+        UIManager.instance.UpdateAmmoFill(1);
+        CameraController.instance.ResetOffset(true);
+        UIManager.instance.UpdateCrosshairSpread(0);
+        Destroy(Hotbar[_index].obj);
+        Hotbar[_index].obj = null;
+        Hotbar[_index].t = null;
+    }
+    public void SpawnDrop(GameObject _obj)
+    {
+        IUsable IRef;
+        if (_obj.TryGetComponent(out IRef))
+        {
+            GameObject dropObj = Instantiate(IRef.GetPickup(), transform.position, IRef.GetPickup().transform.rotation);
+            Rigidbody rb;
+            Pickup pRef = dropObj.GetComponent<Pickup>();
+            dropObj.transform.position = transform.position + transform.forward * throwOffset.x + new Vector3(0, throwOffset.y, 0);
+            dropObj.SetActive(true);
+
+            //Set rotation
+            dropObj.transform.localEulerAngles = new Vector3(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180));
+            //Apply velocity if RB doesnt == null
+            if (dropObj.TryGetComponent(out rb))
+            {
+                rb.velocity = Camera.main.transform.forward * throwSpeed.x + Vector3.up * throwSpeed.y;
+                rb.angularVelocity = new Vector3(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)).normalized * throwRotationSpeed;
+            }
+
+            if (pRef != null) pRef.currPStats = IRef.GetPStats();
+        }
+    }
+    void SelectItem()
+    {
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            //if at top of list, loop to bottom
+            selectedSlot = (selectedSlot + 1) % Hotbar.Length;
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        {
+            //if at bottom of list, loop to top
+            selectedSlot = selectedSlot <= 0 ? Hotbar.Length - 1 : selectedSlot - 1;
+        }
+            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
+        UpdateSelectedObj();
+    }
+    void UpdateSelectedObj()
+    {
+
+        for (int i = 0; i < Hotbar.Length; i++)
+        {
+            if (Hotbar[i].obj != null)
+            {
+
+                if (i == selectedSlot)
+                {
+                    Hotbar[i].obj.SetActive(true);
+                }
+                else
+                {
+                    Hotbar[i].obj.SetActive(false);
+                }
+            }
+
+        }
+        GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
+
     }
     public void SetSlot(int _index, ItemType t)
     {

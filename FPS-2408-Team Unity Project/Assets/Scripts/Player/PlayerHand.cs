@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.UI;
 using static UnityEditor.Progress;
 
@@ -54,10 +55,25 @@ public class PlayerHand : MonoBehaviour
     {
 
         if (CurrentEquiped == _obj) return;
-        if (CurrentEquiped != null)
+        BaseGun BGRef;
+        if (_obj == null || !_obj.TryGetComponent(out BGRef))
         {
-            Destroy(CurrentEquiped);
+            UIManager.instance.AmmoDisplay(0, 0);
+            UIManager.instance.UpdateAmmoFill(1);
         }
+        else if (BGRef != null)
+        {
+            UIManager.instance.AmmoDisplay(BGRef.GetCurrAmmo(), BGRef.GetMaxClipSize());
+            UIManager.instance.UpdateAmmoFill((float)BGRef.GetCurrAmmo() / BGRef.GetMaxClipSize());
+        }
+
+        CameraController.instance.ResetOffset(true);
+        UIManager.instance.UpdateCrosshairSpread(0);
+        ToggleADS(false);
+        //if (CurrentEquiped != null)
+        //{
+        //    Destroy(CurrentEquiped);
+        //}
         CurrentEquiped = _obj;
     }
     public void SetUseItem(bool _val)
@@ -137,6 +153,9 @@ public class PlayerHand : MonoBehaviour
 
     public bool AttemptDrop()
     {
+
+        GeneralInventory.instance.DropItem();
+        return false;
         GeneralInventory.instance.SetSlot(null);
         if (CurrentEquiped != null)
         {
@@ -170,8 +189,17 @@ public class PlayerHand : MonoBehaviour
 
         return false;
     }
+    public GameObject GetHandAnchor()
+    {
+        return handAnchor;
+    }
     public void PickupItem(ItemType t, Pickup p, bool dontDrop = false)
     {
+
+
+        GeneralInventory.instance.AddItemToInventory(t, p);
+        return;
+
         if (!dontDrop)
         {
             //if we are holding an item and we cant drop it, then break away
