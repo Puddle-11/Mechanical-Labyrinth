@@ -46,7 +46,8 @@ public class LootGenerator : MonoBehaviour
     {
         allPositions = ChunkGrid.instance.GetRoomGenerator().GetPositions();
         Instantiate(defaultLoot, allPositions[Random.Range(0, allPositions.Count)], defaultLoot.transform.rotation);
-        GenerateLoot(GameManager.instance.GetCurrentLevel());
+        
+        GenerateLoot(GameManager.instance != null ? GameManager.instance.GetCurrentLevel() : 1);
     }
     public void GenerateLoot(int _level)
     {

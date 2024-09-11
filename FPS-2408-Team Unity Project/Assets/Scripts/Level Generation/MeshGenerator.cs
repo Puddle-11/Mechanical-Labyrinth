@@ -18,8 +18,8 @@ public class MeshGenerator : MonoBehaviour
     private List<Vector3> Verticies;
     private List<int> Triangles;
     private List<Vector2> UVs;
-    private MeshFilter mainMesh;
-    private MeshCollider colliderMesh;
+   [SerializeField] private MeshFilter mainMesh;
+   [SerializeField] private MeshCollider colliderMesh;
 
     //add world to cell function for break and place functions
     public Vector3[] VertexPos = new Vector3[]
@@ -37,8 +37,7 @@ public class MeshGenerator : MonoBehaviour
     }
     public void UpdateShape()
     {
-        mainMesh = GetComponent<MeshFilter>();
-        colliderMesh = GetComponent<MeshCollider>();
+   
         Triangles = new List<int>();
         Verticies = new List<Vector3>();
         UVs = new List<Vector2>();
@@ -257,11 +256,19 @@ public class MeshGenerator : MonoBehaviour
             }
         }
         gameObject.name = "Mesh Renderer: " + chunkRef.GetChunkPos(gameObject);
-        if (Verticies.Count <= 0) Destroy(gameObject);
-        mainMesh.mesh.vertices = Verticies.ToArray();
-        mainMesh.mesh.triangles = Triangles.ToArray();
-        mainMesh.mesh.uv = UVs.ToArray();
-        mainMesh.mesh.RecalculateNormals();
-        colliderMesh.sharedMesh = mainMesh.mesh;
+        if (Verticies.Count <= 0)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+            if (mainMesh.sharedMesh == null)
+        {
+            mainMesh.mesh = new Mesh();
+        }
+        mainMesh.sharedMesh.vertices = Verticies.ToArray();
+        mainMesh.sharedMesh.triangles = Triangles.ToArray();
+        mainMesh.sharedMesh.uv = UVs.ToArray();
+        mainMesh.sharedMesh.RecalculateNormals();
+        colliderMesh.sharedMesh = mainMesh.sharedMesh;
     }
 }

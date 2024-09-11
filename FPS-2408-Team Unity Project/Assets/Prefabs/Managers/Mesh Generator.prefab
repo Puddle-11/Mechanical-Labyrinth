@@ -97,11 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a49cc7d4329ce14fba4953c53b54c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Verticies: []
-  Triangles: 
-  UVs: []
+  mainMesh: {fileID: 5507839341076172265}
   colliderMesh: {fileID: 7422537306332037215}
-  terrainScale: 15
   VertexPos:
   - {x: -1, y: 1, z: -1}
   - {x: -1, y: 1, z: 1}
