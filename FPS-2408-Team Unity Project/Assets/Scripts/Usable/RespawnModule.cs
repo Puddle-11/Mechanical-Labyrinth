@@ -16,5 +16,8 @@ public class RespawnModule : UsableItemBase
     public override void UseItem()
     {
     }
-
+    public float GetRegenPercent()
+    {
+        return healthRegenPercent;
+    }
 }
