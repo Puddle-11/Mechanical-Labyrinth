@@ -844,6 +844,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b378ea970850b419e00e45dc9c693b, type: 3}
+--- !u!1 &244020529 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6467091362571389317, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
+  m_PrefabInstance: {fileID: 5972403129275544929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &282740624 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5399627765223998603, guid: e681efd8e4995f34cb8cd27fe066db59, type: 3}
@@ -940,6 +945,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3160835343094073241, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      propertyPath: Slot
+      value: 
+      objectReference: {fileID: 6467091362571389317, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
+    - target: {fileID: 3160835343094073241, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      propertyPath: offset
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160835343094073241, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      propertyPath: inventoryAnchor
+      value: 
+      objectReference: {fileID: 244020529}
+    - target: {fileID: 3160835343094073241, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: currItem.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1025,7 +1042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7328155085983539341, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9128511731899136587, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: m_Name
@@ -3049,6 +3066,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2293512269813371992, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
+      propertyPath: numOfslots
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2426318336164377244, guid: 0a110dbd06022e743ab13e5069cf24d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 34.374203
@@ -7034,6 +7055,18 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5177360814177818333, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5177360814177818333, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5177360814177818333, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5177360814177818333, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -7083,7 +7116,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6467091362571389317, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
       propertyPath: m_Name
-      value: Slot
+      value: SlotAnchor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6467091362571389317, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

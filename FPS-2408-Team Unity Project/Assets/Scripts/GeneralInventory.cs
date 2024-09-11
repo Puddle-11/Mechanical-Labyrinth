@@ -98,6 +98,8 @@ public class GeneralInventory : MonoBehaviour
         }
 
         if (p != null) Destroy(p.gameObject);
+
+        UIManager.instance.SetSlotIcon(Hotbar[selectedSlot].t.Icon, selectedSlot);
     }
     public void DropItem()
     {
