@@ -1611,7 +1611,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 400
+  maxShield: 0
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
+  shieldMaterial: {fileID: 2100000, guid: 0f0b95a8eea82bf40b333ae516e6eb39, type: 2}
   healthBar: {fileID: 5954874342914856447}
   deathParticles:
   - {fileID: 973847815591645127}
@@ -1705,7 +1707,7 @@ MonoBehaviour:
     upperLeg: {fileID: 2164880648301867660}
   ground:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 71697
   groundSearchDist: 10
   maxDistanceFromTarget: 0.2
   hardMaxDistance: 0.6

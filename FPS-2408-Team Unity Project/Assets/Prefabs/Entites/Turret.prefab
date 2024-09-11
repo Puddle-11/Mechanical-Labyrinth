@@ -390,7 +390,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 500
+  maxShield: 0
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
+  shieldMaterial: {fileID: 2100000, guid: 0f0b95a8eea82bf40b333ae516e6eb39, type: 2}
   healthBar: {fileID: 9197602804775642124}
   deathParticles:
   - {fileID: 7877640945928058547}
@@ -433,6 +435,7 @@ MonoBehaviour:
   agent: {fileID: 4556611165813591666}
   patrolPoints: []
   senseType: 0
+  minmaxScrap: {x: 0, y: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
@@ -471,7 +474,7 @@ MonoBehaviour:
     upperLeg: {fileID: 0}
   ground:
     serializedVersion: 2
-    m_Bits: 72451
+    m_Bits: 71705
   groundSearchDist: 10
   maxDistanceFromTarget: 0.2
   hardMaxDistance: 0.6
@@ -537,28 +540,10 @@ MonoBehaviour:
   scopeInZoom: 0
   shootDamage: 30
   shootDist: 200
-  bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
-  bulletHoleDecal: {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
-  NP_bulletHoleMat:
-  - {fileID: 2100000, guid: 4c94ddb02ebfe0e4f8ef7c038c433dac, type: 2}
-  - {fileID: 2100000, guid: d0ec729a10d512a40a15daf508bfec1d, type: 2}
-  - {fileID: 2100000, guid: df8b5965c3af774469ab835b40a13a75, type: 2}
-  - {fileID: 2100000, guid: 3fc14efbae1763949a391fdf2223a7d3, type: 2}
-  P_bulletHoleMat:
-  - {fileID: 2100000, guid: d0eb1d1e74e9a364d82b3ca575b4a567, type: 2}
-  - {fileID: 2100000, guid: 85200ceb14f109140bacc9e1ba45ad63, type: 2}
-  - {fileID: 2100000, guid: 6d01ac1491bc1b5468593f541b9cf3fe, type: 2}
-  - {fileID: 2100000, guid: cd8eae783bec4b64a93020bee883fe25, type: 2}
-  E_bulletHoleMat:
-  - {fileID: 2100000, guid: d0fdc078e8a6b5c49ba05ae7b05e50ce, type: 2}
-  - {fileID: 2100000, guid: 4347599fba927f04298f1c368fd6a634, type: 2}
-  - {fileID: 2100000, guid: 05530e2ab40893744beacc130ca6dbd4, type: 2}
-  - {fileID: 2100000, guid: f1e07d4981ab57946850422896d94aab, type: 2}
   burstSize: 0
   clipSizeMax: 30
   reloadSpeed: 0
   barrelDelay: 0.05
-  muzzleFlashSize: 1
   barrels:
   - shootObj: {fileID: 7770904245791974999}
     muzzleFlash: {fileID: 7602178333722992722}
@@ -578,6 +563,7 @@ MonoBehaviour:
     - {fileID: 627186709917651361}
   penetratingDistance: 1
   penetratingDamageFalloff: 1
+  shieldPenetration: 0
   FSAccuracy: 0.05
   FSAOverTime:
     serializedVersion: 2
@@ -605,6 +591,25 @@ MonoBehaviour:
     m_RotationOrder: 4
   recoilCooldownFactor: 1
   maxRecoil: 20
+  muzzleFlashSize: 1
+  bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
+  bulletHoleDecal: {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
+  NP_bulletHoleMat:
+  - {fileID: 2100000, guid: 4c94ddb02ebfe0e4f8ef7c038c433dac, type: 2}
+  - {fileID: 2100000, guid: d0ec729a10d512a40a15daf508bfec1d, type: 2}
+  - {fileID: 2100000, guid: df8b5965c3af774469ab835b40a13a75, type: 2}
+  - {fileID: 2100000, guid: 3fc14efbae1763949a391fdf2223a7d3, type: 2}
+  P_bulletHoleMat:
+  - {fileID: 2100000, guid: d0eb1d1e74e9a364d82b3ca575b4a567, type: 2}
+  - {fileID: 2100000, guid: 85200ceb14f109140bacc9e1ba45ad63, type: 2}
+  - {fileID: 2100000, guid: 6d01ac1491bc1b5468593f541b9cf3fe, type: 2}
+  - {fileID: 2100000, guid: cd8eae783bec4b64a93020bee883fe25, type: 2}
+  E_bulletHoleMat:
+  - {fileID: 2100000, guid: d0fdc078e8a6b5c49ba05ae7b05e50ce, type: 2}
+  - {fileID: 2100000, guid: 4347599fba927f04298f1c368fd6a634, type: 2}
+  - {fileID: 2100000, guid: 05530e2ab40893744beacc130ca6dbd4, type: 2}
+  - {fileID: 2100000, guid: f1e07d4981ab57946850422896d94aab, type: 2}
+  GunAnimator: {fileID: 0}
 --- !u!1 &2691024300743352413
 GameObject:
   m_ObjectHideFlags: 0
