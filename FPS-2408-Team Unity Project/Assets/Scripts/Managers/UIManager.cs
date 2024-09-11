@@ -113,6 +113,7 @@ public class UIManager : MonoBehaviour
     [Space]
     [SerializeField] private Image[] currItem;
     [SerializeField] private GameObject Slot;
+    [SerializeField] private GameObject youArePoorObj;
 
 
     public void InitializeInventory()
@@ -460,18 +461,8 @@ public class UIManager : MonoBehaviour
         secondaryGunShopScrapCount.text = _val.ToString();
     }
 
-    public IEnumerator YouArePoor(GameObject text)
-    {
-        text.SetActive(true);
-        Debug.Log("Hit beginning of");
-        yield return new WaitForSeconds(0.1f);
-        text.SetActive(false);
-        Debug.Log("Hit end of");
-    }
 
-    public void CallYouArePoor(GameObject test)
-    {
-        StartCoroutine(YouArePoor(test));
-    }
+
+
     #endregion
 }

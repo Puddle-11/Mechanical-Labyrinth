@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,8 +74,9 @@ public class ButtonFunction : MonoBehaviour
 
     public void buyPistolAmmo(GameObject text)
     {
-        UIManager.instance.CallYouArePoor(text);
+        ShopManager.instance.ResetWarningTimer();
     }
+  
 
     public void buyAssaultAmmo()
     {
