@@ -195,6 +195,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 4087539877359770423, guid: 85b66917c7c4150489042fb15ce6ef5a, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4286505172618372700, guid: 85b66917c7c4150489042fb15ce6ef5a, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -323,13 +327,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  stats:
+    uses: 0
+    maxUses: 0
   coolDown: 0.1
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 24840
-  pickUp: {fileID: 0}
-  gunDrop: {fileID: 11400000, guid: e0e8ca52afe3245499a66d1ebf0827ff, type: 2}
   canAim: 1
   attackVolume: 0.25
   shootsounds:

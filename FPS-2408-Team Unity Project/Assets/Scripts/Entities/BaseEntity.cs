@@ -218,7 +218,6 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         yield return new WaitForSeconds(_time);
         UpdateHealth(_amount, _shieldPen);
-
     }
 
     public IEnumerator ChangeIndicator(Material _flashMat)

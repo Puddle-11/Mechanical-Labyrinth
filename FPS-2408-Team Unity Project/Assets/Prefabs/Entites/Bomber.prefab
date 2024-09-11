@@ -759,6 +759,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1664,6 +1668,7 @@ MonoBehaviour:
   hearingRange: 16
   attackAngle: 50
   sightAngle: 90
+  cullingDist: 30
   target: {fileID: 0}
   weaponScr: {fileID: 6660931601901886988}
   agent: {fileID: 6587216154067788657}
@@ -1801,13 +1806,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc919f1e30302b4194313c5b0ccd447, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  stats:
+    uses: 0
+    maxUses: 0
   coolDown: 1
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 64
-  pickUp: {fileID: 0}
-  gunDrop: {fileID: 0}
   canAim: 0
   attackVolume: 0
   shootsounds: []

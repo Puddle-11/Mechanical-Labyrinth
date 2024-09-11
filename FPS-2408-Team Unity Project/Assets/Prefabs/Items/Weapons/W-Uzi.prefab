@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 2036343177772227815, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2709365204952996256, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -140,6 +144,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 7197393003239231342, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7442052666882737580, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -151,6 +159,10 @@ PrefabInstance:
     - target: {fileID: 7986224807636447373, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_Layer
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722176095138260746, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8894966728604882772, guid: b440b0e4530b7994ca41833a626f7639, type: 3}
       propertyPath: m_LocalPosition.y
@@ -194,13 +206,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  stats:
+    uses: 0
+    maxUses: 0
   coolDown: 0.05
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 24840
-  pickUp: {fileID: 0}
-  gunDrop: {fileID: 11400000, guid: e8ba6ad58bbee274d81af0ec1a461c06, type: 2}
   canAim: 1
   attackVolume: 0.25
   shootsounds:

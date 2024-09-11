@@ -55,7 +55,6 @@ public class GeneralInventory : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void Update()

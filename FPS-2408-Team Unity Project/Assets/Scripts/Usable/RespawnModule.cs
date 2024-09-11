@@ -11,12 +11,10 @@ public class RespawnModule : UsableItemBase
 
     public override string GetItemStats()
     {
-        return "Regenerate " + healthRegenPercent * 100 + "%";
+        return "Regenerate " + healthRegenPercent * 100 + "% Upon death";
     }
     public override void UseItem()
     {
-        base.UseItem();
-        Destroy(gameObject);
     }
 
 }

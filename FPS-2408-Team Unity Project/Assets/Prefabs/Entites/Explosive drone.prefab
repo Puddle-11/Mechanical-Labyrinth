@@ -304,6 +304,7 @@ MonoBehaviour:
   hearingRange: 15
   attackAngle: 50
   sightAngle: 90
+  cullingDist: 30
   target: {fileID: 0}
   weaponScr: {fileID: 0}
   agent: {fileID: 8589487485629443617}
@@ -1091,6 +1092,10 @@ PrefabInstance:
     - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

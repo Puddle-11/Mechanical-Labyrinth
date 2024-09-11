@@ -43,7 +43,6 @@ public class RoomGenerationCustomEditor : Editor
         _targetCast.ceilingBlockID = EditorGUILayout.IntField("Ceiling Block ID", _targetCast.ceilingBlockID);
         _targetCast.baseBoardBlockID = EditorGUILayout.IntField("Base Board ID", _targetCast.baseBoardBlockID);
         _targetCast.topPlaceBlockID = EditorGUILayout.IntField("Top Plate ID", _targetCast.topPlaceBlockID);
-
     }
 
 

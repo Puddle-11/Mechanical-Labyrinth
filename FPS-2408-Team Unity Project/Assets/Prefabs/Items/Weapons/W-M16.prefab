@@ -292,6 +292,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6892221359878515757, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6892221359878515757, guid: e6c096d6f211ac64c96d3838168c698e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1341ef311af77ac4db86b949e8e39b91, type: 2}
@@ -401,13 +405,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  stats:
+    uses: 0
+    maxUses: 0
   coolDown: 0.3
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 24840
-  pickUp: {fileID: 0}
-  gunDrop: {fileID: 11400000, guid: 2ffabef03afc2704fab3fc11cab93bbd, type: 2}
   canAim: 1
   attackVolume: 0.25
   shootsounds:

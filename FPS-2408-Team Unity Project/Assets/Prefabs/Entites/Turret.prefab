@@ -430,6 +430,7 @@ MonoBehaviour:
   hearingRange: 13
   attackAngle: 50
   sightAngle: 90
+  cullingDist: 30
   target: {fileID: 0}
   weaponScr: {fileID: 8749161360340392136}
   agent: {fileID: 4556611165813591666}
@@ -475,7 +476,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 71705
-  groundSearchDist: 10
+  groundSearchDist: 1
   maxDistanceFromTarget: 0.2
   hardMaxDistance: 0.6
   legMoveSpeed: 0.2
@@ -525,13 +526,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  stats:
+    uses: 0
+    maxUses: 0
   coolDown: 0.15
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 57664
-  pickUp: {fileID: 0}
-  gunDrop: {fileID: 0}
   canAim: 0
   attackVolume: 0
   shootsounds: []
@@ -1510,6 +1513,10 @@ PrefabInstance:
     - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

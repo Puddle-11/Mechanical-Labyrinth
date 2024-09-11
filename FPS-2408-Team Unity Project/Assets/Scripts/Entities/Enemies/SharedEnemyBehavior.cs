@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
@@ -31,7 +32,13 @@ public class SharedEnemyBehavior : BaseEntity
     [SerializeField] protected float attackAngle = 50;
     [SerializeField] protected float sightAngle = 90;
     [Space]
+    [SerializeField] protected float cullingDist;
     [SerializeField] protected GameObject target;
+    public bool InCullingDist()
+    {
+        if (target == null) return false;
+        return Vector3.Distance(target.transform.position, gameObject.transform.position) < cullingDist;
+    }
     public Vector3 DirectionToTarget()
     {
         if (target == null) return Vector3.zero;
@@ -43,16 +50,20 @@ public class SharedEnemyBehavior : BaseEntity
     public bool InAngleRange(float _range)
     {
         if (target == null) return false;
-        Vector3 dPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-        Vector3 targetDir = (dPos - transform.position).normalized;
-
         //Checks if target is in range, Gets the direction to the target and checks the angle from transform.forward
         //if less than sight radius, target is in sight
-        if (IsInRange(sightRange) && Vector3.Angle(targetDir, transform.forward) < _range / 2)
+        if (IsInRange(sightRange) && GetAngle() < _range / 2)
         {
             return true;
         }
         return false;
+    }
+    public float GetAngle()
+    {
+        if (target == null) return 0;
+        Vector3 dPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        Vector3 targetDir = (dPos - transform.position).normalized;
+        return Vector3.Angle(targetDir, transform.forward);
     }
     public bool InAngleRange()
     {
