@@ -1318,6 +1318,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3160835343094073241, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      propertyPath: NoFunds
+      value: 
+      objectReference: {fileID: 813958151}
+    - target: {fileID: 3160835343094073241, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: gunMenuShop
       value: 
       objectReference: {fileID: 249788772}
@@ -1453,6 +1457,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 5238981621163950925, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      propertyPath: insuficientFunds
+      value: 
+      objectReference: {fileID: 813958151}
     - target: {fileID: 5389445331860143014, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
@@ -1483,6 +1491,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3330568457270200890, guid: add6029a5df1850488d12d61e620434c, type: 3}
       insertIndex: 21
       addedObject: {fileID: 747411278}
+    - targetCorrespondingSourceObject: {fileID: 3330568457270200890, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      insertIndex: 22
+      addedObject: {fileID: 813958152}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: add6029a5df1850488d12d61e620434c, type: 3}
 --- !u!1 &476275816
@@ -2104,7 +2115,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -299, y: 19}
+  m_AnchoredPosition: {x: -299, y: 84}
   m_SizeDelta: {x: -559.99, y: -466.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &569321644
@@ -2127,7 +2138,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Ammo Type: Pistol
+  m_text: 'Price: 1 Scrap
+
+
+
+
+
+
+
+
+
+
+
+
+    Pistol Ammo
 
 
 
@@ -2468,6 +2492,7 @@ MonoBehaviour:
   throwRotationSpeed: 0
   throwSpeed: {x: 0, y: 0}
   throwOffset: {x: 0, y: 0}
+  respawnItem: {fileID: 0}
   Hotbar: []
 --- !u!1 &686034402
 GameObject:
@@ -2849,11 +2874,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 394160106}
-  m_Father: {fileID: 1255234697}
+  m_Father: {fileID: 336014989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 15}
+  m_AnchoredPosition: {x: -0.0025024414, y: 14.0000305}
   m_SizeDelta: {x: 1300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &813958153
@@ -4332,7 +4357,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1255234697
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4358,7 +4383,6 @@ RectTransform:
   - {fileID: 840375615}
   - {fileID: 1700305856}
   - {fileID: 1300160042}
-  - {fileID: 813958152}
   m_Father: {fileID: 336014989}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4719,7 +4743,6 @@ GameObject:
   - component: {fileID: 1304200256}
   - component: {fileID: 1304200255}
   - component: {fileID: 1304200254}
-  - component: {fileID: 1304200258}
   m_Layer: 5
   m_Name: Buy Pistol
   m_TagString: Untagged
@@ -4853,18 +4876,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1304200252}
   m_CullTransparentMesh: 1
---- !u!114 &1304200258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1304200252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87d798751de761948af339f3b0a1c65e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1323385632
 GameObject:
   m_ObjectHideFlags: 0
