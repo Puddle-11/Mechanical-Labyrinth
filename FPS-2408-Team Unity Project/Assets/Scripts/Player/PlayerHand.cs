@@ -28,14 +28,7 @@ public class PlayerHand : MonoBehaviour
     #region MonoBehavior Methods
     private void Start()
     {
-        if(GameManager.instance != null)
-        {
-          ItemType t =   GameManager.instance.GetCurrentItemType();
-            if(t != null)
-            {
-                PickupItem(t, null);
-            }
-        }
+
     }
     #endregion
 

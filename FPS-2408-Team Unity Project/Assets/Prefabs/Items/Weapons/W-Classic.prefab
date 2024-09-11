@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.024
       objectReference: {fileID: 0}
+    - target: {fileID: 721663701141543381, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 819772745889127364, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
       propertyPath: m_Layer
       value: 19
@@ -210,13 +214,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  stats:
+    uses: 0
+    maxUses: 0
   coolDown: 0.05
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 24840
-  pickUp: {fileID: 0}
-  gunDrop: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
   canAim: 1
   attackVolume: 0.25
   shootsounds:

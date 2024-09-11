@@ -295,6 +295,10 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4830585462348830521, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4868201842449256157, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
       propertyPath: m_CastShadows
       value: 0
@@ -502,13 +506,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed6d7bc44f16b24ea64b683a73d3ef3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  stats:
+    uses: 0
+    maxUses: 0
   coolDown: 0.05
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
     m_Bits: 24840
-  pickUp: {fileID: 0}
-  gunDrop: {fileID: 11400000, guid: 47ac05cec19e901448ef7f69360d4bb3, type: 2}
   canAim: 1
   attackVolume: 0.25
   shootsounds:
@@ -653,6 +659,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6ac8d0690058d45458eea1e1e1c4d22b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 882129737928793925, guid: 6ac8d0690058d45458eea1e1e1c4d22b, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 6ac8d0690058d45458eea1e1e1c4d22b, type: 3}

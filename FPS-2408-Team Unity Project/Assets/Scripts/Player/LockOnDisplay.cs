@@ -28,6 +28,8 @@ public class LockOnDisplay : MonoBehaviour
     public void CheckLOS()
     {
         RaycastHit checkLineOfSight;
+
+        if (GameManager.instance == null || GameManager.instance.playerRef == null) return;
         bool compareRefActive = false;
 
         if (Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward, out checkLineOfSight, Mathf.Infinity, ~GameManager.instance.projectileIgnore))

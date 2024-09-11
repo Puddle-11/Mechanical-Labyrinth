@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -98,7 +99,24 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    [Space]
+    [Header("Inventory")]
+    [Space]
+    [SerializeField] private Image[] currItem;
 
+
+
+    public void InitializeInventory()
+    {
+        int size = GeneralInventory.instance.GetInventorySize();
+        for (int i = 0; i < size; ++i)
+        {
+            Instantiate(Slot, UI);
+
+
+        }
+
+    }
 
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
     {
