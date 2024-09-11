@@ -90,17 +90,68 @@ public class ShopManager : MonoBehaviour
         UIManager.instance.SecondaryShop();
     }
 
-    public void YouArePoor(GameObject text)
+    public void BuyPistolAmmo()
     {
         if (ScrapInventory.instance.currentScrap >= 5)
         {
-            AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Pistol, 30);
+            AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Pistol, 20);
+            ScrapInventory.instance.RemoveScrap(5);
         }
-  
+        else
+        {
+            ResetWarningTimer();
+        }
     }
 
-    public void BuyPistolAmmo()
+    public void BuyAssaultAmmo()
     {
+        if (ScrapInventory.instance.currentScrap >= 5)
+        {
+            AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Assualt, 20);
+            ScrapInventory.instance.RemoveScrap(5);
+        }
+        else
+        {
+            ResetWarningTimer();
+        }
+    }
 
+    public void BuyShotgunAmmo()
+    {
+        if (ScrapInventory.instance.currentScrap >= 5)
+        {
+            AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Shotgun, 20);
+            ScrapInventory.instance.RemoveScrap(5);
+        }
+        else
+        {
+            ResetWarningTimer();
+        }
+    }
+
+    public void BuySniperAmmo()
+    {
+        if (ScrapInventory.instance.currentScrap >= 5)
+        {
+            AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Sniper, 20);
+            ScrapInventory.instance.RemoveScrap(5);
+        }
+        else
+        {
+            ResetWarningTimer();
+        }
+    }
+
+    public void BuyExplosiveAmmo()
+    {
+        if (ScrapInventory.instance.currentScrap >= 5)
+        {
+            AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Explosive, 20);
+            ScrapInventory.instance.RemoveScrap(5);
+        }
+        else
+        {
+            ResetWarningTimer();
+        }
     }
 }

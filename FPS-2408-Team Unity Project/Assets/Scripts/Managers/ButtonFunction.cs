@@ -74,28 +74,28 @@ public class ButtonFunction : MonoBehaviour
 
     public void buyPistolAmmo(GameObject text)
     {
-        ShopManager.instance.ResetWarningTimer();
+        ShopManager.instance.BuyPistolAmmo();
     }
   
 
-    public void buyAssaultAmmo()
+    public void buyAssaultAmmo(GameObject text)
     {
-        AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Assualt, 30);
+        ShopManager.instance.BuyAssaultAmmo();
     }
 
-    public void buyShotgunAmmo()
+    public void buyShotgunAmmo(GameObject text)
     {
-        AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Shotgun, 30);
+        ShopManager.instance.BuyShotgunAmmo();
     }
 
-    public void buySniperAmmo()
+    public void buySniperAmmo(GameObject text)
     {
-        AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Sniper, 30);
+        ShopManager.instance.BuySniperAmmo();
     }
 
-    public void buyExplosiveAmmo()
+    public void buyExplosiveAmmo(GameObject text)
     {
-        AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Explosive, 30);
+        ShopManager.instance.BuyExplosiveAmmo();
     }
 
     public void viewButton(GameObject view)
