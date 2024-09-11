@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -110,7 +111,7 @@ public class UIManager : MonoBehaviour
         int size = GeneralInventory.instance.GetInventorySize();
         for (int i = 0; i < size; ++i)
         {
-
+            Instantiate(Slot, UI);
 
 
         }
