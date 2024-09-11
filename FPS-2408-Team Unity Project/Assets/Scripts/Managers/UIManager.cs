@@ -465,13 +465,8 @@ public class UIManager : MonoBehaviour
         secondaryGunShopScrapCount.text = _val.ToString();
     }
 
-    public IEnumerator YouArePoor(GameObject text)
-    {
-        menuActive.SetActive(false);
-        text.SetActive(true);
-        yield return new WaitForSeconds(1);
-        text.SetActive(false);
-        menuActive.SetActive(true);
-    }
+
+
+
     #endregion
 }
