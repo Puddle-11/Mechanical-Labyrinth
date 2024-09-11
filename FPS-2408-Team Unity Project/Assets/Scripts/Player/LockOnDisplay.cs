@@ -31,8 +31,7 @@ public class LockOnDisplay : MonoBehaviour
 
         if (GameManager.instance == null || GameManager.instance.playerRef == null) return;
         bool compareRefActive = false;
-
-        if (Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward, out checkLineOfSight, Mathf.Infinity, ~GameManager.instance.projectileIgnore))
+        if (Physics.Raycast(CameraController.instance.mainCamera.transform.position, CameraController.instance.mainCamera.transform.forward,out checkLineOfSight ,Mathf.Infinity, ~GameManager.instance.projectileIgnore))
         {
             Pickup pickupRef;
             IHealth healthRef;
