@@ -64,7 +64,6 @@ public class GeneralInventory : MonoBehaviour
     }
     public void AddItemToInventory(ItemType t, Pickup p = null)
     {
-        Debug.Log("Add to inventory\n"+t.name + " Pickup " + p);
 
         if (t == null)
         {
@@ -78,8 +77,9 @@ public class GeneralInventory : MonoBehaviour
         //Instantiate item in hand
         GameObject _ref = Instantiate(t.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
         Hotbar[selectedSlot].obj = _ref;
+        UpdateSelectedObj();
         //If item is a gun or a weapon set weapon to player weapon
-        BaseGun bgRef;
+                BaseGun bgRef;
         if (_ref.TryGetComponent(out bgRef)) bgRef.SetPlayerGun(true);
 
         //if item is usable set its stats
@@ -112,6 +112,7 @@ public class GeneralInventory : MonoBehaviour
     }
     public void SpawnDrop(GameObject _obj)
     {
+        if (_obj == null) return;
         IUsable IRef;
         if (_obj.TryGetComponent(out IRef))
         {
@@ -145,7 +146,12 @@ public class GeneralInventory : MonoBehaviour
             //if at bottom of list, loop to top
             selectedSlot = selectedSlot <= 0 ? Hotbar.Length - 1 : selectedSlot - 1;
         }
-            GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
+        else
+        {
+            //if no change, dont run any methods
+            return;
+        }
+        GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
         UpdateSelectedObj();
     }
     void UpdateSelectedObj()

@@ -217,7 +217,7 @@ MonoBehaviour:
     m_Bits: 24840
   pickUp: {fileID: 0}
   gunDrop: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
-  canAim: 0
+  canAim: 1
   attackVolume: 0.25
   shootsounds:
   - {fileID: 8300000, guid: a5a5359097e62fe48a87665456f1dd54, type: 3}
