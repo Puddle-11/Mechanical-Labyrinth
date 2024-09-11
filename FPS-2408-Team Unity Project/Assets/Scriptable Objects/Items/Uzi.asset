@@ -17,7 +17,7 @@ MonoBehaviour:
   Object: {fileID: 5944326923703619556, guid: 488e6521f9609c94f83f655578585f74, type: 3}
   Pickup: {fileID: 4282439237422998839, guid: 9a5ef60f98df70e489851b2252678b50, type: 3}
   maxUses: 25
-  Icon: {fileID: 0}
-  type: 1
+  Icon: {fileID: 21300000, guid: ce52a1509300a8447a202f2623b3a98f, type: 3}
   defaultStats:
     uses: -1
+    maxUses: 0

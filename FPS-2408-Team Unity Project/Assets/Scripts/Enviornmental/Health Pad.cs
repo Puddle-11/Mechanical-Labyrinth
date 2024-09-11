@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class HealthPad : MonoBehaviour
 {
-    [SerializeField] int HealAmount;
+    //[SerializeField] int HealAmount;
     [SerializeField] GameObject pad;
-    //Color color;
     bool OnPad = false;
     private void OnTriggerEnter(Collider other)
     {
@@ -18,7 +17,7 @@ public class HealthPad : MonoBehaviour
         }
     }
     void HealPlayer() {
-        GameManager.instance.playerControllerRef.UpdateHealth(HealAmount);
+        GameManager.instance.playerControllerRef.ResetHealth();
 
     }
     // Update is called once per frame
