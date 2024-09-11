@@ -11,7 +11,6 @@ public class SoulDrop : MonoBehaviour, IInteractable
     {
         return "Heal: " + healAmount;
     }
-
     public void TriggerInteraction()
     {
         GameManager.instance.playerControllerRef.UpdateHealth(healAmount);

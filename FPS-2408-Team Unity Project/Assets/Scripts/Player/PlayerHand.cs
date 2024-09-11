@@ -55,25 +55,25 @@ public class PlayerHand : MonoBehaviour
     {
 
         if (CurrentEquiped == _obj) return;
-        BaseGun BGRef;
-        if (_obj == null || !_obj.TryGetComponent(out BGRef))
+       
+        if(_obj == null)
         {
             UIManager.instance.AmmoDisplay(0, 0);
             UIManager.instance.UpdateAmmoFill(1);
         }
-        else if (BGRef != null)
+        else if (_obj.TryGetComponent(out BaseGun BGRef))
         {
             UIManager.instance.AmmoDisplay(BGRef.GetCurrAmmo(), BGRef.GetMaxClipSize());
             UIManager.instance.UpdateAmmoFill((float)BGRef.GetCurrAmmo() / BGRef.GetMaxClipSize());
         }
-
+        else if (_obj.TryGetComponent(out IUsable usableRef))
+        {
+            UIManager.instance.AmmoDisplay(usableRef.GetPStats().uses, usableRef.GetPStats().maxUses);
+            UIManager.instance.UpdateAmmoFill(usableRef.GetPStats().uses / (float)usableRef.GetPStats().maxUses);
+        }
         CameraController.instance.ResetOffset(true);
         UIManager.instance.UpdateCrosshairSpread(0);
         ToggleADS(false);
-        //if (CurrentEquiped != null)
-        //{
-        //    Destroy(CurrentEquiped);
-        //}
         CurrentEquiped = _obj;
     }
     public void SetUseItem(bool _val)
@@ -150,7 +150,6 @@ public class PlayerHand : MonoBehaviour
 
     public void ToggleADS(bool Aiming)
     {
-        Debug.Log("Toggled ADS " + Aiming);
         if (GetIUsable() != null && !GetIUsable().CanAim()) return;
         if (CurrentEquiped != null && movingHandAnchor == false)
         {

@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour, IUsable
+public class Weapon : UsableItemBase
 {
     [Space]
     [Header("WEAPONS GENERAL")]
     [Space]
-    protected bool usingItem;
     [SerializeField] protected float coolDown;
     [SerializeField] protected bool isAttacking;
     public LayerMask ignoreMask;
-    [SerializeField] protected GameObject pickUp;
-    [SerializeField] protected ItemType gunDrop;
     [SerializeField] protected bool canAim;
 
     [Space]
@@ -23,47 +20,22 @@ public class Weapon : MonoBehaviour, IUsable
     [SerializeField] public AudioClip[] shootsounds;
     protected bool playerWeapon = false;
 
+    #region Override Methods
+    public override bool CanAim(){return canAim;}
+
+    public override string GetItemStats() { return "Speed: " + coolDown; }
+
+    public override void SetUsingItem(bool _val) { usingItem = _val; }
+    public override void UseItem() { Attack(); }
+
+    #endregion
+
     #region Getters Setters
-    public virtual bool CanAim()
-    {
-        return canAim;
-    }
-    public virtual ItemType GetItemType() { return gunDrop; }
+
     public virtual bool CanAttack() { return !isAttacking; }
-    public virtual string GetItemName() { return gunDrop.name; }
-    public virtual string GetItemStats() { return "Speed: " + coolDown; }
-    public void SetPickup(GameObject _pickup) { pickUp = _pickup; }
-    public bool GetUsingItem() { return usingItem; }
-    public void SetUsingItem(bool _val) { usingItem = _val; }
     public bool GetIsAttacking() { return isAttacking; }
     #endregion
-    public virtual void SetPlayerWeapon(bool _val) {playerWeapon = _val;}
-
-    public virtual Pickup.PStats GetPStats()
-    {
-        return new Pickup.PStats();
-    }
-    public virtual void SetPStats(Pickup.PStats _val)
-    {
-
-    }
-    public void UseItem() { Attack(); }
-    public GameObject GetPickup()
-    {
-        if (pickUp != null)
-        {
-            return pickUp;
-        }
-        else if (gunDrop?.Pickup != null)
-        {
-            return gunDrop.Pickup;
-        }
-        else
-        {
-            Debug.LogWarning("No pickup available on " + gameObject.name);
-            return null;
-        }
-    }
+    public void SetPlayerWeapon(bool _val) {playerWeapon = _val;}
 
     
     public virtual void Attack()
