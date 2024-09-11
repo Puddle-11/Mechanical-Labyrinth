@@ -1,10 +1,6 @@
-using JetBrains.Annotations;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -113,18 +109,24 @@ public class UIManager : MonoBehaviour
     [Space]
     [SerializeField] private Image[] currItem;
     [SerializeField] private GameObject Slot;
-    [SerializeField] private GameObject youArePoorObj;
-
+    [SerializeField] private int offset;
+    [SerializeField] private GameObject inventoryAnchor;
 
     public void InitializeInventory()
     {
+        //incomplete, will need to add math for position.
         int size = GeneralInventory.instance.GetInventorySize();
         for (int i = 0; i < size; ++i)
         {
-            Vector3 pos = Vector3.zero;
-            Instantiate(Slot, pos, Quaternion.identity, gameObject.transform);
+            Vector3 pos = new Vector3(inventoryAnchor.transform.position.x + i * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x), inventoryAnchor.transform.position.y, 0);
+            GameObject temp = Instantiate(Slot, pos, Quaternion.identity, gameObject.transform);
+            currItem[i] = temp.gameObject.GetComponentInChildren<Image>();
         }
+    }
 
+    public void SetSlotIcon(Sprite icon, int index)
+    {
+        currItem[index].sprite = icon;
     }
 
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
@@ -208,7 +210,9 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
+        currItem = new Image[GeneralInventory.instance.GetInventorySize()];
         UpdateCrosshair();
+        InitializeInventory();
 
     }
     private void Update()
