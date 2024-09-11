@@ -462,11 +462,16 @@ public class UIManager : MonoBehaviour
 
     public IEnumerator YouArePoor(GameObject text)
     {
-        menuActive.SetActive(false);
         text.SetActive(true);
-        yield return new WaitForSeconds(1);
+        Debug.Log("Hit beginning of");
+        yield return new WaitForSeconds(0.1f);
         text.SetActive(false);
-        menuActive.SetActive(true);
+        Debug.Log("Hit end of");
+    }
+
+    public void CallYouArePoor(GameObject test)
+    {
+        StartCoroutine(YouArePoor(test));
     }
     #endregion
 }

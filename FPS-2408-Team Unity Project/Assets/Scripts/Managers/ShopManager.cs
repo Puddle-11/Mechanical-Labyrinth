@@ -68,4 +68,9 @@ public class ShopManager : MonoBehaviour
             StartCoroutine(UIManager.instance.YouArePoor(text));
         }
     }
+
+    public void BuyPistolAmmo()
+    {
+
+    }
 }

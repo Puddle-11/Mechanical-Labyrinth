@@ -73,7 +73,7 @@ public class ButtonFunction : MonoBehaviour
 
     public void buyPistolAmmo(GameObject text)
     {
-        ShopManager.instance.YouArePoor(text);
+        UIManager.instance.CallYouArePoor(text);
     }
 
     public void buyAssaultAmmo()
