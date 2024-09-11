@@ -68,6 +68,10 @@ public class GeneralInventory : MonoBehaviour
     }
     public void AddItemToInventory(ItemType t, Pickup p = null)
     {
+        AddItemToInventory(t, selectedSlot, p);
+    }
+    public void AddItemToInventory(ItemType t, int _index, Pickup p = null)
+    {
 
         if (t == null)
         {
@@ -80,7 +84,8 @@ public class GeneralInventory : MonoBehaviour
         GameObject handAnchor = GameManager.instance.playerControllerRef.GetPlayerHand().GetHandAnchor();
         //Instantiate item in hand
         GameObject _ref = Instantiate(t.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
-        Hotbar[selectedSlot].obj = _ref;
+        Hotbar[_index].obj = _ref;
+        if (_index != selectedSlot) _ref.SetActive(false);
         UpdateSelectedObj();
         //If item is a gun or a weapon set weapon to player weapon
                 BaseGun bgRef;
