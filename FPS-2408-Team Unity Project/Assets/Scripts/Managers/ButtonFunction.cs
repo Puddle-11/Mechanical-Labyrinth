@@ -71,6 +71,34 @@ public class ButtonFunction : MonoBehaviour
         ShopManager.instance?.SecondaryShop();
     }
 
-    // Start is called before the first frame update
+    public void buyPistolAmmo(GameObject text)
+    {
+        ShopManager.instance.YouArePoor(text);
+    }
+
+    public void buyAssaultAmmo()
+    {
+        AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Assualt, 30);
+    }
+
+    public void buyShotgunAmmo()
+    {
+        AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Shotgun, 30);
+    }
+
+    public void buySniperAmmo()
+    {
+        AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Sniper, 30);
+    }
+
+    public void buyExplosiveAmmo()
+    {
+        AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Explosive, 30);
+    }
+
+    public void viewButton(GameObject view)
+    {
+        view.SetActive(true);
+    }
 
 }

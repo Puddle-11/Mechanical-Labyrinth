@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static System.Net.Mime.MediaTypeNames;
 
 public class ShopManager : MonoBehaviour
 {
     public static ShopManager instance;
+
+    private TMP_Text insuficientFunds;
 
     private void Awake()
     {
@@ -52,5 +55,17 @@ public class ShopManager : MonoBehaviour
     public void SecondaryShop() 
     {
         UIManager.instance.SecondaryShop();
+    }
+
+    public void YouArePoor(GameObject text)
+    {
+        if (ScrapInventory.instance.currentScrap >= 5)
+        {
+            AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Pistol, 30);
+        }
+        else
+        {
+            StartCoroutine(UIManager.instance.YouArePoor(text));
+        }
     }
 }

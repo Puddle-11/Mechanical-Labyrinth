@@ -742,7 +742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ba09a36f0d73dba42873c79e424a3f08, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2531,7 +2531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 24b6cd2c8e96ff543a78d1c90afd3d12, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2646,7 +2646,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d0e061f74c65574aad4cdef5353dcc9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4129,7 +4129,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce52a1509300a8447a202f2623b3a98f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6799,7 +6799,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 56deb947d2d19eb49ac6012d1099117b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7626,6 +7626,11 @@ MonoBehaviour:
   scrapCount: {fileID: 5293363569569469314}
   pauseScrapCount: {fileID: 988598933167998391}
   shopScrapCount: {fileID: 538265392671563690}
+  gunShopScrapCount: {fileID: 0}
+  ammoShopScrapCount: {fileID: 0}
+  itemShopScrapCount: {fileID: 0}
+  primaryGunShopScrapCount: {fileID: 0}
+  secondaryGunShopScrapCount: {fileID: 0}
   currAmmoInvAmount: {fileID: 8283725528974963763}
   currAmmoInvParent: {fileID: 8748003284066012145}
   currAmmoInvIcon: {fileID: 4170438949756984163}
@@ -7658,3 +7663,4 @@ MonoBehaviour:
     CUI_obj: {fileID: 8885208591715269289}
   - CUI_currentState: 0
     CUI_obj: {fileID: 8748003284066012145}
+  currItem: []
