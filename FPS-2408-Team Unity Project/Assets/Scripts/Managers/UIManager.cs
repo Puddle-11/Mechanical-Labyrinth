@@ -126,7 +126,8 @@ public class UIManager : MonoBehaviour
 
     public void SetSlotIcon(Sprite icon, int index)
     {
-        currItem[index].sprite = icon;
+        if (icon == null) return;
+         currItem[index].sprite = icon;
     }
 
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)

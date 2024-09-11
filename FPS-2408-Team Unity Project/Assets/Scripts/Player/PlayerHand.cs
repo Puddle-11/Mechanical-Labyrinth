@@ -32,8 +32,6 @@ public class PlayerHand : MonoBehaviour
     }
     #endregion
 
-
-
     //========================================================
     //I really hate the "chain" of methods from the player controller
     //all the way to the currently equiped item, there are to many points of failure
@@ -50,7 +48,7 @@ public class PlayerHand : MonoBehaviour
     }
     public void SetCurrentEquipped(GameObject _obj)
     {
-
+        Debug.Log("Hit Current Equipped");
         if (CurrentEquiped == _obj) return;
        
         if(_obj == null)

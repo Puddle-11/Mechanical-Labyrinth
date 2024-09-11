@@ -42,7 +42,7 @@ public class ShopManager : MonoBehaviour
     }
     public void SetWarningState(bool _val)
     {
-        insuficientFunds.gameObject.SetActive(_val);
+        if(insuficientFunds != null) insuficientFunds.gameObject.SetActive(_val);
     }
     private void Awake()
     {
