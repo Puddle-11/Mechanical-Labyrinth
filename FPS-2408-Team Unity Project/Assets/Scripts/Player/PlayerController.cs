@@ -98,19 +98,19 @@ public class PlayerController : BaseEntity
             }
             else
             {
-                if (Input.GetButtonDown("Pick Up"))
+                if (GameplayInputManager.instance.OnPickup())  
                 {
                     playerHandRef.ClickPickUp();
                 }
-                if (Input.GetButtonDown("Shoot"))
+                if (GameplayInputManager.instance.OnUseDown())
                 {
                     playerHandRef.SetUseItem(true);
                 }
-                if (Input.GetButtonUp("Shoot"))
+                if (GameplayInputManager.instance.OnUseUp())
                 {
                     playerHandRef.SetUseItem(false);
                 }
-                if (Input.GetKeyDown(KeyCode.R))
+                if (GameplayInputManager.instance.OnReload())
                 {
                     if (playerHandRef.GetCurrentHand() != null)
                     {
@@ -120,7 +120,7 @@ public class PlayerController : BaseEntity
                         }
                     }
                 }
-                if (Input.GetMouseButtonDown(1))
+                if (GameplayInputManager.instance.OnAim())
                 {
                     playerHandRef.ToggleADS(!playerHandRef.GetIsAiming());
                 }
