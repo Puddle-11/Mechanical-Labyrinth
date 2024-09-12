@@ -17,6 +17,7 @@ public class ChunkGrid : MonoBehaviour
     private GameObject[,,] GridObj;
     private float CellScale;
     public GameObject MeshPrefab;
+    [SerializeField] private GameObject Elevator;
     public IGenerator iGen;
     public GridBounds bounds;
     public int textureAtlasSize;
@@ -138,6 +139,7 @@ public class ChunkGrid : MonoBehaviour
    
     private void SpawnEndDoor()
     {
+        if (Elevator != null) return; 
         Vector2Int UPos = iGen.GetStartPos();
         Vector3Int _gridPos = new Vector3Int(UPos.x, 2, UPos.y);
         Instantiate(iGen.GetDoorPrefab(), GridToWorld(_gridPos) + iGen.GetDoorOffset(), Quaternion.LookRotation(new Vector3(0,0,1)));
