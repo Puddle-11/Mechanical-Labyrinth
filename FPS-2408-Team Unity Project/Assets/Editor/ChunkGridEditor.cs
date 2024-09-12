@@ -15,7 +15,6 @@ public class ChunkGridEditor : Editor
         if (_target == null) return;
 
         Undo.RecordObject(_target, "Change ChunkGrid Editor");
-
         if(GUILayout.Button("Bake Mesh"))
         {
             _target.GenFromEditor();

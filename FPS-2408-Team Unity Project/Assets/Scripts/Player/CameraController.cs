@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -28,9 +29,11 @@ public class CameraController : MonoBehaviour
     [SerializeField]  private float camShakeScalar;
     [SerializeField] private float camShakeDurration;
     public bool resettingOffset;
-    public Vector2 offset;
     private bool camShaking;
     public Camera mainCamera;
+    public Vector3 targetAngles;
+    public float maxOffsetMoveSpeed;
+    public GameObject offsetObj;
     public void Awake()
     {
 
@@ -103,7 +106,7 @@ public class CameraController : MonoBehaviour
                 float x = Random.Range(-1f, 1f) * _scalar * evaluatedIntensity;
                 float y = Random.Range(-1f, 1f) * _scalar * evaluatedIntensity;
                 transform.localPosition = new Vector3(x, y, originPos.z);
-                timeElapsed += Time.deltaTime;
+                timeElapsed += Time.unscaledDeltaTime;
                 yield return null;
         }
         transform.localPosition = originPos;
@@ -120,7 +123,11 @@ public class CameraController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-       if(resettingOffset) ResetOffsetPos();
+
+
+        targetAngles = Vector2.MoveTowards(targetAngles, Vector2.zero, offsetResetSpeed + Mathf.Pow(Vector2.Distance(targetAngles, Vector2.zero), 2) * offsetResetDampening);
+        offsetObj.transform.localEulerAngles = targetAngles;
+
     }
 
 
@@ -132,29 +139,20 @@ public class CameraController : MonoBehaviour
         rotX = invert ? rotX + pitch: rotX - pitch;
         rotX = Mathf.Clamp(rotX, miny, maxy);
 
-        cameraAnchor.localRotation = Quaternion.Euler(rotX + offset.y, 0, 0);
+        cameraAnchor.localRotation = Quaternion.Euler(rotX, 0, 0);
         GameManager.instance.playerRef.transform.Rotate(Vector3.up * yaw);
     }
 
-
-
-    public void UpdateOffsetPos(Vector2 _offset)
+    public void UpdateOffset(Vector3 _offset)
     {
-        SetOffsetPos(offset + _offset);
+        SetOffset(targetAngles + _offset);
     }
-    public void SetOffsetPos(Vector2 _offset){
-        offset = _offset;
-    }
-    public void ResetOffset(bool _val)
+    public void SetOffset(Vector3 _offset)
     {
-
-        resettingOffset = _val;
-
+        targetAngles = _offset;
     }
-    private void ResetOffsetPos()
+    private void ResetOffset()
     {
-        offset = Vector2.MoveTowards(offset, Vector2.zero, offsetResetSpeed + Mathf.Pow(Vector2.Distance(offset, Vector2.zero), 2) * offsetResetDampening);
-        if (Mathf.Abs(offset.y) < 0.01) offset.y = 0;
-        if (Mathf.Abs(offset.x) < 0.01) offset.x = 0;
+        targetAngles = Vector3.zero;
     }
 }

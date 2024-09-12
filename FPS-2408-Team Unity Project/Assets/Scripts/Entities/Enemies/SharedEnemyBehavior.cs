@@ -78,7 +78,10 @@ public class SharedEnemyBehavior : BaseEntity
     }
     public void FaceTarget()
     {
-        Quaternion rot = Quaternion.LookRotation(new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z) - transform.position);
+        Vector3 targetPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+
+        Quaternion rot = Quaternion.LookRotation(targetPos - transform.position);
+
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * rotationSpeed);
     }
     public bool IsInRange(out Vector3 _dirToTarget, float _dist)

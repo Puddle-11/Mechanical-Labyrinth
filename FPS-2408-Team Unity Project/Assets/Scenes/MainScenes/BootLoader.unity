@@ -135,6 +135,8 @@ GameObject:
   - component: {fileID: 2008974026}
   - component: {fileID: 2008974027}
   - component: {fileID: 2008974028}
+  - component: {fileID: 2008974029}
+  - component: {fileID: 2008974030}
   m_Layer: 0
   m_Name: BootManager
   m_TagString: Untagged
@@ -185,6 +187,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundPlayer: {fileID: 2008974028}
+  continuousSounds:
+  - clip: {fileID: 8300000, guid: 48771de06be9ee34790cb94ad72b7a77, type: 3}
+    source: {fileID: 0}
+    volume: 0.2
+    pitch: 0.6
+    loop: 1
 --- !u!82 &2008974028
 AudioSource:
   m_ObjectHideFlags: 0
@@ -281,6 +289,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2008974029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008974024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762b531c29da981469b0807b4b746d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: a5270167842e17b44aa654efd362329a, type: 2}
+--- !u!114 &2008974030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008974024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f78f8cf2c22a6428b17f632ddb0dae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &247227639457453107
 GameObject:
   m_ObjectHideFlags: 0

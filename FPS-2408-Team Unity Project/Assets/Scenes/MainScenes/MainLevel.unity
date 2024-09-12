@@ -240,9 +240,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: maxGridSize.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: minGridSize.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4929931634702836277, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: m_Name
       value: Level generator
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579074951367543165, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: generatorType
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
