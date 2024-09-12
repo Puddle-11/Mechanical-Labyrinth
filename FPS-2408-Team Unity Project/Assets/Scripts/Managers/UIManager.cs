@@ -121,7 +121,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < size; ++i)
         {
             Vector3 pos = new Vector3(inventoryAnchor.transform.position.x + i * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) - centerOffset.x, inventoryAnchor.transform.position.y, 0);
-            GameObject temp = Instantiate(Slot, pos, Quaternion.identity, gameObject.transform);
+            GameObject temp = Instantiate(Slot, pos, Quaternion.identity, inventoryAnchor.transform);
             currItem[i] = temp.gameObject.GetComponentInChildren<Image>();
         }
     }

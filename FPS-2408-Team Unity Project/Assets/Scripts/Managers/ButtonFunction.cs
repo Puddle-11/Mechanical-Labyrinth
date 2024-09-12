@@ -30,7 +30,8 @@ public class ButtonFunction : MonoBehaviour
         Time.timeScale = 1;
         BootLoadManager.instance?.ExitGameMode();
     }
-
+    
+    
     public void respawn()
     {
         GameManager.instance?.respawn();
@@ -39,7 +40,7 @@ public class ButtonFunction : MonoBehaviour
 
     public void closeShop()
     {
-        ShopManager.instance?.CloseShop();
+        ShopManager.instance.CloseShop();
     }
 
     public void openGunShop()
