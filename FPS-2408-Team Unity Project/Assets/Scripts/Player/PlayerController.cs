@@ -57,7 +57,6 @@ public class PlayerController : BaseEntity
     private GameObject playerSpawnPos;
     private bool playingFootstepSound;
     private bool isDead;
-    private Vector3 frameNormals;
     private float moveTimer;
 
     #region MonoBehavior Methods
@@ -88,7 +87,6 @@ public class PlayerController : BaseEntity
 
     public override void Update()
     {
-        frameNormals = Vector3.zero;
         #region Button Handling
         //-----------------------------------------
         //Button Handling
@@ -247,7 +245,6 @@ public class PlayerController : BaseEntity
             transform.position = playerSpawnPos.transform.position;
 
             controllerRef.enabled = true;
-
             return true;
         }
         return false;
@@ -261,10 +258,7 @@ public class PlayerController : BaseEntity
         }
     }
 
-    public void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        frameNormals += hit.normal;
-    }
+
     private void Movement()
     {
         Vector3 move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;

@@ -66,7 +66,6 @@ public class PlayerHand : MonoBehaviour
             UIManager.instance.AmmoDisplay(usableRef.GetPStats().uses, usableRef.GetPStats().maxUses);
             UIManager.instance.UpdateAmmoFill(usableRef.GetPStats().uses / (float)usableRef.GetPStats().maxUses);
         }
-        CameraController.instance.ResetOffset(true);
         UIManager.instance.UpdateCrosshairSpread(0);
         ToggleADS(false);
         CurrentEquiped = _obj;

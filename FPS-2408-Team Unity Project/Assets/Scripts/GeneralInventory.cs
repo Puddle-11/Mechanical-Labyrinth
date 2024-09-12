@@ -117,7 +117,6 @@ public class GeneralInventory : MonoBehaviour
         {
             UIManager.instance.AmmoDisplay(0, 0);
             UIManager.instance.UpdateAmmoFill(1);
-            CameraController.instance.ResetOffset(true);
             UIManager.instance.UpdateCrosshairSpread(0);
             GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(null);
 

@@ -88,6 +88,7 @@ public class UIManager : MonoBehaviour
     public UIObj[] ConstUI;
     private bool showingControls = true;
     private int currExternalAmmoInv;
+
     #region Custom Structs and Enums
     [System.Serializable]
     public struct UIObj
@@ -116,9 +117,10 @@ public class UIManager : MonoBehaviour
     {
         //incomplete, will need to add math for position.
         int size = GeneralInventory.instance.GetInventorySize();
+        Vector3 centerOffset = new Vector3((size - 1) * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x), inventoryAnchor.transform.position.y, 0)/2;
         for (int i = 0; i < size; ++i)
         {
-            Vector3 pos = new Vector3(inventoryAnchor.transform.position.x + i * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x), inventoryAnchor.transform.position.y, 0);
+            Vector3 pos = new Vector3(inventoryAnchor.transform.position.x + i * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) - centerOffset.x, inventoryAnchor.transform.position.y, 0);
             GameObject temp = Instantiate(Slot, pos, Quaternion.identity, gameObject.transform);
             currItem[i] = temp.gameObject.GetComponentInChildren<Image>();
         }
@@ -192,7 +194,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator flashDamage()
     {
         flashDamageRef.SetActive(true);
-        yield return new WaitForSeconds(flashDamageTime);
+        yield return new WaitForSecondsRealtime(flashDamageTime);
         flashDamageRef.SetActive(false);
     }
 
