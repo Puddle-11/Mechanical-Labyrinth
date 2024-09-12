@@ -193,6 +193,11 @@ MonoBehaviour:
     volume: 0.2
     pitch: 0.6
     loop: 1
+  - clip: {fileID: 8300000, guid: ea9322ace32b19f4182c0c1a8a208474, type: 3}
+    source: {fileID: 0}
+    volume: 0.3
+    pitch: 0.8
+    loop: 1
 --- !u!82 &2008974028
 AudioSource:
   m_ObjectHideFlags: 0
