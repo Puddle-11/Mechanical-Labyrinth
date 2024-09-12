@@ -155,7 +155,6 @@ public class ChunkGrid : MonoBehaviour
     #region MainGeneration
     public void InstantiateGrid()
     {
-        Debug.Log("Initialized Grid");
 
         ClearChunkGrid();
         //This method takes all the values given and instantiates a grid of chunks to work with
@@ -200,7 +199,6 @@ public class ChunkGrid : MonoBehaviour
     }
     public void GenerateGrid()
     {
-        Debug.Log("Generate Grid");
 
         GridCells = new MeshCell[GridObj.GetLength(0) * CubicChunkSize, GridObj.GetLength(1) * CubicChunkSize, GridObj.GetLength(2) * CubicChunkSize];
 
@@ -220,7 +218,6 @@ public class ChunkGrid : MonoBehaviour
     }
     public void RenderGridO(bool _override)
     {
-        Debug.Log("Rendered Grid");
 
         if (_override)
         {

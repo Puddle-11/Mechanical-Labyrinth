@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SettingsSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Custom Assets/Settings Preset")]
+public class SettingsSO : ScriptableObject
 {
 
     public float S_cameraSensitivity;

@@ -891,7 +891,7 @@ MonoBehaviour:
   drops: []
   rendRef: []
   footstepSoundRef: {fileID: 7812129156646002974}
-  baseSpeed: 15
+  baseSpeed: 10
   acceleration: 50
   sprintMod: 1.5
   externalForceDampening: 15
@@ -903,19 +903,16 @@ MonoBehaviour:
   jumpHeight: 10
   jumpMax: 1
   gravityStrength: 21
-  footstepDelay: 0.5
+  footstepDelay: 0.3
   footstepSounds:
-  - {fileID: 8300000, guid: 1dde88d21d50afc4995edd6f81bc1640, type: 3}
-  - {fileID: 8300000, guid: 2755e82e86cf7774f89c8b1fd09d20c3, type: 3}
-  - {fileID: 8300000, guid: 39e57e1d78b0c1f4b806cbf55e7db466, type: 3}
-  - {fileID: 8300000, guid: decd8a3ea49968343b8cf16be5d741fb, type: 3}
-  - {fileID: 8300000, guid: 636fe997a3665de4aac83ff6611497ee, type: 3}
-  - {fileID: 8300000, guid: 4f322cbdcaf68c842860f8cfb4a63c3a, type: 3}
+  - {fileID: 8300000, guid: 60572617274ab6e43b9f8af9918043b0, type: 3}
+  - {fileID: 8300000, guid: 2fc9228299437ae4ca6b619fdaee4c4d, type: 3}
+  - {fileID: 8300000, guid: 508b1415ba3210748b6bae5b0bfcacf8, type: 3}
   damageSounds:
   - {fileID: 8300000, guid: d45280c27f4f2b74ea42009be215b38b, type: 3}
   - {fileID: 8300000, guid: e018b981c818f20418c5729f27ca0ab1, type: 3}
   - {fileID: 8300000, guid: bb41b3025c8f70c4eae299a61c787010, type: 3}
-  footstepvol: 1
+  footstepvol: 0.3
   externalForce: {x: 0, y: 0, z: 0}
 --- !u!114 &2174789186933504693
 MonoBehaviour:

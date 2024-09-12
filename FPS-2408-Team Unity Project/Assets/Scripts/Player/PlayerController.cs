@@ -310,7 +310,10 @@ public class PlayerController : BaseEntity
         }
     }
 
-
+    public void OnDisable()
+    {
+        playingFootstepSound = false;
+    }
     public IEnumerator PlayStepSound()
     {
         if (playingFootstepSound) yield break;
