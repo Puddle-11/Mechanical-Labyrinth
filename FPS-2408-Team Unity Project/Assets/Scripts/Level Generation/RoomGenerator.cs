@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -53,7 +54,7 @@ public class RoomGenerator : IGenerator
     #endregion
 
     #region Getters and Settters
-    public override Texture2D GetRoomTexture() {return roomTexture;}
+    public override Texture2D GetRoomTexture(){return roomTexture == null ? roomMap.texture : roomTexture;}
     public override void SetGeneratorBounds(ChunkGrid.GridBounds _bounds) {bounds = _bounds;}
     #endregion
 
@@ -150,6 +151,7 @@ public class RoomGenerator : IGenerator
 
     public override void GenerateAllPositions(Texture2D _texture)
     {
+        if (ChunkGrid.instance == null) return;
         groundPositions = new List<Vector3>();
         for (int x = 0; x < _texture.width; x++)
         {
@@ -170,7 +172,6 @@ public class RoomGenerator : IGenerator
     public override List<Vector3> GetPositions() { return groundPositions; }
 
     #endregion
-
 
 
 
@@ -428,9 +429,14 @@ public class RoomGenerator : IGenerator
     private int FromTexture(Vector3Int _pos)
     {
 
-        Color temp = roomTexture.GetPixel(_pos.x, _pos.z);
-        int greyCol =  Mathf.RoundToInt((float)temp.grayscale * (float)maxHeight);
-        if (roomTexture.GetPixel(_pos.x + 1, _pos.z).grayscale != 0f || roomTexture.GetPixel(_pos.x - 1, _pos.z).grayscale != 0f || roomTexture.GetPixel(_pos.x, _pos.z + 1).grayscale != 0f || roomTexture.GetPixel(_pos.x, _pos.z - 1).grayscale != 0f)
+        Color temp = roomTexture != null ? roomTexture.GetPixel(_pos.x, _pos.z) : roomMap.texture.GetPixel(_pos.x, _pos.z);
+        Color temp2 = roomTexture != null ? roomTexture.GetPixel(_pos.x + 1, _pos.z) : roomMap.texture.GetPixel(_pos.x + 1, _pos.z);
+        Color temp3 = roomTexture != null ? roomTexture.GetPixel(_pos.x - 1, _pos.z) : roomMap.texture.GetPixel(_pos.x - 1, _pos.z);
+        Color temp4 = roomTexture != null ? roomTexture.GetPixel(_pos.x, _pos.z + 1) : roomMap.texture.GetPixel(_pos.x, _pos.z + 1);
+        Color temp5 = roomTexture != null ? roomTexture.GetPixel(_pos.x, _pos.z - 1) : roomMap.texture.GetPixel(_pos.x, _pos.z - 1);
+
+        int greyCol =  Mathf.RoundToInt((float)temp.grayscale * maxHeight);
+        if (temp2.grayscale != 0f || temp3.grayscale != 0f || temp4.grayscale != 0f || temp5.grayscale != 0f)
         {
 
             if (_pos.y == 0) return floorBlockID;

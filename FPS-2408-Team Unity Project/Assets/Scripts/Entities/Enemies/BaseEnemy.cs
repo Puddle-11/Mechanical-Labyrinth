@@ -78,7 +78,7 @@ public class BaseEnemy : SharedEnemyBehavior
         GetTarget();
         SetUpEvents();
         startingPos = transform.position;
-        GameManager.instance.updateGameGoal(1);
+       if(GameManager.instance != null) GameManager.instance.updateGameGoal(1);
         base.Start();
     }
     //-------------
@@ -104,7 +104,7 @@ public class BaseEnemy : SharedEnemyBehavior
     public void SetPatrolPoints(Vector3[] _val) { patrolPoints = _val;}
     protected void SetNavmeshTarget(Vector3 _pos) { agent.SetDestination(_pos); }
     private void SetNavmeshTarget() { if (target != null) SetNavmeshTarget(target.transform.position); }
-        public void GetTarget(){if (target == null) target = GameManager.instance.playerRef;}
+        public void GetTarget(){if (target == null && GameManager.instance != null) target = GameManager.instance.playerRef;}
     private float DistanceToDestination() { return agent != null ? agent.remainingDistance : 0; }
     //=======================================
     #endregion

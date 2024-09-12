@@ -21,7 +21,8 @@ public class FaceTarget : MonoBehaviour
     {
         if(lookType == type.faceCamera)
         {
-            target = CameraController.instance.GetMainCamera().gameObject;
+            
+            if(CameraController.instance != null) target = CameraController.instance.GetMainCamera().gameObject;
         }
     }
     // Update is called once per frame

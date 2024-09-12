@@ -2,6 +2,7 @@ using System.Collections;
 using Unity.AI.Navigation;
 
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class ChunkGrid : MonoBehaviour
 {
@@ -65,12 +66,7 @@ public class ChunkGrid : MonoBehaviour
     #region MonoBehavior Methods
     private void Awake()
     {
-        if(instance == null) instance = this;
-        else
-        {
-            Debug.LogWarning("Two Chunk Grids found in one scene, please ensure there is only ever one");
-            Destroy(this);
-        }
+        GetSingleton();
         GridObj = new GameObject[GridSize.x, GridSize.y, GridSize.x];
     }
     private void OnEnable()
@@ -81,7 +77,7 @@ public class ChunkGrid : MonoBehaviour
             BootLoadManager.instance.startLoadEvent += removeListeners;
         }
         }
-        private void OnDisable()
+    private void OnDisable()
     {
         removeListeners();
     }
@@ -94,13 +90,10 @@ public class ChunkGrid : MonoBehaviour
         GridSize.y = Mathf.Clamp(GridSize.y, minGridSize.y, maxGridSize.y);
         GridSize.z = Mathf.Clamp(GridSize.z, minGridSize.z, maxGridSize.z);
 
-        bounds.min = Vector3Int.zero;
-        bounds.max = GridSize * CubicChunkSize - Vector3Int.one;
 
 
-        iGen.SetGeneratorBounds(bounds);
-        iGen.GenerateMap();
 
+        SetAllBounds();
 
         //FAULTY CODE
         //============================
@@ -114,6 +107,32 @@ public class ChunkGrid : MonoBehaviour
         GenerateGrid();
         StartCoroutine(RenderGrid());
 
+    }
+    public void GenFromEditor()
+    {
+        Debug.Log("Gen from editor");
+        SetAllBounds();
+        InstantiateGrid();
+        GenerateGrid();
+        RenderGridO(false);
+    }
+    public void GetSingleton()
+    {
+        if (instance == this) return;
+        if (instance == null) instance = this;
+        else
+        {
+            Debug.LogWarning("Two Chunk Grids found in one scene, please ensure there is only ever one");
+            Destroy(this);
+        }
+    }
+    public void SetAllBounds()
+    {
+
+        bounds.min = Vector3Int.zero;
+        bounds.max = GridSize * CubicChunkSize - Vector3Int.one;
+        iGen.SetGeneratorBounds(bounds);
+        iGen.GenerateMap();
     }
     #endregion
    
@@ -133,9 +152,12 @@ public class ChunkGrid : MonoBehaviour
         }
     }
 
-        #region MainGeneration
-        private void InstantiateGrid()
+    #region MainGeneration
+    public void InstantiateGrid()
     {
+        Debug.Log("Initialized Grid");
+
+        ClearChunkGrid();
         //This method takes all the values given and instantiates a grid of chunks to work with
         GridObj = new GameObject[GridSize.x, GridSize.y, GridSize.z];
         CellScale = CubicChunkSize * VoxelSize;
@@ -155,8 +177,31 @@ public class ChunkGrid : MonoBehaviour
             }
         }
     }
-    private void GenerateGrid()
+    public void ClearChunkGrid()
     {
+        if (GridObj == null) return;
+        for (int x = 0; x < GridObj.GetLength(0); x++)
+        {
+            for (int y = 0; y < GridObj.GetLength(1); y++)
+            {
+                for (int z = 0; z < GridObj.GetLength(2); z++)
+                {
+#if UNITY_EDITOR
+                    DestroyImmediate(GridObj[x, y, z]);
+
+#else
+                    Destroy(GridObj[x, y, z]);
+
+#endif
+                }
+            }
+        }
+        GridObj = new GameObject[0, 0, 0];
+    }
+    public void GenerateGrid()
+    {
+        Debug.Log("Generate Grid");
+
         GridCells = new MeshCell[GridObj.GetLength(0) * CubicChunkSize, GridObj.GetLength(1) * CubicChunkSize, GridObj.GetLength(2) * CubicChunkSize];
 
         for (int x = 0; x < GridObj.GetLength(0) * CubicChunkSize; x++)
@@ -173,8 +218,41 @@ public class ChunkGrid : MonoBehaviour
             }
         }
     }
+    public void RenderGridO(bool _override)
+    {
+        Debug.Log("Rendered Grid");
 
-    private IEnumerator RenderGrid()
+        if (_override)
+        {
+            StartCoroutine(RenderGrid());
+            return;
+        }
+        totalChunks = GridObj.GetLength(0) * GridObj.GetLength(1) * GridObj.GetLength(2);
+        //This method takes the internal grid values and updates the renderer acordingly 
+        for (int x = 0; x < GridObj.GetLength(0); x++)
+        {
+            for (int y = 0; y < GridObj.GetLength(1); y++)
+            {
+                for (int z = 0; z < GridObj.GetLength(2); z++)
+                {
+
+                    Vector3Int _chunkPos = new Vector3Int(x, y, z);
+
+                    MeshGenerator meshGenRef;
+                    if (GridObj[_chunkPos.x, _chunkPos.y, _chunkPos.z].TryGetComponent<MeshGenerator>(out meshGenRef))
+                    {
+                        chunkLoaded++;
+                        progress = chunkLoaded / (float)totalChunks;
+                        meshGenRef.UpdateShape();
+                    }
+                }
+            }
+        }
+       // navMeshSurfaceRef.BuildNavMesh();
+    }
+
+
+    public IEnumerator RenderGrid()
     {
         totalChunks = GridObj.GetLength(0) * GridObj.GetLength(1) * GridObj.GetLength(2);
         //This method takes the internal grid values and updates the renderer acordingly 
@@ -187,8 +265,7 @@ public class ChunkGrid : MonoBehaviour
 
                     Vector3Int _chunkPos = new Vector3Int(x,y,z);
 
-                    MeshGenerator meshGenRef;
-                    if (GridObj[_chunkPos.x, _chunkPos.y, _chunkPos.z].TryGetComponent<MeshGenerator>(out meshGenRef))
+                    if (GridObj[_chunkPos.x, _chunkPos.y, _chunkPos.z].TryGetComponent(out MeshGenerator meshGenRef))
                     {
                         chunkLoaded++;
                         progress = chunkLoaded / (float)totalChunks;
@@ -205,7 +282,7 @@ public class ChunkGrid : MonoBehaviour
     }
 
 
-    #endregion
+#endregion
 
     #region Convertions
     public Vector3Int WorldToGrid(Vector3 _pos)
