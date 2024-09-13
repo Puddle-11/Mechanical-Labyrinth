@@ -9,7 +9,6 @@ public class ChunkGridEditor : Editor
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
-        DrawDefaultInspector();
 
         ChunkGrid _target = (ChunkGrid)target;
         if (_target == null) return;
