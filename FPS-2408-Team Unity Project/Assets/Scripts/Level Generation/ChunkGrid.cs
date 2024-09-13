@@ -1,6 +1,6 @@
 using System.Collections;
 using Unity.AI.Navigation;
-
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -18,6 +18,8 @@ public class ChunkGrid : MonoBehaviour
     private float CellScale;
     public GameObject MeshPrefab;
     [SerializeField] private GameObject Elevator;
+    [SerializeField] private GameObject GridParent;
+    [SerializeField] private Vector3 spawnPositionOffset;
     public IGenerator iGen;
     public GridBounds bounds;
     public int textureAtlasSize;
@@ -27,7 +29,7 @@ public class ChunkGrid : MonoBehaviour
     public delegate void ChunkGenProgress();
     public ChunkGenProgress StartLoad;
     public ChunkGenProgress EndLoad;
-
+    
 
     private float progress;
     private int chunkLoaded;
@@ -54,8 +56,7 @@ public class ChunkGrid : MonoBehaviour
 
     public Vector3 GetStartingPos()
     {
-        Vector2Int UPos = iGen.GetStartPos();
-        return GridToWorld(new Vector3Int(UPos.x, 2, UPos.y));
+      return Elevator.transform.position;
     }
 
     public float GetProgress()
@@ -74,7 +75,7 @@ public class ChunkGrid : MonoBehaviour
     {
         if (BootLoadManager.instance != null)
         {
-            BootLoadManager.instance.stopLoadEvent += SpawnEndDoor;
+            //BootLoadManager.instance.stopLoadEvent += SpawnEndDoor;
             BootLoadManager.instance.startLoadEvent += removeListeners;
         }
         }
@@ -98,16 +99,16 @@ public class ChunkGrid : MonoBehaviour
 
         //FAULTY CODE
         //============================
-        if (GameManager.instance != null && GameManager.instance.playerControllerRef != null)
-        {
-            GameManager.instance.playerControllerRef.SetPlayerSpawnPos(GetStartingPos());
-            GameManager.instance.playerControllerRef.SpawnPlayer();
-        }
         //============================
         InstantiateGrid();
         GenerateGrid();
         StartCoroutine(RenderGrid());
-
+        SpawnEndDoor();
+        if (GameManager.instance != null && GameManager.instance.playerControllerRef != null)
+        {
+            GameManager.instance.playerControllerRef.SetPlayerSpawnPos(GetStartingPos() + spawnPositionOffset);
+            GameManager.instance.playerControllerRef.SpawnPlayer();
+        }
     }
     public void GenFromEditor()
     {
@@ -129,7 +130,6 @@ public class ChunkGrid : MonoBehaviour
     }
     public void SetAllBounds()
     {
-
         bounds.min = Vector3Int.zero;
         bounds.max = GridSize * CubicChunkSize - Vector3Int.one;
         iGen.SetGeneratorBounds(bounds);
@@ -140,9 +140,10 @@ public class ChunkGrid : MonoBehaviour
     private void SpawnEndDoor()
     {
         if (Elevator != null) return; 
-        Vector2Int UPos = iGen.GetStartPos();
-        Vector3Int _gridPos = new Vector3Int(UPos.x, 2, UPos.y);
-        Instantiate(iGen.GetDoorPrefab(), GridToWorld(_gridPos) + iGen.GetDoorOffset(), Quaternion.LookRotation(new Vector3(0,0,1)));
+        Vector3 _gridPos = iGen.GetStartPos();
+        _gridPos.y = GridToWorld(new Vector3Int(0, 2,0)).y;
+        Elevator = Instantiate(iGen.GetDoorPrefab(), _gridPos + iGen.GetDoorOffset(), Quaternion.LookRotation(new Vector3(0,0,1)), transform);
+    
     }
 
     //remove listeners gets called in OnDissable
@@ -150,7 +151,7 @@ public class ChunkGrid : MonoBehaviour
     {
         if (BootLoadManager.instance != null)
         {
-            BootLoadManager.instance.stopLoadEvent -= SpawnEndDoor;
+            //BootLoadManager.instance.stopLoadEvent -= SpawnEndDoor;
         }
     }
 
@@ -171,7 +172,8 @@ public class ChunkGrid : MonoBehaviour
                 for (int z = 0; z < GridObj.GetLength(2); z++)
                 {
                     if (GridObj[x, y, z] != null) Destroy(GridObj[x, y, z]);
-                    GridObj[x, y, z] = Instantiate(MeshPrefab, transform.position, Quaternion.identity, transform);
+
+                    GridObj[x, y, z] = Instantiate(MeshPrefab, transform.position, Quaternion.identity, GridParent == null ? transform : GridParent.transform);
                     GridObj[x, y, z].transform.position = ChunkToWorld(new Vector3Int(x, y, z));
                     GridObj[x, y, z].GetComponent<MeshGenerator>().SetChunkRef(this);
                 }
