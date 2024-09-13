@@ -135,7 +135,7 @@ public class GeneralInventory : MonoBehaviour
         Destroy(Hotbar[_index].obj);
         Hotbar[_index].obj = null;
         Hotbar[_index].t = null;
-
+        UIManager.instance.SetSlotIcon(_index);
     }
     public void SpawnDrop(GameObject _obj)
     {

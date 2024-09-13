@@ -169,7 +169,10 @@ public class UIManager : MonoBehaviour
         if (icon == null) return;
          currItem[index].sprite = icon;
     }
-
+    public void SetSlotIcon(int index)
+    {
+        SetSlotIcon(emptySlot, index);
+    }
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
     {
         if(currAmmoInvParent != null) currAmmoInvParent.SetActive(_active);
