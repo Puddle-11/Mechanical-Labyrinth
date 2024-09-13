@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsUIInterface : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Slider[] volumeSliders;
+    public Slider sensitivitySlider;
+    public void UpdateVolume()
     {
-        
+
+
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
