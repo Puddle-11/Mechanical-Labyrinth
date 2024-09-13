@@ -401,6 +401,7 @@ MonoBehaviour:
   stats: 
   currPStats:
     uses: -1
+    maxUses: 0
 --- !u!54 &8220751805805839353
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -87,7 +88,7 @@ public class UIManager : MonoBehaviour
     
     public UIObj[] ConstUI;
     private bool showingControls = true;
-    private int currExternalAmmoInv;
+    private int currExternalAmmoInv = -1;
 
     #region Custom Structs and Enums
     [System.Serializable]
@@ -111,27 +112,67 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image[] currItem;
     [SerializeField] private GameObject Slot;
     [SerializeField] private int offset;
+    [SerializeField] private Vector2 hotbarAxis;
     [SerializeField] private GameObject inventoryAnchor;
-
+    [SerializeField] private Sprite emptySlot;
+    [SerializeField] private GameObject currSelectedHighlight;
+    [SerializeField] private bool centerHotbar = true;
+    [SerializeField] private bool invert = true;
     public void InitializeInventory()
     {
+
+
         //incomplete, will need to add math for position.
         int size = GeneralInventory.instance.GetInventorySize();
-        Vector3 centerOffset = new Vector3((size - 1) * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x), inventoryAnchor.transform.position.y, 0)/2;
+        RectTransform rt = Slot.gameObject.GetComponent<RectTransform>();
+        Vector3 centerOffset = new Vector3((size - 1) * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x)  / 2, (size - 1) * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) / 2, 0);
         for (int i = 0; i < size; ++i)
         {
-            Vector3 pos = new Vector3(inventoryAnchor.transform.position.x + i * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) - centerOffset.x, inventoryAnchor.transform.position.y, 0);
+            int tempIndex = !invert ? i : (size - 1) - i;
+            float xPos = inventoryAnchor.transform.position.x + (tempIndex * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) - (centerHotbar ? centerOffset.x : 0)) * hotbarAxis.x;
+            float yPos = inventoryAnchor.transform.position.y + (tempIndex * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) - (centerHotbar ? centerOffset.y : 0)) * hotbarAxis.y;
+            Vector3 pos = new Vector3(xPos, yPos, 0);
             GameObject temp = Instantiate(Slot, pos, Quaternion.identity, inventoryAnchor.transform);
-            currItem[i] = temp.gameObject.GetComponentInChildren<Image>();
+            currItem[i] = GetImages(temp.transform)[0];
+            currItem[i].sprite = emptySlot;
         }
     }
+    public void UpdateSelectionHover(int _index)
+    {
+        if(currSelectedHighlight == null)
+        {
+            Debug.LogWarning("No Highligher found");
+            return;
+        }
+        currSelectedHighlight.transform.position = currItem[_index].transform.position;
+    }
+  
+    public Image[] GetImages(Transform _root)
+    {
+        Transform[] children = _root.GetComponentsInChildren<Transform>();
+        List<Image> result = new List<Image>();
+        for (int i = 0; i < children.Length; i++)
+        {
+            //exclude root
+            if (children[i] == _root) continue;
+            if (children[i].TryGetComponent(out Image tempRef))
+            {
+                result.Add(tempRef);
+            }
 
+
+        }
+        return result.ToArray();
+    }
     public void SetSlotIcon(Sprite icon, int index)
     {
         if (icon == null) return;
          currItem[index].sprite = icon;
     }
-
+    public void SetSlotIcon(int index)
+    {
+        SetSlotIcon(emptySlot, index);
+    }
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
     {
         if(currAmmoInvParent != null) currAmmoInvParent.SetActive(_active);

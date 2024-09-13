@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
   m_Name: MP7
   m_EditorClassIdentifier: 
-  itemName: MP7
+  itemName: Burst Rifle
   itemID: 0
   Object: {fileID: 2410736084154907606, guid: 2d93faebada98a54e9a607f1d0195bf4, type: 3}
   Pickup: {fileID: 3388937891742639473, guid: 1db890cf10f4efa4f89136d8e366a51c, type: 3}
   maxUses: 25
-  Icon: {fileID: 21300000, guid: d2874a0ab99f0a04992b4d234074542e, type: 3}
+  Icon: {fileID: 21300000, guid: 4865146c87f52614fbcafa03565e1e7f, type: 3}
   defaultStats:
     uses: -1
     maxUses: 0

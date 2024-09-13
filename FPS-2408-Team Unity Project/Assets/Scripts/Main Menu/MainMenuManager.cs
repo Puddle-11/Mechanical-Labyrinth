@@ -9,6 +9,11 @@ public class MainMenuManager : MonoBehaviour
     public IMenuButton currentButton;
     public float buttonHoverScale;
     [SerializeField] private GameObject currMenu;
+    private void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
     public void ChangeMenu(GameObject _newMenu)
     {
         if (_newMenu == null) return;
@@ -16,6 +21,7 @@ public class MainMenuManager : MonoBehaviour
         currMenu = _newMenu;
         currMenu.SetActive(true);
     }
+  
     public void ChangeButton(IMenuButton _nextButton)
     {
         if(currentButton != null) currentButton.Deselect();
@@ -25,6 +31,7 @@ public class MainMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(Input.GetMouseButtonDown(0) && currentButton != null)
         {
             currentButton.Click();

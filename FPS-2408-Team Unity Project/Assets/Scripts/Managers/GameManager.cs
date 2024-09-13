@@ -90,10 +90,10 @@ public class GameManager : MonoBehaviour
             //THIS SHOULD BE THE ONLY SPOT OUTSIDE OF BOOTLOADER THAT STOPLOADEVENT IS INVOKED
             //=====================================================
             //Add more conditions to this if you want to wait until after a function is complete to load the level
-            if (GetChunkGrid() == null) BootLoadManager.instance.stopLoadEvent.Invoke();
+            if (GetChunkGrid() == null) BootLoadManager.instance.EndSceneAnimation();
             else
             {
-                if (GetChunkGrid().GetProgress() == 1)BootLoadManager.instance.stopLoadEvent.Invoke();
+                if (GetChunkGrid().GetProgress() == 1)BootLoadManager.instance.EndSceneAnimation();
                 else BootLoadManager.instance.UpdateLoadingBar(GetChunkGrid().GetProgress());
             }
             //=====================================================

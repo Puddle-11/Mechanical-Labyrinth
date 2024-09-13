@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
   m_Name: M4A1
   m_EditorClassIdentifier: 
-  itemName: M4A1
+  itemName: SubMachine Gun
   itemID: 0
   Object: {fileID: 3862297733452109323, guid: d692f71801ca6394cab3d8508769b276, type: 3}
   Pickup: {fileID: 997498726686487678, guid: 5776d17cfb7722c43a8f86ee22e24e19, type: 3}
   maxUses: 25
-  Icon: {fileID: 21300000, guid: ce52a1509300a8447a202f2623b3a98f, type: 3}
+  Icon: {fileID: 21300000, guid: fc9d092a8429d15438ce2cc16dc834c2, type: 3}
   defaultStats:
     uses: -1
     maxUses: 0

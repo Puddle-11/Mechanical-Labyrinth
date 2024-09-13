@@ -50,6 +50,8 @@ public class EnemySpawner : MonoBehaviour
         while (currentEnemyCount < enemyDensity)
         {
             int index = UnityEngine.Random.Range(0, allPositions.Count);
+            if (allPositions.Count <= 0) break;
+
             SpawnEnemy(allPositions[index], 1);
         }
     }
