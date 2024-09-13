@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -112,9 +113,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject Slot;
     [SerializeField] private int offset;
     [SerializeField] private GameObject inventoryAnchor;
-
+    [SerializeField] private Sprite emptySlot;
+    [SerializeField] private GameObject currSelectedHighlight;
     public void InitializeInventory()
     {
+
+
         //incomplete, will need to add math for position.
         int size = GeneralInventory.instance.GetInventorySize();
         Vector3 centerOffset = new Vector3((size - 1) * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x), inventoryAnchor.transform.position.y, 0)/2;
@@ -122,10 +126,31 @@ public class UIManager : MonoBehaviour
         {
             Vector3 pos = new Vector3(inventoryAnchor.transform.position.x + i * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) - centerOffset.x, inventoryAnchor.transform.position.y, 0);
             GameObject temp = Instantiate(Slot, pos, Quaternion.identity, inventoryAnchor.transform);
-            currItem[i] = temp.gameObject.GetComponentInChildren<Image>();
+            currItem[i] = GetImages(temp.transform)[0];
+            currItem[i].sprite = emptySlot;
         }
     }
+    public void UpdateSelectionHover(int _index)
+    {
+        currSelectedHighlight.transform.position = currItem[_index].transform.position;
+    }
+    public Image[] GetImages(Transform _root)
+    {
+        Transform[] children = _root.GetComponentsInChildren<Transform>();
+        List<Image> result = new List<Image>();
+        for (int i = 0; i < children.Length; i++)
+        {
+            //exclude root
+            if (children[i] == _root) continue;
+            if (children[i].TryGetComponent(out Image tempRef))
+            {
+                result.Add(tempRef);
+            }
 
+
+        }
+        return result.ToArray();
+    }
     public void SetSlotIcon(Sprite icon, int index)
     {
         if (icon == null) return;
