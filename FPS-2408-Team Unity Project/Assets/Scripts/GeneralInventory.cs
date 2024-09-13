@@ -73,6 +73,11 @@ public class GeneralInventory : MonoBehaviour
     public void AddItemToInventory(ItemType t, int _index, Pickup p = null)
     {
 
+        if (Hotbar[_index].t != null)
+        {
+            return;
+        }
+
         if (t == null)
         {
             Debug.LogWarning("Failed to pickup\n ItemType variable Unassigned");
@@ -220,4 +225,19 @@ public class GeneralInventory : MonoBehaviour
     public ItemType GetSlot(int _index) { return Hotbar[_index].t;}
     public void SetSlot(int _index, ItemType t) { Hotbar[_index].t = t;}
     public void SetSlot(ItemType t) { SetSlot(selectedSlot, t);}
+
+    public bool GetNextFreeIndex(out int result)
+    {
+        for(int i = 0;i < Hotbar.Length;i++) 
+        {
+            if (Hotbar[i].t == null)
+            {
+                result = i;
+                return true;
+            }
+        }
+
+        result = -1;
+        return false;
+    }
 }

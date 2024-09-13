@@ -388,6 +388,13 @@ public class UIManager : MonoBehaviour
             menuActive.SetActive(false);
         }
         menuActive = null;
+        for (int i = 0; i < ConstUI.Length; i++)
+        {
+            if (ConstUI[i].CUI_obj != null)
+            {
+                ConstUI[i].CUI_obj.SetActive(ConstUI[i].CUI_currentState);
+            }
+        }
     }
 
     public void GunShop()
