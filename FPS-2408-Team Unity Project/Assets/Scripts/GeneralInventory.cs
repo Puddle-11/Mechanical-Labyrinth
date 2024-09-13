@@ -219,6 +219,7 @@ public class GeneralInventory : MonoBehaviour
             }
 
         }
+        UIManager.instance.UpdateSelectionHover(selectedSlot);
         GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
 
     }
