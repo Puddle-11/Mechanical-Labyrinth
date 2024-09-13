@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     
     public UIObj[] ConstUI;
     private bool showingControls = true;
-    private int currExternalAmmoInv;
+    private int currExternalAmmoInv = -1;
 
     #region Custom Structs and Enums
     [System.Serializable]
@@ -139,8 +139,14 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateSelectionHover(int _index)
     {
+        if(currSelectedHighlight == null)
+        {
+            Debug.LogWarning("No Highligher found");
+            return;
+        }
         currSelectedHighlight.transform.position = currItem[_index].transform.position;
     }
+  
     public Image[] GetImages(Transform _root)
     {
         Transform[] children = _root.GetComponentsInChildren<Transform>();

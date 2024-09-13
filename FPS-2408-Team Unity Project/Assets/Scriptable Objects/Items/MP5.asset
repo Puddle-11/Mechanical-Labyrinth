@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
   m_Name: MP5
   m_EditorClassIdentifier: 
-  itemName: MP5
+  itemName: Tommy Gun
   itemID: 0
   Object: {fileID: 130629435006850423, guid: 974205c39490420409785477e6a59e03, type: 3}
   Pickup: {fileID: 4017666822207980650, guid: 5bc1038690561184ebe92d362ad752d1, type: 3}
   maxUses: 25
-  Icon: {fileID: 21300000, guid: 24b6cd2c8e96ff543a78d1c90afd3d12, type: 3}
+  Icon: {fileID: 21300000, guid: a293b12f5fb1b874f8e01991dfc14464, type: 3}
   defaultStats:
     uses: -1
     maxUses: 0

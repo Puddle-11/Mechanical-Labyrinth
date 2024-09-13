@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   S_GeneralInventory: []
   S_AmmoInventory: 
-  S_Level: 8
+  S_Level: 0
   S_DefaultItem: {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
   S_Item: {fileID: 0}
   S_TotalDamage: 0
