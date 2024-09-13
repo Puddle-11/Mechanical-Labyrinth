@@ -10,7 +10,7 @@ public class Oscillate : MonoBehaviour
     //====================================
     //REWORKED
     //====================================
-    private void Update()
+    private void LateUpdate()
     {
         timer += (Time.deltaTime * speed) % (Mathf.PI * 2);
         transform.position += axis * Mathf.Sin(timer) * speed * Time.deltaTime;
