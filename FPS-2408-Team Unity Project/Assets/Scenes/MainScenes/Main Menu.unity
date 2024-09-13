@@ -2986,7 +2986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1167523411}
-  sceneName: MainLevel
+  sceneName: Tutorial
   save: {fileID: 11400000, guid: dcfc5aaa6cecc934fa48738b6b47927b, type: 2}
   levelField: {fileID: 635822986}
   deathField: {fileID: 636801002}
@@ -5034,7 +5034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1838897684}
-  sceneName: MainLevel
+  sceneName: Tutorial
   save: {fileID: 11400000, guid: 983c1502826318448a4140b4c1251ae4, type: 2}
   levelField: {fileID: 1349814036}
   deathField: {fileID: 1401602769}
