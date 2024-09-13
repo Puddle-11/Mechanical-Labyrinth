@@ -260,6 +260,10 @@ PrefabInstance:
       propertyPath: generatorType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: enemyDensity
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

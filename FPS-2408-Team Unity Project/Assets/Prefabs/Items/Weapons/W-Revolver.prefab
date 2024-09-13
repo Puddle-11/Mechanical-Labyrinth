@@ -331,7 +331,7 @@ MonoBehaviour:
   stats:
     uses: 0
     maxUses: 0
-  coolDown: 0.1
+  coolDown: 0.75
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
@@ -343,10 +343,10 @@ MonoBehaviour:
   shotType: 2
   ammoType: 0
   scopeInZoom: 0
-  shootDamage: 50
+  shootDamage: 100
   shootDist: 200
   burstSize: 0
-  clipSizeMax: 15
+  clipSizeMax: 6
   reloadSpeed: 1.5
   barrelDelay: 0
   barrels:

@@ -8,6 +8,7 @@ using UnityEngine;
 //====================================
 public class ExitDoor : MonoBehaviour
 {
+    [SerializeField] private bool returnToMenu;
     [SerializeField] private Collider triggerCollider;
     [SerializeField] private TMP_Text levelNumDisplay;
     [SerializeField] private GameObject elevatorCam;
@@ -105,7 +106,12 @@ public class ExitDoor : MonoBehaviour
         yield return new WaitForSeconds(elevatorDelay);
         doorsOpen = false;
         yield return new WaitForSeconds(elevatorDelay);
-        if(nextScene== null  || nextScene == "")
+        if (returnToMenu)
+        {
+            BootLoadManager.instance.ExitGameMode();
+
+        }
+        else if (nextScene == null || nextScene == "")
         {
             BootLoadManager.instance.ReloadScene();
 
@@ -113,8 +119,9 @@ public class ExitDoor : MonoBehaviour
         else
         {
 
-        BootLoadManager.instance.LoadScene(nextScene);
+            BootLoadManager.instance.LoadScene(nextScene);
         }
+
         isRunning = false;
     }
 }
