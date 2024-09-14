@@ -42,7 +42,13 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
-
+    public void UpdateConstSounds()
+    {
+        for (int i = 0; i < continuousSounds.Length; i++)
+        {
+            continuousSounds[i].source.volume = continuousSounds[i].volume * SettingsController.instance.GetGeneralVolume() * SettingsController.instance.GetTypeVolume(SettingsController.soundType.environmental);
+        }
+    }
     public void PlaySound(AudioClip _sound, float _volume)
     {
         if (SettingsController.instance != null) soundPlayer.PlayOneShot(_sound, _volume * SettingsController.instance.GetGeneralVolume());

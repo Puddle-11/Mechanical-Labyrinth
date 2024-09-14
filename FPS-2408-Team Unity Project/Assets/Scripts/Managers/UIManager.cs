@@ -286,7 +286,6 @@ public class UIManager : MonoBehaviour
     public void StatePause()
     {
         UpdateInternalAmmoInv();
-        runStatsObj.SetActive(true);
         FadeUI(true);
         GameManager.instance.SetPause(true);
         Cursor.visible = true;

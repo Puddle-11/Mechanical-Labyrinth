@@ -137,5 +137,8 @@ public class ButtonFunction : MonoBehaviour
     {
         view.SetActive(true);
     }
+    public void SaveTest(Weapon _tst)
+    {
 
+    }
 }
