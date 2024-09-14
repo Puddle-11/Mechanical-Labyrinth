@@ -15,6 +15,7 @@ public class GameplayInputManager : MonoBehaviour
     private InputAction look;
     private InputAction movement;
     private InputAction reload;
+    private InputAction UIClick;
     private void Awake()
     {
         if(instance == null)
@@ -29,6 +30,10 @@ public class GameplayInputManager : MonoBehaviour
 
         InitializeActions();
     }
+    private void RemapKey()
+    {
+
+    }
     private void InitializeActions()
     {
         _playerInput = new PlayerInput();
@@ -40,9 +45,11 @@ public class GameplayInputManager : MonoBehaviour
         aim = _playerInput.Player.Aim;
         look = _playerInput.Player.Look;
         movement = _playerInput.Player.Move;
+        UIClick = _playerInput.UI.Click;
     }
 
     #region Button Input Methods
+    public bool OnUIClick() { return UIClick.WasPerformedThisFrame(); }
     public bool OnReload() {return reload.WasPerformedThisFrame();}
     public bool OnUseDown() { return use.WasPressedThisFrame();}
     public bool OnUseUp() { return use.WasReleasedThisFrame();}
