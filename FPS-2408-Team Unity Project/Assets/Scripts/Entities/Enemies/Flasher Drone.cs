@@ -1,11 +1,8 @@
 using System.Collections;
-using UnityEngine.UI;
 using UnityEngine;
 
 public class FlasherDrone : BaseEnemy
 {
-    [SerializeField] private GameObject flashScreen;
-    [SerializeField] private Image flashScreenImage;
     [SerializeField] private float coolDown;
     [SerializeField] private float flashDuration;
     private float timeToWait;
@@ -13,7 +10,7 @@ public class FlasherDrone : BaseEnemy
     private bool hasFlashed = false;
     #region Monobehavior Methods
 
-    private void Update()
+    public override void Update()
     {
         if (Time.deltaTime >= timeToWait)
         {
@@ -25,6 +22,8 @@ public class FlasherDrone : BaseEnemy
                 }
             }
         }
+
+        base.Update();
     }
 
     private IEnumerator FlashEffect()
@@ -43,10 +42,10 @@ public class FlasherDrone : BaseEnemy
 
     private IEnumerator FlashScreen()
     {
-        flashScreen.SetActive(true);
+        UIManager.instance.flashScreen.SetActive(true);
 
         //flashScreenImage
-        Color initialColor = flashScreenImage.color;
+        Color initialColor = UIManager.instance.flashScreenImage.color;
 
         //fully transparent
         Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
@@ -59,14 +58,14 @@ public class FlasherDrone : BaseEnemy
             //fade out to transparent
             float alpha = Mathf.Lerp(1f, 0f, timePassed / flashDuration);
 
-            flashScreenImage.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+            UIManager.instance.flashScreenImage.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
             yield return null;
         }
 
         //set to zero opacity to make sure
-        flashScreenImage.color = targetColor;
+        UIManager.instance.flashScreenImage.color = targetColor;
 
-        flashScreen.SetActive(false);
+        UIManager.instance.flashScreen.SetActive(false);
     }
 
 

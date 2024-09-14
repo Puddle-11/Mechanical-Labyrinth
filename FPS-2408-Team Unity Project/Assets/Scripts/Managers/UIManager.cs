@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject ammoMenuShop;
     [SerializeField] GameObject itemMenuShop;
     [SerializeField] GameObject menuControlsLegend;
+    [SerializeField] public GameObject flashScreen;
     [Space]
     [Header("Damage Indicator")]
     [Space]
@@ -63,6 +64,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     [SerializeField] private Animator UIFadeAnim;
+    [SerializeField] public Image flashScreenImage;
 
     [Space]
     [Header("Scrap")]
