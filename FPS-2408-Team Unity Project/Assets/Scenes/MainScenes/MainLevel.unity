@@ -207,6 +207,14 @@ PrefabInstance:
       propertyPath: enemyDensity
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: enemyList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784826018999248502, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: enemyList.Array.data[3].enemyPrefab
+      value: 
+      objectReference: {fileID: 6373992110502791433, guid: fdcf5d97b22994c4089909fc480fea97, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

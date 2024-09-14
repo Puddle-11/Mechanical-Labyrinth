@@ -24,11 +24,10 @@ public class Dasher : BaseEnemy
     }
     IEnumerator DashTowardsPlayer() {
         Vector3 directiontoplayer = GameManager.instance.playerRef.transform.position - transform.position;
-        Vector3 Direction = directiontoplayer / directiontoplayer.magnitude;
         while (currState == EnemyState.Attack)
         {
             yield return new WaitForSeconds(5);
-            transform.Translate(directiontoplayer.normalized * DashSpeed * Time.deltaTime, Space.World);
+            transform.position += directiontoplayer.normalized * DashSpeed * Time.deltaTime;
 
         }
     }

@@ -142,7 +142,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!195 &227443993
 NavMeshAgent:
@@ -203,7 +203,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
+  m_RayTraceProcedural: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -277,9 +277,9 @@ MonoBehaviour:
   transitionSpeed: 0.5
   Deathsounds: []
   DashSpeed: 7
-  RamDamage: 300
+  RamDamage: 100
   Knockback: {x: 0, y: 0, z: 0}
-  knockbackmod: 10
+  knockbackmod: 15
 --- !u!33 &227443997
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -314,6 +314,14 @@ PrefabInstance:
     - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
       propertyPath: m_Name
       value: jumpable wall Variant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6950277264414717984, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
       propertyPath: m_LocalPosition.x
@@ -375,6 +383,14 @@ PrefabInstance:
     - target: {fileID: 5962073757697133050, guid: 996ec401f3fa49043bccc96ce1fdd9a3, type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962073757697133050, guid: 996ec401f3fa49043bccc96ce1fdd9a3, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962073757697133050, guid: 996ec401f3fa49043bccc96ce1fdd9a3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8585696859048422913, guid: 996ec401f3fa49043bccc96ce1fdd9a3, type: 3}
       propertyPath: m_LocalScale.x
@@ -444,6 +460,14 @@ PrefabInstance:
     - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
       propertyPath: m_Name
       value: jumpable wall Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6950277264414717984, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
       propertyPath: m_LocalScale.y
@@ -1283,6 +1307,14 @@ PrefabInstance:
     - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
       propertyPath: m_Name
       value: jumpable wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039343172314619867, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6950277264414717984, guid: e344d8e2b0b694f40906bebea8457932, type: 3}
       propertyPath: m_LocalScale.y
