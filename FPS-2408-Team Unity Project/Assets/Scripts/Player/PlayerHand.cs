@@ -96,8 +96,11 @@ public class PlayerHand : MonoBehaviour
 
     public void ClickPickUp()
     {
-        if (!AttemptPickup())
-            AttemptDrop();
+        AttemptPickup();
+    }
+    public void ClickDrop()
+    {
+        AttemptDrop();
     }
     private bool AttemptPickup()
     {

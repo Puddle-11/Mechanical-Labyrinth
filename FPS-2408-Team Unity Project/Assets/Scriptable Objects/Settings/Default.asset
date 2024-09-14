@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782b6fb0cde3a47438435111e1429697, type: 3}
   m_Name: Default
   m_EditorClassIdentifier: 
-  S_cameraSensitivity: 1
+  S_cameraSensitivity: 1.8344771
   S_generalVol: 1
   S_SXFVol: 1
   S_environmentalVol: 1

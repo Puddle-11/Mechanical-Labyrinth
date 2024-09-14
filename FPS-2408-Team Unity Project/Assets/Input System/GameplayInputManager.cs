@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class GameplayInputManager : MonoBehaviour
 {
     public static GameplayInputManager instance;
-    private PlayerInput _playerInput;
+    [SerializeField] private PlayerInput _playerInput;
 
     private InputAction pause;
     private InputAction use;
@@ -16,6 +16,7 @@ public class GameplayInputManager : MonoBehaviour
     private InputAction movement;
     private InputAction reload;
     private InputAction UIClick;
+    private InputAction drop;
     private void Awake()
     {
         if(instance == null)
@@ -36,19 +37,18 @@ public class GameplayInputManager : MonoBehaviour
     }
     private void InitializeActions()
     {
-        _playerInput = new PlayerInput();
-        _playerInput.Enable();
-        reload = _playerInput.Player.Reload;
-        pause = _playerInput.Player.Pause;
-        use = _playerInput.Player.Fire;
-        pickup = _playerInput.Player.Pickup;
-        aim = _playerInput.Player.Aim;
-        look = _playerInput.Player.Look;
-        movement = _playerInput.Player.Move;
-        UIClick = _playerInput.UI.Click;
+        reload = _playerInput.actions["Reload"];
+        pause = _playerInput.actions["Pause"];
+        use = _playerInput.actions["Fire"];
+        pickup = _playerInput.actions["Pickup"];
+        aim = _playerInput.actions["Aim"];
+        look = _playerInput.actions["Look"];
+        movement = _playerInput.actions["Move"];
+        drop = _playerInput.actions["Drop"];
     }
 
     #region Button Input Methods
+    public bool OnDrop() {return drop.WasPerformedThisFrame();}
     public bool OnUIClick() { return UIClick.WasPerformedThisFrame(); }
     public bool OnReload() {return reload.WasPerformedThisFrame();}
     public bool OnUseDown() { return use.WasPressedThisFrame();}

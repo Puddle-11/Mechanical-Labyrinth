@@ -102,6 +102,10 @@ public class PlayerController : BaseEntity
                 {
                     playerHandRef.ClickPickUp();
                 }
+                if (GameplayInputManager.instance.OnDrop())
+                {
+                    playerHandRef.ClickDrop();
+                }
                 if (GameplayInputManager.instance.OnUseDown())
                 {
                     playerHandRef.SetUseItem(true);
