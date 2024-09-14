@@ -693,15 +693,19 @@ PrefabInstance:
       objectReference: {fileID: 1893547688}
     - target: {fileID: 8175484972286208621, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
       propertyPath: knockback.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8175484972286208621, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
-      propertyPath: knockback.y
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8175484972286208621, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
+      propertyPath: knockback.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175484972286208621, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
       propertyPath: knockback.z
-      value: 50
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8175484972286208621, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
+      propertyPath: knockbackmod
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
