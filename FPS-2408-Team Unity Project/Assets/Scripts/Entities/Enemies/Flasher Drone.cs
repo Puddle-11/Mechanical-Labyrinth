@@ -12,16 +12,13 @@ public class FlasherDrone : BaseEnemy
 
     public override void Update()
     {
-        if (Time.deltaTime >= timeToWait)
-        {
-            if (playerInRange && IsEnemyInPlayerView())
+            if (playerInRange == true && rendRef[0].currRenderer.isVisible == true && IsEnemyInPlayerView())
             {
                 if (!hasFlashed)
                 {
                     StartCoroutine(FlashEffect());
                 }
             }
-        }
 
         base.Update();
     }
@@ -71,8 +68,8 @@ public class FlasherDrone : BaseEnemy
 
     private bool IsEnemyInPlayerView()
     {
-        Vector3 directionToPlayer = (transform.position - target.transform.position).normalized;
-        float angle = Vector3.Angle(transform.forward, directionToPlayer);
+        Vector3 directionToEnemy = (transform.position - target.transform.position).normalized;
+        float angle = Vector3.Angle(target.transform.forward, directionToEnemy);
         return angle < sightAngle / 2f;
     }
 
