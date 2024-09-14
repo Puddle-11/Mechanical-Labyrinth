@@ -316,6 +316,8 @@ MonoBehaviour:
   transitionSpeed: 0.5
   Deathsounds: []
   explosionDamage: 300
+  knockback: {x: 0, y: 0, z: 0}
+  knockbackmod: 10
 --- !u!65 &4527273249660388099
 BoxCollider:
   m_ObjectHideFlags: 0
