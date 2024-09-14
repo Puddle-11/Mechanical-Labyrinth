@@ -190,6 +190,8 @@ public class BaseGun : Weapon
         if (isAttacking) isAttacking = false; //safegaurding against edgecases with the AttackDelay Ienumerator
         if (playerWeapon) UIManager.instance.UpdateExternalAmmoInv(true, (int)GetAmmoType());
         FSAtimer = 0;
+        isReloading = false;
+        isAttacking = false;
     }
     private void OnDisable()
     {
@@ -401,11 +403,12 @@ public class BaseGun : Weapon
         if (isReloading) yield break;
         if (currAmmo == clipSizeMax) yield break;
         isReloading = true;
-
         int fillAmount = clipSizeMax;
+
         if (playerWeapon)
         {
-            fillAmount = AmmoInventory.instance.ammoCounts[(int)ammoType] > clipSizeMax ? clipSizeMax : AmmoInventory.instance.ammoCounts[(int)ammoType];
+
+            fillAmount = AmmoInventory.instance.ammoCounts[(int)ammoType] > clipSizeMax ? clipSizeMax  - currAmmo: AmmoInventory.instance.ammoCounts[(int)ammoType];
 
             if (!(AmmoInventory.instance.ammoCounts[(int)ammoType] > 0))
             {
@@ -413,26 +416,34 @@ public class BaseGun : Weapon
                 yield break;
             }
         }
-            int takenAmount = fillAmount - currAmmo;
+        int finalFill = fillAmount + currAmmo;
 
         float timer = 0;
         float perBullVal = reloadSpeed / clipSizeMax;
         timer = currAmmo * perBullVal;
-        while (timer < reloadSpeed - (clipSizeMax - fillAmount) * perBullVal)
+
+
+        Debug.Log("Fill Amount: " + fillAmount);
+        Debug.Log("Taken Amount: " + finalFill);
+
+        while (timer < (finalFill) * perBullVal)
         {
+            Debug.Log(timer / reloadSpeed);
             if (playerWeapon)
             {
                 UIManager.instance.UpdateAmmoFill(timer / reloadSpeed);
             }
-            yield return null;
             timer += Time.deltaTime;
+            yield return null;
         }
         if (playerWeapon)
         {
-            AmmoInventory.instance.UpdateAmmoInventory(ammoType, -takenAmount);
+            AmmoInventory.instance.UpdateAmmoInventory(ammoType, -fillAmount);
             UIManager.instance.UpdateExternalAmmoInv(true, (int)ammoType);
         }
-    SetAmmo(fillAmount);
+        SetAmmo(finalFill);
         isReloading = false;
+
+
     }
 }
