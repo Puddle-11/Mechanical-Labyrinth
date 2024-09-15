@@ -85,7 +85,7 @@ public class GeneralInventory : MonoBehaviour
             return;
         }
 
-        SetSlot(t);
+        SetSlot(_index, t);
         GameObject handAnchor = GameManager.instance.playerControllerRef.GetPlayerHand().GetHandAnchor();
         //Instantiate item in hand
         GameObject _ref = Instantiate(t.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
@@ -109,7 +109,7 @@ public class GeneralInventory : MonoBehaviour
 
         if (p != null) Destroy(p.gameObject);
 
-        UIManager.instance.SetSlotIcon(Hotbar[selectedSlot].t.Icon, selectedSlot);
+        UIManager.instance.SetSlotIcon(t.Icon, _index);
     }
     public void DropItem()
     {
@@ -163,6 +163,10 @@ public class GeneralInventory : MonoBehaviour
     }
     void SelectItem()
     {
+        if (GameManager.instance != null && GameManager.instance.GetStatePaused())
+        {
+            return;
+        }
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             //if at top of list, loop to bottom
@@ -238,7 +242,7 @@ public class GeneralInventory : MonoBehaviour
             }
         }
 
-        result = -1;
+        result = 0;
         return false;
     }
 }

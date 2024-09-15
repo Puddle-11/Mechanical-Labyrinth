@@ -5994,7 +5994,7 @@ MonoBehaviour:
   agent: {fileID: 9119710058015515206}
   patrolPoints: []
   senseType: 1
-  minmaxScrap: {x: 0, y: 0}
+  minmaxScrap: {x: 1, y: 1}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds: []

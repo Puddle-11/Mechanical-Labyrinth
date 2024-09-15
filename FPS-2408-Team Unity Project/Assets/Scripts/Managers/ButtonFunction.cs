@@ -72,6 +72,13 @@ public class ButtonFunction : MonoBehaviour
         ShopManager.instance?.SecondaryShop();
     }
 
+    public void openSniperShop()
+    {
+        ShopManager.instance?.SniperShop();
+    }
+
+    //Ammo
+
     public void buyPistolAmmo(GameObject text)
     {
         ShopManager.instance?.BuyPistolAmmo();
@@ -98,6 +105,8 @@ public class ButtonFunction : MonoBehaviour
         ShopManager.instance?.BuyExplosiveAmmo();
     }
 
+    //Pistols
+
     public void buyDeagle(GameObject text) 
     {
         ShopManager.instance?.BuyDeagle();
@@ -108,15 +117,29 @@ public class ButtonFunction : MonoBehaviour
         ShopManager.instance?.BuyGlock();
     }
 
+    public void buyShotgunPistol(GameObject text)
+    {
+        ShopManager.instance?.BuyShotgunPistol();
+    }
+
     public void buyClassic(GameObject text)
     {
         ShopManager.instance?.BuyClassic();
     }
 
+    public void buyUZI(GameObject text)
+    {
+        ShopManager.instance?.BuyUZI();
+    }
+
+    //Snipers
+
     public void buyM16(GameObject text)
     {
         ShopManager.instance?.BuyM16();
     }
+
+    //Assault Rifles
 
     public void buyScar(GameObject text)
     {
@@ -128,17 +151,26 @@ public class ButtonFunction : MonoBehaviour
         ShopManager.instance?.BuyM4A1();
     }
 
-    public void buyRespawnItem(GameObject text)
+    public void buyMP5(GameObject text)
     {
-        ShopManager.instance?.BuyRespawnItem();
+        ShopManager.instance?.BuyMP5();
+    }
+
+    public void buyMP7(GameObject text)
+    {
+        ShopManager.instance?.BuyMP7();
+    }
+
+    //Items
+
+    public void buyHealthPack(GameObject text)
+    {
+        ShopManager.instance?.BuyHealthPack();
     }
 
     public void viewButton(GameObject view)
     {
         view.SetActive(true);
     }
-    public void SaveTest(Weapon _tst)
-    {
 
-    }
 }

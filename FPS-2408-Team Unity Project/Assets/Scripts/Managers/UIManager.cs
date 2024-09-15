@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject gunMenuShop;
     [SerializeField] GameObject primaryGunMenuShop;
     [SerializeField] GameObject secondaryGunMenuShop;
+    [SerializeField] GameObject sniperGunMenuShop;
     [SerializeField] GameObject ammoMenuShop;
     [SerializeField] GameObject itemMenuShop;
     [SerializeField] GameObject menuControlsLegend;
@@ -78,6 +79,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text itemShopScrapCount;
     [SerializeField] private TMP_Text primaryGunShopScrapCount;
     [SerializeField] private TMP_Text secondaryGunShopScrapCount;
+    [SerializeField] private TMP_Text sniperGunShopScrapCount;
 
     [Space]
     [Header("Ammo")]
@@ -288,6 +290,7 @@ public class UIManager : MonoBehaviour
     public void StatePause()
     {
         UpdateInternalAmmoInv();
+        runStatsObj.SetActive(true);
         FadeUI(true);
         GameManager.instance.SetPause(true);
         Cursor.visible = true;
@@ -499,6 +502,16 @@ public class UIManager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
+    public void SniperShop()
+    {
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = sniperGunMenuShop;
+        menuActive.SetActive(true);
+    }
+
     public void ToggleScrapCount(bool _val)
     {
         scrapCountObj.SetActive(_val);
@@ -515,9 +528,10 @@ public class UIManager : MonoBehaviour
         ammoShopScrapCount.text = _val.ToString();
         primaryGunShopScrapCount.text = _val.ToString();
         secondaryGunShopScrapCount.text = _val.ToString();
+        sniperGunShopScrapCount.text = _val.ToString();
     }
 
-
+    
 
 
     #endregion
