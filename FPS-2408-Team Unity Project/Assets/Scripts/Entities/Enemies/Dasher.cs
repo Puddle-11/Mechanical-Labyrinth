@@ -9,6 +9,9 @@ public class Dasher : BaseEnemy
     [SerializeField] int RamDamage;
     [SerializeField] Vector3 Knockback;
     [SerializeField] private float knockbackmod;
+    [SerializeField] private float cooldown;
+    [SerializeField] private bool Iscurrentlydashing;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == GameManager.instance.playerRef) {
@@ -19,17 +22,30 @@ public class Dasher : BaseEnemy
     }
     public override void Update()
     {
-        StartCoroutine(DashTowardsPlayer());
+        if (currState == EnemyState.Attack)
+        {
+            StartCoroutine(DashTowardsPlayer());
+        }
         base.Update();
     }
     IEnumerator DashTowardsPlayer() {
-        Vector3 directiontoplayer = GameManager.instance.playerRef.transform.position - transform.position;
-        while (currState == EnemyState.Attack)
-        {
-            yield return new WaitForSeconds(5);
-            transform.position += directiontoplayer.normalized * DashSpeed * Time.deltaTime;
-
+        if (Iscurrentlydashing == true) {
+            yield break;
         }
+        Iscurrentlydashing = true;
+        Vector3 directiontoplayer = GameManager.instance.playerRef.transform.position - transform.position;
+            
+           float dashtimer = 0;
+        while (dashtimer < cooldown) { 
+            transform.position += directiontoplayer.normalized * DashSpeed * Time.deltaTime;
+            dashtimer += Time.deltaTime;
+            yield return null;
+        }
+        Iscurrentlydashing = false;
+            Debug.Log("charging dash");
+            
+            //yield return new WaitForSeconds(1);
+        //Debug.Log("dashing");
     }
 
 }
