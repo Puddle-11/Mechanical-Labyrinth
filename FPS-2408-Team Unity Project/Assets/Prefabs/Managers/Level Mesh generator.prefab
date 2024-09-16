@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 22606344426549897}
   - component: {fileID: 2907249646263534290}
   - component: {fileID: 5579074951367543165}
-  - component: {fileID: 8784826018999248502}
   - component: {fileID: 7672495625900177833}
   - component: {fileID: 861394338031158872}
   m_Layer: 0
@@ -56,6 +55,8 @@ MonoBehaviour:
   GridSize: {x: 2, y: 2, z: 2}
   MeshPrefab: {fileID: 311105137664234863, guid: b43e02eeb4de8ee4e933d6efb707800a, type: 3}
   Elevator: {fileID: 0}
+  GridParent: {fileID: 0}
+  spawnPositionOffset: {x: 0, y: 0, z: 0}
   iGen: {fileID: 5579074951367543165}
   textureAtlasSize: 2
   navMeshSurfaceRef: {fileID: 7672495625900177833}
@@ -102,34 +103,9 @@ MonoBehaviour:
   baseBoardBlockID: 3
   topPlaceBlockID: 1
   roomTexture: {fileID: 0}
-  safeDist: 15
   blockCenterOffset: {x: 0, y: 1, z: 0}
+  safeDist: 15
   TextureSize: {x: 0, y: 0}
---- !u!114 &8784826018999248502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4929931634702836277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62fd4c356e0e5d94ba1d2f95a179b2d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyDensity: 1
-  minMaxEnemies: {x: 2, y: 50}
-  enemyList:
-  - enemyScale: {x: 0, y: 0, z: 0}
-    enemyPrefab: {fileID: 7586437197726000631, guid: cc3cde6338e4615418879b70068d765c, type: 3}
-    frequency: 0
-  - enemyScale: {x: 0, y: 0, z: 0}
-    enemyPrefab: {fileID: 2466940318331819860, guid: 50e14811848cb804e8afaf38e357d186, type: 3}
-    frequency: 0
-  - enemyScale: {x: 0, y: 0, z: 0}
-    enemyPrefab: {fileID: 2919294226157067530, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
-    frequency: 0
-  patrolPointsCount: 10
 --- !u!114 &7672495625900177833
 MonoBehaviour:
   m_ObjectHideFlags: 0

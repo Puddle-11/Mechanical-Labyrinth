@@ -828,6 +828,7 @@ GameObject:
   - component: {fileID: 2426318336164377244}
   - component: {fileID: 8101759799611266597}
   - component: {fileID: 2174789186933504693}
+  - component: {fileID: 3042161933849834962}
   - component: {fileID: 2385250308186476171}
   - component: {fileID: 1750312086539458527}
   - component: {fileID: 7812129156646002974}
@@ -930,6 +931,19 @@ MonoBehaviour:
   throwRotationSpeed: 0
   throwSpeed: {x: 4, y: 0}
   throwOffset: {x: 1, y: 1}
+--- !u!114 &3042161933849834962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9109832186709042457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b5f7be22004f64f92fa802d5b41f76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentScrap: 0
 --- !u!136 &2385250308186476171
 CapsuleCollider:
   m_ObjectHideFlags: 0
