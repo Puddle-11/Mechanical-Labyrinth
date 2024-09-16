@@ -29,6 +29,15 @@ public class AudioManager : MonoBehaviour
     }
     private void Start()
     {
+        InitializeConstSounds();
+    }
+    public void InitializeConstSounds()
+    {
+        if (SettingsController.instance == null)
+        {
+            Debug.LogWarning("No settings found. failed to initialize background sounds");
+            return;
+        }
         for (int i = 0; i < continuousSounds.Length; i++)
         {
             if (continuousSounds[i].source == null)
@@ -38,7 +47,7 @@ public class AudioManager : MonoBehaviour
                 continuousSounds[i].source.pitch = continuousSounds[i].pitch;
                 continuousSounds[i].source.volume = continuousSounds[i].volume * SettingsController.instance.GetGeneralVolume() * SettingsController.instance.GetTypeVolume(SettingsController.soundType.environmental);
                 continuousSounds[i].source.loop = continuousSounds[i].loop;
-            continuousSounds[i].source.Play();
+                continuousSounds[i].source.Play();
             }
         }
     }

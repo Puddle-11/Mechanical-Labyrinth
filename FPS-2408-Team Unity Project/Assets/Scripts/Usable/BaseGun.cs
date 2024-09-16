@@ -428,7 +428,6 @@ public class BaseGun : Weapon
 
         while (timer < (finalFill) * perBullVal)
         {
-            Debug.Log(timer / reloadSpeed);
             if (playerWeapon)
             {
                 UIManager.instance.UpdateAmmoFill(timer / reloadSpeed);

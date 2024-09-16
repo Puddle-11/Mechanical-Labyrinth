@@ -22,7 +22,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject ammoMenuShop;
     [SerializeField] GameObject itemMenuShop;
     [SerializeField] GameObject menuControlsLegend;
-    [SerializeField] public GameObject flashScreen;
     [Space]
     [Header("Damage Indicator")]
     [Space]
@@ -79,7 +78,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text itemShopScrapCount;
     [SerializeField] private TMP_Text primaryGunShopScrapCount;
     [SerializeField] private TMP_Text secondaryGunShopScrapCount;
-    [SerializeField] private TMP_Text sniperGunShopScrapCount;
 
     [Space]
     [Header("Ammo")]
@@ -89,11 +87,24 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image currAmmoInvIcon;
     [SerializeField] private Image[] ammoInvIcons;
     [SerializeField] private TMP_Text[] ammoInvAmount;
+    [Space]
+    [Header("Inventory")]
+    [Space]
+    [SerializeField] private Image[] currItem;
+    [SerializeField] private GameObject Slot;
+    [SerializeField] private int offset;
+    [SerializeField] private Vector2 hotbarAxis;
+    [SerializeField] private GameObject inventoryAnchor;
+    [SerializeField] private Sprite emptySlot;
+    [SerializeField] private GameObject currSelectedHighlight;
+    [SerializeField] private bool centerHotbar = true;
+    [SerializeField] private bool invert = true;
     
     public UIObj[] ConstUI;
     private bool showingControls = true;
     private int currExternalAmmoInv = -1;
-
+    private bool screenFlashed;
+    
     #region Custom Structs and Enums
     [System.Serializable]
     public struct UIObj
@@ -110,18 +121,6 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    [Space]
-    [Header("Inventory")]
-    [Space]
-    [SerializeField] private Image[] currItem;
-    [SerializeField] private GameObject Slot;
-    [SerializeField] private int offset;
-    [SerializeField] private Vector2 hotbarAxis;
-    [SerializeField] private GameObject inventoryAnchor;
-    [SerializeField] private Sprite emptySlot;
-    [SerializeField] private GameObject currSelectedHighlight;
-    [SerializeField] private bool centerHotbar = true;
-    [SerializeField] private bool invert = true;
     public void InitializeInventory()
     {
 
@@ -226,7 +225,27 @@ public class UIManager : MonoBehaviour
     public void ToggleEnemyCount(bool _val){ enemyCountObj.SetActive(_val); }
     public void ResetTempUI() { flashDamageRef.SetActive(false); }
     public void SetEnemyCount(int _val) { enemyCountField.text = _val.ToString();}
+    
+    public void FlashScreen(float _durration)
+    {
+        StartCoroutine(FlashScreenDelay(_durration));
+    }
+    private IEnumerator FlashScreenDelay(float _durration)
+    {
+        if (screenFlashed) yield break;
+        screenFlashed = true;
+        float timer = 0;
+            Color tempCol = flashScreenImage.color;
+        while (timer < _durration)
+        {
+            tempCol.a = 1 - timer / _durration;
+            flashScreenImage.color = tempCol;
+            yield return null;
+            timer += Time.deltaTime;
+        }
+        screenFlashed = false;
 
+    }
     public void UpdateHealthBar(float _val) //Takes a NORMALIZED value
     {
         if (playerHealth != null)
@@ -290,7 +309,6 @@ public class UIManager : MonoBehaviour
     public void StatePause()
     {
         UpdateInternalAmmoInv();
-        runStatsObj.SetActive(true);
         FadeUI(true);
         GameManager.instance.SetPause(true);
         Cursor.visible = true;
@@ -338,6 +356,7 @@ public class UIManager : MonoBehaviour
     }
     public void ToggleWinMenu(bool _val)
     {
+        Debug.Log("Toggled Win Menu: " + _val);
         menuWin.SetActive(_val);
     }
 
@@ -501,7 +520,6 @@ public class UIManager : MonoBehaviour
         menuActive = secondaryGunMenuShop;
         menuActive.SetActive(true);
     }
-
     public void SniperShop()
     {
         if (menuActive != null && menuActive.activeInHierarchy)
@@ -528,10 +546,9 @@ public class UIManager : MonoBehaviour
         ammoShopScrapCount.text = _val.ToString();
         primaryGunShopScrapCount.text = _val.ToString();
         secondaryGunShopScrapCount.text = _val.ToString();
-        sniperGunShopScrapCount.text = _val.ToString();
     }
 
-    
+
 
 
     #endregion
