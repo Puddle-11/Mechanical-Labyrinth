@@ -6,12 +6,10 @@ public class HealthPad : MonoBehaviour
 {
     //[SerializeField] int HealAmount;
     [SerializeField] GameObject pad;
-    bool OnPad = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == GameManager.instance.playerRef)
         {
-            OnPad = true;
             HealPlayer();
             FlashGreen();
         }

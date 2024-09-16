@@ -776,7 +776,7 @@ GameObject:
   - component: {fileID: 184996926}
   - component: {fileID: 184996927}
   m_Layer: 0
-  m_Name: Shooting Range
+  m_Name: Tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 184996927}
-  sceneName: Gun Range
+  sceneName: Tutorial
   save: {fileID: 11400000, guid: 3b3603acfac885048ba10ad1e8a4fb54, type: 2}
   levelField: {fileID: 0}
   deathField: {fileID: 0}
@@ -1585,7 +1585,6 @@ GameObject:
   m_Component:
   - component: {fileID: 356113721}
   - component: {fileID: 356113718}
-  - component: {fileID: 356113720}
   - component: {fileID: 356113719}
   m_Layer: 0
   m_Name: Camera
@@ -1689,14 +1688,6 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!81 &356113720
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356113717}
-  m_Enabled: 1
 --- !u!4 &356113721
 Transform:
   m_ObjectHideFlags: 0
@@ -4428,7 +4419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Shooting Range
+  m_text: Tutorial
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7cb907e73e7e9fd4c9161c392bb69716, type: 2}
   m_sharedMaterial: {fileID: -558623201887933714, guid: 7cb907e73e7e9fd4c9161c392bb69716, type: 2}

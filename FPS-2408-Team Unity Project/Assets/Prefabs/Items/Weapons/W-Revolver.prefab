@@ -331,7 +331,7 @@ MonoBehaviour:
   stats:
     uses: 0
     maxUses: 0
-  coolDown: 0.1
+  coolDown: 0.5
   isAttacking: 0
   ignoreMask:
     serializedVersion: 2
@@ -343,10 +343,10 @@ MonoBehaviour:
   shotType: 2
   ammoType: 0
   scopeInZoom: 0
-  shootDamage: 50
+  shootDamage: 100
   shootDist: 200
   burstSize: 0
-  clipSizeMax: 15
+  clipSizeMax: 6
   reloadSpeed: 1.5
   barrelDelay: 0
   barrels:
@@ -382,8 +382,57 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  recoilCooldownFactor: 1
-  maxRecoil: 20
+  Recoilx:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.021288872
+      value: -0.0035306565
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9787111
+      value: -0.0035306565
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Recoily:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  recoilCooldownFactor: 10
+  recoilFactorx: 5
+  recoilFactory: 20
   muzzleFlashSize: 0.05
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
   bulletHoleDecal: {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}

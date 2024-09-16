@@ -18,7 +18,10 @@ public class ChangeSceneMB : BaseMenuButton, IMenuButton
     }
     public override void Click()
     {
-        BootLoadManager.instance.LoadGameScene(sceneName);
+    
+            BootLoadManager.instance.LoadGameScene(sceneName);
+
+        
         BootLoadManager.instance.SetSave(save);
 
     }

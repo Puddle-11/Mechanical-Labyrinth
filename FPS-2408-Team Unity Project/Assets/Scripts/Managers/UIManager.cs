@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject gunMenuShop;
     [SerializeField] GameObject primaryGunMenuShop;
     [SerializeField] GameObject secondaryGunMenuShop;
+    [SerializeField] GameObject sniperGunMenuShop;
     [SerializeField] GameObject ammoMenuShop;
     [SerializeField] GameObject itemMenuShop;
     [SerializeField] GameObject menuControlsLegend;
@@ -62,6 +64,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text enemyCountField;
     [SerializeField] private GameObject enemyCountObj;
     [SerializeField] private Animator UIFadeAnim;
+    [SerializeField] public Image flashScreenImage;
 
     [Space]
     [Header("Scrap")]
@@ -84,10 +87,24 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image currAmmoInvIcon;
     [SerializeField] private Image[] ammoInvIcons;
     [SerializeField] private TMP_Text[] ammoInvAmount;
+    [Space]
+    [Header("Inventory")]
+    [Space]
+    [SerializeField] private Image[] currItem;
+    [SerializeField] private GameObject Slot;
+    [SerializeField] private int offset;
+    [SerializeField] private Vector2 hotbarAxis;
+    [SerializeField] private GameObject inventoryAnchor;
+    [SerializeField] private Sprite emptySlot;
+    [SerializeField] private GameObject currSelectedHighlight;
+    [SerializeField] private bool centerHotbar = true;
+    [SerializeField] private bool invert = true;
     
     public UIObj[] ConstUI;
     private bool showingControls = true;
-    private int currExternalAmmoInv;
+    private int currExternalAmmoInv = -1;
+    private bool screenFlashed;
+    
     #region Custom Structs and Enums
     [System.Serializable]
     public struct UIObj
@@ -104,32 +121,61 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    [Space]
-    [Header("Inventory")]
-    [Space]
-    [SerializeField] private Image[] currItem;
-    [SerializeField] private GameObject Slot;
-    [SerializeField] private int offset;
-    [SerializeField] private GameObject inventoryAnchor;
-
     public void InitializeInventory()
     {
+
+
         //incomplete, will need to add math for position.
         int size = GeneralInventory.instance.GetInventorySize();
+        RectTransform rt = Slot.gameObject.GetComponent<RectTransform>();
+        Vector3 centerOffset = new Vector3((size - 1) * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x)  / 2, (size - 1) * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) / 2, 0);
         for (int i = 0; i < size; ++i)
         {
-            Vector3 pos = new Vector3(inventoryAnchor.transform.position.x + i * (offset + Slot.gameObject.GetComponent<RectTransform>().sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x), inventoryAnchor.transform.position.y, 0);
-            GameObject temp = Instantiate(Slot, pos, Quaternion.identity, gameObject.transform);
-            currItem[i] = temp.gameObject.GetComponentInChildren<Image>();
+            int tempIndex = !invert ? i : (size - 1) - i;
+            float xPos = inventoryAnchor.transform.position.x + (tempIndex * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) - (centerHotbar ? centerOffset.x : 0)) * hotbarAxis.x;
+            float yPos = inventoryAnchor.transform.position.y + (tempIndex * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) - (centerHotbar ? centerOffset.y : 0)) * hotbarAxis.y;
+            Vector3 pos = new Vector3(xPos, yPos, 0);
+            GameObject temp = Instantiate(Slot, pos, Quaternion.identity, inventoryAnchor.transform);
+            currItem[i] = GetImages(temp.transform)[0];
+            currItem[i].sprite = emptySlot;
         }
     }
+    public void UpdateSelectionHover(int _index)
+    {
+        if(currSelectedHighlight == null)
+        {
+            Debug.LogWarning("No Highligher found");
+            return;
+        }
+        currSelectedHighlight.transform.position = currItem[_index].transform.position;
+    }
+  
+    public Image[] GetImages(Transform _root)
+    {
+        Transform[] children = _root.GetComponentsInChildren<Transform>();
+        List<Image> result = new List<Image>();
+        for (int i = 0; i < children.Length; i++)
+        {
+            //exclude root
+            if (children[i] == _root) continue;
+            if (children[i].TryGetComponent(out Image tempRef))
+            {
+                result.Add(tempRef);
+            }
 
+
+        }
+        return result.ToArray();
+    }
     public void SetSlotIcon(Sprite icon, int index)
     {
         if (icon == null) return;
          currItem[index].sprite = icon;
     }
-
+    public void SetSlotIcon(int index)
+    {
+        SetSlotIcon(emptySlot, index);
+    }
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
     {
         if(currAmmoInvParent != null) currAmmoInvParent.SetActive(_active);
@@ -179,7 +225,27 @@ public class UIManager : MonoBehaviour
     public void ToggleEnemyCount(bool _val){ enemyCountObj.SetActive(_val); }
     public void ResetTempUI() { flashDamageRef.SetActive(false); }
     public void SetEnemyCount(int _val) { enemyCountField.text = _val.ToString();}
+    
+    public void FlashScreen(float _durration)
+    {
+        StartCoroutine(FlashScreenDelay(_durration));
+    }
+    private IEnumerator FlashScreenDelay(float _durration)
+    {
+        if (screenFlashed) yield break;
+        screenFlashed = true;
+        float timer = 0;
+            Color tempCol = flashScreenImage.color;
+        while (timer < _durration)
+        {
+            tempCol.a = 1 - timer / _durration;
+            flashScreenImage.color = tempCol;
+            yield return null;
+            timer += Time.deltaTime;
+        }
+        screenFlashed = false;
 
+    }
     public void UpdateHealthBar(float _val) //Takes a NORMALIZED value
     {
         if (playerHealth != null)
@@ -192,7 +258,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator flashDamage()
     {
         flashDamageRef.SetActive(true);
-        yield return new WaitForSeconds(flashDamageTime);
+        yield return new WaitForSecondsRealtime(flashDamageTime);
         flashDamageRef.SetActive(false);
     }
 
@@ -243,7 +309,6 @@ public class UIManager : MonoBehaviour
     public void StatePause()
     {
         UpdateInternalAmmoInv();
-        runStatsObj.SetActive(true);
         FadeUI(true);
         GameManager.instance.SetPause(true);
         Cursor.visible = true;
@@ -291,6 +356,7 @@ public class UIManager : MonoBehaviour
     }
     public void ToggleWinMenu(bool _val)
     {
+        Debug.Log("Toggled Win Menu: " + _val);
         menuWin.SetActive(_val);
     }
 
@@ -386,6 +452,13 @@ public class UIManager : MonoBehaviour
             menuActive.SetActive(false);
         }
         menuActive = null;
+        for (int i = 0; i < ConstUI.Length; i++)
+        {
+            if (ConstUI[i].CUI_obj != null)
+            {
+                ConstUI[i].CUI_obj.SetActive(ConstUI[i].CUI_currentState);
+            }
+        }
     }
 
     public void GunShop()
@@ -445,6 +518,15 @@ public class UIManager : MonoBehaviour
             menuActive.SetActive(false);
         }
         menuActive = secondaryGunMenuShop;
+        menuActive.SetActive(true);
+    }
+    public void SniperShop()
+    {
+        if (menuActive != null && menuActive.activeInHierarchy)
+        {
+            menuActive.SetActive(false);
+        }
+        menuActive = sniperGunMenuShop;
         menuActive.SetActive(true);
     }
 

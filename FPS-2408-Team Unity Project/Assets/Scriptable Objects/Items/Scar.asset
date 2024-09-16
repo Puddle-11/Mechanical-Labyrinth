@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
   m_Name: Scar
   m_EditorClassIdentifier: 
-  itemName: Scar
+  itemName: FAMAS
   itemID: 0
   Object: {fileID: 8881756555357752190, guid: 69d9db3dcce34094f96d8cb3f48d8773, type: 3}
   Pickup: {fileID: 4056696687141167334, guid: 3461b63634e4f8945b141ad60e46510a, type: 3}
   maxUses: 30
-  Icon: {fileID: 21300000, guid: d605857b1ed12964e9f4f44277e849a8, type: 3}
+  Icon: {fileID: 21300000, guid: f8f71f86069d90d4f8dfc0eb140bdb11, type: 3}
   defaultStats:
     uses: -1
     maxUses: 0

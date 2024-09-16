@@ -57,7 +57,6 @@ public class PlayerController : BaseEntity
     private GameObject playerSpawnPos;
     private bool playingFootstepSound;
     private bool isDead;
-    private Vector3 frameNormals;
     private float moveTimer;
 
     #region MonoBehavior Methods
@@ -88,7 +87,6 @@ public class PlayerController : BaseEntity
 
     public override void Update()
     {
-        frameNormals = Vector3.zero;
         #region Button Handling
         //-----------------------------------------
         //Button Handling
@@ -100,19 +98,23 @@ public class PlayerController : BaseEntity
             }
             else
             {
-                if (Input.GetButtonDown("Pick Up"))
+                if (GameplayInputManager.instance.OnPickup())  
                 {
                     playerHandRef.ClickPickUp();
                 }
-                if (Input.GetButtonDown("Shoot"))
+                if (GameplayInputManager.instance.OnDrop())
+                {
+                    playerHandRef.ClickDrop();
+                }
+                if (GameplayInputManager.instance.OnUseDown())
                 {
                     playerHandRef.SetUseItem(true);
                 }
-                if (Input.GetButtonUp("Shoot"))
+                if (GameplayInputManager.instance.OnUseUp())
                 {
                     playerHandRef.SetUseItem(false);
                 }
-                if (Input.GetKeyDown(KeyCode.R))
+                if (GameplayInputManager.instance.OnReload())
                 {
                     if (playerHandRef.GetCurrentHand() != null)
                     {
@@ -122,7 +124,7 @@ public class PlayerController : BaseEntity
                         }
                     }
                 }
-                if (Input.GetMouseButtonDown(1))
+                if (GameplayInputManager.instance.OnAim())
                 {
                     playerHandRef.ToggleADS(!playerHandRef.GetIsAiming());
                 }
@@ -247,7 +249,6 @@ public class PlayerController : BaseEntity
             transform.position = playerSpawnPos.transform.position;
 
             controllerRef.enabled = true;
-
             return true;
         }
         return false;
@@ -261,10 +262,7 @@ public class PlayerController : BaseEntity
         }
     }
 
-    public void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        frameNormals += hit.normal;
-    }
+
     private void Movement()
     {
         Vector3 move = Input.GetAxis("Vertical") * transform.forward + Input.GetAxis("Horizontal") * transform.right;
@@ -316,7 +314,10 @@ public class PlayerController : BaseEntity
         }
     }
 
-
+    public void OnDisable()
+    {
+        playingFootstepSound = false;
+    }
     public IEnumerator PlayStepSound()
     {
         if (playingFootstepSound) yield break;

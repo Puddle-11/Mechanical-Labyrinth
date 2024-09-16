@@ -533,6 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0441554f96b1e47925e012993eb663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  returnToMenu: 0
   triggerCollider: {fileID: 4856121311636675543}
   levelNumDisplay: {fileID: 5785284735973086740}
   elevatorCam: {fileID: 4327647786905599911}
@@ -543,6 +544,11 @@ MonoBehaviour:
   elevatorDelay: 1
   doorSpeed: 1
   distToLockout: 7
+  nextScenes:
+  - name: MainLevel
+    interval: 1
+  - name: Rest Level
+    interval: 3
 --- !u!65 &4856121311636675543
 BoxCollider:
   m_ObjectHideFlags: 0

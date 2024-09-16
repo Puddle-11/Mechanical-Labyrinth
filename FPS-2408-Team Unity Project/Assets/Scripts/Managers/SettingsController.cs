@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static AudioManager;
 
 public class SettingsController : MonoBehaviour
 {
-    [SerializeField] private SettingsSO settings;
     public static SettingsController instance;
+    [SerializeField] private SettingsSO settings;
+
+
     public enum soundType
     {
-        SFX,
+        general,
         environmental,
+        SFX,
         enemy,
         player,
         uiSFX,
@@ -35,46 +39,71 @@ public class SettingsController : MonoBehaviour
     {
         return settings.S_generalVol;
     }
-    public void SetSensitivity()
+    public void SetSensitivity(float _val)
     {
-
+        settings.S_cameraSensitivity = _val;
+        TriggerSettingsUpdate();
+    }
+    public void TriggerSettingsUpdate()
+    {
+        if(AudioManager.instance != null)
+        {
+            AudioManager.instance.UpdateConstSounds();
+        }
     }
     public float GetTypeVolume(soundType _type)
     {
-        switch (_type)
-        {
-            case soundType.SFX:
-                return settings.S_SXFVol;
-            case soundType.environmental:
-                return settings.S_environmentalVol;
-            case soundType.enemy:
-                return settings.S_enemyVol;
-            case soundType.player:
-                return settings.S_playerVol;
-            case soundType.uiSFX:
-                return settings.S_SXFVol;
-        }
-        return 1;
+
+        return GetTypeVolume((int)_type);
     }
-    public void SetTypeVolume(soundType _type, float _volume)
+    public float GetTypeVolume(int _type)
     {
         switch (_type)
         {
-            case soundType.SFX:
+            case 0:
+                return settings.S_generalVol;
+            case 1:
+                return settings.S_environmentalVol;
+            case 2:
+                return settings.S_SXFVol;
+            case 3:
+                return settings.S_enemyVol;
+            case 4:
+                return settings.S_playerVol;
+            case 5:
+                return settings.S_uiSFXVol;
+        }
+        return 1;
+    }
+    public void SetTypeVolume(int _index, float _volume)
+    {
+
+        switch (_index)
+        {
+            case 0:
+                settings.S_generalVol = _volume;
+                break;
+            case 1:
                 settings.S_SXFVol = _volume;
                 break;
-            case soundType.environmental:
+            case 2:
                 settings.S_environmentalVol = _volume;
                 break;
-            case soundType.enemy:
+            case 3:
                 settings.S_enemyVol = _volume;
                 break;
-            case soundType.player:
+            case 4:
                 settings.S_playerVol = _volume;
                 break;
-            case soundType.uiSFX:
+            case 5:
                 settings.S_uiSFXVol = _volume;
                 break;
+
         }
+        TriggerSettingsUpdate();
+    }
+    public void SetTypeVolume(soundType _type, float _volume)
+    {
+        SetTypeVolume((int)_type, _volume);
     }
 }

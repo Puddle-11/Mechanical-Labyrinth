@@ -291,6 +291,7 @@ GameObject:
   - component: {fileID: 1562353904306735454}
   - component: {fileID: 8820785827657055896}
   - component: {fileID: 8749161360340392136}
+  - component: {fileID: -7640655398338817520}
   m_Layer: 6
   m_Name: Turret
   m_TagString: Untagged
@@ -436,7 +437,7 @@ MonoBehaviour:
   agent: {fileID: 4556611165813591666}
   patrolPoints: []
   senseType: 0
-  minmaxScrap: {x: 0, y: 0}
+  minmaxScrap: {x: 2, y: 5}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
@@ -592,8 +593,21 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  Recoilx:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  Recoily:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   recoilCooldownFactor: 1
-  maxRecoil: 20
+  recoilFactorx: 0
+  recoilFactory: 0
   muzzleFlashSize: 1
   bulletTrail: {fileID: 1936989140707503156, guid: 2bad7c5df0a5dc64c923c338537fcb3d, type: 3}
   bulletHoleDecal: {fileID: 3008299338069187270, guid: 5251a5832e8f58645ada96a9329aa719, type: 3}
@@ -613,6 +627,25 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 05530e2ab40893744beacc130ca6dbd4, type: 2}
   - {fileID: 2100000, guid: f1e07d4981ab57946850422896d94aab, type: 2}
   GunAnimator: {fileID: 0}
+--- !u!114 &-7640655398338817520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2466940318331819860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &2691024300743352413
 GameObject:
   m_ObjectHideFlags: 0

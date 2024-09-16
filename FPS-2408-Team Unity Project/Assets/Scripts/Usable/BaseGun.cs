@@ -30,10 +30,11 @@ public class BaseGun : Weapon
     [Space]
     [SerializeField] private float FSAccuracy;
     [SerializeField] private AnimationCurve FSAOverTime;
+    [SerializeField] private AnimationCurve Recoilx;
+    [SerializeField] private AnimationCurve Recoily;
     [SerializeField] private float recoilCooldownFactor;
-    [SerializeField] private float maxRecoil;
-
-
+    [SerializeField] private float recoilFactorx;
+    [SerializeField] private float recoilFactory;
     [Space]
     [Header("Cosmetics")]
     [Space]
@@ -126,21 +127,11 @@ public class BaseGun : Weapon
 
         if (!isAttacking)
         {
-            if (playerWeapon)
-            {
-                CameraController.instance.ResetOffset(true);
-
-            }
+    
             FSAtimer = Mathf.Clamp(FSAtimer - Time.deltaTime * recoilCooldownFactor, 0, Mathf.Infinity);
         }
-        else
-        {
-            if (playerWeapon) CameraController.instance.ResetOffset(false);
-
-        }
+       
         if (playerWeapon) UIManager.instance.UpdateCrosshairSpread(FSAccuracy * FSAOverTime.Evaluate(FSAtimer/ FSATimerMax));
-
-
     }
     #region Getters Setters
     public float GetFireRate() 
@@ -198,7 +189,9 @@ public class BaseGun : Weapon
         if (BootLoadManager.instance != null) BootLoadManager.instance.stopLoadEvent += OpenAmmoUI;
         if (isAttacking) isAttacking = false; //safegaurding against edgecases with the AttackDelay Ienumerator
         if (playerWeapon) UIManager.instance.UpdateExternalAmmoInv(true, (int)GetAmmoType());
-
+        FSAtimer = 0;
+        isReloading = false;
+        isAttacking = false;
     }
     private void OnDisable()
     {
@@ -306,7 +299,7 @@ public class BaseGun : Weapon
             if (playerWeapon && barrelDelay > 0)
             {
                 CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
-                CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * normalizedTimer));
+                CameraController.instance.SetOffset(new Vector3(-Recoily.Evaluate(normalizedTimer) * recoilFactory, Recoilx.Evaluate(normalizedTimer) * recoilFactorx, 0));
             }
             if (barrelDelay != 0)
             {
@@ -318,7 +311,7 @@ public class BaseGun : Weapon
         if (playerWeapon && barrelDelay <= 0)
         {
             CameraController.instance.StartCamShake(barrelDelay <= 0 ? coolDown : barrelDelay, 0);
-            CameraController.instance.SetOffsetPos(new Vector2(0, -maxRecoil * nTimer));
+            CameraController.instance.SetOffset(new Vector3(-Recoily.Evaluate(nTimer) * recoilFactory, Recoilx.Evaluate(nTimer) * recoilFactorx, 0));
         }
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;
@@ -410,33 +403,46 @@ public class BaseGun : Weapon
         if (isReloading) yield break;
         if (currAmmo == clipSizeMax) yield break;
         isReloading = true;
-
+        int fillAmount = clipSizeMax;
 
         if (playerWeapon)
         {
-            if (!(AmmoInventory.instance.ammoCounts[(int)ammoType] >= clipSizeMax))
+
+            fillAmount = AmmoInventory.instance.ammoCounts[(int)ammoType] > clipSizeMax ? clipSizeMax  - currAmmo: AmmoInventory.instance.ammoCounts[(int)ammoType];
+
+            if (!(AmmoInventory.instance.ammoCounts[(int)ammoType] > 0))
             {
                 isReloading = false;
                 yield break;
             }
-            AmmoInventory.instance.UpdateAmmoInventory(ammoType, -clipSizeMax);
-            UIManager.instance.UpdateExternalAmmoInv(true, (int)ammoType);
         }
+        int finalFill = fillAmount + currAmmo;
 
         float timer = 0;
         float perBullVal = reloadSpeed / clipSizeMax;
         timer = currAmmo * perBullVal;
-        while (timer < reloadSpeed)
+
+
+        Debug.Log("Fill Amount: " + fillAmount);
+        Debug.Log("Taken Amount: " + finalFill);
+
+        while (timer < (finalFill) * perBullVal)
         {
             if (playerWeapon)
             {
                 UIManager.instance.UpdateAmmoFill(timer / reloadSpeed);
             }
-            yield return null;
             timer += Time.deltaTime;
+            yield return null;
         }
-        
-        SetAmmo(clipSizeMax);
+        if (playerWeapon)
+        {
+            AmmoInventory.instance.UpdateAmmoInventory(ammoType, -fillAmount);
+            UIManager.instance.UpdateExternalAmmoInv(true, (int)ammoType);
+        }
+        SetAmmo(finalFill);
         isReloading = false;
+
+
     }
 }

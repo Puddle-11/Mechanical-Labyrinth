@@ -65,6 +65,7 @@ public class GeneralInventory : MonoBehaviour
     public void Update()
     {
         SelectItem();
+        GetNextFreeIndex(out _);
     }
     public void AddItemToInventory(ItemType t, Pickup p = null)
     {
@@ -73,6 +74,11 @@ public class GeneralInventory : MonoBehaviour
     public void AddItemToInventory(ItemType t, int _index, Pickup p = null)
     {
 
+        if (Hotbar[_index].t != null)
+        {
+            return;
+        }
+
         if (t == null)
         {
             Debug.LogWarning("Failed to pickup\n ItemType variable Unassigned");
@@ -80,7 +86,7 @@ public class GeneralInventory : MonoBehaviour
             return;
         }
 
-        SetSlot(t);
+        SetSlot(_index, t);
         GameObject handAnchor = GameManager.instance.playerControllerRef.GetPlayerHand().GetHandAnchor();
         //Instantiate item in hand
         GameObject _ref = Instantiate(t.Object, handAnchor.transform.position, handAnchor.transform.rotation, handAnchor.transform);
@@ -104,7 +110,7 @@ public class GeneralInventory : MonoBehaviour
 
         if (p != null) Destroy(p.gameObject);
 
-        UIManager.instance.SetSlotIcon(Hotbar[selectedSlot].t.Icon, selectedSlot);
+        UIManager.instance.SetSlotIcon(t.Icon, _index);
     }
     public void DropItem()
     {
@@ -117,7 +123,6 @@ public class GeneralInventory : MonoBehaviour
         {
             UIManager.instance.AmmoDisplay(0, 0);
             UIManager.instance.UpdateAmmoFill(1);
-            CameraController.instance.ResetOffset(true);
             UIManager.instance.UpdateCrosshairSpread(0);
             GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(null);
 
@@ -131,7 +136,7 @@ public class GeneralInventory : MonoBehaviour
         Destroy(Hotbar[_index].obj);
         Hotbar[_index].obj = null;
         Hotbar[_index].t = null;
-
+        UIManager.instance.SetSlotIcon(_index);
     }
     public void SpawnDrop(GameObject _obj)
     {
@@ -159,6 +164,10 @@ public class GeneralInventory : MonoBehaviour
     }
     void SelectItem()
     {
+        if (GameManager.instance != null && GameManager.instance.GetStatePaused())
+        {
+            return;
+        }
         if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             //if at top of list, loop to bottom
@@ -215,10 +224,27 @@ public class GeneralInventory : MonoBehaviour
             }
 
         }
+        UIManager.instance.UpdateSelectionHover(selectedSlot);
         GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
 
     }
     public ItemType GetSlot(int _index) { return Hotbar[_index].t;}
     public void SetSlot(int _index, ItemType t) { Hotbar[_index].t = t;}
-    public void SetSlot(ItemType t) { SetSlot(selectedSlot, t);}
+    public void SetSlot(ItemType t) {
+        SetSlot(selectedSlot, t);
+    }
+    public bool GetNextFreeIndex(out int result)
+    {
+        for(int i = 0;i < Hotbar.Length;i++) 
+        {
+            if (Hotbar[i].t == null)
+            {
+                result = i;
+                return true;
+            }
+        }
+
+        result = 0;
+        return false;
+    }
 }

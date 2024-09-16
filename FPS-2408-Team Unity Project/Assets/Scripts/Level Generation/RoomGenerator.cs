@@ -38,9 +38,8 @@ public class RoomGenerator : IGenerator
     [HideInInspector] public int baseBoardBlockID;
     [HideInInspector] public int topPlaceBlockID;
     [HideInInspector] public Texture2D roomTexture;
-    [SerializeField] private float safeDist;
     [SerializeField] private Vector3 blockCenterOffset;
-
+    [SerializeField] private float safeDist;
     public Vector2Int TextureSize;
     private Color roomCol;
     private ChunkGrid.GridBounds bounds;
@@ -153,13 +152,14 @@ public class RoomGenerator : IGenerator
     {
         if (ChunkGrid.instance == null) return;
         groundPositions = new List<Vector3>();
+    
         for (int x = 0; x < _texture.width; x++)
         {
             for (int y = 0; y < _texture.height; y++)
             {
                 if (_texture.GetPixel(x, y) != Color.black)
                 {
-                    if (Vector2.Distance(ChunkGrid.instance.GetRoomGenerator().GetStartPos(), new Vector2Int(x, y)) > safeDist)
+                    if (Vector3.Distance(GetStartPos(), ChunkGrid.instance.GridToWorld( new Vector3Int(x,0,y))) > safeDist)
                     {
                         groundPositions.Add(ChunkGrid.instance.GridToWorld(new Vector3Int(x, 0, y)) + blockCenterOffset);
                     }

@@ -1,19 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class BootLoadManager : MonoBehaviour
 {
+    public static BootLoadManager instance;
     [SerializeField] private string startScene;
     [SerializeField] private Image loadingBar;
+    [SerializeField] private Animator SceneChangeAnimation;
+    [SerializeField] private TMP_Text currLevel;
     [SerializeField] private GameObject loadingScreenObj;
-    public static BootLoadManager instance;
+
+
+
      public delegate void SceneEvent();
     public SceneEvent startLoadEvent;
     public SceneEvent stopLoadEvent;
     private bool inLoadScreen;
     private CurrentStats currentStats;
+    private bool runningEndAnimation = false;
     public bool IsLoading() {return inLoadScreen;}
     public CurrentStats GetSave()
     {
@@ -47,14 +54,43 @@ public class BootLoadManager : MonoBehaviour
     {
         inLoadScreen = true;
         loadingBar.fillAmount = 0;
+        if(GameManager.instance != null)
+        {
+            currLevel.gameObject.SetActive(true);
+            currLevel.text = GameManager.instance.GetCurrentLevel().ToString();
+        }
+        else
+        {
+            currLevel.gameObject.SetActive(false);
+
+        }
         loadingScreenObj.SetActive(true);
     }
+
+    public void EndSceneAnimation()
+    {
+        StartCoroutine(EndSceneAnimationDelay());
+    }
+    public IEnumerator EndSceneAnimationDelay()
+    {
+        if (runningEndAnimation) yield break;
+        runningEndAnimation = true;
+        SceneChangeAnimation.SetTrigger("EndScene");
+
+        yield return new WaitUntil(() => SceneChangeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95);
+        stopLoadEvent?.Invoke();
+        yield return null; 
+        runningEndAnimation = false;
+
+    }
+    
     public void CloseLoadMenu()
     {
         inLoadScreen = false;
 
         loadingScreenObj.SetActive(false);
     }
+
     public void UpdateLoadingBar(float _val)
     {
         loadingBar.fillAmount = _val;
@@ -66,6 +102,7 @@ public class BootLoadManager : MonoBehaviour
     public void LoadScene(string _sceneName)
     {
         startLoadEvent?.Invoke();
+        runningEndAnimation = false;
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             if (SceneManager.GetSceneAt(i).name != "BootLoader" && SceneManager.GetSceneAt(i).name != "GameLoader")

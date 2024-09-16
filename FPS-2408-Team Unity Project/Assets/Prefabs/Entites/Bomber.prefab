@@ -1591,6 +1591,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6660931601901886988}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -8821510437996297150}
   m_SourcePrefab: {fileID: 100100000, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
 --- !u!4 &7062665401434701645 stripped
 Transform:
@@ -1674,7 +1677,7 @@ MonoBehaviour:
   agent: {fileID: 6587216154067788657}
   patrolPoints: []
   senseType: 0
-  minmaxScrap: {x: 0, y: 0}
+  minmaxScrap: {x: 2, y: 3}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
@@ -1823,6 +1826,25 @@ MonoBehaviour:
   endAnchor: {fileID: 3482377078245023276, guid: 113b430d91416ed4d95102570656df3c, type: 3}
   projectileSpeed: 25
   shootPos: {fileID: 8262850245076806173}
+--- !u!114 &-8821510437996297150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586437197726000631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 0
+  m_Area: 0
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 1
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!23 &8322935289999315915 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}

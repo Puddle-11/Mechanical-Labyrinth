@@ -32,7 +32,10 @@ public class IGenerator : MonoBehaviour
     #region Getters and Setters
     public virtual Vector3 GetDoorOffset() { return endDoorOffset; }
     public virtual GameObject GetDoorPrefab() { return EndDoorPrefab; }
-    public virtual Vector2Int GetStartPos() { return startPos; }
+    public virtual Vector3 GetStartPos() {
+        
+        return ChunkGrid.instance.GridToWorld(new Vector3Int(startPos.x, 0, startPos.y));
+    }
     public virtual Texture2D GetRoomTexture() {return null;}
     public virtual void SetGeneratorBounds(ChunkGrid.GridBounds _bounds){ }
     #endregion
