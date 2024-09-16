@@ -65,6 +65,7 @@ public class GeneralInventory : MonoBehaviour
     public void Update()
     {
         SelectItem();
+        GetNextFreeIndex(out _);
     }
     public void AddItemToInventory(ItemType t, Pickup p = null)
     {
@@ -229,8 +230,9 @@ public class GeneralInventory : MonoBehaviour
     }
     public ItemType GetSlot(int _index) { return Hotbar[_index].t;}
     public void SetSlot(int _index, ItemType t) { Hotbar[_index].t = t;}
-    public void SetSlot(ItemType t) { SetSlot(selectedSlot, t);}
-
+    public void SetSlot(ItemType t) {
+        SetSlot(selectedSlot, t);
+    }
     public bool GetNextFreeIndex(out int result)
     {
         for(int i = 0;i < Hotbar.Length;i++) 

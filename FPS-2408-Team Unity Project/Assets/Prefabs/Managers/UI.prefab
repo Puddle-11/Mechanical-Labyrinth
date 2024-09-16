@@ -1747,7 +1747,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &984069979115831869
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2135,7 +2135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7161698717793002213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10098,7 +10098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4683047961783653715
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30289,6 +30289,7 @@ RectTransform:
   m_Children:
   - {fileID: 2921536486577928874}
   - {fileID: 4399051659151202328}
+  - {fileID: 7465260140549256047}
   - {fileID: 6147202630474102812}
   - {fileID: 5532412564550723172}
   - {fileID: 2179232224964282856}
@@ -30313,7 +30314,6 @@ RectTransform:
   - {fileID: 106626573207279191}
   - {fileID: 7030140314751225958}
   - {fileID: 6160812741714340989}
-  - {fileID: 7465260140549256047}
   - {fileID: 5984684850472854131}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -30525,7 +30525,6 @@ MonoBehaviour:
   itemShopScrapCount: {fileID: 7130553024170072515}
   primaryGunShopScrapCount: {fileID: 1305733015285399918}
   secondaryGunShopScrapCount: {fileID: 3955408375442547984}
-  sniperGunShopScrapCount: {fileID: 6316003424741718577}
   currAmmoInvAmount: {fileID: 8283725528974963763}
   currAmmoInvParent: {fileID: 8748003284066012145}
   currAmmoInvIcon: {fileID: 4170438949756984163}
@@ -30541,6 +30540,15 @@ MonoBehaviour:
   - {fileID: 7556123583148459407}
   - {fileID: 8889666499316123235}
   - {fileID: 1492059367624419017}
+  currItem: []
+  Slot: {fileID: 6467091362571389317, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
+  offset: 10
+  hotbarAxis: {x: 0, y: -1}
+  inventoryAnchor: {fileID: 5866541148144733315}
+  emptySlot: {fileID: 21300000, guid: 5d92816f5e6203844bc1357b3566e12e, type: 3}
+  currSelectedHighlight: {fileID: 5314311474951631502}
+  centerHotbar: 0
+  invert: 1
   ConstUI:
   - CUI_currentState: 0
     CUI_obj: {fileID: 6136108156272293467}
@@ -30558,15 +30566,6 @@ MonoBehaviour:
     CUI_obj: {fileID: 8885208591715269289}
   - CUI_currentState: 0
     CUI_obj: {fileID: 8748003284066012145}
-  currItem: []
-  Slot: {fileID: 6467091362571389317, guid: d94e06ff0dd4c204a97407a60da56e20, type: 3}
-  offset: 10
-  hotbarAxis: {x: 0, y: -1}
-  inventoryAnchor: {fileID: 5866541148144733315}
-  emptySlot: {fileID: 21300000, guid: 5d92816f5e6203844bc1357b3566e12e, type: 3}
-  currSelectedHighlight: {fileID: 5314311474951631502}
-  centerHotbar: 0
-  invert: 1
 --- !u!1 &9186754645669581963
 GameObject:
   m_ObjectHideFlags: 0
@@ -31368,7 +31367,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 690190895482579582, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_Text
-      value: RMB
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 690190895482579582, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_Color.b
@@ -31613,7 +31612,7 @@ PrefabInstance:
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_Action
       value: 
-      objectReference: {fileID: 5113455572848283991, guid: 1a8bd2486d05dc74e9235a948c6a802a, type: 3}
+      objectReference: {fileID: -1693518244389658564, guid: 1a8bd2486d05dc74e9235a948c6a802a, type: 3}
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_BindingId
       value: 6a226922-1a05-4575-9404-b375d99e6b6d
@@ -31644,7 +31643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6680292650847612335, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_Text
-      value: Aim
+      value: Drop
       objectReference: {fileID: 0}
     - target: {fileID: 6680292650847612335, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_Color.b

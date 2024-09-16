@@ -33,10 +33,6 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
-    public void respawn()
-    {
-
-    }
     public void ResetCurrentHealth()
     {
         currentStats.S_CurrentHealth = playerControllerRef.GetMaxHealth();
@@ -47,10 +43,10 @@ public class GameManager : MonoBehaviour
     }
     private void OnEnable()
     {
-
         if (BootLoadManager.instance != null)
         {
             BootLoadManager.instance.stopLoadEvent += MoveToRespawn;
+
             BootLoadManager.instance.startLoadEvent += ResetGame;
 
         }
@@ -61,20 +57,18 @@ public class GameManager : MonoBehaviour
         {
             BootLoadManager.instance.stopLoadEvent -= MoveToRespawn;
             BootLoadManager.instance.startLoadEvent -= ResetGame;
-
         }
     }
    
     private void Start()
     {
-
         if (TryFindPlayer(out playerRef))
         {
-            playerRef.TryGetComponent<PlayerController>(out playerControllerRef);
-            if (playerControllerRef != null) respawn();
+            playerRef.TryGetComponent(out playerControllerRef);
         }
         playerControllerRef.GetPlayerHand().PickupItem(GetCurrentItemType(), null);
     }
+    
     public void ResetAllStats()
     {
         currentStats.ResetPerRunStats();
@@ -106,6 +100,10 @@ public class GameManager : MonoBehaviour
             }
            if(currentStats != null) currentStats.S_currentTime += Time.deltaTime;
         }
+    }
+    public int GetGameGoal()
+    {
+        return enemyCount;
     }
     public bool GetStatePaused(){return isPause;}
     public void SetPause(bool _val)

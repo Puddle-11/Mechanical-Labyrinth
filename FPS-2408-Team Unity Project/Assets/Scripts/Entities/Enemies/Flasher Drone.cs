@@ -5,19 +5,20 @@ public class FlasherDrone : BaseEnemy
 {
     [SerializeField] private float coolDown;
     [SerializeField] private float flashDuration;
-    private float timeToWait;
-    private bool playerInRange = false;
+    [SerializeField] private EntityHealthBar flashProgress;
     private bool hasFlashed = false;
     #region Monobehavior Methods
-
+    public override  void Start()
+    {
+        flashProgress.UpdateShieldBar(0);
+        base.Start();
+    }
     public override void Update()
     {
-            if (playerInRange == true && rendRef[0].currRenderer.isVisible == true && IsEnemyInPlayerView())
+            if (IsInRange())
             {
-                if (!hasFlashed)
-                {
+            
                     StartCoroutine(FlashEffect());
-                }
             }
 
         base.Update();
@@ -25,72 +26,29 @@ public class FlasherDrone : BaseEnemy
 
     private IEnumerator FlashEffect()
     {
+        if (hasFlashed == true) yield break;
         hasFlashed = true;
-        timeToWait = Time.deltaTime + flashDuration;
-        //set UI flashscrrena and activate here
-        yield return StartCoroutine(FlashScreen());
 
-
-        yield return new WaitForSeconds(flashDuration);
-
-        hasFlashed = false;
-    }
-
-
-    private IEnumerator FlashScreen()
-    {
-        UIManager.instance.flashScreen.SetActive(true);
-
-        //flashScreenImage
-        Color initialColor = UIManager.instance.flashScreenImage.color;
-
-        //fully transparent
-        Color targetColor = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
-
-        //fade out completely
-        float timePassed = 0f;
-        while (timePassed < flashDuration)
+        float timer = 0;
+        while (timer < coolDown)
         {
-            timePassed += Time.deltaTime;
-            //fade out to transparent
-            float alpha = Mathf.Lerp(1f, 0f, timePassed / flashDuration);
+            flashProgress.UpdateHealthBar(timer/coolDown);
 
-            UIManager.instance.flashScreenImage.color = new Color(initialColor.r, initialColor.g, initialColor.b, alpha);
+            timer += Time.deltaTime;
             yield return null;
         }
-
-        //set to zero opacity to make sure
-        UIManager.instance.flashScreenImage.color = targetColor;
-
-        UIManager.instance.flashScreen.SetActive(false);
+        if(IsEnemyInPlayerView() ) UIManager.instance.FlashScreen(flashDuration);
+        hasFlashed = false;
     }
-
-
     private bool IsEnemyInPlayerView()
     {
-        Vector3 directionToEnemy = (transform.position - target.transform.position).normalized;
-        float angle = Vector3.Angle(target.transform.forward, directionToEnemy);
-        return angle < sightAngle / 2f;
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == GameManager.instance.playerRef)
+        Vector3 viewportPos = CameraController.instance.mainCamera.WorldToViewportPoint(transform.position);
+        if(viewportPos.x > 0 && viewportPos.x <= 1 && viewportPos.y > 0 && viewportPos.y <= 1 && viewportPos.z > 0)
         {
-            playerInRange = true;
+            return true;
         }
+        return false;
+
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == GameManager.instance.playerRef)
-        {
-            playerInRange = false;
-        }
-    }
-
-
-
     #endregion
 }

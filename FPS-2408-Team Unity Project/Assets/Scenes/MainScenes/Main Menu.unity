@@ -4419,7 +4419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Shooting Range
+  m_text: Tutorial
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7cb907e73e7e9fd4c9161c392bb69716, type: 2}
   m_sharedMaterial: {fileID: -558623201887933714, guid: 7cb907e73e7e9fd4c9161c392bb69716, type: 2}

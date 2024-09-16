@@ -31,11 +31,6 @@ public class ButtonFunction : MonoBehaviour
         BootLoadManager.instance?.ExitGameMode();
     }
 
-    public void respawn()
-    {
-        GameManager.instance?.respawn();
-        GameManager.instance?.MoveToRespawn();
-    }
 
     public void closeShop()
     {

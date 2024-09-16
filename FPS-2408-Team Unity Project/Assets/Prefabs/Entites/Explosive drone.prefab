@@ -317,11 +317,7 @@ MonoBehaviour:
   Deathsounds: []
   explosionDamage: 300
   knockback: {x: 0, y: 0, z: 0}
-<<<<<<< Updated upstream
   knockbackmod: 10
-=======
-  knockbackmod: 0
->>>>>>> Stashed changes
 --- !u!65 &4527273249660388099
 BoxCollider:
   m_ObjectHideFlags: 0
