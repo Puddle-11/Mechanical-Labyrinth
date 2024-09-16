@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5579074951367543165}
   - component: {fileID: 7672495625900177833}
   - component: {fileID: 861394338031158872}
+  - component: {fileID: 4667527558944290289}
   m_Layer: 0
   m_Name: Level Mesh generator
   m_TagString: ChunkGrid
@@ -215,3 +216,28 @@ MonoBehaviour:
   lootDensity: 0.005
   minLoot: 10
   defaultLoot: {fileID: 4774927515569549485, guid: 5b124b78393656d43a00c669395b65e2, type: 3}
+--- !u!114 &4667527558944290289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929931634702836277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fd4c356e0e5d94ba1d2f95a179b2d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyDensity: 1
+  minMaxEnemies: {x: 2, y: 50}
+  enemyList:
+  - enemyScale: {x: 0, y: 0, z: 0}
+    enemyPrefab: {fileID: 7586437197726000631, guid: cc3cde6338e4615418879b70068d765c, type: 3}
+    frequency: 0
+  - enemyScale: {x: 0, y: 0, z: 0}
+    enemyPrefab: {fileID: 2466940318331819860, guid: 50e14811848cb804e8afaf38e357d186, type: 3}
+    frequency: 0
+  - enemyScale: {x: 0, y: 0, z: 0}
+    enemyPrefab: {fileID: 2919294226157067530, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
+    frequency: 0
+  patrolPointsCount: 10
