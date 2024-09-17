@@ -308,6 +308,7 @@ public class UIManager : MonoBehaviour
 
     public void StatePause()
     {
+
         UpdateInternalAmmoInv();
         FadeUI(true);
         GameManager.instance.SetPause(true);

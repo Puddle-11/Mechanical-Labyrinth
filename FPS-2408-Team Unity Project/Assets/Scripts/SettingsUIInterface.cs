@@ -28,6 +28,7 @@ public class SettingsUIInterface : MonoBehaviour
     }
     private void InitializeSliders()
     {
+        if (SettingsController.instance == null) return;
         for (int i = 0; i < volumeSliders.Length; i++)
         {
             volumeSliders[i].value = SettingsController.instance.GetTypeVolume(i);

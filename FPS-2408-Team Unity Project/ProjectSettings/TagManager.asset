@@ -7,6 +7,7 @@ TagManager:
   - GM
   - ChunkGrid
   - MainMenuManager
+  - Player Spawn Pos
   layers:
   - Default
   - TransparentFX
