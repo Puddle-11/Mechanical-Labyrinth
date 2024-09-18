@@ -53,11 +53,11 @@ public class BaseGun : Weapon
     private int currBarrel;
     [System.Serializable]
      public struct Barrel
-    {
+     {
         public Transform shootObj;
         public Animator muzzleFlash;
         public ParticleSystem[] sparks;
-    }
+     }
     public enum GunType
     {
         Automatic,
@@ -248,6 +248,7 @@ public class BaseGun : Weapon
 
                     if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamage);
                     healthRef.UpdateHealthAfterDelay(-shootDamage, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, hit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed(), shieldPenetration);
+                   StartCoroutine(UIManager.instance.CallHitmarker());
                 }
                 RaycastHit penetratingHit;
 

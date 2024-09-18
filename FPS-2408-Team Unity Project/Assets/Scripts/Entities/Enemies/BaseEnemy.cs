@@ -34,11 +34,12 @@ public class BaseEnemy : SharedEnemyBehavior
     [SerializeField] public AudioClip[] Deathsounds;
 
     protected EnemyState currState;
+    protected float timer;
     protected bool isRoaming;
     protected Vector3 startingPos;
     protected bool runningContactDamage;
 
-    public object UnityEninge { get; private set; }
+    //public object UnityEngine { get; private set; }
 
 
     #region Custom Structs and Enums
@@ -85,7 +86,7 @@ public class BaseEnemy : SharedEnemyBehavior
     //-------------
     public override void Update()
     {
-
+        timer += Time.deltaTime;
         StateHandler();
         if (anim != null)
         {
@@ -181,10 +182,11 @@ public class BaseEnemy : SharedEnemyBehavior
        
         bool inAttackRange = IsInRange(attackRange);
         bool inRange = IsInRange();
-
-
-
-        if (senseType == DetectionType.InRange)
+        if (timer >= GameManager.instance.Getmaxtime()) {
+            if (inAttackRange) { _enemyStateRef = EnemyState.Attack; }
+            else { _enemyStateRef = EnemyState.Persue; }
+        }
+        else if (senseType == DetectionType.InRange)
         {
             if (inAttackRange) {_enemyStateRef = EnemyState.Attack;}
             else if(IsInRange()) {_enemyStateRef = EnemyState.Persue;}
@@ -229,7 +231,7 @@ public class BaseEnemy : SharedEnemyBehavior
         Vector3 _nextPos = transform.position;
         if (patrolPoints.Length <= 0)
         {
-            Vector3 randDist = UnityEngine.Random.insideUnitSphere * roamingDistance;
+            Vector3 randDist = global::UnityEngine.Random.insideUnitSphere * roamingDistance;
             randDist += startingPos;
             NavMeshHit hit;
             NavMesh.SamplePosition(randDist, out hit, roamingDistance, 1);
@@ -237,7 +239,7 @@ public class BaseEnemy : SharedEnemyBehavior
         }
         else
         {
-            _nextPos = patrolPoints[UnityEngine.Random.Range(0, patrolPoints.Length)];
+            _nextPos = patrolPoints[global::UnityEngine.Random.Range(0, patrolPoints.Length)];
 
         }
         agent.SetDestination(_nextPos);
@@ -262,9 +264,9 @@ public class BaseEnemy : SharedEnemyBehavior
     //-------------
     public override void Death()
     {
-        int scrapDrop = UnityEngine.Random.Range(minmaxScrap.x, minmaxScrap.y);
+        int scrapDrop = global::UnityEngine.Random.Range(minmaxScrap.x, minmaxScrap.y);
         if (ScrapInventory.instance != null) ScrapInventory.instance.AddScrap(scrapDrop);
-        if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[UnityEngine.Random.Range(0, Deathsounds.Length)], SettingsController.soundType.enemy);
+        if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[global::UnityEngine.Random.Range(0, Deathsounds.Length)], SettingsController.soundType.enemy);
         GameManager.instance?.updateGameGoal(-1);
         GameManager.instance.UpdateKillCounter(1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());

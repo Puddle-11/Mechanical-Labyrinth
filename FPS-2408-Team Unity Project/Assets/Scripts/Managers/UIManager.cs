@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float C_lineThickness;
     [SerializeField] private float C_centerDotSize;
     [SerializeField] private Crosshair crosshairRef;
+    [SerializeField] private GameObject Hitmarker;
     [Space]
     [Header("Loss Screen Stats")]
 
@@ -170,6 +171,14 @@ public class UIManager : MonoBehaviour
         }
         return result.ToArray();
     }
+
+    public IEnumerator CallHitmarker()
+    {
+        Hitmarker.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        Hitmarker.SetActive(false);
+    }
+       
     public void SetSlotIcon(Sprite icon, int index)
     {
         if (icon == null || index >= currItem.Length) return;

@@ -42,7 +42,6 @@ public class Dasher : BaseEnemy
             yield return null;
         }
         Iscurrentlydashing = false;
-            Debug.Log("charging dash");
             
             //yield return new WaitForSeconds(1);
         //Debug.Log("dashing");
