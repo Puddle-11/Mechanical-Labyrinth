@@ -78,6 +78,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text itemShopScrapCount;
     [SerializeField] private TMP_Text primaryGunShopScrapCount;
     [SerializeField] private TMP_Text secondaryGunShopScrapCount;
+    [SerializeField] private TMP_Text sniperGunShopScrapCount;
 
     [Space]
     [Header("Ammo")]
@@ -548,6 +549,7 @@ public class UIManager : MonoBehaviour
         ammoShopScrapCount.text = _val.ToString();
         primaryGunShopScrapCount.text = _val.ToString();
         secondaryGunShopScrapCount.text = _val.ToString();
+        sniperGunShopScrapCount.text = _val.ToString();
     }
 
 
