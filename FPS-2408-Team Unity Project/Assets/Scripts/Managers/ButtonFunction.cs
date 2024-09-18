@@ -165,6 +165,7 @@ public class ButtonFunction : MonoBehaviour
 
     public void viewButton(GameObject view)
     {
+        ShopManager.instance?.TurnOffBuyButtons();
         view.SetActive(true);
     }
 
