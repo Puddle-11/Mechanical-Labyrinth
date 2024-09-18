@@ -10,8 +10,6 @@ public class CurrentStats : ScriptableObject
     public ItemType[] S_GeneralInventory;
     public int[] S_AmmoInventory;
     public int S_Level;
-    [SerializeField] private ItemType S_DefaultItem;
-    public ItemType S_Item;
     public UInt64 S_TotalDamage;
     public int S_TotallEnemiesKilled;
     public int S_TotalDeaths;
@@ -24,7 +22,6 @@ public class CurrentStats : ScriptableObject
         S_GeneralInventory = new ItemType[0];
         S_AmmoInventory = new int[0];
         S_Level = 0;
-        S_Item = S_DefaultItem;
         S_TotalDamage = 0;
         S_TotallEnemiesKilled = 0;
         S_TotalDeaths = 0;
@@ -36,7 +33,6 @@ public class CurrentStats : ScriptableObject
         S_GeneralInventory = new ItemType[0];
         S_AmmoInventory = new int[0];
         S_Level = 0;
-        S_Item = S_DefaultItem;
         S_TotalDamage = 0;
         S_TotallEnemiesKilled = 0;
         S_CurrentHealth = S_DefaultHealth;

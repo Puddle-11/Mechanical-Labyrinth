@@ -105,7 +105,6 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void ResetHealth() {  SetHealth(maxHealth);}
     public virtual void UpdateHealth(int _amount, float _shieldPen = 1)
     {
-        Debug.Log("Update Health: " + _amount);
         if (_amount < 0 && GetCurrentShield() > 0)
         {
 

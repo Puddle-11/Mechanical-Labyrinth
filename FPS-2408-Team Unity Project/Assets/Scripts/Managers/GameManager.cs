@@ -62,9 +62,11 @@ public class GameManager : MonoBehaviour
         {
             playerRef.TryGetComponent(out playerControllerRef);
         }
-        playerControllerRef.GetPlayerHand().PickupItem(GetCurrentItemType(), null);
+        UIManager.instance.InitializeInventory();
+        GeneralInventory.instance.ImportInventory();
+
     }
-    
+
     public void ResetAllStats()
     {
         currentStats.ResetPerRunStats();
@@ -135,10 +137,8 @@ public class GameManager : MonoBehaviour
     public int GetCurrentLevel(){ return currentStats != null ? currentStats.S_Level : 0;}
     public void SetCurrentLevel(int _val) { if (currentStats != null) currentStats.S_Level = _val; }
     public void UpdateCurrentLevel(int _val){SetCurrentLevel(GetCurrentLevel() + _val);}
-    public void SetCurrentItem(ItemType _item) {currentStats.S_Item = _item;}
     public void SetAmmoInventory(int[] _arr) {currentStats.S_AmmoInventory = _arr;}
     public int[] GetAmmoInventory() { return currentStats != null ? currentStats.S_AmmoInventory : new int[0]; }
-    public ItemType GetCurrentItemType() {return currentStats != null ? currentStats.S_Item : null;}
 
     //in progress
     public void SetGeneralInventory(ItemType[] _arr) { currentStats.S_GeneralInventory = _arr; }
@@ -171,7 +171,6 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetDamageDealt(currentStats != null? currentStats.S_TotalDamage:0);
         UIManager.instance.SetEnemiesKilled(currentStats != null ? currentStats.S_TotallEnemiesKilled: 0);
         UIManager.instance.SetAttemptNumber(currentStats != null ? currentStats.S_TotalDeaths: 0);
-        if (currentStats != null) SetCurrentItem(playerControllerRef.GetCurrentItemType());
         enemyCount = 0;
         UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);

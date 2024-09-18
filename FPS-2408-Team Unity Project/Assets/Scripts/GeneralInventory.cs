@@ -1,5 +1,6 @@
 using UnityEngine.UIElements;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GeneralInventory : MonoBehaviour
 {
@@ -27,10 +28,8 @@ public class GeneralInventory : MonoBehaviour
         public Image UIImage;
         public GameObject obj;
     }
-    public ItemType GetRespawnItemType()
-    {
-        return respawnItem;
-    }
+
+    public ItemType GetRespawnItemType() {return respawnItem;}
     public int GetInventorySize() { return numOfslots;}
 
     // Start is called before the first frame update
@@ -43,9 +42,9 @@ public class GeneralInventory : MonoBehaviour
 
         Hotbar = new HotbarSlot[numOfslots];
     }
-    private void Start()
+
+    public void ImportInventory()
     {
-        //Getting save if there is one
         if (GameManager.instance != null)
         {
             ItemType[] temp = GameManager.instance.GetGeneralInventory();
@@ -54,12 +53,12 @@ public class GeneralInventory : MonoBehaviour
                 for (int i = 0; i < temp.Length; i++)
                 {
                     if (i >= Hotbar.Length) break;
-                    Hotbar[i].t = temp[i];
+                    AddItemToInventory(temp[i], i);
                 }
             }
         }
-    }
 
+    }
     public void Update()
     {
         SelectItem();
@@ -109,13 +108,14 @@ public class GeneralInventory : MonoBehaviour
         if (p != null) Destroy(p.gameObject);
 
         UIManager.instance.SetSlotIcon(t.Icon, _index);
+        GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
         GameManager.instance.SetGeneralInventory(ConvertHotbarToItem(Hotbar));
     }
 
     public ItemType[] ConvertHotbarToItem(HotbarSlot[] _Hotbar)
     {
         ItemType[] temp = new ItemType[_Hotbar.Length];
-        for (int i = 0; i < _Hotbar.Length; ++i)
+        for (int i = 0; i < temp.Length; ++i)
         {
             temp[i] = _Hotbar[i].t;
         }
@@ -143,12 +143,10 @@ public class GeneralInventory : MonoBehaviour
     }
     public void ResetSlot(int _index)
     {
-
         Destroy(Hotbar[_index].obj);
         Hotbar[_index].obj = null;
-        Hotbar[_index].t = null;
+        SetSlot(_index, null);
         UIManager.instance.SetSlotIcon(_index);
-        GameManager.instance.SetGeneralInventory(ConvertHotbarToItem(Hotbar));
     }
     public void SpawnDrop(GameObject _obj)
     {
@@ -195,6 +193,7 @@ public class GeneralInventory : MonoBehaviour
             //if no change, dont run any methods
             return;
         }
+        GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
         GameManager.instance.playerControllerRef.GetPlayerHand().ToggleADS(false);
         UpdateSelectedObj();
     }
@@ -237,13 +236,17 @@ public class GeneralInventory : MonoBehaviour
 
         }
         UIManager.instance.UpdateSelectionHover(selectedSlot);
-        GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
 
     }
     public ItemType GetSlot(int _index) { return Hotbar[_index].t;}
-    public void SetSlot(int _index, ItemType t) { Hotbar[_index].t = t;}
+    public void SetSlot(int _index, ItemType t) {
+        
+        Hotbar[_index].t = t;
+    
+    }
     public void SetSlot(ItemType t) {
         SetSlot(selectedSlot, t);
+        GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
     }
     public bool GetNextFreeIndex(out int result)
     {

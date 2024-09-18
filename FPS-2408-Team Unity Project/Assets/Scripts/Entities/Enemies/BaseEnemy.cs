@@ -6,6 +6,7 @@ using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Editor;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -101,8 +102,20 @@ public class BaseEnemy : SharedEnemyBehavior
     #region Getters and Setters
     //=======================================
     //GETTERS AND SETTERS
-    public void SetPatrolPoints(Vector3[] _val) { patrolPoints = _val;}
-    protected void SetNavmeshTarget(Vector3 _pos) { agent.SetDestination(_pos); }
+    public void SetPatrolPoints(Vector3[] _val) { patrolPoints = _val; }
+    protected void SetNavmeshTarget(Vector3 _pos)
+    {
+
+        if (agent != null && agent.isActiveAndEnabled)
+        {
+            agent.SetDestination(_pos);
+        }
+    }
+
+
+
+
+
     private void SetNavmeshTarget() { if (target != null) SetNavmeshTarget(target.transform.position); }
         public void GetTarget(){if (target == null && GameManager.instance != null) target = GameManager.instance.playerRef;}
     private float DistanceToDestination() { return agent != null ? agent.remainingDistance : 0; }
@@ -142,7 +155,7 @@ public class BaseEnemy : SharedEnemyBehavior
         {
             case EnemyState.Patrol:
                  agent.stoppingDistance = 0;
-                if (agent.remainingDistance < 0.1f)
+                if ((agent == null || !agent.isActiveAndEnabled) || agent.remainingDistance < 0.1f)
                 {
                     StartCoroutine(Roam());
                 }
@@ -168,6 +181,8 @@ public class BaseEnemy : SharedEnemyBehavior
        
         bool inAttackRange = IsInRange(attackRange);
         bool inRange = IsInRange();
+
+
 
         if (senseType == DetectionType.InRange)
         {

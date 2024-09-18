@@ -137,6 +137,7 @@ public class UIManager : MonoBehaviour
             float yPos = inventoryAnchor.transform.position.y + (tempIndex * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) - (centerHotbar ? centerOffset.y : 0)) * hotbarAxis.y;
             Vector3 pos = new Vector3(xPos, yPos, 0);
             GameObject temp = Instantiate(Slot, pos, Quaternion.identity, inventoryAnchor.transform);
+            Debug.Log(temp.name);
             currItem[i] = GetImages(temp.transform)[0];
             currItem[i].sprite = emptySlot;
         }
@@ -281,8 +282,6 @@ public class UIManager : MonoBehaviour
     {
         currItem = new Image[GeneralInventory.instance.GetInventorySize()];
         UpdateCrosshair();
-        InitializeInventory();
-
     }
     private void Update()
     {
@@ -310,7 +309,6 @@ public class UIManager : MonoBehaviour
 
     public void StatePause()
     {
-
         UpdateInternalAmmoInv();
         FadeUI(true);
         GameManager.instance.SetPause(true);
