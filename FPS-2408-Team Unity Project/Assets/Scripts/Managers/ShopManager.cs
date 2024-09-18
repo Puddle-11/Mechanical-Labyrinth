@@ -12,6 +12,7 @@ public class ShopManager : MonoBehaviour
     private float warningTimer = 0;
     [SerializeField] private float warningHangTime;
     [SerializeField] private GameObject insuficientFunds;
+    [SerializeField] private List<GameObject> allBuyButtons;
     [Space]
     [Header("Pistols")]
     [Space]
@@ -85,36 +86,43 @@ public class ShopManager : MonoBehaviour
 
     public void CloseShop() 
     {
+        TurnOffBuyButtons();
         UIManager.instance.CloseShop();
     }
 
     public void GunShop()
     {
+        TurnOffBuyButtons();
         UIManager.instance.GunShop();
     }
 
     public void AmmoShop()
     {
+        TurnOffBuyButtons();
         UIManager.instance.AmmoShop();
     }
 
     public void ItemShop()
     {
+        TurnOffBuyButtons();
         UIManager.instance.ItemShop();
     }
 
     public void PrimaryShop()
     {
+        TurnOffBuyButtons();
         UIManager.instance.PrimaryShop();
     }
 
     public void SecondaryShop() 
     {
+        TurnOffBuyButtons();
         UIManager.instance.SecondaryShop();
     }
 
     public void SniperShop()
     {
+        TurnOffBuyButtons();
         UIManager.instance.SniperShop();
     }
 
@@ -321,7 +329,7 @@ public class ShopManager : MonoBehaviour
 
     public void BuyMP5()
     {
-        if (ScrapInventory.instance.currentScrap >= 1)
+        if (ScrapInventory.instance.currentScrap >= 80)
         {
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
@@ -364,6 +372,14 @@ public class ShopManager : MonoBehaviour
         else
         {
             ResetWarningTimer();
+        }
+    }
+
+    public void TurnOffBuyButtons()
+    {
+        foreach (GameObject button in allBuyButtons)
+        {
+            button.SetActive(false);
         }
     }
 }
