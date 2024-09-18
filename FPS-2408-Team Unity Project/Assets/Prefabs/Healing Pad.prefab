@@ -55,7 +55,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802701dab98cc7a4e8c3de0f9dd15071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealAmount: 1000
   pad: {fileID: 0}
 --- !u!23 &5628509969093691611
 MeshRenderer:
@@ -77,7 +76,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3aa3e2bdd8b280d47b16c2ea2841c976, type: 2}
+  - {fileID: 2100000, guid: 3b84e5994a7546a40aee2833c2bb07c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
