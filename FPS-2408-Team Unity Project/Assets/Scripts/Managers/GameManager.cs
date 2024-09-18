@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public delegate void OnWin();
     public OnWin levelWon;
     [SerializeField] private ItemType defaultItem;
+    [SerializeField] protected float maxtime;
 
 
     private void Awake()
@@ -102,6 +103,9 @@ public class GameManager : MonoBehaviour
         return enemyCount;
     }
     public bool GetStatePaused(){return isPause;}
+    public float Getmaxtime() {
+        return maxtime;
+    }
     public void SetPause(bool _val)
     {
         isPause = _val;
