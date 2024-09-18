@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEngine;
 
@@ -111,7 +109,20 @@ public class GeneralInventory : MonoBehaviour
         if (p != null) Destroy(p.gameObject);
 
         UIManager.instance.SetSlotIcon(t.Icon, _index);
+        GameManager.instance.SetGeneralInventory(ConvertHotbarToItem(Hotbar));
     }
+
+    public ItemType[] ConvertHotbarToItem(HotbarSlot[] _Hotbar)
+    {
+        ItemType[] temp = new ItemType[_Hotbar.Length];
+        for (int i = 0; i < _Hotbar.Length; ++i)
+        {
+            temp[i] = _Hotbar[i].t;
+        }
+
+       return temp;
+    }
+
     public void DropItem()
     {
         DropItem(selectedSlot);
@@ -137,6 +148,7 @@ public class GeneralInventory : MonoBehaviour
         Hotbar[_index].obj = null;
         Hotbar[_index].t = null;
         UIManager.instance.SetSlotIcon(_index);
+        GameManager.instance.SetGeneralInventory(ConvertHotbarToItem(Hotbar));
     }
     public void SpawnDrop(GameObject _obj)
     {
