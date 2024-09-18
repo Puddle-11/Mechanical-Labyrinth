@@ -301,6 +301,7 @@ MonoBehaviour:
   stats: 
   currPStats:
     uses: -1
+    maxUses: 0
 --- !u!4 &4376887067245096920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4381339351682146193, guid: 27badff3bcee26e49b56a443fb4744d5, type: 3}
@@ -357,6 +358,14 @@ PrefabInstance:
     - target: {fileID: 180027320645151414, guid: ebedadbcf43998a49933f7959c069f97, type: 3}
       propertyPath: m_Name
       value: Point Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 180027320645151414, guid: ebedadbcf43998a49933f7959c069f97, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4442992852519126519, guid: ebedadbcf43998a49933f7959c069f97, type: 3}
+      propertyPath: m_Intensity
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

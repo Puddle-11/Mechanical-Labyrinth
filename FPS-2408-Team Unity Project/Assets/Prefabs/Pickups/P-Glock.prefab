@@ -332,6 +332,7 @@ MonoBehaviour:
   stats: 
   currPStats:
     uses: -1
+    maxUses: 0
 --- !u!4 &5026461553183197194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5301850241491548428, guid: 85b66917c7c4150489042fb15ce6ef5a, type: 3}
@@ -400,6 +401,10 @@ PrefabInstance:
     - target: {fileID: 180027320645151414, guid: ebedadbcf43998a49933f7959c069f97, type: 3}
       propertyPath: m_Name
       value: Weapon highlight Light
+      objectReference: {fileID: 0}
+    - target: {fileID: 180027320645151414, guid: ebedadbcf43998a49933f7959c069f97, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

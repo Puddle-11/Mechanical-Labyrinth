@@ -147,6 +147,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon highlight Light
       objectReference: {fileID: 0}
+    - target: {fileID: 180027320645151414, guid: ebedadbcf43998a49933f7959c069f97, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -147,6 +147,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("No Highligher found");
             return;
         }
+        if (_index > currItem.Length - 1) return;
         currSelectedHighlight.transform.position = currItem[_index].transform.position;
     }
   
@@ -169,7 +170,7 @@ public class UIManager : MonoBehaviour
     }
     public void SetSlotIcon(Sprite icon, int index)
     {
-        if (icon == null) return;
+        if (icon == null || index >= currItem.Length) return;
          currItem[index].sprite = icon;
     }
     public void SetSlotIcon(int index)
