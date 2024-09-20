@@ -1,14 +1,7 @@
-using System;
-using System.Collections;
+
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Mathematics;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
-using static UnityEngine.GraphicsBuffer;
-using System.Reflection;
-using Unity.AI.Navigation;
+
 
 
 [RequireComponent(typeof(MeshFilter))]

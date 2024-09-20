@@ -110,8 +110,8 @@ public class UIManager : MonoBehaviour
     #region Custom Structs and Enums
     [System.Serializable]
     public struct UIObj
-    { public bool CUI_currentState;
-
+    { 
+        public bool CUI_currentState;
         public GameObject CUI_obj;
     }
     [System.Serializable]
@@ -126,20 +126,19 @@ public class UIManager : MonoBehaviour
     public void InitializeInventory()
     {
 
-
+        currItem = new Image[GeneralInventory.instance.GetInventorySize()];
         //incomplete, will need to add math for position.
-        int size = GeneralInventory.instance.GetInventorySize();
         RectTransform rt = Slot.gameObject.GetComponent<RectTransform>();
-        Vector3 centerOffset = new Vector3((size - 1) * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x)  / 2, (size - 1) * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) / 2, 0);
-        for (int i = 0; i < size; ++i)
+        Vector3 centerOffset = new Vector3((currItem.Length - 1) * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x)  / 2, (currItem.Length - 1) * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) / 2, 0);
+        for (int i = 0; i < currItem.Length; ++i)
         {
-            int tempIndex = !invert ? i : (size - 1) - i;
+            int tempIndex = !invert ? i : (currItem.Length - 1) - i;
             float xPos = inventoryAnchor.transform.position.x + (tempIndex * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) - (centerHotbar ? centerOffset.x : 0)) * hotbarAxis.x;
             float yPos = inventoryAnchor.transform.position.y + (tempIndex * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) - (centerHotbar ? centerOffset.y : 0)) * hotbarAxis.y;
             Vector3 pos = new Vector3(xPos, yPos, 0);
             GameObject temp = Instantiate(Slot, pos, Quaternion.identity, inventoryAnchor.transform);
-            Debug.Log(temp.name);
-            currItem[i] = GetImages(temp.transform)[0];
+            Image[] Result = GetImages(temp.transform);
+            currItem[i] =Result[0];
             currItem[i].sprite = emptySlot;
         }
     }
@@ -169,6 +168,7 @@ public class UIManager : MonoBehaviour
 
 
         }
+        Debug.Log(result.Count);
         return result.ToArray();
     }
 
@@ -289,7 +289,6 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
-        currItem = new Image[GeneralInventory.instance.GetInventorySize()];
         UpdateCrosshair();
     }
     private void Update()
