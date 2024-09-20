@@ -1,14 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem.Editor;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
 
 
 public class BaseEnemy : SharedEnemyBehavior
@@ -177,7 +169,7 @@ public class BaseEnemy : SharedEnemyBehavior
         }
     }
     //-------------
-    protected void EnemyStatus(ref EnemyState _enemyStateRef)
+    protected virtual void EnemyStatus(ref EnemyState _enemyStateRef)
     {
        
         bool inAttackRange = IsInRange(attackRange);
