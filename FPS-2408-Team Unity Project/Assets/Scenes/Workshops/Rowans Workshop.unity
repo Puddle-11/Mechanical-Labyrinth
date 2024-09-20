@@ -807,6 +807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 156045290}
   - component: {fileID: 156045289}
+  - component: {fileID: 156045291}
   m_Layer: 0
   m_Name: IK Arm
   m_TagString: Untagged
@@ -828,14 +829,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   start: {fileID: 2146500088}
   target: {fileID: 368734970}
-  pointCount: 4
-  segmentDist: 2
+  armPlane: {fileID: 156045291}
+  pointCount: 5
+  segmentDist: 3
   margin: 0
   points:
-  - {x: 9.33, y: -4.436, z: 2.08}
-  - {x: 7.333258, y: -4.44955, z: 1.9666901}
-  - {x: 7.6950045, y: -4.4762726, z: -0.00014132261}
-  - {x: 9.559, y: -4.531, z: -0.72299993}
+  - {x: -0, y: 0, z: 0}
+  - {x: -0.75084174, y: 1.4114149, z: 2.5385318}
+  - {x: -1.485158, y: -0.1042295, z: 5.021192}
+  - {x: -1.300291, y: 2.8241103, z: 4.3961725}
+  - {x: -1.247, y: -0.17, z: 4.216}
 --- !u!4 &156045290
 Transform:
   m_ObjectHideFlags: 0
@@ -845,14 +848,30 @@ Transform:
   m_GameObject: {fileID: 156045288}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.45, y: 0, z: 0.36}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2146500088}
   - {fileID: 368734970}
+  - {fileID: 2009260816}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &156045291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156045288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f2e6e33b9f6b740a9016412f80e20f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p1: {fileID: 2146500088}
+  p2: {fileID: 368734970}
+  p3: {fileID: 2009260816}
 --- !u!43 &156564231
 Mesh:
   m_ObjectHideFlags: 0
@@ -2882,7 +2901,7 @@ Transform:
   m_GameObject: {fileID: 368734969}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.009, y: -4.531, z: -1.083}
+  m_LocalPosition: {x: -1.247, y: -0.17, z: 4.216}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -15099,6 +15118,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
+--- !u!1 &2009260815
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2009260816}
+  m_Layer: 0
+  m_Name: IK Arm Rod
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2009260816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009260815}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 156045290}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2044913097
 GameObject:
   m_ObjectHideFlags: 0
@@ -16431,7 +16481,7 @@ Transform:
   m_GameObject: {fileID: 2146500087}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.78, y: -4.436, z: 1.72}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
