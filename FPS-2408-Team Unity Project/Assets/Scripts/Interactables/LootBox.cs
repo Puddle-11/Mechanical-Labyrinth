@@ -6,25 +6,30 @@ public class LootBox : MonoBehaviour
 {
     [SerializeField] private List<GameObject> guns;
     [SerializeField] private List<GameObject> ammos;
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform spawnPointForAmmo;
+    [SerializeField] private Transform spawnPointForGun;
 
-    public void OpenLootBox()
+    private void Start()
+    {
+        LootInBox();
+    }
+    public void LootInBox()
     {
         float chance = Random.value;
 
         if (chance <= 0.3f)
         {
             GameObject gun = guns[Random.Range(0, guns.Count)];
-            SpawnLoot(gun);
+            SpawnLoot(gun, spawnPointForGun);
         }
         else
         {
             GameObject ammo = ammos[Random.Range(0, ammos.Count)];
-            SpawnLoot(ammo);
+            SpawnLoot(ammo, spawnPointForAmmo);
         }
     }
 
-    public void SpawnLoot(GameObject item)
+    public void SpawnLoot(GameObject item, Transform spawnPoint)
     {
         Instantiate(item, spawnPoint.position, spawnPoint.rotation);
     }
