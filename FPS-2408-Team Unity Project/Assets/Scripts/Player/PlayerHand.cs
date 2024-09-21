@@ -42,7 +42,6 @@ public class PlayerHand : MonoBehaviour
     }
     public void SetCurrentEquipped(GameObject _obj)
     {
-        Debug.Log("Ran: " + _obj);
         if(_obj == null)
         {
             UIManager.instance.AmmoDisplay(0, 0);

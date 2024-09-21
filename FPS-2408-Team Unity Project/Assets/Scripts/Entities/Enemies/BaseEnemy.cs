@@ -15,6 +15,7 @@ public class BaseEnemy : SharedEnemyBehavior
     [SerializeField] protected Vector3[] patrolPoints;
     [SerializeField] protected DetectionType senseType;
     [SerializeField] private Vector2Int minmaxScrap;
+    [SerializeField] protected GameObject shield;
 
 
     [Space]
@@ -85,6 +86,11 @@ public class BaseEnemy : SharedEnemyBehavior
             float agentSpeed = agent.velocity.normalized.magnitude;
             float lerpedSpeed = Mathf.Lerp(anim.GetFloat("Speed"), agentSpeed, Time.deltaTime * transitionSpeed);
             anim.SetFloat("Speed", lerpedSpeed);
+        }
+
+        if (currentShield <= 0)
+        {
+            shield.SetActive(false);
         }
         base.Update();
     }
