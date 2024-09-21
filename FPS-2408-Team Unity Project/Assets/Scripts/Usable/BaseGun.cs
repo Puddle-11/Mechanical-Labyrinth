@@ -246,9 +246,12 @@ public class BaseGun : Weapon
                 if (hit.collider.TryGetComponent(out healthRef))
                 {
 
-                    if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamage);
+                    if (playerWeapon)
+                    {
+                        GameManager.instance.UpdateDamageDealt(shootDamage);
+                        StartCoroutine(UIManager.instance.CallHitmarker());
+                    }
                     healthRef.UpdateHealthAfterDelay(-shootDamage, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, hit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed(), shieldPenetration);
-                   StartCoroutine(UIManager.instance.CallHitmarker());
                 }
                 RaycastHit penetratingHit;
 
