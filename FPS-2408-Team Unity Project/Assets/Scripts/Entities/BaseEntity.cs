@@ -113,7 +113,6 @@ public class BaseEntity : MonoBehaviour, IHealth
         }
         else
         {
-
             SetHealth(currentHealth + _amount);
         }
     }

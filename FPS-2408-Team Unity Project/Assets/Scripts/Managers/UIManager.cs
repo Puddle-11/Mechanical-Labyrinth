@@ -168,7 +168,6 @@ public class UIManager : MonoBehaviour
 
 
         }
-        Debug.Log(result.Count);
         return result.ToArray();
     }
 
