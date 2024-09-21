@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 //====================================
 //REWORKED
 //====================================
@@ -46,6 +41,10 @@ public class SharedEnemyBehavior : BaseEntity
         return targetDir;
     }
 
+    public void SetTarget(GameObject _target)
+    {
+        target = _target;
+    }
 
     public bool InAngleRange(float _range)
     {
