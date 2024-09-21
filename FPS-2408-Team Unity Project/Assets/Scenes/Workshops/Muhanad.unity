@@ -601,6 +601,10 @@ MonoBehaviour:
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds: []
+  healingAmount: 0
+  coolDown: 0
+  lineRenderer: {fileID: 0}
+  healingParticles: {fileID: 0}
 --- !u!65 &72275308
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15097,6 +15101,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5399627765223998603, guid: e681efd8e4995f34cb8cd27fe066db59, type: 3}
   m_PrefabInstance: {fileID: 2142868833}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &553088192537761817
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 35.45746
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -34.929707
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362308692285341755, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8755858232787219940, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
+      propertyPath: m_Name
+      value: Healing Chamber
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3cffecb4f65a52f4b869825d28db8a4f, type: 3}
 --- !u!1 &919132147659303881 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3923719176859918381, guid: d9025f3745d44e24a95ff48354c67802, type: 3}
@@ -15303,3 +15364,4 @@ SceneRoots:
   - {fileID: 745300666}
   - {fileID: 1868570954}
   - {fileID: 221713707}
+  - {fileID: 553088192537761817}

@@ -17,8 +17,7 @@ public class FlasherDrone : BaseEnemy
     {
             if (IsInRange())
             {
-            
-                    StartCoroutine(FlashEffect());
+                StartCoroutine(FlashEffect());
             }
 
         base.Update();
