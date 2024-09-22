@@ -5345,7 +5345,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5591,6 +5591,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3153196339077621764}
   - {fileID: 1671623166882240563}
   - {fileID: 2841264648908207037}
   - {fileID: 7615444993708639598}
@@ -5730,6 +5731,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e0ee060fa69f09f40bd669dc4a2c596d, type: 3}
   - {fileID: 8300000, guid: cc501cf6ed754b94b9cb0d06f4420e7c, type: 3}
   hitSound: {fileID: 8300000, guid: c95c255d1ef1a4e40be0222d45d95dc6, type: 3}
+  damageParticles: {fileID: 6251280630691076175}
   healingAmount: 10
   coolDown: 1
   lineRenderer: {fileID: 2875060995315439883}
@@ -6200,7 +6202,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -6317,9 +6319,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     startSize:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 0.2
-      minScalar: 1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -6370,7 +6372,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -6423,7 +6425,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -6695,7 +6697,7 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 4
+    type: 0
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
@@ -7399,8 +7401,8 @@ ParticleSystem:
         m_NumAlphaKeys: 2
   UVModule:
     serializedVersion: 2
-    enabled: 0
-    mode: 0
+    enabled: 1
+    mode: 1
     timeMode: 0
     fps: 30
     frameOverTime:
@@ -7518,7 +7520,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 0}
+    - sprite: {fileID: 21300000, guid: 00bb8a4bc220b9c4384e37a8b04c45cf, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -10893,6 +10895,73 @@ Transform:
   - {fileID: 6946622863379234070}
   m_Father: {fileID: 7418502008620568465}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2885408667104556974
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2803350692814840262}
+    m_Modifications:
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671557875556757266, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_Name
+      value: Damage Particles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+--- !u!4 &3153196339077621764 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 272855596281175978, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+  m_PrefabInstance: {fileID: 2885408667104556974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &6251280630691076175 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 9136120814763421665, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+  m_PrefabInstance: {fileID: 2885408667104556974}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6329271309786114053
 PrefabInstance:
   m_ObjectHideFlags: 0

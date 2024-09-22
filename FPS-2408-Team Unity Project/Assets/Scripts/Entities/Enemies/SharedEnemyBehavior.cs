@@ -77,6 +77,7 @@ public class SharedEnemyBehavior : BaseEntity
     }
     public void FaceTarget()
     {
+        if (target == null) return;
         Vector3 targetPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
 
         Quaternion rot = Quaternion.LookRotation(targetPos - transform.position);

@@ -26,7 +26,7 @@ public class BaseEnemy : SharedEnemyBehavior
     [SerializeField] protected float transitionSpeed = 0.5f;
     [SerializeField] public AudioClip[] Deathsounds;
     [SerializeField] private AudioClip hitSound;
-
+    [SerializeField] private ParticleSystem damageParticles;
     protected EnemyState currState;
     protected float timer;
     protected bool isRoaming;
@@ -257,7 +257,7 @@ public class BaseEnemy : SharedEnemyBehavior
     {
         base.UpdateHealth(_amount);
         if (hitSound != null && AudioManager.instance != null) AudioManager.instance.PlaySound(hitSound, SettingsController.soundType.enemy);
-
+        if (damageParticles != null) damageParticles.Play();
         if (currState == EnemyState.Patrol || currState == EnemyState.Investigate)
         {
 
@@ -282,13 +282,4 @@ public class BaseEnemy : SharedEnemyBehavior
     #endregion
 
   
-    //public virtual void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawWireSphere(transform.position, sightRange);
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, hearingRange);
-    //    Gizmos.color = Color.magenta;
-    //    Gizmos.DrawWireSphere(transform.position, attackRange);
-    //}
 }

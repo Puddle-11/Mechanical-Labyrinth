@@ -19,6 +19,11 @@ public class RepairDrone : BaseEnemy
         {
             UpdateLineRenderer();
         }
+        else
+        {
+            lineRenderer.gameObject.SetActive(false);
+
+        }
         base.Update();
     }
 
