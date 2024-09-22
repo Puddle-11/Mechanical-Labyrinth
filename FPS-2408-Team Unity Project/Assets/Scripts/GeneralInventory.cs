@@ -1,6 +1,7 @@
 using UnityEngine.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.Linq;
 
 public class GeneralInventory : MonoBehaviour
 {
@@ -224,17 +225,14 @@ public class GeneralInventory : MonoBehaviour
             if (Hotbar[i].obj != null)
             {
 
-                if (i == selectedSlot)
-                {
-                    Hotbar[i].obj.SetActive(true);
-                }
-                else
+                if (i != selectedSlot)
                 {
                     Hotbar[i].obj.SetActive(false);
                 }
-            }
 
+            }
         }
+        if (Hotbar[selectedSlot].obj != null) Hotbar[selectedSlot].obj.SetActive(true);
         UIManager.instance.UpdateSelectionHover(selectedSlot);
 
     }
