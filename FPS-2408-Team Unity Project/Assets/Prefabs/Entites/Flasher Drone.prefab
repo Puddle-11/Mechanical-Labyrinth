@@ -5979,7 +5979,10 @@ MonoBehaviour:
   shield: {fileID: 4914169138264445306}
   anim: {fileID: 0}
   transitionSpeed: 0.5
-  Deathsounds: []
+  Deathsounds:
+  - {fileID: 8300000, guid: f14540eec14df7446badb6b9f2ff0225, type: 3}
+  - {fileID: 8300000, guid: e0ee060fa69f09f40bd669dc4a2c596d, type: 3}
+  - {fileID: 8300000, guid: cc501cf6ed754b94b9cb0d06f4420e7c, type: 3}
   coolDown: 5
   flashDuration: 3
   flashProgress: {fileID: 8486819796530916636}
