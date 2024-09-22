@@ -11,11 +11,13 @@ public class BootLoadManager : MonoBehaviour
     [SerializeField] private Image loadingBar;
     [SerializeField] private Animator SceneChangeAnimation;
     [SerializeField] private TMP_Text currLevel;
+    [SerializeField] private TMP_Text nextLevel;
+
     [SerializeField] private GameObject loadingScreenObj;
+    [SerializeField] private GameObject sceneChangeObj;
 
 
-
-     public delegate void SceneEvent();
+    public delegate void SceneEvent();
     public SceneEvent startLoadEvent;
     public SceneEvent stopLoadEvent;
     private bool inLoadScreen;
@@ -35,11 +37,8 @@ public class BootLoadManager : MonoBehaviour
         if(instance == null)instance = this;
         else
         {
-
-
             Debug.LogWarning("ERROR: Two boot loaders initialized, make sure the bootloader scene is only being run once on start");
             Destroy(this);
-
         }
     }
 
@@ -56,17 +55,13 @@ public class BootLoadManager : MonoBehaviour
         loadingBar.fillAmount = 0;
         if(GameManager.instance != null)
         {
-            currLevel.gameObject.SetActive(true);
-            currLevel.text = GameManager.instance.GetCurrentLevel().ToString();
-        }
-        else
-        {
-            currLevel.gameObject.SetActive(false);
+            nextLevel.text = GameManager.instance.GetCurrentLevel().ToString();
+
+            currLevel.text = Mathf.Clamp(GameManager.instance.GetCurrentLevel()-1, 0, Mathf.Infinity).ToString();
 
         }
         loadingScreenObj.SetActive(true);
     }
-
     public void EndSceneAnimation()
     {
         StartCoroutine(EndSceneAnimationDelay());
@@ -75,22 +70,21 @@ public class BootLoadManager : MonoBehaviour
     {
         if (runningEndAnimation) yield break;
         runningEndAnimation = true;
+        sceneChangeObj.SetActive(true);
         SceneChangeAnimation.SetTrigger("EndScene");
 
         yield return new WaitUntil(() => SceneChangeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime > 0.95);
         stopLoadEvent?.Invoke();
-        yield return null; 
+        yield return null;
+        sceneChangeObj.SetActive(false);
         runningEndAnimation = false;
-
     }
-    
     public void CloseLoadMenu()
     {
         inLoadScreen = false;
 
         loadingScreenObj.SetActive(false);
     }
-
     public void UpdateLoadingBar(float _val)
     {
         loadingBar.fillAmount = _val;

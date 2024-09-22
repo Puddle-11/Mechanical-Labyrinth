@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  maxShield: 150
+  maxShield: 0
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
   shieldMaterial: {fileID: 2100000, guid: 0f0b95a8eea82bf40b333ae516e6eb39, type: 2}
   healthBar: {fileID: 2548521708779764410}
@@ -320,6 +320,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 46a57546966768f428ff735764e741ed, type: 3}
   - {fileID: 8300000, guid: e0ee060fa69f09f40bd669dc4a2c596d, type: 3}
   - {fileID: 8300000, guid: f14540eec14df7446badb6b9f2ff0225, type: 3}
+  hitSound: {fileID: 8300000, guid: c95c255d1ef1a4e40be0222d45d95dc6, type: 3}
   explosionDamage: 300
   knockback: {x: 0, y: 0, z: 0}
   knockbackmod: 10

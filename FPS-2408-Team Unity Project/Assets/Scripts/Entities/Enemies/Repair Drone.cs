@@ -44,10 +44,9 @@ public class RepairDrone : BaseEnemy
         }
         else
         {
-            LineRenderer lineRenderer = GetComponent<LineRenderer>();
 
             float lengthOfLineRenderer = Vector3.Distance(target.transform.position, transform.position);
-            Vector3[] points = new Vector3[(int)lengthOfLineRenderer];
+            Vector3[] points = new Vector3[2];
 
             points[0] = transform.position;
             points[1] = target.transform.position;        

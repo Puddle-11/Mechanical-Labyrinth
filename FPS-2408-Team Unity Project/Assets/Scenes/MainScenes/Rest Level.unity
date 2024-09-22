@@ -3195,6 +3195,10 @@ PrefabInstance:
       propertyPath: minGridSize.z
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: navMeshSurfaceRef
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -3303,7 +3307,8 @@ PrefabInstance:
       propertyPath: enemyList.Array.data[2].enemyPrefab
       value: 
       objectReference: {fileID: 2919294226157067530, guid: e8f0070d9e9021b4dbb54dd006daa47a, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7672495625900177833, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 22606344426549897, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
@@ -10099,7 +10104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3151275277385640027, guid: 5cb466b6241800a47ac06d63aea27f0e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.25
+      value: 29.74
       objectReference: {fileID: 0}
     - target: {fileID: 3151275277385640027, guid: 5cb466b6241800a47ac06d63aea27f0e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10137,7 +10142,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3409969866313402439, guid: 5cb466b6241800a47ac06d63aea27f0e, type: 3}
+    - {fileID: 2044702040839395998, guid: 5cb466b6241800a47ac06d63aea27f0e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -189,7 +189,6 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
     {
-        Debug.Log("updated external ammo");
         if(currAmmoInvParent != null) currAmmoInvParent.SetActive(_active);
         currExternalAmmoInv = _active ? _type : -1;
         if(currAmmoInvAmount != null)

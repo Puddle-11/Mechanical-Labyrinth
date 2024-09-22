@@ -25,6 +25,7 @@ public class BaseEnemy : SharedEnemyBehavior
     [SerializeField] protected Animator anim;
     [SerializeField] protected float transitionSpeed = 0.5f;
     [SerializeField] public AudioClip[] Deathsounds;
+    [SerializeField] private AudioClip hitSound;
 
     protected EnemyState currState;
     protected float timer;
@@ -148,9 +149,7 @@ public class BaseEnemy : SharedEnemyBehavior
     #region State Machine
     protected virtual void StateHandler()
     {
-        Debug.Log("Ran State Handler");
         if (agent == null) return;
-        Debug.Log("agent not null");
         EnemyStatus(ref currState);
         switch (currState)
         {
@@ -257,8 +256,11 @@ public class BaseEnemy : SharedEnemyBehavior
     public override void UpdateHealth(int _amount, float _shieldPen = 1)
     {
         base.UpdateHealth(_amount);
+        if (hitSound != null && AudioManager.instance != null) AudioManager.instance.PlaySound(hitSound, SettingsController.soundType.enemy);
+
         if (currState == EnemyState.Patrol || currState == EnemyState.Investigate)
         {
+
             _amount = _amount * sneakDamageMultiplyer;
            if(target != null) EnterInvestigate(target.transform.position);
         }
@@ -269,7 +271,7 @@ public class BaseEnemy : SharedEnemyBehavior
     {
         int scrapDrop = global::UnityEngine.Random.Range(minmaxScrap.x, minmaxScrap.y);
         if (ScrapInventory.instance != null) ScrapInventory.instance.AddScrap(scrapDrop);
-        if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[global::UnityEngine.Random.Range(0, Deathsounds.Length)], SettingsController.soundType.enemy);
+        if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[Random.Range(0, Deathsounds.Length)], SettingsController.soundType.enemy);
         GameManager.instance?.updateGameGoal(-1);
         GameManager.instance.UpdateKillCounter(1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
@@ -280,13 +282,13 @@ public class BaseEnemy : SharedEnemyBehavior
     #endregion
 
   
-    public virtual void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, hearingRange);
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
+    //public virtual void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireSphere(transform.position, sightRange);
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, hearingRange);
+    //    Gizmos.color = Color.magenta;
+    //    Gizmos.DrawWireSphere(transform.position, attackRange);
+    //}
 }

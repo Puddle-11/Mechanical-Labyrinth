@@ -5941,7 +5941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  maxShield: 200
+  maxShield: 0
   damageMaterial: {fileID: 0}
   shieldMaterial: {fileID: 0}
   healthBar: {fileID: 7001169359936548035}
@@ -5983,6 +5983,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f14540eec14df7446badb6b9f2ff0225, type: 3}
   - {fileID: 8300000, guid: e0ee060fa69f09f40bd669dc4a2c596d, type: 3}
   - {fileID: 8300000, guid: cc501cf6ed754b94b9cb0d06f4420e7c, type: 3}
+  hitSound: {fileID: 8300000, guid: c95c255d1ef1a4e40be0222d45d95dc6, type: 3}
   coolDown: 5
   flashDuration: 3
   flashProgress: {fileID: 8486819796530916636}
