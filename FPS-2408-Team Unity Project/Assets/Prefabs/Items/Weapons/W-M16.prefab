@@ -425,7 +425,7 @@ MonoBehaviour:
   shootDist: 200
   burstSize: 0
   clipSizeMax: 10
-  reloadSpeed: 1.5
+  reloadSpeed: 4
   barrelDelay: 0
   barrels:
   - shootObj: {fileID: 5251786042946030810}
@@ -433,7 +433,7 @@ MonoBehaviour:
     sparks:
     - {fileID: 1833320379406260343}
   penetratingDistance: 3
-  penetratingDamageFalloff: 1
+  penetratingDamageFalloff: 3
   shieldPenetration: 3
   FSAccuracy: 0.05
   FSAOverTime:

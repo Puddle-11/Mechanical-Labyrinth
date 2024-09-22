@@ -267,6 +267,7 @@ public class BaseEnemy : SharedEnemyBehavior
         GameManager.instance?.updateGameGoal(-1);
         GameManager.instance.UpdateKillCounter(1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
+        DropInventory();
         RemoveEvents();
         base.Death();
     }

@@ -422,11 +422,11 @@ MonoBehaviour:
   shotType: 0
   ammoType: 1
   scopeInZoom: 20
-  shootDamage: 40
+  shootDamage: 22
   shootDist: 200
   burstSize: 0
-  clipSizeMax: 120
-  reloadSpeed: 1.5
+  clipSizeMax: 60
+  reloadSpeed: 10
   barrelDelay: 0
   barrels:
   - shootObj: {fileID: 8556598305475346191}
