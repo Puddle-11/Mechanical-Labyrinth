@@ -22,8 +22,6 @@ public class BaseGun : Weapon
     [SerializeField] protected Barrel[] barrels;
     [SerializeField] protected float penetratingDistance;
     [SerializeField] protected float penetratingDamageFalloff;
-
-
     [SerializeField] protected float shieldPenetration;
     [Space]
     [Header("Accuracy Variables")]
@@ -45,6 +43,7 @@ public class BaseGun : Weapon
     [SerializeField] private Material[] P_bulletHoleMat;
     [SerializeField] private Material[] E_bulletHoleMat;
     [SerializeField] private Animator GunAnimator;
+    [SerializeField] private Animator reloadAnim;
     private float FSATimerMax;
     private float FSAtimer;
     private int currAmmo;
@@ -412,13 +411,14 @@ public class BaseGun : Weapon
         if (playerWeapon)
         {
 
-            fillAmount = AmmoInventory.instance.ammoCounts[(int)ammoType] > clipSizeMax ? clipSizeMax  - currAmmo: AmmoInventory.instance.ammoCounts[(int)ammoType];
+            fillAmount = AmmoInventory.instance.ammoCounts[(int)ammoType] > clipSizeMax ? clipSizeMax - currAmmo : AmmoInventory.instance.ammoCounts[(int)ammoType];
 
             if (!(AmmoInventory.instance.ammoCounts[(int)ammoType] > 0))
             {
                 isReloading = false;
                 yield break;
             }
+            if (reloadAnim != null) reloadAnim.SetTrigger("Reload");
         }
         int finalFill = fillAmount + currAmmo;
 

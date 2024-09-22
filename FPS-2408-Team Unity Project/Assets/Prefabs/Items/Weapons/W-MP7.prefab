@@ -456,6 +456,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1505463946988389471, guid: 9f8c9e6fa705b5445b2b17450c2a7b89, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7394462687534342662}
+    - targetCorrespondingSourceObject: {fileID: 1505463946988389471, guid: 9f8c9e6fa705b5445b2b17450c2a7b89, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2727728350837114220}
   m_SourcePrefab: {fileID: 100100000, guid: 9f8c9e6fa705b5445b2b17450c2a7b89, type: 3}
 --- !u!1 &2410736084154907606 stripped
 GameObject:
@@ -599,6 +602,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 05530e2ab40893744beacc130ca6dbd4, type: 2}
   - {fileID: 2100000, guid: f1e07d4981ab57946850422896d94aab, type: 2}
   GunAnimator: {fileID: 0}
+  reloadAnim: {fileID: 2727728350837114220}
 --- !u!114 &7394462687534342662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,6 +622,27 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!95 &2727728350837114220
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2410736084154907606}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1b12f562be8db8741a79f47f79b51b4c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &7940028811183308023 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6602412205035012990, guid: 9f8c9e6fa705b5445b2b17450c2a7b89, type: 3}

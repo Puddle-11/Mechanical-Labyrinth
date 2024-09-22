@@ -9,7 +9,6 @@ public class LootBox : MonoBehaviour, IInteractable
     [SerializeField] private Transform spawnPointForAmmo;
     [SerializeField] private Transform spawnPointForGun;
     [SerializeField] private Animator openAnamation;
-    private bool isOpened = false;
     public void TriggerInteraction()
     {
         OpenLootBox();
@@ -43,8 +42,6 @@ public class LootBox : MonoBehaviour, IInteractable
 
     public void OpenLootBox()
     {
-        isOpened = true;
-
         openAnamation.SetTrigger("Open");
 
         StartCoroutine(SpawnLootAfterAnimation());

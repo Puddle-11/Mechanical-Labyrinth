@@ -48,7 +48,7 @@ MonoBehaviour:
   item: {fileID: 0}
   stats:
     uses: 1
-    maxUses: 0
+    maxUses: 1
   healthRegenPercent: 0.5
 --- !u!1 &4413171044286620041
 GameObject:
