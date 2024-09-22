@@ -1687,8 +1687,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685534c3879e56941a16ddaca847d344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 400
-  maxShield: 50
+  maxHealth: 100
+  maxShield: 300
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
   shieldMaterial: {fileID: 2100000, guid: 0f0b95a8eea82bf40b333ae516e6eb39, type: 2}
   healthBar: {fileID: 5954874342914856447}
@@ -1698,7 +1698,6 @@ MonoBehaviour:
   damageFlashTime: 0.1
   drops:
   - {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
-  - {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
   rendRef:
   - currRenderer: {fileID: 8322935289999315915}
     renderOriginMaterial: []

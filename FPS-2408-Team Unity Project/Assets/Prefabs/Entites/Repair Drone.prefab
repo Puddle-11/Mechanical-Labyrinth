@@ -5921,15 +5921,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a3b9952e795c44e821266f58b299a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxShield: 100
+  maxHealth: 50
+  maxShield: 300
   damageMaterial: {fileID: 0}
   shieldMaterial: {fileID: 0}
   healthBar: {fileID: 0}
   deathParticles: []
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
-  drops: []
+  drops:
+  - {fileID: 8728914310344857947, guid: ba07565e5746c1446acd5580846728bb, type: 3}
   rendRef: []
   headPos: {fileID: 0}
   sneakDamageMultiplyer: 2

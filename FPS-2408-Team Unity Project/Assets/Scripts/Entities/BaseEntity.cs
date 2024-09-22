@@ -21,7 +21,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     [SerializeField] protected ParticleSystem[] deathParticles;
     [SerializeField] protected GameObject hitParticles;
     [Range(0.1f, 10f)][SerializeField] private float damageFlashTime;
-    [SerializeField] private GameObject[] drops;
+    [SerializeField] protected GameObject[] drops;
 
     [SerializeField] protected RenderContainer[] rendRef;
     protected int currentHealth;

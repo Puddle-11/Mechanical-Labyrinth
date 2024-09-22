@@ -234,8 +234,8 @@ MonoBehaviour:
     sparks:
     - {fileID: 6678233631861549538}
   penetratingDistance: 1
-  penetratingDamageFalloff: 1
-  shieldPenetration: 1
+  penetratingDamageFalloff: 2
+  shieldPenetration: 3
   FSAccuracy: 0.05
   FSAOverTime:
     serializedVersion: 2

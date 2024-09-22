@@ -5941,7 +5941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  maxShield: 10
+  maxShield: 200
   damageMaterial: {fileID: 0}
   shieldMaterial: {fileID: 0}
   healthBar: {fileID: 7001169359936548035}
@@ -5949,7 +5949,7 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops:
-  - {fileID: 968438769837204579, guid: 77b036a6c999fa447bcf032cbd9122a7, type: 3}
+  - {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
   rendRef:
   - currRenderer: {fileID: 0}
     renderOriginMaterial: []

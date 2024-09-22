@@ -399,8 +399,8 @@ MonoBehaviour:
   shotType: 1
   ammoType: 0
   scopeInZoom: 0
-  shootDamage: 30
-  shootDist: 200
+  shootDamage: 40
+  shootDist: 100
   burstSize: 10
   clipSizeMax: 30
   reloadSpeed: 1.5
@@ -411,7 +411,7 @@ MonoBehaviour:
     sparks:
     - {fileID: 5809287226921104108}
   penetratingDistance: 1
-  penetratingDamageFalloff: 1
+  penetratingDamageFalloff: 2
   shieldPenetration: 1
   FSAccuracy: 0.05
   FSAOverTime:

@@ -391,8 +391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685534c3879e56941a16ddaca847d344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  maxShield: 50
+  maxHealth: 250
+  maxShield: 200
   damageMaterial: {fileID: 2100000, guid: c82f43bcd4199ae40b063a75574a5eda, type: 2}
   shieldMaterial: {fileID: 2100000, guid: 0f0b95a8eea82bf40b333ae516e6eb39, type: 2}
   healthBar: {fileID: 9197602804775642124}
