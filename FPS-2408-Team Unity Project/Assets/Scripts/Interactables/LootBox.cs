@@ -2,34 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LootBox : MonoBehaviour
+public class LootBox : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<GameObject> guns;
     [SerializeField] private List<GameObject> ammos;
     [SerializeField] private Transform spawnPointForAmmo;
     [SerializeField] private Transform spawnPointForGun;
     [SerializeField] private Animator openAnamation;
-    [SerializeField] private float interactDist;
-
-    private Transform player;
-
     private bool isOpened = false;
-
-    private void Start()
+    public void TriggerInteraction()
     {
-        player = GameManager.instance.playerRef.transform;
+        OpenLootBox();
+
     }
 
-    private void Update()
+    public string GetStats()
     {
-        float distance = Vector3.Distance(player.position, transform.position);
-
-        if (distance <= interactDist && !isOpened && Input.GetKeyDown(KeyCode.E))
-        {
-            OpenLootBox();
-        }
+        return "";
     }
-
     public void LootInBox()
     {
         float chance = Random.value;
@@ -65,4 +55,5 @@ public class LootBox : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         LootInBox();
     }
+
 }

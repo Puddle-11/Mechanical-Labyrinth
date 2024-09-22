@@ -364,7 +364,6 @@ public class UIManager : MonoBehaviour
     }
     public void ToggleWinMenu(bool _val)
     {
-        Debug.Log("Toggled Win Menu: " + _val);
         menuWin.SetActive(_val);
     }
 

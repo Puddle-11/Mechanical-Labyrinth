@@ -1,6 +1,4 @@
-using System.Collections.Generic;
 using UnityEngine;
-[ExecuteInEditMode]
 public class Plane : MonoBehaviour
 {
     //------------------------------------
@@ -12,10 +10,6 @@ public class Plane : MonoBehaviour
     //------------------------------------
 
     private Vector3 planeNormal;
-    private void Update()
-    {
- 
-    }
     public Vector3 ProjectPoint(Vector3 originPoint)
     {
         Vector3 planeAnchorToOrigin = originPoint - p1.position;
@@ -84,12 +78,11 @@ public class Plane : MonoBehaviour
         n = n / n.magnitude;
         return n;
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawLine(p1.position, p2.position);
         Gizmos.DrawLine(p2.position, p3.position);
         Gizmos.DrawLine(p3.position, p1.position);
-
     }
 }

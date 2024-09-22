@@ -36,7 +36,7 @@ public class GarrethFlicker : MonoBehaviour
             Debug.LogWarning("No Root Object found");
             return null;
         }
-            return rootObj.GetComponentsInChildren<Renderer>();
+        return rootObj.GetComponentsInChildren<Renderer>();
     }
     public void SetRendererState(bool _val)
     {
@@ -45,7 +45,7 @@ public class GarrethFlicker : MonoBehaviour
             Debug.LogWarning("Renderers not assigned properly");
             return;
         }
-            for (int i = 0; i < allRend.Length; i++)
+        for (int i = 0; i < allRend.Length; i++)
         {
             allRend[i].enabled = _val;
         }
@@ -64,11 +64,46 @@ public class GarrethFlicker : MonoBehaviour
             SetRendererState(false);
             yield return s;
             SetRendererState(true);
-            timer = timer +  flickerSpeed;
+            timer = timer + flickerSpeed;
             Debug.Log(timer);
             yield return null;
         }
         SetRendererState(false);
 
     }
+
+    //public void NotifyNearbyGuards(/*AISharedContext context,*/ LayerMask _hitMask, Vector3 _hemisphereAxis /*this is the normal of the plane splitting the hemisphere*/)
+    //{
+    //    Collider[] results = new Collider[10]; //max collision count of 10
+    //    Vector3 planePoint = /*context.Npc.*/transform.position;
+    //    var size = Physics.OverlapSphereNonAlloc(/*context.Npc.*/transform.position, /*guardNotificationRange*/10, results, _hitMask);
+
+    //    for (int i = 0; i < size; i++)
+    //    {
+    //        if (Vector3.Dot((planePoint - results[i].transform.position).normalized, _hemisphereAxis) > 0)
+    //        {
+    //            //in upper half of sphere
+    //        }
+    //        else
+    //        {
+    //            //in lower half of sphere
+    //        }
+
+
+    //        if (results[i].TryGetComponent(out NpcController controllerRef))
+    //        {
+    //            AISharedContext guardContext = controllerRef.context;
+
+    //            if (guardContext != context)
+    //            {
+    //                guardContext.Npc.GetComponent<StateMachine>().ChangeState(new AttackState(guardContext));
+    //            }
+    //        }
+    //    }
+
+    //}
+
+
+
 }
+

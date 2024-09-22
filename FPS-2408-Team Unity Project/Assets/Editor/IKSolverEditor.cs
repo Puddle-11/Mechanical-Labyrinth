@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 [CustomEditor(typeof(IKSolver))]
-
+[CanEditMultipleObjects]
 public class IKSolverEditor : Editor
 {
     public override void OnInspectorGUI()
