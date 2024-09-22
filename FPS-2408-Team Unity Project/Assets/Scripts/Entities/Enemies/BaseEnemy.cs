@@ -90,7 +90,7 @@ public class BaseEnemy : SharedEnemyBehavior
 
         if (currentShield <= 0)
         {
-            shield.SetActive(false);
+            if(shield != null) shield.SetActive(false);
         }
         base.Update();
     }
@@ -166,7 +166,7 @@ public class BaseEnemy : SharedEnemyBehavior
             case EnemyState.Attack:
               if(target != null)  SetNavmeshTarget(target.transform.position);
                 agent.stoppingDistance = stoppingDistance;
-                if (agent.remainingDistance <= stoppingDistance) FaceTarget();
+                if ( agent.remainingDistance <= stoppingDistance) FaceTarget();
                 break;
         }
         if (currState == EnemyState.Attack)
