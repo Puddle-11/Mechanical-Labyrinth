@@ -447,8 +447,9 @@ MonoBehaviour:
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
-  - {fileID: 8300000, guid: cc501cf6ed754b94b9cb0d06f4420e7c, type: 3}
-  - {fileID: 8300000, guid: e0ee060fa69f09f40bd669dc4a2c596d, type: 3}
+  - {fileID: 8300000, guid: ce1cc4e9fddacd446a5778d85f12aaa0, type: 3}
+  - {fileID: 8300000, guid: 7c441d910db82ab408f81d46cacde8b1, type: 3}
+  - {fileID: 8300000, guid: 170ce36e2988f134a9f0a18ab78de60c, type: 3}
   shoulderPos: {x: 0, y: 0.25, z: 0}
   legDistance: 0.45
   legs:

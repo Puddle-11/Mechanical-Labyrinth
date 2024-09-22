@@ -5930,7 +5930,7 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops:
-  - {fileID: 8728914310344857947, guid: ba07565e5746c1446acd5580846728bb, type: 3}
+  - {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
   rendRef: []
   headPos: {fileID: 0}
   sneakDamageMultiplyer: 2
@@ -5956,7 +5956,10 @@ MonoBehaviour:
   shield: {fileID: 939560986682548167}
   anim: {fileID: 0}
   transitionSpeed: 0.5
-  Deathsounds: []
+  Deathsounds:
+  - {fileID: 8300000, guid: f14540eec14df7446badb6b9f2ff0225, type: 3}
+  - {fileID: 8300000, guid: e0ee060fa69f09f40bd669dc4a2c596d, type: 3}
+  - {fileID: 8300000, guid: cc501cf6ed754b94b9cb0d06f4420e7c, type: 3}
   healingAmount: 10
   coolDown: 1
   lineRenderer: {fileID: 1572354697095251886}

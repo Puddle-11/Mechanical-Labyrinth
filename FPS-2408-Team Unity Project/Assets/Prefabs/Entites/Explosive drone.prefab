@@ -316,7 +316,10 @@ MonoBehaviour:
   shield: {fileID: 5082651257664933057}
   anim: {fileID: 0}
   transitionSpeed: 0.5
-  Deathsounds: []
+  Deathsounds:
+  - {fileID: 8300000, guid: 46a57546966768f428ff735764e741ed, type: 3}
+  - {fileID: 8300000, guid: e0ee060fa69f09f40bd669dc4a2c596d, type: 3}
+  - {fileID: 8300000, guid: f14540eec14df7446badb6b9f2ff0225, type: 3}
   explosionDamage: 300
   knockback: {x: 0, y: 0, z: 0}
   knockbackmod: 10

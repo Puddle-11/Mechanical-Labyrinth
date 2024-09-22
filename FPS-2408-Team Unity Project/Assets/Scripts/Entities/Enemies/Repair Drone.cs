@@ -78,6 +78,10 @@ public class RepairDrone : BaseEnemy
         {
             while (hp.GetCurrentHealth() < hp.GetMaxHealth())
             {
+                if (target == null)
+                {
+                    break;
+                }
                 hp.UpdateHealth(+healingAmount);
 
                 float timer = 0;
