@@ -29,8 +29,8 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.083333336
         value: {x: 0, y: 0, z: 0}
-        inSlope: {x: 0, y: -0, z: -0}
-        outSlope: {x: 0, y: 540.00006, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -38,7 +38,7 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.25
         value: {x: 0, y: 90, z: 0}
-        inSlope: {x: 0, y: 540.00006, z: 0}
+        inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
         weightedMode: 0
@@ -47,7 +47,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Offset Parent/Revolver Model/root/cylinder
+    path: Revolver Model/root/cylinder
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -81,7 +81,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Offset Parent/Revolver Model/root/hammer
+    path: Revolver Model/root/hammer
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
@@ -94,7 +94,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 3894194572
+      path: 797700947
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -103,7 +103,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 1130018255
+      path: 1983555621
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -155,11 +155,20 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.25
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Offset Parent/Revolver Model/root/cylinder
+    path: Revolver Model/root/cylinder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -172,25 +181,25 @@ AnimationClip:
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 69
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.083333336
         value: 0
-        inSlope: -0
-        outSlope: 540.00006
-        tangentMode: 69
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.25
         value: 90
-        inSlope: 540.00006
+        inSlope: 0
         outSlope: 0
-        tangentMode: 69
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -198,7 +207,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Offset Parent/Revolver Model/root/cylinder
+    path: Revolver Model/root/cylinder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -211,16 +220,25 @@ AnimationClip:
         value: 0
         inSlope: 0
         outSlope: 0
-        tangentMode: 69
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.083333336
         value: 0
-        inSlope: -0
+        inSlope: 0
         outSlope: 0
-        tangentMode: 69
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.25
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
@@ -228,7 +246,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Offset Parent/Revolver Model/root/cylinder
+    path: Revolver Model/root/cylinder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -267,7 +285,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Offset Parent/Revolver Model/root/hammer
+    path: Revolver Model/root/hammer
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -285,7 +303,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.25
         value: 0
         inSlope: 0
         outSlope: 0
@@ -297,7 +315,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Offset Parent/Revolver Model/root/hammer
+    path: Revolver Model/root/hammer
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -315,7 +333,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.083333336
+        time: 0.25
         value: 0
         inSlope: 0
         outSlope: 0
@@ -327,7 +345,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Offset Parent/Revolver Model/root/hammer
+    path: Revolver Model/root/hammer
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -340,7 +358,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Offset Parent/Revolver Model/root/cylinder
+    path: Revolver Model/root/cylinder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -352,7 +370,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Offset Parent/Revolver Model/root/cylinder
+    path: Revolver Model/root/cylinder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -364,7 +382,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Offset Parent/Revolver Model/root/cylinder
+    path: Revolver Model/root/cylinder
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -376,7 +394,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Offset Parent/Revolver Model/root/hammer
+    path: Revolver Model/root/hammer
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -388,7 +406,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Offset Parent/Revolver Model/root/hammer
+    path: Revolver Model/root/hammer
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -400,7 +418,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Offset Parent/Revolver Model/root/hammer
+    path: Revolver Model/root/hammer
     classID: 4
     script: {fileID: 0}
     flags: 0

@@ -20,4 +20,4 @@ MonoBehaviour:
   Icon: {fileID: 0}
   defaultStats:
     uses: 1
-    maxUses: 2
+    maxUses: 1
