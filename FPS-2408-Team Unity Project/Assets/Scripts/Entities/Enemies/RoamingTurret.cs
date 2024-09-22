@@ -27,11 +27,9 @@ public class RoamingTurret : BaseEnemy
     {
         public Transform anchor;
        [HideInInspector] public Vector3 absolutePos;
-        public GameObject legObj;
         [HideInInspector] public Vector3 currPos;
+        public Transform target;
          public bool isMoving;
-        public Transform kneeJoint;
-        public Transform upperLeg;
         public float DistanceToAbsolute()
         {
             return Vector3.Distance(currPos, absolutePos);
@@ -55,7 +53,6 @@ public class RoamingTurret : BaseEnemy
     #endregion
     private void UpdateLegs()
     {
-
         UpdateAbsolutePos();
         for (int i = 0; i < legs.Length; i++)
         {
@@ -75,15 +72,7 @@ public class RoamingTurret : BaseEnemy
             {
                 StartCoroutine(MoveLeg(i, true));
             }
-            legs[i].legObj.transform.position = legs[i].currPos;
-            Quaternion rot = Quaternion.LookRotation(shoulderPos + transform.position - legs[i].legObj.transform.position);
-            legs[i].legObj.transform.rotation = rot;
-
-            if (legs[i].kneeJoint != null && legs[i].upperLeg != null)
-            {
-                legs[i].upperLeg.transform.rotation = rot;
-
-            }
+            if (legs[i].target != null) legs[i].target.position = legs[i].currPos;
         }
     
     }

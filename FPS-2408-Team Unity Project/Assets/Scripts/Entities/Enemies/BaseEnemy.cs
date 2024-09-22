@@ -250,7 +250,6 @@ public class BaseEnemy : SharedEnemyBehavior
     #region IHealth Methods
     public override void UpdateHealth(int _amount, float _shieldPen = 1)
     {
-        Debug.Log("Hit base enemy");
         base.UpdateHealth(_amount);
         if (currState == EnemyState.Patrol || currState == EnemyState.Investigate)
         {
