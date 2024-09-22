@@ -279,6 +279,7 @@ public class BaseGun : Weapon
                             if (playerWeapon) GameManager.instance.UpdateDamageDealt(shootDamagecalc);
 
                             healthRef.UpdateHealthAfterDelay(-shootDamagecalc, Vector3.Distance(barrels[currBarrel].shootObj.transform.position, postPenetrateHit.collider.transform.position) / bulletTrail.GetComponent<BulletTracer>().GetSpeed(), shieldPenetration);
+                            
                         }
                     }
                 }
@@ -382,10 +383,7 @@ public class BaseGun : Weapon
             }
         }
     }
-    private void OnDrawGizmos()
-    {
-        Debug.DrawRay(barrels[currBarrel].shootObj.position, barrels[currBarrel].shootObj.forward * 10, UnityEngine.Color.red);
-    }
+
 
     public override void Attack()
     {
@@ -418,7 +416,7 @@ public class BaseGun : Weapon
                 isReloading = false;
                 yield break;
             }
-            if (reloadAnim != null) reloadAnim.SetTrigger("Reload");
+            if (reloadAnim != null) reloadAnim.SetBool("Reloading", true);
         }
         int finalFill = fillAmount + currAmmo;
 
@@ -443,7 +441,10 @@ public class BaseGun : Weapon
         {
             AmmoInventory.instance.UpdateAmmoInventory(ammoType, -fillAmount);
             UIManager.instance.UpdateExternalAmmoInv(true, (int)ammoType);
+            if (reloadAnim != null) reloadAnim.SetBool("Reloading", false);
         }
+
+
         SetAmmo(finalFill);
         isReloading = false;
 

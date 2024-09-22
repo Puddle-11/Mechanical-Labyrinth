@@ -277,12 +277,10 @@ public class ChunkGrid : MonoBehaviour
             }
         }
         yield return null;
-        navMeshSurfaceRef.BuildNavMesh();
+        if(navMeshSurfaceRef != null) navMeshSurfaceRef.BuildNavMesh();
         yield return null;
         EndLoad?.Invoke();
     }
-
-
 #endregion
 
     #region Convertions

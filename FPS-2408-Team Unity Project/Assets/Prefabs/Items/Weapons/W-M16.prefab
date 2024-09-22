@@ -418,7 +418,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 24840
   canAim: 1
-  attackVolume: 0.25
+  attackVolume: 1
   shootsounds:
   - {fileID: 8300000, guid: 9677cd0d5d4074a4ab856ecef8fea3d7, type: 3}
   shotType: 2

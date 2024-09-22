@@ -19,6 +19,11 @@ public class RepairDrone : BaseEnemy
         {
             UpdateLineRenderer();
         }
+        else
+        {
+            lineRenderer.gameObject.SetActive(false);
+
+        }
         base.Update();
     }
 
@@ -40,20 +45,19 @@ public class RepairDrone : BaseEnemy
     {
         if(target == null)
         {
-            lineRenderer.enabled = false;
+            lineRenderer.gameObject.SetActive(false);
         }
         else
         {
-            LineRenderer lineRenderer = GetComponent<LineRenderer>();
+            lineRenderer.gameObject.SetActive(true);
 
             float lengthOfLineRenderer = Vector3.Distance(target.transform.position, transform.position);
-            Vector3[] points = new Vector3[(int)lengthOfLineRenderer];
+            Vector3[] points = new Vector3[2];
 
             points[0] = transform.position;
             points[1] = target.transform.position;        
 
             lineRenderer.SetPositions(points);
-            lineRenderer.enabled = true;
 
             healingParticles.gameObject.transform.position = target.transform.position;
         }

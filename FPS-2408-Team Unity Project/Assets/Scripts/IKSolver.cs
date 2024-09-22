@@ -115,15 +115,15 @@ public class IKSolver : MonoBehaviour
         }
         return result;
     }
-    public void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(points[0], 0.1f);
-        for (int i = 1; i < points.Length; i++)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(points[i], 0.1f);
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(points[i], points[i - 1]);
-        }
-    }
+    //public void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawWireSphere(points[0], 0.1f);
+    //    for (int i = 1; i < points.Length; i++)
+    //    {
+    //        Gizmos.color = Color.blue;
+    //        Gizmos.DrawWireSphere(points[i], 0.1f);
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawLine(points[i], points[i - 1]);
+    //    }
+    //}
 }
