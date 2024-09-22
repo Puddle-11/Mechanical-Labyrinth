@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 488260337111110301}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootPos (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2663819792203473505}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.026176924, z: 0, w: 0.99965733}
+  m_LocalRotation: {x: 0, y: 0.08715578, z: 0, w: 0.9961947}
   m_LocalPosition: {x: -1.0030003, y: 1.011, z: 1.0429988}
   m_LocalScale: {x: 0.1, y: 0.10000002, z: 0.10000001}
   m_ConstrainProportionsScale: 0
@@ -32,7 +32,7 @@ Transform:
   - {fileID: 7378425457144737439}
   - {fileID: 1532262984537781314}
   m_Father: {fileID: 6240976786299533173}
-  m_LocalEulerAnglesHint: {x: 0, y: 3, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 10, z: 0}
 --- !u!1 &3164945943076943231
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,13 +136,13 @@ MonoBehaviour:
   roamingDistance: 0
   sightMask:
     serializedVersion: 2
-    m_Bits: 950624
+    m_Bits: 516448
   attackRange: 7
   sightRange: 13.5
   hearingRange: 20
   attackAngle: 50
   sightAngle: 90
-  cullingDist: 0
+  cullingDist: 100
   target: {fileID: 0}
   weaponScr: {fileID: 4039185598997439731}
   agent: {fileID: 1067504256370600903}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 5106820503953305139}
   - component: {fileID: 4282460973923321935}
   - component: {fileID: 5034051900715226614}
-  m_Layer: 18
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -538,7 +538,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7063191761627285063}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootPos (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7101223162469010262}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.026176924, z: 0, w: 0.99965733}
+  m_LocalRotation: {x: 0, y: 0.08715578, z: 0, w: 0.9961947}
   m_LocalPosition: {x: -1.003, y: 1.2492, z: 1.043}
   m_LocalScale: {x: 0.1, y: 0.10000002, z: 0.10000001}
   m_ConstrainProportionsScale: 0
@@ -561,7 +561,7 @@ Transform:
   - {fileID: 1045542462510467175}
   - {fileID: 4280110617956450296}
   m_Father: {fileID: 6240976786299533173}
-  m_LocalEulerAnglesHint: {x: 0, y: 3, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 10, z: 0}
 --- !u!1 &7579395029327293180
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5085345573187039643}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -586,7 +586,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7579395029327293180}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.026176924, z: 0, w: 0.99965733}
+  m_LocalRotation: {x: 0, y: -0.08715578, z: 0, w: 0.9961947}
   m_LocalPosition: {x: 1.0534, y: 1.011, z: 0.9351}
   m_LocalScale: {x: 0.1, y: 0.10000002, z: 0.10000001}
   m_ConstrainProportionsScale: 0
@@ -594,7 +594,7 @@ Transform:
   - {fileID: 5058641400750351821}
   - {fileID: 6322093059811028577}
   m_Father: {fileID: 6240976786299533173}
-  m_LocalEulerAnglesHint: {x: 0, y: 3, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -10, z: 0}
 --- !u!1 &8284859551330528253
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6304201525103672969}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootPos (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,7 +650,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8604954409152879870}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.026176924, z: 0, w: 0.99965733}
+  m_LocalRotation: {x: 0, y: -0.08715578, z: 0, w: 0.9961947}
   m_LocalPosition: {x: 1.0534002, y: 1.2492, z: 0.9351}
   m_LocalScale: {x: 0.1, y: 0.10000002, z: 0.10000001}
   m_ConstrainProportionsScale: 0
@@ -658,7 +658,7 @@ Transform:
   - {fileID: 7594491440394700238}
   - {fileID: 3542145817681291781}
   m_Father: {fileID: 6240976786299533173}
-  m_LocalEulerAnglesHint: {x: 0, y: 3, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -10, z: 0}
 --- !u!1001 &473575912036062290
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -670,6 +670,10 @@ PrefabInstance:
     - target: {fileID: 1521996428552579063, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
       propertyPath: m_Name
       value: Muzzle Flash
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521996428552579063, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4657176410209153439, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
       propertyPath: m_LocalScale.x
@@ -754,6 +758,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muzzle Flash
       objectReference: {fileID: 0}
+    - target: {fileID: 1521996428552579063, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4657176410209153439, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -837,6 +845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Muzzle Flash
       objectReference: {fileID: 0}
+    - target: {fileID: 1521996428552579063, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4657176410209153439, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -919,6 +931,10 @@ PrefabInstance:
     - target: {fileID: 4185415012569727284, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
       propertyPath: m_Name
       value: Gun Particle Spark
+      objectReference: {fileID: 0}
+    - target: {fileID: 4185415012569727284, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7029931740142131198, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1035,10 +1051,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8553417584757162366, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -7023037978780479096, guid: 154233fedb038c840a04571061c0f74d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8148e845a60714d4fbc5d80059a110fa, type: 2}
+    - target: {fileID: -6722732557539624048, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -3489018395793400483, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -1539371646681741732, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -744144727794013897, guid: 154233fedb038c840a04571061c0f74d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1047,13 +1079,37 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8148e845a60714d4fbc5d80059a110fa, type: 2}
+    - target: {fileID: -242165637326713887, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -231807628752625809, guid: 154233fedb038c840a04571061c0f74d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8148e845a60714d4fbc5d80059a110fa, type: 2}
+    - target: {fileID: 862353109372452898, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 154233fedb038c840a04571061c0f74d, type: 3}
       propertyPath: m_Name
       value: Camo enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223232393565043869, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2693569334676779302, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418155857070809501, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4287405866783128512, guid: 154233fedb038c840a04571061c0f74d, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1067,6 +1123,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8148e845a60714d4fbc5d80059a110fa, type: 2}
+    - target: {fileID: 6162583871730536078, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6463325092350192205, guid: 154233fedb038c840a04571061c0f74d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1075,6 +1135,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8148e845a60714d4fbc5d80059a110fa, type: 2}
+    - target: {fileID: 8133404722914385151, guid: 154233fedb038c840a04571061c0f74d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1141,6 +1205,10 @@ PrefabInstance:
     - target: {fileID: 1521996428552579063, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
       propertyPath: m_Name
       value: Muzzle Flash
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521996428552579063, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4657176410209153439, guid: 5dfc27beb52b1524b8d8d1f3dca71796, type: 3}
       propertyPath: m_LocalScale.x
@@ -1225,6 +1293,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun Particle Spark
       objectReference: {fileID: 0}
+    - target: {fileID: 4185415012569727284, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7029931740142131198, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1291,6 +1363,10 @@ PrefabInstance:
     - target: {fileID: 4185415012569727284, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
       propertyPath: m_Name
       value: Gun Particle Spark
+      objectReference: {fileID: 0}
+    - target: {fileID: 4185415012569727284, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7029931740142131198, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1410,6 +1486,10 @@ PrefabInstance:
     - target: {fileID: 9163887737959573936, guid: 8e9653211efac6946bd7b70ed40ab2f8, type: 3}
       propertyPath: m_Name
       value: Enemy Death Particles
+      objectReference: {fileID: 0}
+    - target: {fileID: 9163887737959573936, guid: 8e9653211efac6946bd7b70ed40ab2f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1537,6 +1617,10 @@ PrefabInstance:
       propertyPath: offset.y
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4990308196601575646, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
       propertyPath: m_Name
       value: Enemy Health
@@ -1581,6 +1665,10 @@ PrefabInstance:
     - target: {fileID: 4185415012569727284, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
       propertyPath: m_Name
       value: Gun Particle Spark
+      objectReference: {fileID: 0}
+    - target: {fileID: 4185415012569727284, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7029931740142131198, guid: 463191e34c437ac41893f1baa065ff25, type: 3}
       propertyPath: m_LocalPosition.x

@@ -148,7 +148,9 @@ public class BaseEnemy : SharedEnemyBehavior
     #region State Machine
     protected virtual void StateHandler()
     {
+        Debug.Log("Ran State Handler");
         if (agent == null) return;
+        Debug.Log("agent not null");
         EnemyStatus(ref currState);
         switch (currState)
         {
@@ -171,13 +173,16 @@ public class BaseEnemy : SharedEnemyBehavior
         }
         if (currState == EnemyState.Attack)
         {
-            if(weaponScr != null) weaponScr.Attack();
+            if (weaponScr != null)
+            {
+                Debug.Log("triggered attack");
+                weaponScr.Attack();
+            }
         }
     }
     //-------------
     protected virtual void EnemyStatus(ref EnemyState _enemyStateRef)
     {
-       
         bool inAttackRange = IsInRange(attackRange);
         bool inRange = IsInRange();
         if (timer >= GameManager.instance.Getmaxtime()) {
@@ -186,6 +191,7 @@ public class BaseEnemy : SharedEnemyBehavior
         }
         else if (senseType == DetectionType.InRange)
         {
+
             if (inAttackRange) {_enemyStateRef = EnemyState.Attack;}
             else if(IsInRange()) {_enemyStateRef = EnemyState.Persue;}
             else { _enemyStateRef = EnemyState.Patrol;}

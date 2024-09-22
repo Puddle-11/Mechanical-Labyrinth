@@ -88,12 +88,16 @@ public class SharedEnemyBehavior : BaseEntity
         _dirToTarget = DirectionToTarget();
         if (DistanceToTarget() < _dist)
         {
+            Debug.Log("Is In Distance");
             RaycastHit hit;
-
+            _dirToTarget.y = _dirToTarget.y * -1;
             if (Physics.Raycast(headPos != null ? headPos.transform.position: transform.position, _dirToTarget, out hit, _dist, ~sightMask))
             {
+                Debug.Log("Hit Object: " + hit.collider.name);
+
                 if (hit.collider.gameObject == target)
                 {
+                Debug.Log("Is In Sight Distance");
                     return true;
                 }
             }
