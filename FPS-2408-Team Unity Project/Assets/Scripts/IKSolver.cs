@@ -1,11 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEditor.ShaderGraph.Internal;
-using UnityEditorInternal;
+
 using UnityEngine;
-using UnityEngine.UIElements;
 [ExecuteInEditMode]
 public class IKSolver : MonoBehaviour
 {
@@ -25,6 +20,10 @@ public class IKSolver : MonoBehaviour
     }
     #endregion
     private void Update() { Solve(); }
+    public void SetTarget(Vector3 _target)
+    {
+        target.transform.position = _target;
+    }
     public void CreateArm()
     {
         points = new Vector3[arms.Length + 1];
@@ -115,15 +114,15 @@ public class IKSolver : MonoBehaviour
         }
         return result;
     }
-    //public void OnDrawGizmos()
-    //{
-    //    Gizmos.DrawWireSphere(points[0], 0.1f);
-    //    for (int i = 1; i < points.Length; i++)
-    //    {
-    //        Gizmos.color = Color.blue;
-    //        Gizmos.DrawWireSphere(points[i], 0.1f);
-    //        Gizmos.color = Color.red;
-    //        Gizmos.DrawLine(points[i], points[i - 1]);
-    //    }
-    //}
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(points[0], 0.1f);
+        for (int i = 1; i < points.Length; i++)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(points[i], 0.1f);
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(points[i], points[i - 1]);
+        }
+    }
 }

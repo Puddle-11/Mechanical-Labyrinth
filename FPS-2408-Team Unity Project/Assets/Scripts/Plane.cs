@@ -35,6 +35,7 @@ public class Plane : MonoBehaviour
         }
         return result;
     }
+
     public Vector3 WorldToPlane(Vector3 _planePoint)
     {
         _planePoint -= p1.position;
@@ -55,19 +56,23 @@ public class Plane : MonoBehaviour
 
         return new Vector3(x,y,z);
     }
+
     public Vector3 PlaneToWorld(Vector2 _planePos)
     {
         planeNormal = GetNormal(p1.position, p2.position, p3.position);
+
         //====================================
         //Set up plane orthogonal axis;
         Vector3 XAxis = (p2.position - p1.position).normalized;
         Vector3 YAxis = -Vector3.Cross(XAxis, planeNormal);
         Vector3 ZAxis = planeNormal;
+
         //====================================
         //Get x y vectors (in world position)
         Vector3 x = _planePos.x * XAxis;
         Vector3 y = _planePos.y * YAxis;
         //====================================
+
         return x +y + p1.position;
     }
     public Vector3 GetNormal(Vector3 p1, Vector3 p2, Vector3 p3)

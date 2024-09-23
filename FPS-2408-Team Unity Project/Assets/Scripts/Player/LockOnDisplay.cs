@@ -132,12 +132,17 @@ public class LockOnDisplay : MonoBehaviour
         screenPosCorners[1] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.max.y, _worldBounds.max.z));
         screenPosCorners[2] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.max.y, _worldBounds.min.z));
         screenPosCorners[3] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.max.y, _worldBounds.min.z));
-
         screenPosCorners[4] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.min.x, _worldBounds.min.y, _worldBounds.max.z));
         screenPosCorners[5] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.min.y, _worldBounds.max.z));
         screenPosCorners[6] = CameraController.instance.mainCamera.WorldToScreenPoint(new Vector3(_worldBounds.max.x, _worldBounds.min.y, _worldBounds.min.z));
         screenPosCorners[7] = CameraController.instance.mainCamera.WorldToScreenPoint(_worldBounds.min);
+      
+        for (int i = 0; i < screenPosCorners.Length; i++)
+        {
+            screenPosCorners[i].x *= ((float)Screen.width / 1920);
+            screenPosCorners[i].y *= ((float)Screen.height / 1080);
 
+        }
 
         ssBounds result = new ssBounds();
         result.min = screenPosCorners[0];
