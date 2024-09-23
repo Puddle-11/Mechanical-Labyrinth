@@ -5722,7 +5722,7 @@ MonoBehaviour:
   agent: {fileID: 6830884337055662040}
   patrolPoints: []
   senseType: 0
-  minmaxScrap: {x: 0, y: 0}
+  minmaxScrap: {x: 1, y: 2}
   shield: {fileID: 939560986682548167}
   anim: {fileID: 0}
   transitionSpeed: 0.5
