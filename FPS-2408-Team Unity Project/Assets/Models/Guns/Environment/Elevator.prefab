@@ -545,10 +545,10 @@ MonoBehaviour:
   doorSpeed: 1
   distToLockout: 7
   nextScenes:
-  - name: MainLevel
-    interval: 1
   - name: Rest Level
     interval: 3
+  - name: MainLevel
+    interval: 1
 --- !u!65 &4856121311636675543
 BoxCollider:
   m_ObjectHideFlags: 0

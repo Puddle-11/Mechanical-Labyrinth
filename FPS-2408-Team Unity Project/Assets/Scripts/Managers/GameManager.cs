@@ -15,8 +15,10 @@ public class GameManager : MonoBehaviour
     public OnWin levelWon;
     [SerializeField] private ItemType defaultItem;
     [SerializeField] protected float maxtime;
-
-
+    [SerializeField] private Texture[] colorPalettes;
+    [SerializeField] private int levelColorChangeFrequency;
+    [SerializeField] private Material colorMat;
+    private int currPaletteIndex;
     private void Awake()
     {
         if (instance == null)
@@ -178,6 +180,18 @@ public class GameManager : MonoBehaviour
         enemyCount = 0;
         UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);
+
+        if (GetCurrentLevel() % levelColorChangeFrequency == 0)
+        {
+            int randomPaletteIndex = currPaletteIndex;
+            while (randomPaletteIndex == currPaletteIndex)
+            {
+                randomPaletteIndex = UnityEngine.Random.Range(0, colorPalettes.Length);
+            }
+            currPaletteIndex = randomPaletteIndex;
+            colorMat.SetTexture("_Palette", colorPalettes[currPaletteIndex]);
+        }
+
     }
     public void updateGameGoal(int _amount)
     {

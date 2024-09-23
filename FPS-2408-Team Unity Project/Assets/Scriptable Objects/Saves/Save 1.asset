@@ -21,7 +21,7 @@ MonoBehaviour:
   S_AmmoInventory: 0000000000000000000000000000000000000000
   S_Level: 0
   S_TotalDamage: 0
-  S_TotallEnemiesKilled: 9
+  S_TotallEnemiesKilled: 0
   S_TotalDeaths: 0
   S_DefaultHealth: 1000
   S_CurrentHealth: 1000

@@ -58,6 +58,7 @@ public class GeneralInventory : MonoBehaviour
                 }
             }
         }
+        GameManager.instance.playerControllerRef.GetPlayerHand().SetCurrentEquipped(Hotbar[selectedSlot].obj);
 
     }
     public void Update()
@@ -219,7 +220,6 @@ public class GeneralInventory : MonoBehaviour
     }
     void UpdateSelectedObj()
     {
-
         for (int i = 0; i < Hotbar.Length; i++)
         {
             if (Hotbar[i].obj != null)
@@ -229,7 +229,6 @@ public class GeneralInventory : MonoBehaviour
                 {
                     Hotbar[i].obj.SetActive(false);
                 }
-
             }
         }
         if (Hotbar[selectedSlot].obj != null) Hotbar[selectedSlot].obj.SetActive(true);

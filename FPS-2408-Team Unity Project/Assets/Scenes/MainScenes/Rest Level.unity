@@ -3256,6 +3256,10 @@ PrefabInstance:
       propertyPath: navMeshSurfaceRef
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2907249646263534290, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: spawnPositionOffset.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: m_Enabled
       value: 0

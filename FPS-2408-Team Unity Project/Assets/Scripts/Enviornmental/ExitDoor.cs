@@ -119,7 +119,7 @@ public class ExitDoor : MonoBehaviour
             {
                 break;
             }
-            if (nextScenes[i].interval % GameManager.instance.GetCurrentLevel() == 0)
+            if (GameManager.instance.GetCurrentLevel() % nextScenes[i].interval  == 0)
             {
                 index = i;
                 break;
