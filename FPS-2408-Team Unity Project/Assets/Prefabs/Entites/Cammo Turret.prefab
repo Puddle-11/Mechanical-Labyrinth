@@ -148,12 +148,13 @@ MonoBehaviour:
   agent: {fileID: 1067504256370600903}
   patrolPoints: []
   senseType: 0
-  minmaxScrap: {x: 1, y: 5}
+  minmaxScrap: {x: 4, y: 6}
   shield: {fileID: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds: []
   hitSound: {fileID: 8300000, guid: c95c255d1ef1a4e40be0222d45d95dc6, type: 3}
+  damageParticles: {fileID: 0}
 --- !u!195 &1067504256370600903
 NavMeshAgent:
   m_ObjectHideFlags: 0
