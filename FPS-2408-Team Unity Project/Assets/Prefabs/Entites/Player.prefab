@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1484707841149590206}
+  - component: {fileID: 7169532605839589210}
   m_Layer: 18
   m_Name: Map Indicator
   m_TagString: Untagged
@@ -33,6 +34,22 @@ Transform:
   - {fileID: 3497668955831883711}
   m_Father: {fileID: 2426318336164377244}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7169532605839589210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463027215428818184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c4be37fc21d4a4aa54b59ffdff4cf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  parent: {fileID: 0}
+  offset: {x: 0, y: 1, z: 0}
+  rotation: {x: 0, y: 0, z: 0}
 --- !u!1 &2625539294662843884
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +455,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 761855
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 1528acf246a19472fb2d7ada997fea94, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -522,7 +539,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -620,7 +637,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.23529412, g: 0.1764706, b: 0.18431373, a: 0}
+  m_BackGroundColor: {r: 0.037053745, g: 0.034531865, b: 0.0754717, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -641,7 +658,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 25
+  near clip plane: 0
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -678,7 +695,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -687,7 +704,7 @@ MonoBehaviour:
   m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
-  m_StopNaN: 0
+  m_StopNaN: 1
   m_Dithering: 0
   m_ClearDepth: 1
   m_AllowXRRendering: 1
@@ -717,7 +734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25d8b52dcf406a46be0bbdd2c1ea0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbsoluteHeight: 30
+  AbsoluteHeight: 8
 --- !u!114 &2918599248946391076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -835,7 +852,7 @@ GameObject:
   - component: {fileID: 2579658609705549584}
   - component: {fileID: 2207298348825309542}
   - component: {fileID: 2293512269813371992}
-  - component: {fileID: 9071885523264478981}
+  - component: {fileID: 6989299059375246042}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1078,7 +1095,7 @@ MonoBehaviour:
     obj: {fileID: 0}
   - t: {fileID: 0}
     obj: {fileID: 0}
---- !u!114 &9071885523264478981
+--- !u!114 &6989299059375246042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

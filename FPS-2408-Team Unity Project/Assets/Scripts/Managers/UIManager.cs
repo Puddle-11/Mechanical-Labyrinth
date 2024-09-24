@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
     [Space]
     [SerializeField] private TMP_Text currAmmoField;
     [SerializeField] private Image ammoFillup;
-    [SerializeField] private TMP_Text enemyCountField;
+    [SerializeField] private Image enemyCountBar;
     [SerializeField] private GameObject enemyCountObj;
     [SerializeField] private Animator UIFadeAnim;
     [SerializeField] public Image flashScreenImage;
@@ -235,7 +235,12 @@ public class UIManager : MonoBehaviour
 
     public void ToggleEnemyCount(bool _val){ enemyCountObj.SetActive(_val); }
     public void ResetTempUI() { flashDamageRef.SetActive(false); }
-    public void SetEnemyCount(int _val) { enemyCountField.text = _val.ToString();}
+    public void SetEnemyCount(float _val)
+    {
+
+        enemyCountBar.fillAmount = _val;
+    
+    }
     
     public void FlashScreen(float _durration)
     {

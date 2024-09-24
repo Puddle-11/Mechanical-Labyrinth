@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int levelColorChangeFrequency;
     [SerializeField] private Material colorMat;
     private int currPaletteIndex;
+    private int maxEnemyCount;
     private void Awake()
     {
         if (instance == null)
@@ -178,6 +179,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetEnemiesKilled(currentStats != null ? currentStats.S_TotallEnemiesKilled: 0);
         UIManager.instance.SetAttemptNumber(currentStats != null ? currentStats.S_TotalDeaths: 0);
         enemyCount = 0;
+        maxEnemyCount = 0;
         UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);
 
@@ -195,8 +197,12 @@ public class GameManager : MonoBehaviour
     }
     public void updateGameGoal(int _amount)
     {
+        if(_amount > 0)
+        {
+            maxEnemyCount += _amount;
+        }
         enemyCount += _amount;
-        UIManager.instance.SetEnemyCount(enemyCount);
+        UIManager.instance.SetEnemyCount((float)enemyCount / maxEnemyCount);
 
         if (enemyCount <= 0)
         {
