@@ -5,14 +5,18 @@ using UnityEngine;
 public class LootBox : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<GameObject> guns;
-    [SerializeField] private List<GameObject> ammos;
-    [SerializeField] private Transform spawnPointForAmmo;
+    [SerializeField] private GameObject healthDrop;
+    [SerializeField] private Transform spawnPointForHealth;
     [SerializeField] private Transform spawnPointForGun;
     [SerializeField] private Animator openAnamation;
+
+    private bool LootHasSpawned = false;
     public void TriggerInteraction()
     {
-        OpenLootBox();
-
+        if (!LootHasSpawned)
+        {
+            OpenLootBox();
+        }
     }
 
     public string GetStats()
@@ -30,8 +34,7 @@ public class LootBox : MonoBehaviour, IInteractable
         }
         else
         {
-            GameObject ammo = ammos[Random.Range(0, ammos.Count)];
-            SpawnLoot(ammo, spawnPointForAmmo);
+            SpawnLoot(healthDrop, spawnPointForHealth);
         }
     }
 
@@ -49,8 +52,9 @@ public class LootBox : MonoBehaviour, IInteractable
 
     private IEnumerator SpawnLootAfterAnimation()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1.4f);
         LootInBox();
+        LootHasSpawned = true;
     }
 
 }
