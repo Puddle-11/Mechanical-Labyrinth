@@ -68,6 +68,7 @@ public class BootLoadManager : MonoBehaviour
     }
     public IEnumerator EndSceneAnimationDelay()
     {
+
         if (runningEndAnimation) yield break;
         runningEndAnimation = true;
         sceneChangeObj.SetActive(true);
