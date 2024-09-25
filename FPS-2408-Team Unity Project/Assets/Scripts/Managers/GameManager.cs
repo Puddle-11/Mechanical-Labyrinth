@@ -171,15 +171,16 @@ public class GameManager : MonoBehaviour
         _ref = null;
         return false;
     }
-
     public void ResetGame()
     {
         UIManager.instance.ResetTempUI();
         UIManager.instance.SetDamageDealt(currentStats != null? currentStats.S_TotalDamage:0);
         UIManager.instance.SetEnemiesKilled(currentStats != null ? currentStats.S_TotallEnemiesKilled: 0);
         UIManager.instance.SetAttemptNumber(currentStats != null ? currentStats.S_TotalDeaths: 0);
+
         enemyCount = 0;
         maxEnemyCount = 0;
+
         UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);
 
@@ -195,12 +196,10 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
     public void updateGameGoal(int _amount)
     {
-        if(_amount > 0)
-        {
-            maxEnemyCount += _amount;
-        }
+        if(_amount > 0) maxEnemyCount += _amount;
         enemyCount += _amount;
         UIManager.instance.SetEnemyCount((float)enemyCount / maxEnemyCount);
 
