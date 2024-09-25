@@ -941,7 +941,7 @@ MonoBehaviour:
   sideAnchor: {fileID: 5708704043136531338}
   adsSpeed: 1
   handAnchorMoveMargin: 0.05
-  pickUpDist: 15
+  pickUpDist: 5
   ignoreMask:
     serializedVersion: 2
     m_Bits: 8
