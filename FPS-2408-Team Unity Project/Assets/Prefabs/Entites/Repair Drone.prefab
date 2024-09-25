@@ -5614,7 +5614,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -5692,16 +5692,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a3b9952e795c44e821266f58b299a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
-  maxShield: 0
+  maxHealth: 10
+  maxShield: 50
   damageMaterial: {fileID: 0}
   shieldMaterial: {fileID: 0}
-  healthBar: {fileID: 499099334743976503}
+  healthBar: {fileID: 0}
   deathParticles: []
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
-  drops:
-  - {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
+  drops: []
   rendRef: []
   headPos: {fileID: 0}
   sneakDamageMultiplyer: 2
@@ -11122,17 +11121,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
---- !u!114 &499099334743976503 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5853340910402863666, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
-  m_PrefabInstance: {fileID: 6329271309786114053}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ed77173c079d7d44932d8d04aa63018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7615444993708639598 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4501744096042855787, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
