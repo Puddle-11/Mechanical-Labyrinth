@@ -910,7 +910,7 @@ MonoBehaviour:
   jumplayer:
     serializedVersion: 2
     m_Bits: 2048
-  jumpHeight: 10
+  jumpHeight: 7
   jumpMax: 1
   gravityStrength: 21
   footstepDelay: 0.3
