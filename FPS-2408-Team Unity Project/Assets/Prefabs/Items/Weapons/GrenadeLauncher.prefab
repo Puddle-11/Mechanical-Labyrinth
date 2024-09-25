@@ -1,5 +1,68 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1303075766805550266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3202203452565128164}
+  m_Layer: 8
+  m_Name: Offset Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3202203452565128164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303075766805550266}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5579996, y: 1, z: 1.25}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6354286150624458213}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5055200170950617858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6354286150624458213}
+  m_Layer: 19
+  m_Name: 'Animation Parent '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6354286150624458213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055200170950617858}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.8166833, z: -4.987957}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3202203452565128164}
+  m_Father: {fileID: 8804741968693906785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7350813694526537190
 GameObject:
   m_ObjectHideFlags: 0
@@ -53,7 +116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.75
+      value: -20.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
       propertyPath: m_LocalPosition.y
@@ -61,7 +124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.279047
+      value: 5.4939785
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
       propertyPath: m_LocalRotation.w
@@ -91,6 +154,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
       propertyPath: m_Name
       value: GrenadeLauncher
@@ -99,6 +166,9 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 6354286150624458213}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e1e4f9328d530b645965009ef3d690df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8599049461822734077}
@@ -144,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40ff5c3364da1e44ca0ad92f756657ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: 497e1b6ca02ae01409a2a1b04b45ccc3, type: 2}
   stats:
     uses: 0
     maxUses: 0
@@ -199,7 +269,7 @@ MonoBehaviour:
   E_bulletHoleMat: []
   GunAnimator: {fileID: 0}
   reloadAnim: {fileID: 0}
-  grenadeobject: {fileID: 0}
+  grenadeobject: {fileID: 8878569022686106340, guid: 7d68bc3459c509349a4e685e192ed62f, type: 3}
   Projectilespeed: 5
   shootpos: {fileID: 8599049461822734077}
 --- !u!4 &8804741968693906785 stripped
