@@ -5700,7 +5700,8 @@ MonoBehaviour:
   deathParticles: []
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
-  drops: []
+  drops:
+  - {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
   rendRef: []
   headPos: {fileID: 0}
   sneakDamageMultiplyer: 2
