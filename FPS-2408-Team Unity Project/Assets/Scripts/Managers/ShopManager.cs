@@ -334,7 +334,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(mp5, result);
-                ScrapInventory.instance.RemoveScrap(1);
+                ScrapInventory.instance.RemoveScrap(80);
             }
         }
         else
