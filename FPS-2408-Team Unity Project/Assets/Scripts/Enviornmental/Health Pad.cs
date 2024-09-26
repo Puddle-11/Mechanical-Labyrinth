@@ -5,23 +5,35 @@ using UnityEngine;
 public class HealthPad : MonoBehaviour
 {
     //[SerializeField] int HealAmount;
-    
+    private bool onPad;
+    [SerializeField] private float healSpeed;
+    private IEnumerator runningLoop;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == GameManager.instance.playerRef)
         {
-            HealPlayer();
-            
+
+            runningLoop = healLoop();
+            StartCoroutine(runningLoop);
         }
     }
-    void HealPlayer() {
-        GameManager.instance.playerControllerRef.ResetHealth();
 
-    }
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider other)
     {
-        
+        if (other.gameObject == GameManager.instance.playerRef)
+        {
+            StopCoroutine(runningLoop);
+        }
     }
-   
+    public IEnumerator healLoop()
+    {
+        while (true)
+        {
+            Debug.Log("Incremented health");
+            GameManager.instance.playerControllerRef.UpdateHealth(1);
+
+            yield return new WaitForSeconds(healSpeed);
+        }
+    }
+
 }

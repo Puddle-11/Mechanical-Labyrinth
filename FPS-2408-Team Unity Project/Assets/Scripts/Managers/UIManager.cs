@@ -23,10 +23,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject itemMenuShop;
     [SerializeField] GameObject menuControlsLegend;
     [Space]
-    [Header("Damage Indicator")]
+    [Header("Health Indicator")]
     [Space]
     [SerializeField] private float flashDamageTime;
     [SerializeField] private GameObject flashDamageRef;
+    [SerializeField] private GameObject flashHealRef;
     [Space]
     [Header("Health")]
     [Space]
@@ -106,7 +107,8 @@ public class UIManager : MonoBehaviour
     private bool showingControls = true;
     private int currExternalAmmoInv = -1;
     private bool screenFlashed;
-    
+    private float healOverlayTimer;
+
     #region Custom Structs and Enums
     [System.Serializable]
     public struct UIObj
@@ -187,6 +189,10 @@ public class UIManager : MonoBehaviour
     {
         SetSlotIcon(emptySlot, index);
     }
+    public void SetHealOverlayTimer()
+    {
+        healOverlayTimer = flashDamageTime;
+    }
     public void UpdateExternalAmmoInv(bool _active = true, int _type = 0)
     {
         if(currAmmoInvParent != null) currAmmoInvParent.SetActive(_active);
@@ -237,9 +243,7 @@ public class UIManager : MonoBehaviour
     public void ResetTempUI() { flashDamageRef.SetActive(false); }
     public void SetEnemyCount(float _val)
     {
-
         enemyCountBar.fillAmount = _val;
-    
     }
     
     public void FlashScreen(float _durration)
@@ -297,6 +301,19 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
+
+        if(healOverlayTimer > 0)
+        {
+            flashHealRef.SetActive(true);
+            healOverlayTimer -= Time.deltaTime;
+
+        }
+        else
+        {
+            healOverlayTimer = 0;
+            flashHealRef.SetActive(false);
+
+        }
         if (BootLoadManager.instance == null || (BootLoadManager.instance != null && !BootLoadManager.instance.IsLoading()))
         {
             if (Input.GetButtonDown("Cancel"))

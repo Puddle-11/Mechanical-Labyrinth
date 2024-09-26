@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ContinuousEnemySpawner : SharedEnemyBehavior
+public class ContinuousEnemySpawner : BaseEnemy
 {
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private GameObject[] enemies;
@@ -29,14 +29,11 @@ public class ContinuousEnemySpawner : SharedEnemyBehavior
     }
     public List<GameObject> CleanEnemyList()
     {
-        
         return instantiatedEnemies.ToArray().Where(c => c != null).ToList();
     }
     public void SpawnEnemy()
     {
-        Debug.Log("spawn attempted");
         bool temp = IsInRange();
-            Debug.Log("In Range? " + temp);
         if (temp)
         {
             instantiatedEnemies = CleanEnemyList();

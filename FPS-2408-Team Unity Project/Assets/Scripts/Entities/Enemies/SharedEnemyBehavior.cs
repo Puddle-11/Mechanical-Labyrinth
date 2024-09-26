@@ -72,8 +72,7 @@ public class SharedEnemyBehavior : BaseEntity
     protected bool IsInRange(out Vector3 _dirToTarget) { return IsInRange(out _dirToTarget, hearingRange); }
     public bool IsInRange(float _dist)
     {
-        Vector3 _dir;
-        return IsInRange(out _dir, _dist);
+        return IsInRange(out _, _dist);
     }
     public void FaceTarget()
     {
@@ -88,7 +87,8 @@ public class SharedEnemyBehavior : BaseEntity
     {
         _dirToTarget = DirectionToTarget();
             Debug.DrawRay(headPos != null ? headPos.transform.position : transform.position, _dirToTarget * _dist);
-        Debug.Log("hit in range");
+        Debug.Log("hit in range\nMax Distance: " + _dist + " Mesured Dist: " + DistanceToTarget());
+       
         if (DistanceToTarget() < _dist)
         {
             RaycastHit hit;

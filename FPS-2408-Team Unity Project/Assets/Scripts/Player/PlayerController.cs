@@ -211,6 +211,11 @@ public class PlayerController : BaseEntity
                 StartCoroutine(UIManager.instance.flashDamage());
             }
         }
+        else if(_amount < maxHealth)
+        {
+            UIManager.instance.SetHealOverlayTimer();
+        }
+
 
         GameManager.instance.SetCurrentHealth(_amount);
         if(UIManager.instance != null) UIManager.instance.UpdateHealthBar((float)_amount / maxHealth);
