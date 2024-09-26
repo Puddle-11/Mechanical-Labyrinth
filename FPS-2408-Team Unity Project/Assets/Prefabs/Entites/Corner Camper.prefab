@@ -848,7 +848,7 @@ MonoBehaviour:
   shotType: 0
   ammoType: 0
   scopeInZoom: 0
-  shootDamage: 15
+  shootDamage: 8
   shootDist: 300
   burstSize: 0
   clipSizeMax: 30

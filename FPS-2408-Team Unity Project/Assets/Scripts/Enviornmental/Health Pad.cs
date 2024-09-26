@@ -5,13 +5,13 @@ using UnityEngine;
 public class HealthPad : MonoBehaviour
 {
     //[SerializeField] int HealAmount;
-    [SerializeField] GameObject pad;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == GameManager.instance.playerRef)
         {
             HealPlayer();
-            FlashGreen();
+            
         }
     }
     void HealPlayer() {
@@ -23,9 +23,5 @@ public class HealthPad : MonoBehaviour
     {
         
     }
-    IEnumerator FlashGreen() {
-        pad.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        pad.SetActive(false);
-    }
+   
 }
