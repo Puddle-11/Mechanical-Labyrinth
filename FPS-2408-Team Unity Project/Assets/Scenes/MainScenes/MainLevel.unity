@@ -196,8 +196,12 @@ PrefabInstance:
       value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: enemyDensity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.size
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[0].enemyPrefab
@@ -223,6 +227,14 @@ PrefabInstance:
       propertyPath: enemyList.Array.data[5].enemyPrefab
       value: 
       objectReference: {fileID: 2423091518719728837, guid: 54c6725725ee69c4397e55a8b4cbb3f1, type: 3}
+    - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: enemyList.Array.data[6].enemyPrefab
+      value: 
+      objectReference: {fileID: 747221696051135189, guid: a417c6f3b526e5d40ac25ef9a35eefa0, type: 3}
+    - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
+      propertyPath: enemyList.Array.data[7].enemyPrefab
+      value: 
+      objectReference: {fileID: 6373992110502791433, guid: fdcf5d97b22994c4089909fc480fea97, type: 3}
     - target: {fileID: 4929931634702836277, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: m_Name
       value: Level generator

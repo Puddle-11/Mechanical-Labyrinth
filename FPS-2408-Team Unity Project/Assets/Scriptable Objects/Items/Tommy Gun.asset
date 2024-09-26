@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
-  m_Name: Respawn Module
+  m_Name: Tommy Gun
   m_EditorClassIdentifier: 
-  itemName: Health Pack
+  itemName: Tommy Gun
   itemID: 0
-  Object: {fileID: 1810660675594123733, guid: f9a0d750836467d4e9c4b5991c383008, type: 3}
-  Pickup: {fileID: 8728914310344857947, guid: ba07565e5746c1446acd5580846728bb, type: 3}
-  maxUses: 1
-  Icon: {fileID: 21300000, guid: 60e3bb5ff10d0c44d86b0feca6183056, type: 3}
+  Object: {fileID: 130629435006850423, guid: 974205c39490420409785477e6a59e03, type: 3}
+  Pickup: {fileID: 4017666822207980650, guid: 5bc1038690561184ebe92d362ad752d1, type: 3}
+  maxUses: 25
+  Icon: {fileID: 21300000, guid: a293b12f5fb1b874f8e01991dfc14464, type: 3}
   defaultStats:
-    uses: 1
-    maxUses: 1
+    uses: -1
+    maxUses: 0

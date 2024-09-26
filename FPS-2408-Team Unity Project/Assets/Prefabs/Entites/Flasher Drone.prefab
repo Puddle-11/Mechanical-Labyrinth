@@ -5987,7 +5987,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: cc501cf6ed754b94b9cb0d06f4420e7c, type: 3}
   hitSound: {fileID: 8300000, guid: c95c255d1ef1a4e40be0222d45d95dc6, type: 3}
   damageParticles: {fileID: 3450564395115868814}
-  coolDown: 5
+  coolDown: 2
   flashDuration: 3
   flashProgress: {fileID: 8486819796530916636}
 --- !u!114 &536380144788808950

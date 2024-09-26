@@ -1,10 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
+
 using TMPro;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
+
 
 public class ShopManager : MonoBehaviour
 {
@@ -13,6 +13,10 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private float warningHangTime;
     [SerializeField] private GameObject insuficientFunds;
     [SerializeField] private List<GameObject> allBuyButtons;
+
+    [SerializeField] private shopItem[] shopItemList;
+    [SerializeField] private shopAmmo[] shopAmmoList;
+
     [Space]
     [Header("Pistols")]
     [Space]
@@ -37,6 +41,29 @@ public class ShopManager : MonoBehaviour
     [Space]
     [SerializeField] private ItemType healthPack;
 
+
+    [System.Serializable]
+    public struct shopItem
+    {
+        public string Name;
+        public ItemType t;
+        public Sprite CustomIcon;
+        public int price;
+
+        public Image Icon;
+        public TMP_Text priceText;
+
+    }
+    [System.Serializable]
+    public struct shopAmmo
+    {
+        public AmmoInventory.bulletType t;
+        public int price;
+        public int quantity;
+
+        public Image Icon;
+        public TMP_Text description;
+    }
     private void Update()
     {
         if(warningTimer > 0)
@@ -50,6 +77,42 @@ public class ShopManager : MonoBehaviour
             warningTimer = 0;
             SetWarningState(false);
         }
+    }
+    private void Start()
+    {
+        SetUpAmmoShop();
+        SetUpItemShop();
+    }
+    public void SetUpAmmoShop()
+    {
+        for (int i = 0; i < shopAmmoList.Length; i++)
+        {
+           if(shopAmmoList[i].description != null) shopAmmoList[i].description.text = "Price: " + shopAmmoList[i].price.ToString()+ "\n\nQuantity: " + shopAmmoList[i].quantity.ToString();
+            if (shopAmmoList[i].Icon != null) shopAmmoList[i].Icon.sprite =  AmmoInventory.instance.GetAmmoIcon(shopAmmoList[i].t);
+        }
+    }
+    public void SetUpItemShop()
+    {
+        for (int i = 0; i < shopItemList.Length; i++)
+        {
+            if (shopItemList[i].priceText != null)  shopItemList[i].priceText.text = "Price: " + shopItemList[i].price.ToString();
+            if (shopItemList[i].Icon != null && shopItemList[i].t != null) shopItemList[i].Icon.sprite = shopItemList[i].CustomIcon == null ? shopItemList[i].t.Icon : shopItemList[i].CustomIcon;
+        }
+    }
+
+
+
+    public void BuyItem(int index)
+    {
+        if (index < 0 || index >= shopItemList.Length) return;
+
+        //TODO: buy item implementation
+    }
+    public void BuyAmmo(int index)
+    {
+        if (index < 0 || index >= shopAmmoList.Length) return;
+
+        //TODO: buy Ammo implementation
 
     }
     public void ResetWarningTimer()
@@ -145,7 +208,7 @@ public class ShopManager : MonoBehaviour
         if (ScrapInventory.instance.currentScrap >= 7)
         {
             AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Assualt, 20);
-            ScrapInventory.instance.RemoveScrap(7);
+            ScrapInventory.instance.RemoveScrap(5);
         }
         else
         {
@@ -158,7 +221,7 @@ public class ShopManager : MonoBehaviour
         if (ScrapInventory.instance.currentScrap >= 10)
         {
             AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Shotgun, 20);
-            ScrapInventory.instance.RemoveScrap(10);
+            ScrapInventory.instance.RemoveScrap(5);
         }
         else
         {
@@ -171,7 +234,7 @@ public class ShopManager : MonoBehaviour
         if (ScrapInventory.instance.currentScrap >= 15)
         {
             AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Sniper, 20);
-            ScrapInventory.instance.RemoveScrap(15);
+            ScrapInventory.instance.RemoveScrap(7);
         }
         else
         {
@@ -184,7 +247,7 @@ public class ShopManager : MonoBehaviour
         if (ScrapInventory.instance.currentScrap >= 20)
         {
             AmmoInventory.instance.UpdateAmmoInventory(AmmoInventory.bulletType.Explosive, 20);
-            ScrapInventory.instance.RemoveScrap(20);
+            ScrapInventory.instance.RemoveScrap(5);
         }
         else
         {
@@ -201,7 +264,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(deagle, result);
-                ScrapInventory.instance.RemoveScrap(75);
+                ScrapInventory.instance.RemoveScrap(15);
             }
         }
         else
@@ -217,7 +280,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(glock, result);
-                ScrapInventory.instance.RemoveScrap(60);
+                ScrapInventory.instance.RemoveScrap(10);
             }
         }
         else
@@ -233,7 +296,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(shotgunPistol, result);
-                ScrapInventory.instance.RemoveScrap(30);
+                ScrapInventory.instance.RemoveScrap(15);
             }
         }
         else
@@ -249,7 +312,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(classic, result);
-                ScrapInventory.instance.RemoveScrap(15);
+                ScrapInventory.instance.RemoveScrap(5);
             }
         }
         else
@@ -265,7 +328,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(uzi, result);
-                ScrapInventory.instance.RemoveScrap(45);
+                ScrapInventory.instance.RemoveScrap(15);
             }
         }
         else
@@ -283,7 +346,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(m16, result);
-                ScrapInventory.instance.RemoveScrap(120);
+                ScrapInventory.instance.RemoveScrap(30);
             }
         }
         else
@@ -301,7 +364,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(scar, result);
-                ScrapInventory.instance.RemoveScrap(60);
+                ScrapInventory.instance.RemoveScrap(25);
             }
         }
         else
@@ -317,7 +380,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(m4a1, result);
-                ScrapInventory.instance.RemoveScrap(50);
+                ScrapInventory.instance.RemoveScrap(35);
                 Debug.Log(result);
             }
         }
@@ -334,7 +397,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(mp5, result);
-                ScrapInventory.instance.RemoveScrap(80);
+                ScrapInventory.instance.RemoveScrap(35);
             }
         }
         else
@@ -366,7 +429,7 @@ public class ShopManager : MonoBehaviour
             if (GeneralInventory.instance.GetNextFreeIndex(out int result))
             {
                 GeneralInventory.instance.AddItemToInventory(healthPack, result);
-                ScrapInventory.instance.RemoveScrap(200);
+                ScrapInventory.instance.RemoveScrap(100);
             }
         }
         else

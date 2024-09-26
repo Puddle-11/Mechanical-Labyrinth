@@ -60,9 +60,13 @@ public class SharedEnemyBehavior : BaseEntity
     public float GetAngle()
     {
         if (target == null) return 0;
-        Vector3 dPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-        Vector3 targetDir = (dPos - transform.position).normalized;
-        return Vector3.Angle(targetDir, transform.forward);
+
+        Transform origin = headPos == null ? transform : headPos;
+
+        Vector3 dPos = new Vector3(target.transform.position.x, origin.position.y, target.transform.position.z);
+        Vector3 targetDir = (dPos - origin.position).normalized;
+        Debug.Log("Angle: " + Vector3.Angle(targetDir, origin.forward));
+        return Vector3.Angle(targetDir, origin.forward);
     }
     public bool InAngleRange()
     {

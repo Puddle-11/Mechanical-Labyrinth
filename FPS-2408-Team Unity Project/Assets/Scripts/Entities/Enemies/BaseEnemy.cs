@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -185,13 +186,16 @@ public class BaseEnemy : SharedEnemyBehavior
         bool inAttackRange = IsInRange(attackRange);
         bool inRange = IsInRange();
         if (timer >= GameManager.instance.Getmaxtime()) {
-            if (inAttackRange) { _enemyStateRef = EnemyState.Attack; }
+            float angle = GetAngle();
+
+            if (inAttackRange && angle < attackAngle / 2) { _enemyStateRef = EnemyState.Attack; }
             else { _enemyStateRef = EnemyState.Persue; }
         }
         else if (senseType == DetectionType.InRange)
         {
+            float angle = GetAngle();
 
-            if (inAttackRange) {_enemyStateRef = EnemyState.Attack;}
+            if (inAttackRange && angle < attackAngle / 2) {_enemyStateRef = EnemyState.Attack;}
             else if(IsInRange()) {_enemyStateRef = EnemyState.Persue;}
             else { _enemyStateRef = EnemyState.Patrol;}
         }

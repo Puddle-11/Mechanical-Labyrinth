@@ -18,9 +18,11 @@ public class CornerCamper : BaseEnemy
                 Vector3 dir = Random.insideUnitSphere;
                 if (Physics.Raycast(transform.position, dir, out hit, Arms[i].GetTotalLength(), searchMask))
                 {
-
-                    Arms[i].SetTarget(hit.point);
-                    break;
+                    if (hit.distance > Arms[i].GetTotalLength() / 2)
+                    {
+                        Arms[i].SetTarget(hit.point);
+                        break;
+                    }
                 }
 
                 //attempt to find hit in area

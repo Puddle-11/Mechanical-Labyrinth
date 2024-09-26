@@ -91,15 +91,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec32c506685af049b66918031a156bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 600
   maxShield: 0
   damageMaterial: {fileID: 2100000, guid: 177b05db0c4de6a498c3d7bfa5a0731a, type: 2}
   shieldMaterial: {fileID: 0}
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 3520897193462280804}
   deathParticles: []
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
-  drops: []
+  drops:
+  - {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
+  - {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
   rendRef:
   - currRenderer: {fileID: 8203605877434883550}
     renderOriginMaterial: []
@@ -133,8 +135,8 @@ MonoBehaviour:
   damageParticles: {fileID: 0}
   spawnOffset: {x: 0, y: 0, z: 0}
   enemies:
-  - {fileID: 7586437197726000631, guid: cc3cde6338e4615418879b70068d765c, type: 3}
-  spawnInterval: 2
+  - {fileID: 747221696051135189, guid: a417c6f3b526e5d40ac25ef9a35eefa0, type: 3}
+  spawnInterval: 4
   maxEnemies: 5
 --- !u!1 &3447934789961990967
 GameObject:
@@ -551,6 +553,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+--- !u!114 &3520897193462280804 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5853340910402863666, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+  m_PrefabInstance: {fileID: 7054752324281839702}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed77173c079d7d44932d8d04aa63018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6890203668473617725 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4501744096042855787, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}

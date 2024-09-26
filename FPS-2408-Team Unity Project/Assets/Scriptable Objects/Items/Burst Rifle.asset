@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8040e42b46634d94ab963f84ef29b55c, type: 3}
-  m_Name: Shotgun Pistol
+  m_Name: Burst Rifle
   m_EditorClassIdentifier: 
-  itemName: Shotgun
+  itemName: Burst Rifle
   itemID: 0
-  Object: {fileID: 6938905108493778053, guid: bc145d941d9d5e54693edd2b4db32a6e, type: 3}
-  Pickup: {fileID: 2729555954413337297, guid: 01fca0010a775aa498d7e8fc9b5f5370, type: 3}
-  maxUses: 15
-  Icon: {fileID: 21300000, guid: 0043f2be8908a8f44bc8b81e400736a1, type: 3}
+  Object: {fileID: 2410736084154907606, guid: 2d93faebada98a54e9a607f1d0195bf4, type: 3}
+  Pickup: {fileID: 3388937891742639473, guid: 1db890cf10f4efa4f89136d8e366a51c, type: 3}
+  maxUses: 25
+  Icon: {fileID: 21300000, guid: 4865146c87f52614fbcafa03565e1e7f, type: 3}
   defaultStats:
     uses: -1
     maxUses: 0
