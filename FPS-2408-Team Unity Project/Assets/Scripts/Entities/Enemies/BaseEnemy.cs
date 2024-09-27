@@ -184,19 +184,45 @@ public class BaseEnemy : SharedEnemyBehavior
     {
         bool inAttackRange = IsInRange(attackRange);
         bool inRange = IsInRange();
-        if (timer >= GameManager.instance.Getmaxtime()) {
+       /* if (timer >= GameManager.instance.Getmaxtime()) {
             float angle = GetAngle();
 
             if (inAttackRange && angle < attackAngle / 2) { _enemyStateRef = EnemyState.Attack; }
             else { _enemyStateRef = EnemyState.Persue; }
         }
-        else if (senseType == DetectionType.InRange)
+        else*/ if (senseType == DetectionType.InRange)
         {
+            
             float angle = GetAngle();
+            Debug.Log("In Range Detection");
+            if (inAttackRange && angle < attackAngle / 2) {
+                Debug.Log("In Attack Range");
+                _enemyStateRef = EnemyState.Attack;
+            
+            }
+            else if(IsInRange()) 
+            {
+                Debug.Log("In Range. Persue");
 
-            if (inAttackRange && angle < attackAngle / 2) {_enemyStateRef = EnemyState.Attack;}
-            else if(IsInRange()) {_enemyStateRef = EnemyState.Persue;}
-            else { _enemyStateRef = EnemyState.Patrol;}
+                _enemyStateRef = EnemyState.Persue;
+            
+            }
+            else if(currState == EnemyState.Investigate)
+            {
+                Debug.Log("Investigating");
+
+                if (DistanceToDestination() < 0.01f) {
+                    _enemyStateRef = EnemyState.Patrol;
+                }
+            
+            }
+            else
+            {
+                Debug.Log("None");
+
+                _enemyStateRef = EnemyState.Patrol;
+
+            }
         }
         else if (senseType == DetectionType.Continuous)
         {
@@ -217,14 +243,19 @@ public class BaseEnemy : SharedEnemyBehavior
                 else if (!inAngleRange && currState != EnemyState.Investigate) { _enemyStateRef = EnemyState.Patrol; }
                 else if (currState == EnemyState.Investigate && DistanceToDestination() < 0.01f) currState = EnemyState.Patrol;
             }
+            else
+            {
+                _enemyStateRef = EnemyState.Patrol;
+            }
         }
     }
     //-------------
     protected void EnterInvestigate(Vector3 _pos)
     {
-        if ((currState == EnemyState.Patrol || currState == EnemyState.Investigate) && IsInRange())
+        if ((currState == EnemyState.Patrol || currState == EnemyState.Investigate))
         {
             currState = EnemyState.Investigate;
+            StopCoroutine("Roam");
             SetNavmeshTarget(_pos);
         }
     }
@@ -263,7 +294,6 @@ public class BaseEnemy : SharedEnemyBehavior
         if (damageParticles != null) damageParticles.Play();
         if (currState == EnemyState.Patrol || currState == EnemyState.Investigate)
         {
-
             _amount = _amount * sneakDamageMultiplyer;
            if(target != null) EnterInvestigate(target.transform.position);
         }
