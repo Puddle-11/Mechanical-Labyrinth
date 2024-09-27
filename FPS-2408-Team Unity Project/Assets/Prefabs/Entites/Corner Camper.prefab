@@ -719,7 +719,7 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops:
-  - {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
+  - {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
   rendRef:
   - currRenderer: {fileID: 355533742107632480}
     renderOriginMaterial: []

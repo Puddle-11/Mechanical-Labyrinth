@@ -175,7 +175,6 @@ public class BaseEnemy : SharedEnemyBehavior
         {
             if (weaponScr != null)
             {
-                Debug.Log("triggered attack");
                 weaponScr.Attack();
             }
         }

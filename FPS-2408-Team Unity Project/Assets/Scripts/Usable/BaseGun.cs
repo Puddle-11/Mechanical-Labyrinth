@@ -425,8 +425,7 @@ public class BaseGun : Weapon
         timer = currAmmo * perBullVal;
 
 
-        Debug.Log("Fill Amount: " + fillAmount);
-        Debug.Log("Taken Amount: " + finalFill);
+
 
         while (timer < (finalFill) * perBullVal)
         {

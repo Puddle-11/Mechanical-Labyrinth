@@ -324,7 +324,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f14540eec14df7446badb6b9f2ff0225, type: 3}
   hitSound: {fileID: 8300000, guid: c95c255d1ef1a4e40be0222d45d95dc6, type: 3}
   damageParticles: {fileID: 8765019616115290070}
-  explosionDamage: 300
+  explosionDamage: 100
   knockback: {x: 0, y: 0, z: 0}
   knockbackmod: 10
 --- !u!65 &4527273249660388099

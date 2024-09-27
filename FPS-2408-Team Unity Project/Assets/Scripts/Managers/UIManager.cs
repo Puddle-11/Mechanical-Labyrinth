@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -144,6 +145,15 @@ public class UIManager : MonoBehaviour
             currItem[i].sprite = emptySlot;
         }
     }
+    public void UpdateUIFadeSize()
+    {
+        float originalRatio = (float)1920/1080;
+        float currentRatio = (float)Screen.width / Screen.height;
+        //Debug.Log($"Original: {originalRatio}\nCurrent: {currentRatio} Filtered: {currentRatio/originalRatio}");
+        if(UIFadeAnim.gameObject.TryGetComponent(out RectTransform rectRef)){
+            rectRef.localScale = Vector3.one * Mathf.Clamp( currentRatio / originalRatio,1,Mathf.Infinity);
+        }
+    }
     public void UpdateSelectionHover(int _index)
     {
         if(currSelectedHighlight == null)
@@ -167,8 +177,6 @@ public class UIManager : MonoBehaviour
             {
                 result.Add(tempRef);
             }
-
-
         }
         return result.ToArray();
     }
@@ -301,7 +309,7 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-
+        UpdateUIFadeSize();
         if(healOverlayTimer > 0)
         {
             flashHealRef.SetActive(true);

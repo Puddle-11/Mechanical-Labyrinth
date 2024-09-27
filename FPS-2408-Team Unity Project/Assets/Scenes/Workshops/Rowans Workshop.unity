@@ -9213,6 +9213,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 7328155085983539341, guid: add6029a5df1850488d12d61e620434c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7438268183610828531, guid: add6029a5df1850488d12d61e620434c, type: 3}
       propertyPath: m_text
       value: Sniper Ammo
