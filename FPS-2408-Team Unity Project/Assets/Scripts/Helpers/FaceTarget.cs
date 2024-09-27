@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class FaceTarget : MonoBehaviour
 {
     //target defaults to main camera if not assigned 
     [SerializeField] private GameObject target;
     [SerializeField] private type lookType = type.faceCamera;
+
 
     #region Custom Structs and Enums
     private enum type
@@ -41,6 +43,8 @@ public class FaceTarget : MonoBehaviour
     void UpdateRotation()
     {
         if (target == null) return;
-        transform.rotation = Quaternion.LookRotation(target.transform.position - transform.position);
+ 
+
+        transform.rotation = Quaternion.LookRotation((target.transform.position - transform.position).normalized);
     }
 }
