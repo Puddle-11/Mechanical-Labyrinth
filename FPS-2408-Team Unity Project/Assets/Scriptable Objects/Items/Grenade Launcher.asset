@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Grenade Launcher
   m_EditorClassIdentifier: 
   itemName: Grenade Launcher
-  itemID: 0
+  itemID: 4
   Object: {fileID: 8177246678022690779, guid: 7e7de51142b4cf94d9ceafd107244add, type: 3}
   Pickup: {fileID: 0}
   maxUses: 5

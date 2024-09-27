@@ -10,7 +10,10 @@ public class ChangeSceneMB : BaseMenuButton, IMenuButton
     [SerializeField] private CurrentStats save;
     [SerializeField] private TMP_Text levelField;
     [SerializeField] private TMP_Text deathField;
-     
+    public void OnEnable()
+    {
+        save = BootLoadManager.instance.LoadFromFile(save);
+    }
     public void Update()
     {
        if(levelField != null) levelField.text = save.S_Level.ToString();

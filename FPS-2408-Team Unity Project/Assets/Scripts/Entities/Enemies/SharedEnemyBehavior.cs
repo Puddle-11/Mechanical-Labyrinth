@@ -65,7 +65,6 @@ public class SharedEnemyBehavior : BaseEntity
 
         Vector3 dPos = new Vector3(target.transform.position.x, origin.position.y, target.transform.position.z);
         Vector3 targetDir = (dPos - origin.position).normalized;
-        Debug.Log("Angle: " + Vector3.Angle(targetDir, origin.forward));
         return Vector3.Angle(targetDir, origin.forward);
     }
     public bool InAngleRange()
@@ -91,14 +90,12 @@ public class SharedEnemyBehavior : BaseEntity
     {
         _dirToTarget = DirectionToTarget();
             Debug.DrawRay(headPos != null ? headPos.transform.position : transform.position, _dirToTarget * _dist);
-        Debug.Log("hit in range\nMax Distance: " + _dist + " Mesured Dist: " + DistanceToTarget());
        
         if (DistanceToTarget() < _dist)
         {
             RaycastHit hit;
             if (Physics.Raycast(headPos != null ? headPos.transform.position: transform.position, _dirToTarget, out hit, _dist, ~sightMask))
             {
-                Debug.Log("Hit Object: " + hit.collider.name);
 
                 if (hit.collider.gameObject == target)
                 {

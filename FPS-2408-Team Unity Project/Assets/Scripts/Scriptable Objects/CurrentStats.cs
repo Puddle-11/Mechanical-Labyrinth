@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(menuName = "Custom Assets/SaveFile")]
 public class CurrentStats : ScriptableObject
 {
+    public string fileName;
     public ItemType[] S_GeneralInventory;
     public int[] S_AmmoInventory;
     public int S_Level;
@@ -17,25 +18,20 @@ public class CurrentStats : ScriptableObject
     public int S_CurrentHealth;
     public float S_currentTime;
 
-    public void ResetStats()
+    public void ResetStats(CurrentStats _default)
     {
-        S_GeneralInventory = new ItemType[0];
-        S_AmmoInventory = new int[0];
-        S_Level = 0;
-        S_TotalDamage = 0;
-        S_TotallEnemiesKilled = 0;
-        S_TotalDeaths = 0;
-        S_CurrentHealth = S_DefaultHealth;
-        S_currentTime = 0;
+        ResetPerRunStats(_default);
+        S_TotalDeaths = _default.S_TotalDeaths;
+    
     }
-    public void ResetPerRunStats()
+    public void ResetPerRunStats(CurrentStats _default)
     {
-        S_GeneralInventory = new ItemType[0];
-        S_AmmoInventory = new int[0];
-        S_Level = 0;
-        S_TotalDamage = 0;
-        S_TotallEnemiesKilled = 0;
-        S_CurrentHealth = S_DefaultHealth;
-        S_currentTime = 0;
+        S_GeneralInventory = _default.S_GeneralInventory;
+        S_AmmoInventory = _default.S_AmmoInventory;
+        S_Level = _default.S_Level;
+        S_TotalDamage = _default.S_TotalDamage;
+        S_TotallEnemiesKilled = _default.S_TotallEnemiesKilled;
+        S_CurrentHealth = _default.S_CurrentHealth;
+        S_currentTime = _default.S_currentTime;
     }
 }

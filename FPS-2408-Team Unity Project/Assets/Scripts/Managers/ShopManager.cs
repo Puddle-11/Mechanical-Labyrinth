@@ -106,15 +106,33 @@ public class ShopManager : MonoBehaviour
     {
         if (index < 0 || index >= shopItemList.Length) return;
 
-        //TODO: buy item implementation
+        if (ScrapInventory.instance.currentScrap >= shopItemList[index].price)
+        {
+            if (GeneralInventory.instance.GetNextFreeIndex(out int result))
+            {
+                GeneralInventory.instance.AddItemToInventory(shopItemList[index].t, result);
+                ScrapInventory.instance.RemoveScrap(shopItemList[index].price);
+            }
+        }
+        else
+        {
+            ResetWarningTimer();
+        }
     }
     public void BuyAmmo(int index)
     {
         if (index < 0 || index >= shopAmmoList.Length) return;
-
-        //TODO: buy Ammo implementation
-
+        if (ScrapInventory.instance.currentScrap >= shopAmmoList[index].price)
+        {
+            AmmoInventory.instance.UpdateAmmoInventory(shopAmmoList[index].t, 20);
+            ScrapInventory.instance.RemoveScrap(shopAmmoList[index].price);
+        }
+        else
+        {
+            ResetWarningTimer();
+        }
     }
+
     public void ResetWarningTimer()
     {
         SetWarningTimer( warningHangTime);

@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
             BootLoadManager.instance.stopLoadEvent += MoveToRespawn;
 
             BootLoadManager.instance.startLoadEvent += ResetGame;
+            currentStats = BootLoadManager.instance.LoadFromFile(currentStats);
 
         }
     }
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
         {
             BootLoadManager.instance.stopLoadEvent -= MoveToRespawn;
             BootLoadManager.instance.startLoadEvent -= ResetGame;
+            BootLoadManager.instance.SaveToFile();
         }
     }
    
@@ -73,16 +75,20 @@ public class GameManager : MonoBehaviour
 
     public void ResetAllStats()
     {
-        currentStats.ResetPerRunStats();
+        currentStats.ResetPerRunStats(BootLoadManager.instance.GetDefaultSave());
+        BootLoadManager.instance.SaveToFile(currentStats);
+
     }
     private void Update()
     {
+   
         if (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading())
         {
             if(playerRef.activeInHierarchy == true)
             {
                 playerRef.SetActive(false);
             }
+
             //THIS SHOULD BE THE ONLY SPOT OUTSIDE OF BOOTLOADER THAT STOPLOADEVENT IS INVOKED
             //=====================================================
             //Add more conditions to this if you want to wait until after a function is complete to load the level

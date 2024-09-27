@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Health Pack
   m_EditorClassIdentifier: 
   itemName: Health Pack
-  itemID: 0
+  itemID: 5
   Object: {fileID: 1810660675594123733, guid: f9a0d750836467d4e9c4b5991c383008, type: 3}
   Pickup: {fileID: 8728914310344857947, guid: ba07565e5746c1446acd5580846728bb, type: 3}
   maxUses: 1

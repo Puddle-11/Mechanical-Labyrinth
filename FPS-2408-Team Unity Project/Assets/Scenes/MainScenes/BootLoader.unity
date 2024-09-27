@@ -884,12 +884,12 @@ MonoBehaviour:
   continuousSounds:
   - clip: {fileID: 8300000, guid: 48771de06be9ee34790cb94ad72b7a77, type: 3}
     source: {fileID: 0}
-    volume: 0.2
+    volume: 0.663
     pitch: 0.6
     loop: 1
   - clip: {fileID: 8300000, guid: ea9322ace32b19f4182c0c1a8a208474, type: 3}
     source: {fileID: 0}
-    volume: 0.3
+    volume: 0.663
     pitch: 0.8
     loop: 1
 --- !u!82 &2008974028

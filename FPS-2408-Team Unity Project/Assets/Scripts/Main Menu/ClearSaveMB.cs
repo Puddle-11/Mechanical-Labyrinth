@@ -5,8 +5,10 @@ using UnityEngine;
 public class ClearSaveMB : BaseMenuButton
 {
     [SerializeField] private CurrentStats save;
+
     public override void Click()
     {
-        save.ResetStats();
+        save.ResetStats(BootLoadManager.instance.GetDefaultSave());
+        BootLoadManager.instance.SaveToFile(save);
     }
 }

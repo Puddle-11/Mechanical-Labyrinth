@@ -16856,7 +16856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.043137256}
+  m_Color: {r: 0.04432181, g: 0.049394544, b: 0.11320752, a: 0.4392157}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -17365,7 +17365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.90757, b: 0.7122642, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -23517,7 +23517,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7465260140549256047
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29216,7 +29216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.098039195, g: 0.5372549, b: 0.12809962, a: 0.77254903}
+  m_Color: {r: 1, g: 0.6986523, b: 0.051886797, a: 0.14901961}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -30487,6 +30487,8 @@ MonoBehaviour:
   - {fileID: 5961068261072874258}
   - {fileID: 5859218798531584095}
   - {fileID: 3075222686296521161}
+  shopItemList: []
+  shopAmmoList: []
   deagle: {fileID: 11400000, guid: ffcfbefaa3c5a2c4e8fcc3cc63e96ea7, type: 2}
   glock: {fileID: 11400000, guid: e0e8ca52afe3245499a66d1ebf0827ff, type: 2}
   shotgunPistol: {fileID: 11400000, guid: c1fcbbb334a4b2d44be73088e7faad2e, type: 2}
@@ -31457,7 +31459,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 690190895482579582, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_Text
-      value: 
+      value: Q
       objectReference: {fileID: 0}
     - target: {fileID: 690190895482579582, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_Color.b
@@ -31705,7 +31707,7 @@ PrefabInstance:
       objectReference: {fileID: -1693518244389658564, guid: 1a8bd2486d05dc74e9235a948c6a802a, type: 3}
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_BindingId
-      value: 6a226922-1a05-4575-9404-b375d99e6b6d
+      value: 8df74700-e7f1-4da7-bc1e-dc2b03bc44af
       objectReference: {fileID: 0}
     - target: {fileID: 6680292650503350826, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
       propertyPath: m_RebindOverlay

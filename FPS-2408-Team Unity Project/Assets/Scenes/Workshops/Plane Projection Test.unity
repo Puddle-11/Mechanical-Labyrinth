@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 1853261831}
   - component: {fileID: 1853261833}
   - component: {fileID: 1853261832}
+  - component: {fileID: 1853261834}
   m_Layer: 0
   m_Name: plane
   m_TagString: Untagged
@@ -319,6 +320,26 @@ MonoBehaviour:
   collMesh: {fileID: 1322384265235142466, guid: 7a9b4551d0cd2124ea70a9b7dd256f51, type: 3}
   rotation: {x: -90, y: 0, z: 0}
   coll: {fileID: 1853261832}
+--- !u!114 &1853261834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853261827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e27d910c941b214bb013a07ce336bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: Patrol
+  allStates:
+  - name: Attack
+    t: 3
+  - name: Patrol
+    t: 1
+  - name: Patrol
+    t: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

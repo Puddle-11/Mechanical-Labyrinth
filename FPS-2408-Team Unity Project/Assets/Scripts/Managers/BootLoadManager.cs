@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,8 +17,8 @@ public class BootLoadManager : MonoBehaviour
 
     [SerializeField] private GameObject loadingScreenObj;
     [SerializeField] private GameObject sceneChangeObj;
-
-
+    [SerializeField] private CurrentStats allSaves;
+    [SerializeField] private CurrentStats defaultSave;
     public delegate void SceneEvent();
     public SceneEvent startLoadEvent;
     public SceneEvent stopLoadEvent;
@@ -24,6 +26,58 @@ public class BootLoadManager : MonoBehaviour
     private CurrentStats currentStats;
     private bool runningEndAnimation = false;
     public bool IsLoading() {return inLoadScreen;}
+
+
+
+    private static string GetSettingsFilePath(CurrentStats _save)
+    {
+        return Path.Combine(Application.persistentDataPath,  _save.name + ".json");
+    }
+    public void SaveToFile()
+    {
+        SaveToFile(currentStats);
+    }
+    public void SaveToFile(CurrentStats _save)
+    {
+        try
+        {
+            var json = JsonUtility.ToJson(_save);
+            File.WriteAllText(GetSettingsFilePath(_save), json);
+            Debug.Log("Settings saved successfully.");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Failed to save settings: " + e.Message);
+        }
+    }
+    public  CurrentStats LoadFromFile(CurrentStats _save)
+    {
+        string savePath = GetSettingsFilePath(_save);
+
+        if (File.Exists(savePath))
+        {
+            try
+            {
+                var json = File.ReadAllText(savePath);
+                JsonUtility.FromJsonOverwrite(json, _save);
+
+                Debug.Log("Settings loaded successfully.");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Failed to load settings: " + e.Message);
+            }
+        }
+        else
+        {
+
+            Debug.Log($"No settings file found at\n{savePath}");
+   
+        }
+        return _save;
+    }
+
+
     public CurrentStats GetSave()
     {
         return currentStats;
@@ -31,6 +85,11 @@ public class BootLoadManager : MonoBehaviour
     public void SetSave(CurrentStats _save)
     {
         currentStats = _save;
+    }
+    public CurrentStats GetDefaultSave()
+    {
+        return defaultSave;
+
     }
     private void Awake()
     {
