@@ -315,18 +315,12 @@ public class PlayerController : BaseEntity
     {
         if(Physics.Raycast(transform.position, Vector3.up, out RaycastHit hit, verticalCheckDist, verticalCheckMask))
         {
-            if(externalForce.y > 0)
+            if (externalForce.y > 0)
             {
-            externalForce.y = externalForce.y * -1;
-
+                externalForce.y = externalForce.y * -1;
             }
-
-
         }
-
-
     }
-
     public void Jump(Vector3 _dir)
     {
         if (jumpCurr > 0)
