@@ -235,6 +235,10 @@ public class GeneralInventory : MonoBehaviour
         UIManager.instance.UpdateSelectionHover(selectedSlot);
 
     }
+    public int GetSelectedIndex()
+    {
+        return selectedSlot;
+    }
     public ItemType GetSlot(int _index) { return Hotbar[_index].t;}
     public void SetSlot(int _index, ItemType t) {
         

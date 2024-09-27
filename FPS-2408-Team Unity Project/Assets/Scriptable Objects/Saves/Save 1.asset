@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileName: 
   S_GeneralInventory:
-  - {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  S_AmmoInventory: 0000000000000000000000000000000000000000
+  - {fileID: 11400000, guid: e8ba6ad58bbee274d81af0ec1a461c06, type: 2}
+  - {fileID: 11400000, guid: 481e2dbc1c5fc954e97b3f6db0490e19, type: 2}
+  - {fileID: 11400000, guid: 2ffabef03afc2704fab3fc11cab93bbd, type: 2}
+  - {fileID: 11400000, guid: 777b1000345f76a469ef24355880d8a1, type: 2}
+  - {fileID: 11400000, guid: c1fcbbb334a4b2d44be73088e7faad2e, type: 2}
+  S_AmmoInventory: be0000003e000000140000001200000014000000
+  S_currentScrap: 695
   S_Level: 0
   S_TotalDamage: 0
   S_TotallEnemiesKilled: 0
   S_TotalDeaths: 0
   S_DefaultHealth: 1000
   S_CurrentHealth: 1000
-  S_currentTime: 0.6561776
+  S_currentTime: 325.03375

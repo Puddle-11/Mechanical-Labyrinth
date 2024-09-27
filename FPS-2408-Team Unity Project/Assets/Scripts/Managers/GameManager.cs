@@ -153,6 +153,8 @@ public class GameManager : MonoBehaviour
     public void SetAmmoInventory(int[] _arr) {currentStats.S_AmmoInventory = _arr;}
     public int[] GetAmmoInventory() { return currentStats != null ? currentStats.S_AmmoInventory : new int[0]; }
 
+    public void SetScrap(int _val){currentStats.S_currentScrap = _val;}
+    public int GetScrap() {return currentStats.S_currentScrap;}
     //in progress
     public void SetGeneralInventory(ItemType[] _arr) { currentStats.S_GeneralInventory = _arr; }
     public ItemType[] GetGeneralInventory() { return currentStats.S_GeneralInventory; }

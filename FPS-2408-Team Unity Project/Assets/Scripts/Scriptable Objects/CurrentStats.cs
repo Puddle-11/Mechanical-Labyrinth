@@ -7,9 +7,11 @@ using UnityEngine.UIElements;
 [CreateAssetMenu(menuName = "Custom Assets/SaveFile")]
 public class CurrentStats : ScriptableObject
 {
+
     public string fileName;
     public ItemType[] S_GeneralInventory;
     public int[] S_AmmoInventory;
+    public int S_currentScrap;
     public int S_Level;
     public UInt64 S_TotalDamage;
     public int S_TotallEnemiesKilled;
@@ -29,6 +31,7 @@ public class CurrentStats : ScriptableObject
         S_GeneralInventory = _default.S_GeneralInventory;
         S_AmmoInventory = _default.S_AmmoInventory;
         S_Level = _default.S_Level;
+        S_currentScrap = _default.S_currentScrap;
         S_TotalDamage = _default.S_TotalDamage;
         S_TotallEnemiesKilled = _default.S_TotallEnemiesKilled;
         S_CurrentHealth = _default.S_CurrentHealth;

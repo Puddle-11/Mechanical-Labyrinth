@@ -109,7 +109,7 @@ public class UIManager : MonoBehaviour
     private int currExternalAmmoInv = -1;
     private bool screenFlashed;
     private float healOverlayTimer;
-
+    private Vector2Int screenSize;
     #region Custom Structs and Enums
     [System.Serializable]
     public struct UIObj
@@ -126,6 +126,12 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
+    public void OnScreenSizeUpdate()
+    {
+        screenSize = new Vector2Int(Screen.width, Screen.height);
+        UpdateInventoryScale();
+        UpdateUIFadeSize();
+    }
     public void InitializeInventory()
     {
 
@@ -141,9 +147,23 @@ public class UIManager : MonoBehaviour
             Vector3 pos = new Vector3(xPos, yPos, 0);
             GameObject temp = Instantiate(Slot, pos, Quaternion.identity, inventoryAnchor.transform);
             Image[] Result = GetImages(temp.transform);
-            currItem[i] =Result[0];
+            currItem[i] = Result[0];
             currItem[i].sprite = emptySlot;
         }
+    }
+    public void UpdateInventoryScale()
+    {
+        RectTransform rt = Slot.gameObject.GetComponent<RectTransform>();
+        Vector3 centerOffset = new Vector3((currItem.Length - 1) * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) / 2, (currItem.Length - 1) * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) / 2, 0);
+        for (int i = 0; i < currItem.Length; i++)
+        {
+            int tempIndex = !invert ? i : (currItem.Length - 1) - i;
+            float xPos = inventoryAnchor.transform.position.x + (tempIndex * (offset + rt.sizeDelta.x * 2 * Slot.gameObject.transform.localScale.x) - (centerHotbar ? centerOffset.x : 0)) * hotbarAxis.x * ((float)Screen.width / 1920);
+            float yPos = inventoryAnchor.transform.position.y + (tempIndex * (offset + rt.sizeDelta.y * 2 * Slot.gameObject.transform.localScale.y) - (centerHotbar ? centerOffset.y : 0)) * hotbarAxis.y * ((float)Screen.height / 1080);
+            Vector3 pos = new Vector3(xPos, yPos, 0);
+            currItem[i].transform.parent.position = pos;
+        }
+        UpdateSelectionHover(GeneralInventory.instance.GetSelectedIndex());
     }
     public void UpdateUIFadeSize()
     {
@@ -309,7 +329,10 @@ public class UIManager : MonoBehaviour
     }
     private void Update()
     {
-        UpdateUIFadeSize();
+        if(screenSize.x != Screen.width || screenSize.y != Screen.height)
+        {
+            OnScreenSizeUpdate();
+        }
         if(healOverlayTimer > 0)
         {
             flashHealRef.SetActive(true);

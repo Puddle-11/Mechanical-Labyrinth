@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 
 using UnityEngine;
@@ -124,11 +125,23 @@ public class PlayerHand : MonoBehaviour
     public GameObject GetHandAnchor() {return handAnchor;}
     public void PickupItem(ItemType t, Pickup p)
     {
-        if(CurrentEquiped != null && !AttemptDrop())
+        
+
+        
+        if(CurrentEquiped != null)
         {
-            return;
+            if (GeneralInventory.instance.GetNextFreeIndex(out int index))
+            {
+
+                GeneralInventory.instance.AddItemToInventory(t, index, p);
+                return;
+            }
+            if (!AttemptDrop())
+            {
+                return;
+            }
         }
-        GeneralInventory.instance.AddItemToInventory(t, p);
+        GeneralInventory.instance.AddItemToInventory(t,p);
         return;
     }
 

@@ -23,19 +23,24 @@ public class ScrapInventory : MonoBehaviour
     
     void Start()
     {
-        currentScrap = 0;
+        currentScrap = GameManager.instance.GetScrap();
         UIManager.instance.UpdateScrapCount(currentScrap);
+
     }
 
     public void AddScrap(int _amount)
     {
         currentScrap += _amount;
         UIManager.instance.UpdateScrapCount(currentScrap);
+        GameManager.instance.SetScrap(currentScrap);
+
     }
 
     public void RemoveScrap(int _amount)
     { 
         currentScrap -= _amount;
         UIManager.instance.UpdateScrapCount(currentScrap);
+        GameManager.instance.SetScrap(currentScrap);
+
     }
 }

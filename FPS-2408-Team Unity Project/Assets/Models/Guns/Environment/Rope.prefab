@@ -49,11 +49,11 @@ MonoBehaviour:
   anchors: []
   ropeLength: 15
   lineResolution: 15
-  collisionResolution: 3
+  collisionSpacing: 1
+  physicsType: 0
   springConstant: 0.25
   dampeningForce: 5
   acceptableMargin: 0.001
-  physicsType: 0
   colliderSize: 1
   currentControlPos: []
 --- !u!120 &915447010398601181
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colGradient:
     serializedVersion: 2
-    key0: {r: 0, g: 0, b: 0, a: 1}
+    key0: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
     key1: {r: 0.09092186, g: 0.05992756, b: 0.12668449, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
