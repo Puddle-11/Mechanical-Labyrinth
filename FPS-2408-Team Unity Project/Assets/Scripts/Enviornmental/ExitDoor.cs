@@ -56,13 +56,17 @@ public class ExitDoor : MonoBehaviour
             doors[i].doorObj.transform.localPosition = doors[i].closeLocalPos;
         }
     }
-    private void Update()    {
-        if (Vector3.Distance(GameManager.instance.playerRef.transform.position, transform.position) > distToLockout && primed == false)
+    private void Update()    
+    {
+        if (GameManager.instance != null)
         {
-            doorsOpen = false;
-            if (GameManager.instance.GetGameGoal() == 0)
+            if (Vector3.Distance(GameManager.instance.playerRef.transform.position, transform.position) > distToLockout && primed == false)
             {
-                EnableTrigg();
+                doorsOpen = false;
+                if (GameManager.instance.GetGameGoal() == 0)
+                {
+                    EnableTrigg();
+                }
             }
         }
 

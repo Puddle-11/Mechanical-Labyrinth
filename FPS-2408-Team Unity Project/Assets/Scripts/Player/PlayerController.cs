@@ -147,7 +147,10 @@ public class PlayerController : BaseEntity
     public ItemType GetCurrentItemType() { return playerHandRef.GetCurrentItemType(); }
     public void UpdatePlayerSpeed(float _mod) { acceleration *= _mod; }
     public void SetForce(Vector3 _newForce) { externalForce = _newForce; }
-
+    public void UpdateForce(Vector3 _newForce)
+    {
+        externalForce += _newForce;
+    }
     public Vector3 GetForce() { return externalForce; }
     public PlayerHand GetPlayerHand() { return playerHandRef; }
     public void SetJumpAmount(int _val) { jumpCurr = Mathf.Clamp(_val, 0, jumpMax + 1); }

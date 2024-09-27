@@ -194,22 +194,18 @@ public class BaseEnemy : SharedEnemyBehavior
         {
             
             float angle = GetAngle();
-            Debug.Log("In Range Detection");
             if (inAttackRange && angle < attackAngle / 2) {
-                Debug.Log("In Attack Range");
                 _enemyStateRef = EnemyState.Attack;
             
             }
             else if(IsInRange()) 
             {
-                Debug.Log("In Range. Persue");
 
                 _enemyStateRef = EnemyState.Persue;
             
             }
             else if(currState == EnemyState.Investigate)
             {
-                Debug.Log("Investigating");
 
                 if (DistanceToDestination() < 0.01f) {
                     _enemyStateRef = EnemyState.Patrol;
@@ -218,7 +214,6 @@ public class BaseEnemy : SharedEnemyBehavior
             }
             else
             {
-                Debug.Log("None");
 
                 _enemyStateRef = EnemyState.Patrol;
 
@@ -268,7 +263,7 @@ public class BaseEnemy : SharedEnemyBehavior
         Vector3 _nextPos = transform.position;
         if (patrolPoints.Length <= 0)
         {
-            Vector3 randDist = global::UnityEngine.Random.insideUnitSphere * roamingDistance;
+            Vector3 randDist = Random.insideUnitSphere * roamingDistance;
             randDist += startingPos;
             NavMeshHit hit;
             NavMesh.SamplePosition(randDist, out hit, roamingDistance, 1);
@@ -276,10 +271,10 @@ public class BaseEnemy : SharedEnemyBehavior
         }
         else
         {
-            _nextPos = patrolPoints[global::UnityEngine.Random.Range(0, patrolPoints.Length)];
+            _nextPos = patrolPoints[Random.Range(0, patrolPoints.Length)];
 
         }
-        agent.SetDestination(_nextPos);
+        if(agent != null) agent.SetDestination(_nextPos);
         isRoaming = false;
     }
     //-------------

@@ -5591,6 +5591,7 @@ GameObject:
   - component: {fileID: 3197061267928793150}
   - component: {fileID: 8011352364131999315}
   - component: {fileID: 6442692788094779741}
+  - component: {fileID: 6517168134598099378}
   m_Layer: 6
   m_Name: default
   m_TagString: Untagged
@@ -5699,6 +5700,19 @@ MonoBehaviour:
   type: 1
   damageAmount: 10
   damageSpeed: 0.1
+--- !u!114 &6517168134598099378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411783364062564059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d019c62819dafa45bd49ed305ea5b5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushBackForce: 25
 --- !u!1 &5945121105817242987
 GameObject:
   m_ObjectHideFlags: 0

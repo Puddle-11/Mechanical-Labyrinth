@@ -61,7 +61,6 @@ public class BootLoadManager : MonoBehaviour
                 var json = File.ReadAllText(savePath);
                 JsonUtility.FromJsonOverwrite(json, _save);
 
-                Debug.Log("Settings loaded successfully.");
             }
             catch (Exception e)
             {
@@ -89,7 +88,6 @@ public class BootLoadManager : MonoBehaviour
     public CurrentStats GetDefaultSave()
     {
         return defaultSave;
-
     }
     private void Awake()
     {
@@ -123,11 +121,11 @@ public class BootLoadManager : MonoBehaviour
     }
     public void EndSceneAnimation()
     {
+        
         StartCoroutine(EndSceneAnimationDelay());
     }
     public IEnumerator EndSceneAnimationDelay()
     {
-
         if (runningEndAnimation) yield break;
         runningEndAnimation = true;
         sceneChangeObj.SetActive(true);
@@ -206,7 +204,12 @@ public class BootLoadManager : MonoBehaviour
     }
     public void ExitGameMode()
     {
+        StartCoroutine(ExitGameModeDelay());
+    }
+    public IEnumerator ExitGameModeDelay()
+    {
         UnLoadScene("GameLoader");
+        yield return null;
         LoadScene("Main Menu");
     }
     
