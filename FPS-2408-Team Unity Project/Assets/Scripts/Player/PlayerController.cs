@@ -30,7 +30,8 @@ public class PlayerController : BaseEntity
     [SerializeField] private LayerMask jumplayer;
     [SerializeField] private float jumpHeight;
     [SerializeField] private int jumpMax;
-
+    [SerializeField] private float verticalCheckDist;
+    [SerializeField] private LayerMask verticalCheckMask;
 
     [Header("Physics Variables")]
     [Space]
@@ -68,6 +69,7 @@ public class PlayerController : BaseEntity
     // Start is called before the first frame update
     public override void Start()
     {
+
         SetHealth(GameManager.instance.GetCurrentHealth());
         playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
         originalgravity = gravityStrength;
@@ -132,7 +134,7 @@ public class PlayerController : BaseEntity
         }
         //-----------------------------------------
         #endregion
-
+        CheckVertical();
         base.Update();
     }
     public void LateUpdate()
@@ -308,6 +310,21 @@ public class PlayerController : BaseEntity
             Jump(new Vector3(0, jumpHeight, 0));
         }
         controllerRef.Move(externalForce * Time.deltaTime);
+    }
+    public void CheckVertical()
+    {
+        if(Physics.Raycast(transform.position, Vector3.up, out RaycastHit hit, verticalCheckDist, verticalCheckMask))
+        {
+            if(externalForce.y > 0)
+            {
+            externalForce.y = externalForce.y * -1;
+
+            }
+
+
+        }
+
+
     }
 
     public void Jump(Vector3 _dir)

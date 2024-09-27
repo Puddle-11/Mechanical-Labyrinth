@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7064341674832188925}
   - component: {fileID: 4985623493669021575}
   - component: {fileID: 2699424908269781576}
-  m_Layer: 18
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 8887675750228130828}
   - component: {fileID: 4713082490263664987}
   - component: {fileID: 874139936598155056}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Enemy Death Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5220,6 +5220,8 @@ GameObject:
   - component: {fileID: 2841264648908207037}
   - component: {fileID: 5314360344565441811}
   - component: {fileID: 8403458946396979670}
+  - component: {fileID: 5605551619027568878}
+  - component: {fileID: 57748386114907020}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -5292,6 +5294,42 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &5605551619027568878
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350145238644860711}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.28125
+  m_Center: {x: -0.015625, y: 0.15625, z: 0.046875}
+--- !u!114 &57748386114907020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5350145238644860711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 669ea800a58dded41890a62e6c93bc40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  damageAmount: 10
+  damageSpeed: 0.1
 --- !u!1 &6090437770259998898
 GameObject:
   m_ObjectHideFlags: 0
@@ -5302,7 +5340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1671623166882240563}
   - component: {fileID: 2875060995315439883}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5571,7 +5609,7 @@ GameObject:
   - component: {fileID: 6385592623663328906}
   - component: {fileID: 2101962175744363512}
   - component: {fileID: 3611303899724712713}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Repair Drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6044,7 +6082,7 @@ GameObject:
   - component: {fileID: 831410870438481888}
   - component: {fileID: 2491053579418988567}
   - component: {fileID: 29815366766837321}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10947,6 +10985,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Damage Particles
       objectReference: {fileID: 0}
+    - target: {fileID: 1671557875556757266, guid: fb4af419d1d39d24d9a5bcb633e12920, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11032,6 +11074,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2803350692814840262}
     m_Modifications:
+    - target: {fileID: 750490187293328509, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140144624859787384, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4501744096042855787, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -11112,9 +11162,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4990308196601575646, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
       propertyPath: m_Name
       value: Enemy Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498036204269501764, guid: 6720af2d65556d845be54f7ce03a7d4f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11177,6 +11235,10 @@ PrefabInstance:
     - target: {fileID: 7754092389934289278, guid: ac462db9b260a6d4fbfdf6c2186a4c9a, type: 3}
       propertyPath: m_Name
       value: Shield
+      objectReference: {fileID: 0}
+    - target: {fileID: 7754092389934289278, guid: ac462db9b260a6d4fbfdf6c2186a4c9a, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
