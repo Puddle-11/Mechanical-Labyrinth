@@ -252,8 +252,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563166542291497106}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3727238, y: 0.35015962, z: -0.15438768, w: 0.8453577}
-  m_LocalPosition: {x: 0.14999962, y: 0.24999976, z: 0.15000057}
+  m_LocalRotation: {x: 0.3727239, y: 0.35015965, z: -0.15438773, w: 0.84535766}
+  m_LocalPosition: {x: 0.14999962, y: 0.24999988, z: 0.15000057}
   m_LocalScale: {x: 1.25, y: 1.2500001, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1659,15 +1659,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.635933
+      value: 30.38403
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.570001
+      value: -4.306
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 27.811535
+      value: 24.32058
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4199e3f7c44947045ab3e515c36b0129, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1907,6 +1907,10 @@ MonoBehaviour:
   damageFlashTime: 0.1
   drops:
   - {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
   rendRef:
   - currRenderer: {fileID: 8322935289999315915}
     renderOriginMaterial: []
@@ -1943,8 +1947,9 @@ MonoBehaviour:
   agent: {fileID: 6587216154067788657}
   patrolPoints: []
   senseType: 0
-  minmaxScrap: {x: 4, y: 6}
   shield: {fileID: 6981099748272017340}
+  attackdelay: 0.25
+  headScript: {fileID: 512389431235165359}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
@@ -1978,7 +1983,7 @@ MonoBehaviour:
     isMoving: 0
   ground:
     serializedVersion: 2
-    m_Bits: 71697
+    m_Bits: 67603
   groundSearchDist: 10
   maxDistanceFromTarget: 0.2
   hardMaxDistance: 0.6

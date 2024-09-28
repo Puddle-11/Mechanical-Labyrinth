@@ -194,6 +194,9 @@ MonoBehaviour:
   damageFlashTime: 0.1
   drops:
   - {fileID: 5325792448802999737, guid: 0de1629f67b06354cbe76f6141bb559a, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
   rendRef:
   - currRenderer: {fileID: 4248546581252985084}
     renderOriginMaterial: []
@@ -230,8 +233,9 @@ MonoBehaviour:
   agent: {fileID: 8589487485629443617}
   patrolPoints: []
   senseType: 0
-  minmaxScrap: {x: 2, y: 3}
   shield: {fileID: 5082651257664933057}
+  attackdelay: 0
+  headScript: {fileID: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:

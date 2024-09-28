@@ -15,25 +15,24 @@ public class BaseEnemy : SharedEnemyBehavior
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected Vector3[] patrolPoints;
     [SerializeField] protected DetectionType senseType;
-    [SerializeField] private Vector2Int minmaxScrap;
     [SerializeField] protected GameObject shield;
-
+    [SerializeField] protected float attackdelay;
+    private float attackDelayTimer;
 
     [Space]
     [Header("PLAYER FEEDBACK")]
     [Space]
-
+    [SerializeField] private FaceTarget headScript;
     [SerializeField] protected Animator anim;
     [SerializeField] protected float transitionSpeed = 0.5f;
     [SerializeField] public AudioClip[] Deathsounds;
     [SerializeField] private AudioClip hitSound;
     [SerializeField] private ParticleSystem damageParticles;
     protected EnemyState currState;
-    protected float timer;
     protected bool isRoaming;
     protected Vector3 startingPos;
     protected bool runningContactDamage;
-
+    
     //public object UnityEngine { get; private set; }
 
 
@@ -81,7 +80,25 @@ public class BaseEnemy : SharedEnemyBehavior
     //-------------
     public override void Update()
     {
-        timer += Time.deltaTime;
+        if(currState == EnemyState.Attack)
+        {
+            attackDelayTimer += Time.deltaTime;
+        }
+        else
+        {
+            attackDelayTimer = 0;
+
+        }
+        if (currState == EnemyState.Investigate|| currState == EnemyState.Persue || currState == EnemyState.Attack)
+        {
+            if(headScript != null) headScript.enabled = true;
+
+        }
+        else
+        {
+            if (headScript != null) headScript.enabled = false;
+            if(headScript != null) headScript.gameObject.transform.localRotation = Quaternion.identity;
+        }
         StateHandler();
         if (anim != null)
         {
@@ -173,7 +190,7 @@ public class BaseEnemy : SharedEnemyBehavior
         }
         if (currState == EnemyState.Attack)
         {
-            if (weaponScr != null)
+            if (weaponScr != null && attackDelayTimer >= attackdelay)
             {
                 weaponScr.Attack();
             }
@@ -184,13 +201,19 @@ public class BaseEnemy : SharedEnemyBehavior
     {
         bool inAttackRange = IsInRange(attackRange);
         bool inRange = IsInRange();
-       /* if (timer >= GameManager.instance.Getmaxtime()) {
-            float angle = GetAngle();
 
-            if (inAttackRange && angle < attackAngle / 2) { _enemyStateRef = EnemyState.Attack; }
-            else { _enemyStateRef = EnemyState.Persue; }
+        /* if (timer >= GameManager.instance.Getmaxtime()) {
+             float angle = GetAngle();
+
+             if (inAttackRange && angle < attackAngle / 2) { _enemyStateRef = EnemyState.Attack; }
+             else { _enemyStateRef = EnemyState.Persue; }
+         }
+         else*/
+        if(GameManager.instance.GetPerLevelTime() <= GameManager.instance.startingDelay)
+        {
+            _enemyStateRef = EnemyState.Patrol;
         }
-        else*/ if (senseType == DetectionType.InRange)
+        else if (senseType == DetectionType.InRange)
         {
             
             float angle = GetAngle();
@@ -297,15 +320,15 @@ public class BaseEnemy : SharedEnemyBehavior
     //-------------
     public override void Death()
     {
-        int scrapDrop = global::UnityEngine.Random.Range(minmaxScrap.x, minmaxScrap.y);
-        if (ScrapInventory.instance != null) ScrapInventory.instance.AddScrap(scrapDrop);
+        if (dead) return;
+
+        base.Death();
         if (Deathsounds.Length > 0 && AudioManager.instance != null) AudioManager.instance.PlaySound(Deathsounds[Random.Range(0, Deathsounds.Length)], SettingsController.soundType.enemy);
         GameManager.instance?.updateGameGoal(-1);
         GameManager.instance.UpdateKillCounter(1);
         if (weaponScr != null && weaponScr.GetPickup() != null) DropItem(weaponScr.GetPickup());
         DropInventory();
         RemoveEvents();
-        base.Death();
     }
     #endregion
 

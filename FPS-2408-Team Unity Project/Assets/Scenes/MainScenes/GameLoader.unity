@@ -184,6 +184,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f3620776c30b41946a776ca178845ce8, type: 2}
     - target: {fileID: 1613702361457593329, guid: d76fe1e4dc2301e4d970bc00e8fcb576, type: 3}
+      propertyPath: startingDelay
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1613702361457593329, guid: d76fe1e4dc2301e4d970bc00e8fcb576, type: 3}
       propertyPath: colorPalettes.Array.size
       value: 10
       objectReference: {fileID: 0}

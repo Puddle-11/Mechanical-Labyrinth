@@ -12,19 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88cd6efbed8bc75468c20c9a8f325f3f, type: 3}
   m_Name: Save 1
   m_EditorClassIdentifier: 
-  fileName: 
   S_GeneralInventory:
+  - {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
+  - {fileID: 11400000, guid: 47ac05cec19e901448ef7f69360d4bb3, type: 2}
+  - {fileID: 11400000, guid: bf56de48a74db634a9e45f5d38c12b9c, type: 2}
   - {fileID: 11400000, guid: e8ba6ad58bbee274d81af0ec1a461c06, type: 2}
-  - {fileID: 11400000, guid: 481e2dbc1c5fc954e97b3f6db0490e19, type: 2}
-  - {fileID: 11400000, guid: 2ffabef03afc2704fab3fc11cab93bbd, type: 2}
-  - {fileID: 11400000, guid: 777b1000345f76a469ef24355880d8a1, type: 2}
-  - {fileID: 11400000, guid: c1fcbbb334a4b2d44be73088e7faad2e, type: 2}
-  S_AmmoInventory: be0000003e000000140000001200000014000000
-  S_currentScrap: 695
-  S_Level: 0
-  S_TotalDamage: 0
-  S_TotallEnemiesKilled: 0
+  - {fileID: 11400000, guid: e0e8ca52afe3245499a66d1ebf0827ff, type: 2}
+  S_AmmoInventory: c001000039010000230000000000000000000000
+  S_currentScrap: 63
+  S_Level: 4
+  S_TotalDamage: 5885
+  S_TotallEnemiesKilled: 25
   S_TotalDeaths: 0
   S_DefaultHealth: 1000
-  S_CurrentHealth: 1000
-  S_currentTime: 325.03375
+  S_CurrentHealth: 500
+  S_currentTime: 241.67181

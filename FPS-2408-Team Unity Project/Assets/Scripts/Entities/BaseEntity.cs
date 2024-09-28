@@ -27,6 +27,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     protected int currentHealth;
     protected int currentShield;
     private bool takingDamage;
+    protected bool dead = false;
 
     #region Custom Structs
     [System.Serializable]
@@ -175,6 +176,8 @@ public class BaseEntity : MonoBehaviour, IHealth
     public virtual void Update() { }
     public virtual void Death()
     {
+        if (dead) return;
+        dead = true;
         if (gameObject != null)
         {
             if(deathParticles != null)

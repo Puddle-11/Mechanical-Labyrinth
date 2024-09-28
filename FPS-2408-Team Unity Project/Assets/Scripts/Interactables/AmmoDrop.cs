@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ammoDrop : MonoBehaviour, IInteractable
+public class ammoDrop : BasePickup
 {
 
     [SerializeField] private AmmoInventory.bulletType type;
@@ -16,11 +16,11 @@ public class ammoDrop : MonoBehaviour, IInteractable
     #endregion
 
     #region IInteractable Methods
-    public string GetStats()
+    public override string GetStats()
     {
         return "Ammo Type: " + AmmoInventory.instance.GetTypeName(type) + "\n\nAmount: " + ammoAmount.ToString();
     }
-    public void TriggerInteraction()
+    public override void TriggerInteraction()
     {
         AmmoInventory.instance.UpdateAmmoInventory(type, ammoAmount);
         Destroy(gameObject);

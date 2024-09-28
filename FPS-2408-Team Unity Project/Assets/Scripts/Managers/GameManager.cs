@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Material colorMat;
     private int currPaletteIndex;
     private int maxEnemyCount;
+    public float startingDelay = 15;
+    private float perLevelTime;
     private void Awake()
     {
         if (instance == null)
@@ -32,6 +34,11 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Found multiple game managers in scene\nDestroyed Game Manager at " + gameObject.name);
             Destroy(this);
         }
+    }
+
+    public float GetPerLevelTime()
+    {
+        return perLevelTime;
     }
     public void ResetCurrentHealth()
     {
@@ -81,7 +88,9 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-   
+        perLevelTime += Time.deltaTime;
+
+
         if (BootLoadManager.instance != null && BootLoadManager.instance.IsLoading())
         {
             if(playerRef.activeInHierarchy == true)
@@ -188,7 +197,7 @@ public class GameManager : MonoBehaviour
 
         enemyCount = 0;
         maxEnemyCount = 0;
-
+        perLevelTime = 0;
         UIManager.instance.ToggleWinMenu(false);
         UIManager.instance.SetEnemyCount(enemyCount);
 

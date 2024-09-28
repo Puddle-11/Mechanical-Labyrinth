@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyType[] enemyList;
     [SerializeField] private int patrolPointsCount;
     private int currentEnemyCount;
-
+    private int prevEnemyIndex;
 
     private List<Vector3> allPositions = new List<Vector3>();
 
@@ -59,9 +59,21 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnEnemy(Vector3 _pos, float _probability)
     {
         if (currentEnemyCount >= enemyDensity) return;
+
         if (UnityEngine.Random.Range(0.0f, 1.0f) < _probability)
         {
-            EnemyType ET = enemyList[UnityEngine.Random.Range(0, enemyList.Length)];
+            int index = prevEnemyIndex;
+
+            for (int i = 0; i < 10; i++)
+            {
+                index = UnityEngine.Random.Range(0, enemyList.Length);
+                if (index != prevEnemyIndex)
+                {
+                    prevEnemyIndex = index;
+                    break;
+                }
+            }
+                EnemyType ET = enemyList[index];
 
             GameObject enemyObj = Instantiate(ET.enemyPrefab, _pos, Quaternion.identity);
             BaseEnemy baseEnRef;
@@ -70,9 +82,9 @@ public class EnemySpawner : MonoBehaviour
                 List<Vector3> enemyPatrolPoints = new List<Vector3>();
                 for (int i = 0; i < patrolPointsCount; i++)
                 {
-                    int index = UnityEngine.Random.Range(0, allPositions.Count);
-                    enemyPatrolPoints.Add(allPositions[index]);
-                    allPositions.RemoveAt(index);
+                    int pindex = UnityEngine.Random.Range(0, allPositions.Count);
+                    enemyPatrolPoints.Add(allPositions[pindex]);
+                    allPositions.RemoveAt(pindex);
                 }
                 baseEnRef.SetPatrolPoints(enemyPatrolPoints.ToArray());
             }

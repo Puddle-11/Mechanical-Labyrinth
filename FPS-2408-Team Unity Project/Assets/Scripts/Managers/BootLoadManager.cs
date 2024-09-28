@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using TMPro;
 using UnityEngine;
@@ -41,9 +40,10 @@ public class BootLoadManager : MonoBehaviour
     {
         try
         {
-            var json = JsonUtility.ToJson(_save);
+
+            string json =  JsonUtility.ToJson(_save);
+
             File.WriteAllText(GetSettingsFilePath(_save), json);
-            Debug.Log("Settings saved successfully.");
         }
         catch (Exception e)
         {
@@ -58,9 +58,8 @@ public class BootLoadManager : MonoBehaviour
         {
             try
             {
-                var json = File.ReadAllText(savePath);
+                string json = File.ReadAllText(savePath);
                 JsonUtility.FromJsonOverwrite(json, _save);
-
             }
             catch (Exception e)
             {

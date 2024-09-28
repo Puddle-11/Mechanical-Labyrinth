@@ -459,6 +459,10 @@ MonoBehaviour:
   damageFlashTime: 0.1
   drops:
   - {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
   rendRef:
   - currRenderer: {fileID: 8447809198401677161}
     renderOriginMaterial: []
@@ -495,8 +499,9 @@ MonoBehaviour:
   agent: {fileID: 4556611165813591666}
   patrolPoints: []
   senseType: 0
-  minmaxScrap: {x: 5, y: 8}
   shield: {fileID: 8567876685018187439}
+  attackdelay: 0.25
+  headScript: {fileID: 606215974504192469}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
@@ -530,7 +535,7 @@ MonoBehaviour:
     isMoving: 0
   ground:
     serializedVersion: 2
-    m_Bits: 71705
+    m_Bits: 0
   groundSearchDist: 1
   maxDistanceFromTarget: 0.2
   hardMaxDistance: 0.6

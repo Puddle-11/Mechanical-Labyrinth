@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 public class CurrentStats : ScriptableObject
 {
 
-    public string fileName;
     public ItemType[] S_GeneralInventory;
     public int[] S_AmmoInventory;
     public int S_currentScrap;

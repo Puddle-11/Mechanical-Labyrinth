@@ -5668,7 +5668,9 @@ MonoBehaviour:
   deathParticles: []
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
-  drops: []
+  drops:
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
   rendRef: []
   headPos: {fileID: 0}
   sneakDamageMultiplyer: 2
@@ -5690,8 +5692,9 @@ MonoBehaviour:
   agent: {fileID: 6830884337055662040}
   patrolPoints: []
   senseType: 0
-  minmaxScrap: {x: 1, y: 2}
   shield: {fileID: 939560986682548167}
+  attackdelay: 0
+  headScript: {fileID: 0}
   anim: {fileID: 0}
   transitionSpeed: 0.5
   Deathsounds:
