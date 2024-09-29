@@ -19,9 +19,9 @@ public class EnemySpawner : MonoBehaviour
     [System.Serializable]
     private struct EnemyType
     {
-        public Vector3 enemyScale;
-        public GameObject enemyPrefab;
-        public float frequency;
+        public Vector2Int levelRange;
+        public GameObject[] enemyPrefab;
+
     }
     #endregion
 
@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
     }
     private void Start()
     {
-       if(GameManager.instance != null) enemyDensity *= (GameManager.instance.GetCurrentLevel() + 1);
+        if (GameManager.instance != null) enemyDensity *= (GameManager.instance.GetCurrentLevel() + 1);
         enemyDensity = (int)Mathf.Clamp(enemyDensity, minMaxEnemies.x, minMaxEnemies.y);
 
         ChunkGrid.instance.EndLoad += RunSystem;
@@ -45,37 +45,76 @@ public class EnemySpawner : MonoBehaviour
     public void RunSystem()
     {
         allPositions = ChunkGrid.instance.GetRoomGenerator().GetPositions();
-        
-       
+
+
         while (currentEnemyCount < enemyDensity)
         {
             int index = UnityEngine.Random.Range(0, allPositions.Count);
             if (allPositions.Count <= 0) break;
 
-            SpawnEnemy(allPositions[index], 1);
+            SpawnEnemy(allPositions[index], 1, GameManager.instance != null ? GameManager.instance.GetCurrentLevel() : 1);
         }
     }
 
-    public void SpawnEnemy(Vector3 _pos, float _probability)
+    public void SpawnEnemy(Vector3 _pos, float _probability, int _level)
     {
+
+
+
         if (currentEnemyCount >= enemyDensity) return;
 
         if (UnityEngine.Random.Range(0.0f, 1.0f) < _probability)
         {
+
+
+            int currentTableIndex = 0;
+            for (int i = 0; i < enemyList.Length; i++)
+            {
+                if (_level <= enemyList[i].levelRange.y && _level >= enemyList[i].levelRange.x)
+                {
+                    currentTableIndex = i;
+                    break;
+                }
+                else if (i == enemyList.Length - 1)
+                {
+                    Debug.LogWarning("Couldnt find a sutable enemy table for level " + _level);
+                    currentEnemyCount++;
+
+                    return;
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             int index = prevEnemyIndex;
 
             for (int i = 0; i < 10; i++)
             {
-                index = UnityEngine.Random.Range(0, enemyList.Length);
+                index = UnityEngine.Random.Range(0, enemyList[currentTableIndex].enemyPrefab.Length);
                 if (index != prevEnemyIndex)
                 {
                     prevEnemyIndex = index;
                     break;
                 }
             }
-                EnemyType ET = enemyList[index];
+            GameObject ET = enemyList[currentTableIndex].enemyPrefab[index];
 
-            GameObject enemyObj = Instantiate(ET.enemyPrefab, _pos, Quaternion.identity);
+            GameObject enemyObj = Instantiate(ET, _pos, Quaternion.identity);
             BaseEnemy baseEnRef;
             if (enemyObj.TryGetComponent(out baseEnRef))
             {
