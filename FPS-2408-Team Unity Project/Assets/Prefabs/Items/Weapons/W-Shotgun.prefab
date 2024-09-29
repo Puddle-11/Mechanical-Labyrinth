@@ -400,9 +400,9 @@ MonoBehaviour:
   shootsounds:
   - {fileID: 8300000, guid: ac4752f1877c1a145a68addd0dcf69a0, type: 3}
   shotType: 1
-  ammoType: 0
+  ammoType: 2
   scopeInZoom: 0
-  shootDamage: 40
+  shootDamage: 30
   shootDist: 100
   burstSize: 10
   clipSizeMax: 30

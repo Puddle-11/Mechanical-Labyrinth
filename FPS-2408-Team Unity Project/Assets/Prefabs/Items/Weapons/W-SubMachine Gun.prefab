@@ -309,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7993003320852654636, guid: 201149ace250afc43884b518e7daf240, type: 3}
       propertyPath: m_Name
-      value: W-M4A1
+      value: W-SubMachine Gun
       objectReference: {fileID: 0}
     - target: {fileID: 7993003320852654636, guid: 201149ace250afc43884b518e7daf240, type: 3}
       propertyPath: m_Layer
@@ -436,7 +436,7 @@ MonoBehaviour:
   shotType: 0
   ammoType: 1
   scopeInZoom: 20
-  shootDamage: 22
+  shootDamage: 11
   shootDist: 200
   burstSize: 5
   clipSizeMax: 30

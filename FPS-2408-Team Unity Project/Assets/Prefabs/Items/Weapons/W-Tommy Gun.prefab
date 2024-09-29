@@ -182,7 +182,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5091601793319362443, guid: 1a725154a0149d54f8d73db7c309e580, type: 3}
       propertyPath: m_Name
-      value: W-MP5
+      value: W-Tommy Gun
       objectReference: {fileID: 0}
     - target: {fileID: 5091601793319362443, guid: 1a725154a0149d54f8d73db7c309e580, type: 3}
       propertyPath: m_Layer
@@ -425,7 +425,7 @@ MonoBehaviour:
   shotType: 0
   ammoType: 1
   scopeInZoom: 20
-  shootDamage: 22
+  shootDamage: 13
   shootDist: 200
   burstSize: 0
   clipSizeMax: 60

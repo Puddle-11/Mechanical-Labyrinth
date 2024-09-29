@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1505463946988389471, guid: 9f8c9e6fa705b5445b2b17450c2a7b89, type: 3}
       propertyPath: m_Name
-      value: W-MP7
+      value: W-Burst Rifle
       objectReference: {fileID: 0}
     - target: {fileID: 1505463946988389471, guid: 9f8c9e6fa705b5445b2b17450c2a7b89, type: 3}
       propertyPath: m_Layer
@@ -493,7 +493,7 @@ MonoBehaviour:
   shotType: 1
   ammoType: 1
   scopeInZoom: 20
-  shootDamage: 35
+  shootDamage: 13
   shootDist: 200
   burstSize: 3
   clipSizeMax: 25
