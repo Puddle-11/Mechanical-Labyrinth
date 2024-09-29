@@ -84,23 +84,6 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             int index = prevEnemyIndex;
 
             for (int i = 0; i < 10; i++)

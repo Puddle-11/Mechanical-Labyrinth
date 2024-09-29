@@ -215,8 +215,12 @@ public class PlayerController : BaseEntity
             {
                 StartCoroutine(UIManager.instance.flashDamage());
             }
+            if (AudioManager.instance != null && damageSounds != null && damageSounds.Length > 0)
+            {
+                AudioManager.instance.PlaySound(damageSounds[Random.Range(0, damageSounds.Length)], SettingsController.soundType.player);
+            }
         }
-        else if(_amount < maxHealth)
+        else if (_amount < maxHealth)
         {
             UIManager.instance.SetHealOverlayTimer();
         }
@@ -224,7 +228,8 @@ public class PlayerController : BaseEntity
 
         GameManager.instance.SetCurrentHealth(_amount);
         if(UIManager.instance != null) UIManager.instance.UpdateHealthBar((float)_amount / maxHealth);
-        base.SetHealth(_amount);
+
+            base.SetHealth(_amount);
     }
     #endregion
 
