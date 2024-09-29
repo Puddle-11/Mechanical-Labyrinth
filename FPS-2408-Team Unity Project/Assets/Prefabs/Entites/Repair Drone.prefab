@@ -5248,8 +5248,6 @@ MonoBehaviour:
   type: 1
   damageAmount: 10
   damageSpeed: 0.1
-  Knockback: {x: 0, y: 0, z: 0}
-  knockbackmod: 0
 --- !u!114 &7906001099378005935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5262,7 +5260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d019c62819dafa45bd49ed305ea5b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushBackForce: 30
+  pushBackForce: 25
 --- !u!1 &6090437770259998898
 GameObject:
   m_ObjectHideFlags: 0
