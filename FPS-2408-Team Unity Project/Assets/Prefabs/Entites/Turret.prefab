@@ -160,6 +160,8 @@ MonoBehaviour:
   type: 1
   damageAmount: 10
   damageSpeed: 0.1
+  Knockback: {x: 0, y: 0, z: 0}
+  knockbackmod: 5
 --- !u!114 &3367243953794215918
 MonoBehaviour:
   m_ObjectHideFlags: 0

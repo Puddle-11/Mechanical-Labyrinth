@@ -57,7 +57,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Palette:
+<<<<<<< Updated upstream
         m_Texture: {fileID: 2800000, guid: f02df48a2317845d58b54f09f86f0ed4, type: 3}
+=======
+        m_Texture: {fileID: 2800000, guid: 23158573bddcd43ab88e9b41b7bd4dd3, type: 3}
+>>>>>>> Stashed changes
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _PaletteTexture:
