@@ -11,6 +11,8 @@ public class Damage : MonoBehaviour
     [SerializeField] private damageType type;
     [SerializeField] private int damageAmount;
     [SerializeField] private float damageSpeed;
+    [SerializeField] Vector3 Knockback;
+    [SerializeField] private float knockbackmod;
     private bool dealingDamage;
 
     #region Custom Structs and Enums
@@ -28,6 +30,7 @@ public class Damage : MonoBehaviour
         if (type == damageType.single)
         {
             other.GetComponent<IHealth>()?.UpdateHealth(-damageAmount);
+            knockbackPlayer();
         }
     }
     private void OnTriggerStay(Collider other)
@@ -45,5 +48,9 @@ public class Damage : MonoBehaviour
         yield return new WaitForSeconds(damageSpeed);
         dealingDamage = false;
 
+    }
+    void knockbackPlayer() {
+        Knockback = GameManager.instance.playerRef.transform.position - transform.position;
+        GameManager.instance.playerControllerRef.SetForce(Knockback.normalized * knockbackmod);
     }
 }
