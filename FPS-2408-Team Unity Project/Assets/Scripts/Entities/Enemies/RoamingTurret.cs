@@ -20,6 +20,9 @@ public class RoamingTurret : BaseEnemy
     [SerializeField] protected float legMoveSpeed;
     [SerializeField] protected float legLiftHeight;
     [SerializeField] protected AnimationCurve legLiftCurve;
+    [SerializeField] protected AudioClip walkingSound;
+    [SerializeField] protected AudioSource audioSource;
+    [Range(0, 1)][SerializeField] protected float walkingVolumeSound;
 
     #region Custom Structs and Enum
     [System.Serializable]
@@ -96,6 +99,11 @@ public class RoamingTurret : BaseEnemy
             yield return null;
         }
 
+        if (audioSource != null) 
+        {
+            audioSource.PlayOneShot(walkingSound, walkingVolumeSound);
+        }
+
         legs[index].currPos = legs[index].absolutePos; //snaps leg to final position
         legs[index].isMoving = false;
     }
@@ -112,8 +120,6 @@ public class RoamingTurret : BaseEnemy
                legs[i].absolutePos = rayPos + Vector3.down * groundSearchDist;
         }
     }
-
-
 
 
 }
