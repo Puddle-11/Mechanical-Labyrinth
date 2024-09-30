@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   S_cameraSensitivity: 1.8344771
   S_generalVol: 1
-  S_SXFVol: 1
-  S_environmentalVol: 1
+  S_environmentalVol: 0.45604357
+  S_SXFVol: 0.7951333
   S_enemyVol: 1
   S_playerVol: 1
   S_uiSFXVol: 1

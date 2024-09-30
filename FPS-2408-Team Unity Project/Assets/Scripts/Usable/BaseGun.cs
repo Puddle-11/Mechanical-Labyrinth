@@ -416,6 +416,7 @@ public class BaseGun : Weapon
                 isReloading = false;
                 yield break;
             }
+            if(AudioManager.instance != null) AudioManager.instance.PlaySound(reloadStart, SettingsController.soundType.player, reloadVolume);
             if (reloadAnim != null) reloadAnim.SetBool("Reloading", true);
         }
         int finalFill = fillAmount + currAmmo;
@@ -438,6 +439,7 @@ public class BaseGun : Weapon
         }
         if (playerWeapon)
         {
+            AudioManager.instance.PlaySound(reloadEnd, SettingsController.soundType.player, reloadVolume);
             AmmoInventory.instance.UpdateAmmoInventory(ammoType, -fillAmount);
             UIManager.instance.UpdateExternalAmmoInv(true, (int)ammoType);
             if (reloadAnim != null) reloadAnim.SetBool("Reloading", false);

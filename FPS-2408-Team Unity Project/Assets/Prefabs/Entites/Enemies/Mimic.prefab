@@ -271,7 +271,12 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops:
-  - {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
+  - rarity: 1
+    quantity: 3
+    drop: {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - rarity: 0.5
+    quantity: 2
+    drop: {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
   rendRef:
   - currRenderer: {fileID: 0}
     renderOriginMaterial: []
@@ -359,7 +364,7 @@ MonoBehaviour:
     isMoving: 0
   ground:
     serializedVersion: 2
-    m_Bits: 71705
+    m_Bits: 0
   groundSearchDist: 1
   maxDistanceFromTarget: 0.2
   hardMaxDistance: 0.6
@@ -398,9 +403,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  walkingSound: {fileID: 8300000, guid: decd8a3ea49968343b8cf16be5d741fb, type: 3}
+  walkingSound: {fileID: 0}
   audioSource: {fileID: 4447932863483144372}
-  walkingVolumeSound: 1
+  walkingVolumeSound: 2
 --- !u!114 &697618729630314578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,6 +430,9 @@ MonoBehaviour:
   canAim: 0
   attackVolume: 0
   shootsounds: []
+  reloadStart: {fileID: 0}
+  reloadEnd: {fileID: 0}
+  reloadVolume: 0
   shotType: 0
   ammoType: 0
   scopeInZoom: 0

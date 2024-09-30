@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bcbd67e270e7d449436b3f189fe20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSound: {fileID: 8300000, guid: bf36e87b0d42cc241be726a2f37d3213, type: 3}
+  pickupVolume: 0.5
   models:
   - {fileID: -6315129861466038745, guid: db7db01d46b24654cb63ca457d7241df, type: 3}
   - {fileID: 5675062022219144428, guid: db7db01d46b24654cb63ca457d7241df, type: 3}
@@ -211,7 +213,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.1
+  m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0.021}
 --- !u!114 &4696405031215793693
 MonoBehaviour:

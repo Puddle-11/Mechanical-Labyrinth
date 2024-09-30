@@ -293,6 +293,9 @@ MonoBehaviour:
   attackVolume: 1
   shootsounds:
   - {fileID: 8300000, guid: a5a5359097e62fe48a87665456f1dd54, type: 3}
+  reloadStart: {fileID: 8300000, guid: 4ba5db712dc94074c81ddd678d92db8b, type: 3}
+  reloadEnd: {fileID: 8300000, guid: 4ba5db712dc94074c81ddd678d92db8b, type: 3}
+  reloadVolume: 1
   shotType: 2
   ammoType: 0
   scopeInZoom: 0

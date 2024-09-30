@@ -21,7 +21,7 @@ public class BaseEntity : MonoBehaviour, IHealth
     [SerializeField] protected ParticleSystem[] deathParticles;
     [SerializeField] protected GameObject hitParticles;
     [Range(0.1f, 10f)][SerializeField] private float damageFlashTime;
-    [SerializeField] protected GameObject[] drops;
+    [SerializeField] protected EnemyDrop[] drops;
 
     [SerializeField] protected RenderContainer[] rendRef;
     protected int currentHealth;
@@ -30,6 +30,16 @@ public class BaseEntity : MonoBehaviour, IHealth
     protected bool dead = false;
 
     #region Custom Structs
+    [System.Serializable]
+    public struct EnemyDrop 
+    {
+        public float rarity;
+        public int quantity;
+        public GameObject drop;
+    
+    }
+
+
     [System.Serializable]
     public struct RenderContainer
     {
@@ -204,7 +214,15 @@ public class BaseEntity : MonoBehaviour, IHealth
     {
         for (int i = 0; i < drops.Length; i++)
         {
-            DropItem(drops[i]);
+            float rand = Random.Range(0.0f, 1.0f);
+            if (rand < drops[i].rarity)
+            {
+                for (int q = 0; q < drops[i].quantity; q++)
+                {
+
+                    DropItem(drops[i].drop);
+                }
+            }
         }
     }
     #endregion

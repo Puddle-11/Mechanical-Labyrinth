@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.17
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &8991136061523180309
 MonoBehaviour:
@@ -164,6 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e82880ba3ab7fa4698d712d1334f4b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSound: {fileID: 8300000, guid: bf36e87b0d42cc241be726a2f37d3213, type: 3}
+  pickupVolume: 0.5
   type: 4
   amountRange: {x: 5, y: 10}
 --- !u!1 &8671831572058753486

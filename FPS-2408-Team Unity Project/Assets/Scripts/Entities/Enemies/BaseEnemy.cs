@@ -32,7 +32,7 @@ public class BaseEnemy : SharedEnemyBehavior
     protected bool isRoaming;
     protected Vector3 startingPos;
     protected bool runningContactDamage;
-    
+    protected bool damagedThisFrame;
     //public object UnityEngine { get; private set; }
 
 
@@ -112,6 +112,7 @@ public class BaseEnemy : SharedEnemyBehavior
             if(shield != null) shield.SetActive(false);
         }
         base.Update();
+        damagedThisFrame = false;
     }
 
     //=======================================
@@ -307,8 +308,16 @@ public class BaseEnemy : SharedEnemyBehavior
     #region IHealth Methods
     public override void UpdateHealth(int _amount, float _shieldPen = 1)
     {
+        
+        if (damagedThisFrame == false)
+        {
+            if (hitSound != null && AudioManager.instance != null)
+            {
+                AudioManager.instance.PlaySound(hitSound, SettingsController.soundType.enemy);
+            }
+        }
         base.UpdateHealth(_amount);
-        if (hitSound != null && AudioManager.instance != null) AudioManager.instance.PlaySound(hitSound, SettingsController.soundType.enemy);
+        if (_amount < currentHealth) damagedThisFrame = true;
         if (damageParticles != null) damageParticles.Play();
         if (currState == EnemyState.Patrol || currState == EnemyState.Investigate)
         {

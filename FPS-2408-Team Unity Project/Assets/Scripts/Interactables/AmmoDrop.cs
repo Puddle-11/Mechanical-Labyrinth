@@ -23,6 +23,7 @@ public class ammoDrop : BasePickup
     public override void TriggerInteraction()
     {
         AmmoInventory.instance.UpdateAmmoInventory(type, ammoAmount);
+        base.TriggerInteraction();
         Destroy(gameObject);
     }
     #endregion

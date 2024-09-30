@@ -22,7 +22,9 @@ public class ScrapPickup : BasePickup
     public override void TriggerInteraction()
     {
         if (ScrapInventory.instance != null) ScrapInventory.instance.AddScrap(1);
+        base.TriggerInteraction();
         Destroy(gameObject);
+
 
     }
 }

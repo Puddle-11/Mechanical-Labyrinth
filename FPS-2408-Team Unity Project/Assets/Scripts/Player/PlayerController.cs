@@ -5,6 +5,7 @@ using System.Transactions;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.UIElements;
 //====================================
 //REWORKED
 //====================================
@@ -41,6 +42,10 @@ public class PlayerController : BaseEntity
     [SerializeField] private float footstepDelay;
     public AudioClip[] footstepSounds;
     public AudioClip[] damageSounds;
+    [SerializeField] private AudioClip useLifeSound;
+    [Range(0,1)]
+    [SerializeField] private float useLifeVolume;
+
     public delegate void PlayerUsed();
     public PlayerUsed playerUseEvent;
     [Range(0,1)][SerializeField] float footstepvol;
@@ -236,13 +241,13 @@ public class PlayerController : BaseEntity
     #region Override Methods
     public override void Death()
     {
-
         if (GeneralInventory.instance.Contains(GeneralInventory.instance.GetRespawnItemType(), out int index))
         {
             if (GeneralInventory.instance.GetSlot(index).Object.TryGetComponent(out RespawnModule rmRef))
             {
                 SetHealth((int)(maxHealth * rmRef.GetRegenPercent()));
                 GeneralInventory.instance.ResetSlot(index);
+                if (AudioManager.instance != null) AudioManager.instance.PlaySound(useLifeSound, SettingsController.soundType.player, useLifeVolume);
                 return;
             }
         }
@@ -271,6 +276,7 @@ public class PlayerController : BaseEntity
 
     public void SetPlayerSpawnPos(Vector3 _pos)
     {
+        if (TryFindPlayerSpawnPos(out playerSpawnPos))
         if (TryFindPlayerSpawnPos(out playerSpawnPos))
         {
             playerSpawnPos.transform.position = _pos;

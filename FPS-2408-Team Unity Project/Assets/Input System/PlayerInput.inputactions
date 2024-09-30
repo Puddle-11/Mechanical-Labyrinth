@@ -214,7 +214,7 @@
                 {
                     "name": "",
                     "id": "ed1ef5a0-31ca-463a-b67e-eb25ba8398b0",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
@@ -224,11 +224,11 @@
                 },
                 {
                     "name": "",
-                    "id": "e10da474-106a-4431-b3b6-e229179f11ec",
-                    "path": "<Keyboard>/p",
+                    "id": "96b16cc3-d3f5-4c2e-8215-ee7f8a80a2f7",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false

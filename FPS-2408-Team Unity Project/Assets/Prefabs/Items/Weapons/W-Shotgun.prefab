@@ -396,16 +396,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 24840
   canAim: 1
-  attackVolume: 0.5
+  attackVolume: 0.05
   shootsounds:
   - {fileID: 8300000, guid: ac4752f1877c1a145a68addd0dcf69a0, type: 3}
+  reloadStart: {fileID: 8300000, guid: 4ba5db712dc94074c81ddd678d92db8b, type: 3}
+  reloadEnd: {fileID: 8300000, guid: 4ba5db712dc94074c81ddd678d92db8b, type: 3}
+  reloadVolume: 1
   shotType: 1
   ammoType: 2
   scopeInZoom: 0
   shootDamage: 30
   shootDist: 100
-  burstSize: 10
-  clipSizeMax: 30
+  burstSize: 5
+  clipSizeMax: 20
   reloadSpeed: 1.5
   barrelDelay: 0
   barrels:

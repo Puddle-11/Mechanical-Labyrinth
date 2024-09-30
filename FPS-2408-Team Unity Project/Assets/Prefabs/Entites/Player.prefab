@@ -108,7 +108,7 @@ MonoBehaviour:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -670,7 +670,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 4236791279546479397}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -1062,7 +1063,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 508b1415ba3210748b6bae5b0bfcacf8, type: 3}
   damageSounds:
   - {fileID: 8300000, guid: d45280c27f4f2b74ea42009be215b38b, type: 3}
-  footstepvol: 0.3
+  useLifeSound: {fileID: 8300000, guid: e10fd11d97e7c544ea26d8087113ba5c, type: 3}
+  useLifeVolume: 1
+  footstepvol: 1
   externalForce: {x: 0, y: 0, z: 0}
 --- !u!114 &2174789186933504693
 MonoBehaviour:

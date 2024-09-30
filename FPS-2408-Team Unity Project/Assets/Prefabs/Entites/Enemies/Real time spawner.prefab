@@ -100,14 +100,24 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops:
-  - {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
-  - {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - rarity: 0.25
+    quantity: 1
+    drop: {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
+  - rarity: 0.25
+    quantity: 1
+    drop: {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
+  - rarity: 0.25
+    quantity: 1
+    drop: {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
+  - rarity: 1
+    quantity: 5
+    drop: {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - rarity: 1
+    quantity: 1
+    drop: {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
+  - rarity: 0.5
+    quantity: 1
+    drop: {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
   rendRef:
   - currRenderer: {fileID: 8203605877434883550}
     renderOriginMaterial: []
@@ -385,6 +395,8 @@ MonoBehaviour:
   type: 1
   damageAmount: 10
   damageSpeed: 0.1
+  Knockback: {x: 0, y: 0, z: 0}
+  knockbackmod: 0
 --- !u!114 &8720793503095037785
 MonoBehaviour:
   m_ObjectHideFlags: 0

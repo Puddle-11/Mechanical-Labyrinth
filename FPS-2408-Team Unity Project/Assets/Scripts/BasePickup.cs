@@ -4,7 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class BasePickup : MonoBehaviour, IInteractable
-{ 
+{
+    [SerializeField] private AudioClip pickupSound;
+    [SerializeField] private float pickupVolume = 0.5f;
     public virtual string GetStats()
     {
         return "";
@@ -12,7 +14,7 @@ public class BasePickup : MonoBehaviour, IInteractable
 
     public virtual void TriggerInteraction()
     {
-     
+        if (AudioManager.instance != null) AudioManager.instance.PlaySound(pickupSound, SettingsController.soundType.SFX, pickupVolume);
     }
 
  

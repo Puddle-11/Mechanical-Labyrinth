@@ -5700,6 +5700,8 @@ MonoBehaviour:
   type: 1
   damageAmount: 10
   damageSpeed: 0.1
+  Knockback: {x: 0, y: 0, z: 0}
+  knockbackmod: 0
 --- !u!114 &6517168134598099378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5921,10 +5923,12 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops:
-  - {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - rarity: 1
+    quantity: 3
+    drop: {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - rarity: 0.2
+    quantity: 2
+    drop: {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
   rendRef:
   - currRenderer: {fileID: 0}
     renderOriginMaterial: []

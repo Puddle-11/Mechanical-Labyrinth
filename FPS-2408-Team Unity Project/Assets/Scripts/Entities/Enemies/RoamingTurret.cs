@@ -22,7 +22,10 @@ public class RoamingTurret : BaseEnemy
     [SerializeField] protected AnimationCurve legLiftCurve;
     [SerializeField] protected AudioClip walkingSound;
     [SerializeField] protected AudioSource audioSource;
-    [Range(0, 1)][SerializeField] protected float walkingVolumeSound;
+
+    [Range(0, 2)]
+    [SerializeField] protected float walkingVolumeSound;
+
 
     #region Custom Structs and Enum
     [System.Serializable]
@@ -105,6 +108,7 @@ public class RoamingTurret : BaseEnemy
         }
 
         legs[index].currPos = legs[index].absolutePos; //snaps leg to final position
+
         legs[index].isMoving = false;
     }
     private void UpdateAbsolutePos()

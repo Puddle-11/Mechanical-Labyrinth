@@ -58,44 +58,48 @@ public class SettingsController : MonoBehaviour
     }
     public float GetTypeVolume(int _type)
     {
-        switch (_type)
+        soundType type = (soundType) _type;
+
+        switch (type)
         {
-            case 0:
+            case soundType.general:
                 return settings.S_generalVol;
-            case 1:
+            case soundType.environmental:
+
                 return settings.S_environmentalVol;
-            case 2:
+            case soundType.SFX:
+
                 return settings.S_SXFVol;
-            case 3:
+            case soundType.enemy:
                 return settings.S_enemyVol;
-            case 4:
+            case soundType.player:
                 return settings.S_playerVol;
-            case 5:
+            case soundType.uiSFX:
                 return settings.S_uiSFXVol;
         }
         return 1;
     }
     public void SetTypeVolume(int _index, float _volume)
     {
-
-        switch (_index)
+        soundType type = (soundType)_index;
+        switch (type)
         {
-            case 0:
+            case soundType.general:
                 settings.S_generalVol = _volume;
                 break;
-            case 1:
-                settings.S_SXFVol = _volume;
-                break;
-            case 2:
+            case soundType.environmental:
                 settings.S_environmentalVol = _volume;
                 break;
-            case 3:
+            case soundType.SFX:
+                settings.S_SXFVol = _volume;
+                break;
+            case soundType.enemy:
                 settings.S_enemyVol = _volume;
                 break;
-            case 4:
+            case soundType.player:
                 settings.S_playerVol = _volume;
                 break;
-            case 5:
+            case soundType.uiSFX:
                 settings.S_uiSFXVol = _volume;
                 break;
 

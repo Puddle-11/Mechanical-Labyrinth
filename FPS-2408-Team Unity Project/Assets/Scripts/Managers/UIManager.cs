@@ -347,7 +347,7 @@ public class UIManager : MonoBehaviour
         }
         if (BootLoadManager.instance == null || (BootLoadManager.instance != null && !BootLoadManager.instance.IsLoading()))
         {
-            if (Input.GetButtonDown("Cancel"))
+            if (GameplayInputManager.instance.OnPause())
             {
                 if (menuActive == null)
                 {

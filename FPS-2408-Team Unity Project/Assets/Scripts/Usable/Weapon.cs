@@ -18,6 +18,11 @@ public class Weapon : UsableItemBase
 
     [SerializeField] protected float attackVolume;
     [SerializeField] public AudioClip[] shootsounds;
+    [SerializeField] protected AudioClip reloadStart;
+    [SerializeField] protected AudioClip reloadEnd;
+    [Range(0,1)]
+    [SerializeField] protected float reloadVolume;
+
     protected bool playerWeapon = false;
 
     #region Override Methods

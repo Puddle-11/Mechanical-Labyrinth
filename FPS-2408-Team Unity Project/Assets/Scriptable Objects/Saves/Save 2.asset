@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88cd6efbed8bc75468c20c9a8f325f3f, type: 3}
   m_Name: Save 2
   m_EditorClassIdentifier: 
-  fileName: 
-  S_GeneralInventory: []
+  S_GeneralInventory:
+  - {fileID: 11400000, guid: 9c45f7f147d31054baa7119382740d2b, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   S_AmmoInventory: 
+  S_currentScrap: 0
   S_Level: 0
   S_TotalDamage: 0
   S_TotallEnemiesKilled: 0
-  S_TotalDeaths: 1
+  S_TotalDeaths: 0
   S_DefaultHealth: 1000
   S_CurrentHealth: 1000
   S_currentTime: 0

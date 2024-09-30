@@ -461,11 +461,21 @@ MonoBehaviour:
   hitParticles: {fileID: 0}
   damageFlashTime: 0.1
   drops:
-  - {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
-  - {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - rarity: 1
+    quantity: 3
+    drop: {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - rarity: 0.5
+    quantity: 2
+    drop: {fileID: 6191358913914567611, guid: 12980091b5aeafd4e8ce8c1297f3f59c, type: 3}
+  - rarity: 0.5
+    quantity: 1
+    drop: {fileID: 5325792448802999737, guid: 3f4ec41f41e9dc0468212ed785a2ad07, type: 3}
+  - rarity: 0.5
+    quantity: 1
+    drop: {fileID: 5325792448802999737, guid: cef4ff051330a7941bcb8a18550d57a4, type: 3}
+  - rarity: 0.05
+    quantity: 1
+    drop: {fileID: 5590577829714917146, guid: 90fd232ed96dfe742a597db271100b5b, type: 3}
   rendRef:
   - currRenderer: {fileID: 8447809198401677161}
     renderOriginMaterial: []
@@ -577,9 +587,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  walkingSound: {fileID: 8300000, guid: decd8a3ea49968343b8cf16be5d741fb, type: 3}
+  walkingSound: {fileID: 0}
   audioSource: {fileID: 7696304078978545221}
-  walkingVolumeSound: 1
+  walkingVolumeSound: 2
 --- !u!114 &8749161360340392136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,6 +614,9 @@ MonoBehaviour:
   canAim: 0
   attackVolume: 0
   shootsounds: []
+  reloadStart: {fileID: 0}
+  reloadEnd: {fileID: 0}
+  reloadVolume: 0
   shotType: 0
   ammoType: 0
   scopeInZoom: 0

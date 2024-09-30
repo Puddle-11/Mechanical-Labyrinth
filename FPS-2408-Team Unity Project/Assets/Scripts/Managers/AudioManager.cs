@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
     {
         public AudioClip clip;
         [HideInInspector] public AudioSource source;
-        [Range(0,1)]
+        [Range(0, 1)]
         public float volume;
         [Range(-1, 1)]
         public float pitch;
@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null) instance = this;
+        if (instance == null) instance = this;
         else Destroy(instance);
 
     }
@@ -60,29 +60,32 @@ public class AudioManager : MonoBehaviour
     }
     public void PlaySound(AudioClip _sound, float _volume)
     {
-        if (SettingsController.instance != null) soundPlayer.PlayOneShot(_sound, _volume * SettingsController.instance.GetGeneralVolume());
-        else Debug.LogWarning("No Settings found, failed to play sound");
+        PlaySound(soundPlayer, _sound, SettingsController.soundType.general, _volume);
+
+    }
+    public void PlaySound(AudioClip _sound, SettingsController.soundType _type, float _volume)
+    {
+        PlaySound(soundPlayer, _sound, _type, _volume);
     }
     public void PlaySound(AudioClip _sound, SettingsController.soundType _type)
     {
-        if (SettingsController.instance != null)
-        {
-            PlaySound(_sound, SettingsController.instance.GetTypeVolume(_type));
-        }
-        else
-        {
-            Debug.LogWarning("No Settings found, failed to play sound");
-        }
+        PlaySound(soundPlayer, _sound, _type);
     }
-    public void PlaySound(AudioClip _sound, SettingsController.soundType _type, float _volMod)
+    public void PlaySound(AudioSource _source, AudioClip _sound, SettingsController.soundType _type = SettingsController.soundType.general, float _volume = 1)
     {
         if (SettingsController.instance != null)
         {
-            PlaySound(_sound, SettingsController.instance.GetTypeVolume(_type) * _volMod);
+            if (_type == SettingsController.soundType.general)
+            {
+                _source.PlayOneShot(_sound, _volume * SettingsController.instance.GetGeneralVolume() * SettingsController.instance.GetTypeVolume(_type));
+            }
+            else
+            {
+                _source.PlayOneShot(_sound, _volume * SettingsController.instance.GetTypeVolume(_type));
+            }
+            return;
         }
-        else
-        {
-            Debug.LogWarning("No Settings found, failed to play sound");
-        }
+        Debug.Log("No settings found, failed to play sound");
     }
+
 }

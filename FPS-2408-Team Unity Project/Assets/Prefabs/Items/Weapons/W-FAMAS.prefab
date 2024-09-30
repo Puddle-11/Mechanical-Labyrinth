@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3378003279343189044, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
       propertyPath: m_Name
-      value: W-SCAR
+      value: W-FAMAS
       objectReference: {fileID: 0}
     - target: {fileID: 3378003279343189044, guid: b38b3b68fe50e2c45b70fc3ef40fc906, type: 3}
       propertyPath: m_Layer
@@ -522,6 +522,9 @@ MonoBehaviour:
   attackVolume: 1
   shootsounds:
   - {fileID: 8300000, guid: a5a5359097e62fe48a87665456f1dd54, type: 3}
+  reloadStart: {fileID: 8300000, guid: 4ba5db712dc94074c81ddd678d92db8b, type: 3}
+  reloadEnd: {fileID: 8300000, guid: 4ba5db712dc94074c81ddd678d92db8b, type: 3}
+  reloadVolume: 1
   shotType: 0
   ammoType: 1
   scopeInZoom: 20
