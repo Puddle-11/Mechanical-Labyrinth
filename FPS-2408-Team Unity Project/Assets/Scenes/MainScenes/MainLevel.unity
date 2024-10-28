@@ -453,35 +453,35 @@ PrefabInstance:
       objectReference: {fileID: 6373992110502791433, guid: fdcf5d97b22994c4089909fc480fea97, type: 3}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[0].levelRange.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[1].levelRange.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[1].levelRange.y
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[2].levelRange.x
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[2].levelRange.y
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[3].levelRange.x
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[3].levelRange.y
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[4].levelRange.x
-      value: 11
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4667527558944290289, guid: d2582316bbfad664f954eb1bc054e87b, type: 3}
       propertyPath: enemyList.Array.data[4].levelRange.y
