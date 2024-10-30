@@ -89,17 +89,28 @@ public class IKSolver : MonoBehaviour
     }
     private Vector3[] Iterate(Vector3 _target, Vector3[] _points)
     {
-        
-        Vector2[] result = armPlane.WorldToPlane(_points);
-
-        result[0] = armPlane.WorldToPlane(_target);
-        for (int i = 1; i < result.Length; i++)
+        if (armPlane != null)
         {
-            Vector2 point = (result[i] - result[i - 1]).normalized * GetSegmentLength(i - 1);
-            result[i] = result[i - 1] + point;
+            Vector2[] result = armPlane.WorldToPlane(_points);
+            result[0] = armPlane.WorldToPlane(_target);
+            for (int i = 1; i < result.Length; i++)
+            {
+                Vector2 point = (result[i] - result[i - 1]).normalized * GetSegmentLength(i - 1);
+                result[i] = result[i - 1] + point;
+            }
+            return  armPlane.PlaneToWorld(result);
         }
-
-        return armPlane.PlaneToWorld(result);
+        else
+        {
+            Vector3[] result = _points;
+            result[0] = _target;
+            for (int i = 1; i < result.Length; i++)
+            {
+                Vector3 point = (result[i] - result[i - 1]).normalized * GetSegmentLength(i - 1);
+                result[i] = result[i - 1] + point;
+            }
+            return result;
+        }
     }
     public Vector3[] OutofRangeSolve(Vector3 _start, Vector3 _target, Vector3[] _points)
     {
