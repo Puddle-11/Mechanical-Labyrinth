@@ -24,7 +24,7 @@ public class Tazer : Weapon
             electricRopeRef.SetAnchors(new Transform[] { startAnchorInstance.transform, endAnchorInstance.transform });
         }
         Rigidbody tempRef;
-        if (endAnchorInstance.TryGetComponent<Rigidbody>(out tempRef)) tempRef.velocity = shootPos.forward * projectileSpeed;
+        if (endAnchorInstance.TryGetComponent<Rigidbody>(out tempRef)) tempRef.linearVelocity = shootPos.forward * projectileSpeed;
 
         yield return new WaitForSeconds(coolDown);
         isAttacking = false;

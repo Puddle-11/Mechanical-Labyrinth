@@ -167,7 +167,7 @@ public class GeneralInventory : MonoBehaviour
             //Apply velocity if RB doesnt == null
             if (dropObj.TryGetComponent(out rb))
             {
-                rb.velocity = Camera.main.transform.forward * throwSpeed.x + Vector3.up * throwSpeed.y;
+                rb.linearVelocity = Camera.main.transform.forward * throwSpeed.x + Vector3.up * throwSpeed.y;
                 rb.angularVelocity = new Vector3(Random.Range(0, 180), Random.Range(0, 180), Random.Range(0, 180)).normalized * throwRotationSpeed;
             }
 
