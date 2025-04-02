@@ -98,7 +98,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DistortionScale: 15
+    - _DistortionScale: 39.5
     - _Distortion_Speed: 0.1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -106,7 +106,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Heat_Distortion: 0.05
+    - _Heat_Distortion: 0.162
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

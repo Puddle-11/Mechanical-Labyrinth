@@ -643,10 +643,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -357.7142028808594,
-            "y": 248.5713348388672,
-            "width": 209.14259338378907,
-            "height": 303.4287109375
+            "x": -438.99993896484377,
+            "y": 361.0,
+            "width": 208.00001525878907,
+            "height": 301.99993896484377
         }
     },
     "m_Slots": [
@@ -692,7 +692,7 @@
     "m_DefaultValue": {
         "x": 0.0,
         "y": 0.0,
-        "z": 0.0
+        "z": 1.0
     },
     "m_Labels": []
 }
@@ -1761,8 +1761,8 @@
         "y": 1.0
     },
     "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0
+        "x": 1.0,
+        "y": 1.0
     },
     "m_Labels": []
 }
@@ -2096,10 +2096,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2709.142822265625,
-            "y": 277.14288330078127,
-            "width": 209.142578125,
-            "height": 314.857177734375
+            "x": -2681.000244140625,
+            "y": 271.0000305175781,
+            "width": 208.000244140625,
+            "height": 313.0000305175781
         }
     },
     "m_Slots": [
@@ -3188,6 +3188,9 @@
     "m_AlphaClip": false,
     "m_CastShadows": true,
     "m_ReceiveShadows": true,
+    "m_DisableTint": false,
+    "m_AdditionalMotionVectorMode": 0,
+    "m_AlembicMotionVectors": false,
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
     "m_SupportVFX": false
